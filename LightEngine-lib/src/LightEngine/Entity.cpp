@@ -3,17 +3,20 @@
 #include "GameManager.h"
 #include "Utils.h"
 #include "Debug.h"
+#include "AABBCollider.h"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 
-void Entity::Initialize(float radius, const sf::Color& color)
+void Entity::Initialize(float radius, const sf::Color& color, Collider* collider)
 {
 	mDirection = sf::Vector2f(0.0f, 0.0f);
 
 	mShape.setOrigin(0.f, 0.f);
 	mShape.setRadius(radius);
 	mShape.setFillColor(color);
+
+	mCollider = collider;
 	
 	mTarget.isSet = false;
 

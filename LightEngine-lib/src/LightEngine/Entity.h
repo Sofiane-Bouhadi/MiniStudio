@@ -74,7 +74,7 @@ protected:
 	
 private:
     void Update();
-	void Initialize(float radius, const sf::Color& color);
+	void Initialize(float radius, const sf::Color& color, Collider* collider);
 	void Repulse(Entity* other);
 
     friend class GameManager;
