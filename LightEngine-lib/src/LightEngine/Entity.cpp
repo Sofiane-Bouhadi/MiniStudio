@@ -45,16 +45,7 @@ void Entity::Repulse(Entity* other)
 
 bool Entity::IsColliding(Entity* other) const 
 {
-	sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
-
-	float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
-
-	float radius1 = mShape.getRadius();
-	float radius2 = other->mShape.getRadius();
-
-	float sqrRadius = (radius1 + radius2) * (radius1 + radius2);
-
-	return sqrLength < sqrRadius;
+	return mCollider->IsColliding(other->GetCollider());
 }
 
 bool Entity::IsInside(float x, float y) const

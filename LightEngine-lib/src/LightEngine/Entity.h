@@ -3,6 +3,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 #include "Scene.h"
+#include "Collider.h"
 
 namespace sf 
 {
@@ -24,6 +25,7 @@ class Entity
 protected:
     sf::CircleShape mShape;
     sf::Vector2f mDirection;
+	Collider* mCollider;
 	Target mTarget;
     float mSpeed = 0.f;
     bool mToDestroy = false;
@@ -43,6 +45,7 @@ public:
 
     sf::Vector2f GetPosition(float ratioX = 0.5f, float ratioY = 0.5f) const;
 	sf::Shape* GetShape() { return &mShape; }
+	Collider* GetCollider() { return mCollider; }
 
 	bool IsTag(int tag) const { return mTag == tag; }
     bool IsColliding(Entity* other) const;
