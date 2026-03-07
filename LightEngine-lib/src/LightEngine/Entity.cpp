@@ -78,6 +78,7 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 	y -= size * ratioY;
 
 	mShape.setPosition(x, y);
+	mCollider->SetPosition(x, y);
 
 	//#TODO Optimise
 	if (mTarget.isSet) 
@@ -146,6 +147,7 @@ void Entity::Update()
 	float distance = dt * mSpeed;
 	sf::Vector2f translation = distance * mDirection;
 	mShape.move(translation);
+	mCollider->Move(translation);
 
 	if (mTarget.isSet) 
 	{

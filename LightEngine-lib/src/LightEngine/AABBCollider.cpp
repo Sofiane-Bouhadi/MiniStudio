@@ -45,3 +45,21 @@ bool AABBCollider::IsColliding(Collider* pOther)
 
     return false;
 }
+
+void AABBCollider::SetPosition(float x, float y)
+{
+    mXMin = x;
+    mXMax = x + mWidth;
+
+    mYMin = y;
+    mYMax = y + mHeight;
+}
+
+void AABBCollider::Move(sf::Vector2f translation)
+{
+    mXMin += translation.x;
+    mXMax += translation.x;
+
+    mYMin += translation.y;
+    mYMax += translation.y;
+}

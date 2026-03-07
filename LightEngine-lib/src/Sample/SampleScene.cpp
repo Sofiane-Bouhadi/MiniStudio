@@ -4,13 +4,16 @@
 
 #include "Debug.h"
 
+#include "CircleCollider.h"
+#include "AABBCollider.h"
+
 void SampleScene::OnInitialize()
 {
-	pEntity1 = CreateEntity<DummyEntity>(100, sf::Color::Red);
+	pEntity1 = CreateEntity<DummyEntity>(100, sf::Color::Red, new AABBCollider(100, 100));
 	pEntity1->SetPosition(100, 100);
 	pEntity1->SetRigidBody(true);
 
-	pEntity2 = CreateEntity<DummyEntity>(50, sf::Color::Green);
+	pEntity2 = CreateEntity<DummyEntity>(50, sf::Color::Green, new AABBCollider(50, 75));
 	pEntity2->SetPosition(500, 500);
 	pEntity2->SetRigidBody(true);
 
@@ -45,11 +48,16 @@ void SampleScene::TrySetSelectedEntity(DummyEntity* pEntity, int x, int y)
 	pEntitySelected = pEntity;
 }
 
+#include <iostream>
+
 void SampleScene::OnUpdate()
 {
 	if(pEntitySelected != nullptr)
 	{
 		sf::Vector2f position = pEntitySelected->GetPosition();
 		Debug::DrawCircle(position.x, position.y, 10, sf::Color::Blue);
+
+		std::cout << "x : " << pEntitySelected->GetCollider()->GetPosition().x << std::endl;
+		std::cout << "y : " << pEntitySelected->GetCollider()->GetPosition().y << std::endl;
 	}
 }

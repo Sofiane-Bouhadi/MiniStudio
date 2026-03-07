@@ -43,3 +43,15 @@ bool CircleCollider::IsColliding(Collider* pOther)
 
     return false;
 }
+
+void CircleCollider::SetPosition(float x, float y)
+{
+	mX = x;
+	mY = y;
+}
+
+void CircleCollider::Move(sf::Vector2f translation)
+{
+	mX += translation.x;
+	mY += translation.y;
+}

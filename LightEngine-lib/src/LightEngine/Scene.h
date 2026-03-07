@@ -1,6 +1,7 @@
 #pragma once
 
 class GameManager;
+class Collider;
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Color.hpp>
@@ -22,7 +23,7 @@ protected:
 
 public:
 	template<typename T>
-	T* CreateEntity(float radius, const sf::Color& color);
+	T* CreateEntity(float radius, const sf::Color& color, Collider* collider);
 
 	float GetDeltaTime() const;
 
