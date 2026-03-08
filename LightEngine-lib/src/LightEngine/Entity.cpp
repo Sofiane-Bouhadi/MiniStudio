@@ -67,6 +67,8 @@ void Entity::Destroy()
 {
 	mToDestroy = true;
 
+	delete mCollider;
+
 	OnDestroy();
 }
 
@@ -78,6 +80,9 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 	y -= size * ratioY;
 
 	mShape.setPosition(x, y);
+
+	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
+	mCollider->SetPosition(currentPosition.x, currentPosition.y);
 
 	//#TODO Optimise
 	if (mTarget.isSet) 
@@ -139,7 +144,6 @@ void Entity::SetDirection(float x, float y, float speed)
 	mTarget.isSet = false;
 }
 
-
 void Entity::Update()
 {
 	float dt = GetDeltaTime();
@@ -148,6 +152,7 @@ void Entity::Update()
 	mShape.move(translation);
 
 	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
+	mCollider->SetPosition(currentPosition.x, currentPosition.y);
 	
 
 	if (mTarget.isSet) 

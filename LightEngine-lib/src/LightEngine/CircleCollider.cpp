@@ -50,9 +50,6 @@ void CircleCollider::SetPosition(float x, float y)
 {
 	mX = x;
 	mY = y;
-
-	std::cout << "X = " << mX << std::endl;
-	std::cout << "Y = " << mY << std::endl;
 }
 
 void CircleCollider::Move(sf::Vector2f translation)

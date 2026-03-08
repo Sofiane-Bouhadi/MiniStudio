@@ -56,5 +56,7 @@ void SampleScene::OnUpdate()
 	{
 		sf::Vector2f position = pEntitySelected->GetPosition();
 		Debug::DrawCircle(position.x, position.y, 10, sf::Color::Blue);
+
+		std::cout << pEntitySelected->GetCollider()->GetPosition().x << std::endl;
 	}
 }
