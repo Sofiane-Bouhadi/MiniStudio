@@ -2,20 +2,23 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
     <ItemGroup>
         <Filter Include="header">
-            <UniqueIdentifier>{3309A2D5-6759-4642-AF7A-EAA8F05B16D6}</UniqueIdentifier>
+            <UniqueIdentifier>{C74253FF-91E8-4ACC-A69B-7068D96391F0}</UniqueIdentifier>
             <Extensions>h;hpp</Extensions>
         </Filter>
         <Filter Include="resource">
-            <UniqueIdentifier>{C8FEBB54-EEB6-4ECE-A6E4-B83D629C6AF4}</UniqueIdentifier>
+            <UniqueIdentifier>{AFBC016B-5621-48EC-BA92-824B00737084}</UniqueIdentifier>
             <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
         </Filter>
         <Filter Include="source">
-            <UniqueIdentifier>{A82EBC22-538C-42E0-874F-76FD99E45ADA}</UniqueIdentifier>
+            <UniqueIdentifier>{2EB6F81F-37EB-49F7-A60E-317A5315DF0C}</UniqueIdentifier>
             <Extensions>cpp;c</Extensions>
         </Filter>
     </ItemGroup>
     <ItemGroup>
         <ClCompile Include="..\..\..\src\Mini_studio\main.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
+        <ClCompile Include="..\..\..\src\Mini_studio\MainScene.cpp">
             <Filter>source</Filter>
         </ClCompile>
         <ClCompile Include="..\..\..\src\Mini_studio\pch.cpp">
@@ -25,6 +28,9 @@
             <Filter>source</Filter>
         </ClCompile>
         <ClInclude Include="..\..\..\src\Mini_studio\main.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\Mini_studio\MainScene.h">
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\Mini_studio\pch.h">
