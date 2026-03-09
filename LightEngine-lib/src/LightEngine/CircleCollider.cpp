@@ -1,14 +1,28 @@
 #include "CircleCollider.h"
 #include "AABBCollider.h"
 
+#include <iostream>
+
 bool CircleCollider::IsColliding(Collider* pOther)
 {
     //Circle vs Circle Collision
 	if (CircleCollider* otherCircle = dynamic_cast<CircleCollider*> (pOther))
 	{
-		sf::Vector2f thisOtherVector = sf::Vector2f(mX, mY) - sf::Vector2f(otherCircle->mX, otherCircle->mY);
+		sf::Vector2f distance = GetPosition(0.5f, 0.5f) - otherCircle->GetPosition(0.5f, 0.5f);
 
+		float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
 
+		float radius1 = mRadius;
+		float radius2 = otherCircle->mRadius;
+
+		float sqrRadius = (radius1 + radius2) * (radius1 + radius2);
+
+		if (sqrLength < sqrRadius)
+		{
+			bool a = true;
+		}
+		
+		return sqrLength < sqrRadius;
 	}
 
     //Circle vs AABB collision
@@ -37,12 +51,15 @@ bool CircleCollider::IsColliding(Collider* pOther)
     return false;
 }
 
-#include <iostream>
-
-void CircleCollider::SetPosition(float x, float y)
+void CircleCollider::SetPosition(float x, float y, float anchorX, float anchorY)
 {
-	mX = x;
-	mY = y;
+	mX = x - anchorX * mRadius;
+	mY = y - anchorY * mRadius;
+}
+
+sf::Vector2f CircleCollider::GetPosition(float anchorX, float anchorY)
+{
+	return sf::Vector2f(mX + anchorX * mRadius, mY + anchorY * mRadius);
 }
 
 void CircleCollider::Move(sf::Vector2f translation)

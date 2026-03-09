@@ -14,15 +14,19 @@ void SampleScene::OnInitialize()
 {
 	pEntity1 = CreateEntity<DummyEntity>(100, 100, new sf::RectangleShape, sf::Color::Red, new AABBCollider(100, 100));
 	pEntity1->SetPosition(100, 100);
-	pEntity1->SetRigidBody(true);
+	pEntity1->SetRigidBody(false);
 
-	pEntity2 = CreateEntity<DummyEntity>(75, 75, new sf::CircleShape, sf::Color::Green, new CircleCollider(33));
+	pEntity2 = CreateEntity<DummyEntity>(75, 75, new sf::CircleShape, sf::Color::Green, new CircleCollider(37.5f));
 	pEntity2->SetPosition(500, 500);
 	pEntity2->SetRigidBody(true);
 
-	pEntity3 = CreateEntity<DummyEntity>(75, 75, new sf::CircleShape, sf::Color::Green, new CircleCollider(25));
+	pEntity3 = CreateEntity<DummyEntity>(50, 50, new sf::CircleShape, sf::Color::Green, new CircleCollider(25));
 	pEntity3->SetPosition(200, 300);
 	pEntity3->SetRigidBody(true);
+
+	pEntity4 = CreateEntity<DummyEntity>(50, 50, new sf::RectangleShape, sf::Color::Green, new AABBCollider(50, 50));
+	pEntity4->SetPosition(700, 100);
+	pEntity4->SetRigidBody(true);
 
 	pEntitySelected = nullptr;
 }
@@ -37,6 +41,7 @@ void SampleScene::OnEvent(const sf::Event& event)
 		TrySetSelectedEntity(pEntity1, event.mouseButton.x, event.mouseButton.y);
 		TrySetSelectedEntity(pEntity2, event.mouseButton.x, event.mouseButton.y);
 		TrySetSelectedEntity(pEntity3, event.mouseButton.x, event.mouseButton.y);
+		TrySetSelectedEntity(pEntity4, event.mouseButton.x, event.mouseButton.y);
 	}
 
 	if (event.mouseButton.button == sf::Mouse::Button::Left)
@@ -56,15 +61,11 @@ void SampleScene::TrySetSelectedEntity(DummyEntity* pEntity, int x, int y)
 	pEntitySelected = pEntity;
 }
 
-#include <iostream>
-
 void SampleScene::OnUpdate()
 {
 	if(pEntitySelected != nullptr)
 	{
 		sf::Vector2f position = pEntitySelected->GetPosition();
 		Debug::DrawCircle(position.x, position.y, 10, sf::Color::Blue);
-
-		std::cout << pEntitySelected->GetCollider()->GetPosition().x << std::endl;
 	}
 }

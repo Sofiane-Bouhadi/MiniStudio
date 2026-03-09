@@ -16,6 +16,7 @@ bool AABBCollider::IsColliding(Collider* pOther)
 
         if (IsPastLeftEdge && IsBeforeRightEdge && IsPastUpperEdge && IsBeforeBottomEdge)
             return true;
+
         
         return false;
     }
@@ -46,13 +47,18 @@ bool AABBCollider::IsColliding(Collider* pOther)
     return false;
 }
 
-void AABBCollider::SetPosition(float x, float y)
+void AABBCollider::SetPosition(float x, float y, float anchorX, float anchorY)
 {
-    mXMin = x;
-    mXMax = x + mWidth;
+    mXMin = x - mWidth * anchorX;
+    mXMax = x + mWidth - mWidth * anchorX;
 
-    mYMin = y;
-    mYMax = y + mHeight;
+    mYMin = y - mHeight * anchorY;
+    mYMax = y + mHeight - mHeight * anchorY;
+}
+
+sf::Vector2f AABBCollider::GetPosition(float anchorX, float anchorY)
+{
+    return sf::Vector2f(mXMin + anchorX * mWidth, mYMin + anchorY * mHeight);
 }
 
 void AABBCollider::Move(sf::Vector2f translation)

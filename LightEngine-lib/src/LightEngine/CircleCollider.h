@@ -8,15 +8,15 @@ public:
 	float mX = 0;
 	float mY = 0;
 
-	float mRadius;
+	float mRadius = 0;
 
 	CircleCollider(float radius) :
 		mRadius(radius) {}
 
 	bool IsColliding(Collider* pOther) override;
 
-	void SetPosition(float x, float y) override;
-	sf::Vector2f GetPosition() { return sf::Vector2f(mX, mY); }
+	void SetPosition(float x, float y, float anchorX = 0.5f, float anchorY = 0.5f) override;
+	sf::Vector2f GetPosition(float anchorX = 0.5f, float anchorY = 0.5f) override;
 
 	void Move(sf::Vector2f translation) override;
 };
