@@ -99,7 +99,7 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 
 	mShape->setPosition(x, y);
 
-	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
+	sf::Vector2f currentPosition = GetPosition(0.f, 0.f);
 	mCollider->SetPosition(currentPosition.x, currentPosition.y);
 
 	//#TODO Optimise
@@ -181,7 +181,7 @@ void Entity::Update()
 	sf::Vector2f translation = distance * mDirection;
 	mShape->move(translation);
 
-	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
+	sf::Vector2f currentPosition = GetPosition(0.f, 0.f);
 	mCollider->SetPosition(currentPosition.x, currentPosition.y);
 	
 

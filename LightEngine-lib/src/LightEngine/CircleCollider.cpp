@@ -6,16 +6,9 @@ bool CircleCollider::IsColliding(Collider* pOther)
     //Circle vs Circle Collision
 	if (CircleCollider* otherCircle = dynamic_cast<CircleCollider*> (pOther))
 	{
-		sf::Vector2f distance = sf::Vector2f(mX, mY) - sf::Vector2f(otherCircle->mX, otherCircle->mY);
+		sf::Vector2f thisOtherVector = sf::Vector2f(mX, mY) - sf::Vector2f(otherCircle->mX, otherCircle->mY);
 
-		float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
 
-		float radius1 = mRadius;
-		float radius2 = otherCircle->mRadius;
-
-		float sqrRadius = (radius1 + radius2) * (radius1 + radius2);
-
-		return sqrLength < sqrRadius;
 	}
 
     //Circle vs AABB collision
