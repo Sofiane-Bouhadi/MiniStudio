@@ -13,8 +13,8 @@
     <PropertyGroup Label="Globals">
         <VCProjectVersion>17.0</VCProjectVersion>
         <Keyword>Win32Proj</Keyword>
-        <ProjectGuid>{AA58AFF1-940F-42F9-94F4-482D1676086F}</ProjectGuid>
-        <RootNamespace>LightEngine</RootNamespace>
+        <ProjectGuid>{0A479737-5BD3-4531-A107-6BEE7EFF1B0C}</ProjectGuid>
+        <RootNamespace>Mini_studio</RootNamespace>
         <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     </PropertyGroup>
     <PropertyGroup Label="Vcpkg">
@@ -25,7 +25,7 @@
     </PropertyGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
     <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="Configuration">
-        <ConfigurationType>Static library (.lib)</ConfigurationType>
+        <ConfigurationType>Application</ConfigurationType>
         <UseDebugLibraries>true</UseDebugLibraries>
         <PlatformToolset>v143</PlatformToolset>
         <CharacterSet>Unicode</CharacterSet>
@@ -68,13 +68,13 @@
             <PrecompiledHeader>NotUsing</PrecompiledHeader>
             <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
             <LanguageStandard>stdcpp20</LanguageStandard>
-            <AdditionalIncludeDirectories>$(SolutionDir)../../SFML-2.5.1/include</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>$(SolutionDir)../../SFML-2.5.1/include; $(SolutionDir)../../src/LightEngine</AdditionalIncludeDirectories>
         </ClCompile>
         <Link>
             <SubSystem>Console</SubSystem>
             <GenerateDebugInformation>true</GenerateDebugInformation>
-            <AdditionalLibraryDirectories>$(SolutionDir)../../SFML-2.5.1/lib</AdditionalLibraryDirectories>
-            <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-audio-s-d.lib;sfml-system-s-d.lib;opengl32.lib;glu32.lib;gdi32.lib;winmm.lib;dwmapi.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+            <AdditionalLibraryDirectories>$(SolutionDir)../../SFML-2.5.1/lib; $(SolutionDir)../../ide/vs/LightEngine/Build/Debug</AdditionalLibraryDirectories>
+            <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-audio-s-d.lib;sfml-system-s-d.lib;opengl32.lib;glu32.lib;gdi32.lib;winmm.lib;dwmapi.lib;freetype.lib;LightEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
         </Link>
     </ItemDefinitionGroup>
     <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">
@@ -83,7 +83,7 @@
             <SDLCheck>true</SDLCheck>
             <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
             <ConformanceMode>true</ConformanceMode>
-            <PrecompiledHeader>NotUsing</PrecompiledHeader>
+            <PrecompiledHeader>Use</PrecompiledHeader>
             <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
             <LanguageStandard>stdcpp20</LanguageStandard>
         </ClCompile>
@@ -94,20 +94,22 @@
         </Link>
     </ItemDefinitionGroup>
     <ItemGroup>
-        <ClCompile Include="..\..\..\src\LightEngine\Debug.cpp"/>
-        <ClCompile Include="..\..\..\src\LightEngine\Entity.cpp"/>
-        <ClCompile Include="..\..\..\src\LightEngine\GameManager.cpp"/>
-        <ClCompile Include="..\..\..\src\LightEngine\Scene.cpp"/>
-        <ClCompile Include="..\..\..\src\LightEngine\Utils.cpp"/>
+        <ClCompile Include="..\..\..\src\Mini_studio\main.cpp"/>
+        <ClCompile Include="..\..\..\src\Mini_studio\pch.cpp">
+            <PrecompiledHeader Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">Create</PrecompiledHeader>
+            <PrecompiledHeader Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">Create</PrecompiledHeader>
+        </ClCompile>
     </ItemGroup>
     <ItemGroup>
-        <ClInclude Include="..\..\..\src\LightEngine\Debug.h"/>
-        <ClInclude Include="..\..\..\src\LightEngine\Entity.h"/>
-        <ClInclude Include="..\..\..\src\LightEngine\GameManager.h"/>
-        <ClInclude Include="..\..\..\src\LightEngine\Scene.h"/>
-        <ClInclude Include="..\..\..\src\LightEngine\Utils.h"/>
+        <ClInclude Include="..\..\..\src\Mini_studio\main.h"/>
+        <ClInclude Include="..\..\..\src\Mini_studio\pch.h"/>
+        <ClInclude Include="..\..\..\src\Mini_studio\resource.h"/>
     </ItemGroup>
-    <ItemGroup/>
+    <ItemGroup>
+        <None Include="..\..\..\src\Mini_studio\app.ico"/>
+        <None Include="..\..\..\src\Mini_studio\app.rc"/>
+        <None Include="..\..\..\src\Mini_studio\small.ico"/>
+    </ItemGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
     <ImportGroup Label="ExtensionTargets"/>
 </Project>
