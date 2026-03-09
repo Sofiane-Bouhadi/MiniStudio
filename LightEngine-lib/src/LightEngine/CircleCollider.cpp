@@ -62,6 +62,11 @@ sf::Vector2f CircleCollider::GetPosition(float anchorX, float anchorY)
 	return sf::Vector2f(mX + anchorX * mRadius, mY + anchorY * mRadius);
 }
 
+const char* CircleCollider::CollidingSide(Collider* pOther)
+{
+	return nullptr;
+}
+
 void CircleCollider::Move(sf::Vector2f translation)
 {
 	mX += translation.x;
