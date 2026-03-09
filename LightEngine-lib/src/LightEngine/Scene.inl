@@ -5,14 +5,14 @@
 #include "Entity.h"
 
 template<typename T>
-T* Scene::CreateEntity(float radius, const sf::Color& color, Collider* collider)
+T* Scene::CreateEntity(float width, float height, sf::Shape* shape, const sf::Color& color, Collider* collider)
 {
 	static_assert(std::is_base_of<Entity, T>::value, "T must be derived from Entity");
 
 	T* newEntity = new T();
 
 	Entity* entity = newEntity;
-	entity->Initialize(radius, color, collider);
+	entity->Initialize(width, height, shape, color, collider);
 	
 	mpGameManager->mEntitiesToAdd.push_back(newEntity);
 
