@@ -6,6 +6,9 @@ class GameManager;
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Shape.hpp>
 
+#include "AABBCollider.h"
+#include "CircleCollider.h"
+
 class Scene
 {
 private:

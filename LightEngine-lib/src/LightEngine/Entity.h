@@ -3,6 +3,8 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Shape.hpp>
 #include "Scene.h"
+#include "AABBCollider.h"
+#include "CircleCollider.h"
 
 namespace sf 
 {
