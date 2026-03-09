@@ -39,12 +39,12 @@
     <None Include="..\..\..\src\Mini_studio\small.ico">
       <Filter>resource</Filter>
     </None>
-    <ClCompile Include="enemies.cpp">
+    <ClCompile Include="..\..\..\src\Mini_studio\enemies.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="enemies.h">
+    <ClInclude Include="..\..\..\src\Mini_studio\enemies.h">
       <Filter>header</Filter>
     </ClInclude>
   </ItemGroup>

@@ -94,18 +94,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\Mini_studio\enemies.cpp" />
     <ClCompile Include="..\..\..\src\Mini_studio\main.cpp" />
     <ClCompile Include="..\..\..\src\Mini_studio\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="enemies.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\Mini_studio\enemies.h" />
     <ClInclude Include="..\..\..\src\Mini_studio\main.h" />
     <ClInclude Include="..\..\..\src\Mini_studio\pch.h" />
     <ClInclude Include="..\..\..\src\Mini_studio\resource.h" />
-    <ClInclude Include="enemies.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\src\Mini_studio\app.ico" />
