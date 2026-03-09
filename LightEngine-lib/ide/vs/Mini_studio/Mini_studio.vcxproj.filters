@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+    <ItemGroup>
+        <Filter Include="header">
+            <UniqueIdentifier>{3309A2D5-6759-4642-AF7A-EAA8F05B16D6}</UniqueIdentifier>
+            <Extensions>h;hpp</Extensions>
+        </Filter>
+        <Filter Include="resource">
+            <UniqueIdentifier>{C8FEBB54-EEB6-4ECE-A6E4-B83D629C6AF4}</UniqueIdentifier>
+            <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
+        </Filter>
+        <Filter Include="source">
+            <UniqueIdentifier>{A82EBC22-538C-42E0-874F-76FD99E45ADA}</UniqueIdentifier>
+            <Extensions>cpp;c</Extensions>
+        </Filter>
+    </ItemGroup>
+    <ItemGroup>
+        <ClCompile Include="..\..\..\src\Mini_studio\main.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
+        <ClCompile Include="..\..\..\src\Mini_studio\pch.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
+        <ClCompile Include="..\..\..\src\Mini_studio\Player.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
+        <ClInclude Include="..\..\..\src\Mini_studio\main.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\Mini_studio\pch.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\Mini_studio\Player.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\Mini_studio\resource.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <None Include="..\..\..\src\Mini_studio\app.ico">
+            <Filter>resource</Filter>
+        </None>
+        <None Include="..\..\..\src\Mini_studio\app.rc">
+            <Filter>resource</Filter>
+        </None>
+        <None Include="..\..\..\src\Mini_studio\small.ico">
+            <Filter>resource</Filter>
+        </None>
+    </ItemGroup>
+</Project>
