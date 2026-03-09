@@ -4,6 +4,7 @@ class GameManager;
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Shape.hpp>
 
 class Scene
 {
@@ -22,7 +23,7 @@ protected:
 
 public:
 	template<typename T>
-	T* CreateEntity(float radius, const sf::Color& color);
+	T* CreateEntity(float width, float height, sf::Shape* shape, const sf::Color& color, Collider* collider);
 
 	float GetDeltaTime() const;
 

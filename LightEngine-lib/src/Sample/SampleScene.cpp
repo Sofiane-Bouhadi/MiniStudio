@@ -4,15 +4,25 @@
 
 #include "Debug.h"
 
+#include "CircleCollider.h"
+#include "AABBCollider.h"
+
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+
 void SampleScene::OnInitialize()
 {
-	pEntity1 = CreateEntity<DummyEntity>(100, sf::Color::Red);
+	pEntity1 = CreateEntity<DummyEntity>(100, 100, new sf::RectangleShape, sf::Color::Red, new AABBCollider(100, 100));
 	pEntity1->SetPosition(100, 100);
-	pEntity1->SetRigidBody(true);
+	pEntity1->SetRigidBody(false);
 
-	pEntity2 = CreateEntity<DummyEntity>(50, sf::Color::Green);
+	pEntity2 = CreateEntity<DummyEntity>(50, 50, new sf::RectangleShape, sf::Color::Green, new AABBCollider(50, 50));
 	pEntity2->SetPosition(500, 500);
-	pEntity2->SetRigidBody(true);
+	pEntity2->SetRigidBody(false);
+
+	pEntity2 = CreateEntity<DummyEntity>(75, 50, new sf::CircleShape, sf::Color::Green, new CircleCollider(75));
+	pEntity2->SetPosition(200, 300);
+	pEntity2->SetRigidBody(false);
 
 	pEntitySelected = nullptr;
 }
