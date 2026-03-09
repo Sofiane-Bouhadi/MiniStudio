@@ -28,8 +28,8 @@ bool CircleCollider::IsColliding(Collider* pOther)
     //Circle vs AABB collision
 	if (AABBCollider* otherAABB = dynamic_cast<AABBCollider*>(pOther))
 	{
-		float testX = mX;
-		float testY = mY;
+		float testX = GetPosition().x;
+		float testY = GetPosition().y;
 
 		if (mX < otherAABB->mXMin)
 			testX = otherAABB->mXMin;
