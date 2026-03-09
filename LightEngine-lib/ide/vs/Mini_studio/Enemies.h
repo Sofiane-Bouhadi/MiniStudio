@@ -1,5 +1,11 @@
 #pragma once
-class Enemies
+class enemies
 {
+private:
+	float size_enemy;
+protected:
+
+public:
+
 };
 

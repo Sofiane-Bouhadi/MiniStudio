@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{0A479737-5BD3-4531-A107-6BEE7EFF1B0C}</ProjectGuid>
+    <ProjectGuid>{AB1B5D5D-9501-476A-9F3D-1393E365E30E}</ProjectGuid>
     <RootNamespace>Mini_studio</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -99,13 +99,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Enemies.cpp" />
+    <ClCompile Include="enemies.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Mini_studio\main.h" />
     <ClInclude Include="..\..\..\src\Mini_studio\pch.h" />
     <ClInclude Include="..\..\..\src\Mini_studio\resource.h" />
-    <ClInclude Include="Enemies.h" />
+    <ClInclude Include="enemies.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\src\Mini_studio\app.ico" />
