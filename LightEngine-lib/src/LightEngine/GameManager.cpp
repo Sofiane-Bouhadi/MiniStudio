@@ -15,6 +15,7 @@ GameManager::GameManager()
 	mpScene = nullptr;
 	mWindowWidth = -1;
 	mWindowHeight = -1;
+	mCamera = new Camera();
 }
 
 GameManager* GameManager::Get()
@@ -28,6 +29,7 @@ GameManager::~GameManager()
 {
 	delete mpWindow;
 	delete mpScene;
+	delete mCamera;
 
 	for (Entity* entity : mEntities)
 	{
@@ -130,6 +132,10 @@ void GameManager::Update()
             }
         }
     }
+
+	//Camera
+	if (mCamera->GetView() != nullptr)
+		mpWindow->setView(*mCamera->GetView());
 
 	for (auto it = mEntitiesToDestroy.begin(); it != mEntitiesToDestroy.end(); ++it) 
 	{

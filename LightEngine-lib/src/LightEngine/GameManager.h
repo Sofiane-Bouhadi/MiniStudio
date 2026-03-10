@@ -5,6 +5,8 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "Camera.h"
+
 class Entity;
 class Scene;
 class Debug;
@@ -26,6 +28,7 @@ public :
 	sf::Font mFont;
 
 	Scene* mpScene;
+	Camera* mCamera;
 
 	float mDeltaTime;
 
@@ -58,6 +61,7 @@ public:
 
 	float GetDeltaTime() const { return mDeltaTime; }
 	Scene* GetScene() const { return mpScene; }
+	Camera* GetCamera() const { return mCamera; }
 	sf::Font& GetFont() { return mFont; };
 	void NewText(sf::Font* font);
 
