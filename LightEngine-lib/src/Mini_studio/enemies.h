@@ -1,20 +1,47 @@
-#include "../Sample/SampleScene.h"
+#include "../../ide/vs/Mini_studio/Attack.h"
+#include "../LightEngine/Entity.h"
 #include <iostream>
+#include <SFML/System/Sleep.hpp>
+#include <SFML/System/Thread.hpp>
 
 #pragma once
 class enemies : public Entity
 {
 private:
-	void OnCollision(Entity* other) override;
+
 	float size_enemy;
+	sf::Vector2f positionEnemy;
 
 protected:
 
+	int atk_size_Width { 0 };
+	int atk_size_Height { 0 };
+	float atk_speed { 0 };
+	float m_speed { 0 };
+	float m_x { 0 };
+	float m_y { 0 };
+
 public:
+
+	/*constructeur d'enemies*/
+	enemies(int atkwidth, int atkheight, float atkspeed, float speed, float x, float y)//error
+		: atk_size_width(atkwidth), atk_size_Height(atkheight), atk_speed(atkspeed), m_speed(speed), m_x(x), m_y(y)
+	{};
+
+	/*cree des ennemis*/
 	void createEnemy(float x, float y, int size);
+
+	/*deplace l'ennemi en ligne*/
 	void moveingInLigne(float x, float y, float toX, float toY, sf::Time time);
-	void attack(bool smart, bool vertN, bool vertS, bool horiE, bool horiW, bool diagNE, bool diagNW, bool diagSE, bool diagSW);
+
+	/**/
+	void attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW);
+
+	/*parametre d'attack*/
+	void launchAttack(float x, float y);
+
+	/*tout est dans le nom.*/
+	void OnCollision(Entity* other) override;
+
 	enemies* pEnemy;
 };
-
-

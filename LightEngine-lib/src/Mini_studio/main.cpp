@@ -1,31 +1,23 @@
 #include "pch.h"
 #include "main.h"
 
-void OnInitialize(){
-	enemies enemy;
-	enemy.createEnemy(100,100,50);
-}
 
-void OnEvent(const sf::Event& event){
-	enemies enemy;
-}
 
-void OnUpdate(){
-	enemies enemy;
-	if (enemy.pEnemy != nullptr)
-	{
-		sf::Vector2f position = enemy.pEnemy->GetPosition();
-		Debug::DrawCircle(position.x, position.y, 10, sf::Color::Red);
-	}
-}
+
 
 int main()
 {
+	sceneTemporaire scene;
+	bool running = true;
 #ifdef _DEBUG
 	_CrtDumpMemoryLeaks();
 #endif
-	OnInitialize();
-	//OnEvent();
-	OnUpdate();
+	scene.OnInitialize();
+	while (running == true)
+	{
+		//scene.OnEvent();
+		scene.OnUpdate();
+	}
+
 	return 0;
 }

@@ -1,3 +1,2 @@
 #pragma once
-#include "enemies.h"
-#include "Debug.h"
+#include "../../ide/vs/Mini_studio/sceneTemporaire.h"

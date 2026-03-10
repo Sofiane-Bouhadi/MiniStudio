@@ -1,6 +1,5 @@
 #include "enemies.h"
-#include <SFML/System/Sleep.hpp>
-#include <SFML/System/Thread.hpp>
+
 
 
 void enemies::createEnemy(float x, float y, int size){
@@ -13,42 +12,50 @@ void enemies::moveingInLigne(float x,float y, float toX, float toY, sf::Time tim
 	GoToPosition(toX, toY);
 	sf::sleep(time);
 	GoToPosition(x, y);
+	sf::sleep(time);
 }
 
-void enemies::attack(bool smart,bool vertN,bool vertS,bool horiE, bool horiW,bool diagNE, bool diagNW, bool diagSE, bool diagSW) {
+void enemies::attackDirection(bool smart,bool vert_N,bool vert_S,bool hori_E,bool hori_W,bool diag_NE,bool diag_NW,bool diag_SE,bool diag_SW) {
+	
+	positionEnemy = pEnemy->GetPosition();
+	/* x et y sont les coordonee de l'enemey */
+	
 	if (smart) {
+		
 		// teleguider
 	}else {
-		if (vertN) {
-		
+		if (vert_N) {/* attaque verticale vers le haut(N) */ 
+			launchAttack(-1, 0);
 		}
-		if (vertS) {
-		
+		if (vert_S) {/* attaque verticale vers le bas(S) */
+			launchAttack( 1, 0);
 		}
-		if (horiE) {
-		
+		if (hori_E) {/* attaque horisontal vers la droite(E) */
+			launchAttack( 0, 1);
 		}
-		if (horiW) {
-		
+		if (hori_W) {/* attaque horisontale vers la gauche(W) */
+			launchAttack( 0,-1);
 		}
 
-		if (diagNE) {
-		
+		if (diag_NE) {/* attaque en diagonale vers le haut(N) a droite(E) */
+			launchAttack(-1, 1);
 		}
-		if (diagNW) {
-		
+		if (diag_NW) {/* attaque en diagonale vers le haut(N) a gauche(W) */
+			launchAttack(-1,-1);
 		}
-		if (diagSW) {
-		
+		if (diag_SW) {/* attaque en diagonale vers le bas(S) a gauche(W) */
+			launchAttack( 1,-1);
 		}
-		if (diagSE) {
-		
+		if (diag_SE) {/* attaque en diagonale vers le bas(S) a droite(E) */
+			launchAttack( 1, 1);
 		}
 	}
 }
 
-void launchAttack( int up, int down, int left, int right) {
-
+void enemies::launchAttack( float vectx, float vecty) {
+	float x = positionEnemy.x;
+	float y = positionEnemy.y;
+	attack attack(atk_size_Width, atk_size_Height, x, y, vectx * atk_speed, vecty * atk_speed);
 }
 
 void enemies::OnCollision(Entity* other)
