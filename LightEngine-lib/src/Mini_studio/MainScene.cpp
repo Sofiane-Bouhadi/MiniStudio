@@ -22,16 +22,16 @@ void MainScene::OnEvent(const sf::Event& event)
 
 
 
-	if (event.type == sf::Event::KeyPressed || event.type == sf::Event::JoystickMoved || event.type == sf::Event::JoystickButtonPressed)
+	if (event.type == sf::Event::KeyPressed)
 	{
-		if (event.key.code == sf::Keyboard::D || sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 0 || event.joystickButton.button == sf::Joystick::PovX > 0)
+		if (event.key.code == sf::Keyboard::D )
 		{
 			std::cout << "d est pressé" << std::endl;
 			MoveRight = true;	
 			
 		}
 
-		if (event.key.code == sf::Keyboard::Q || sf::Joystick::getAxisPosition(0, sf::Joystick::X) < 0 || sf::Joystick::PovY < 0)
+		if (event.key.code == sf::Keyboard::Q )
 		{
 			std::cout << "q est pressé" << std::endl;
 			MoveLeft = true;
@@ -41,6 +41,19 @@ void MainScene::OnEvent(const sf::Event& event)
 		if (event.key.code == sf::Keyboard::Space)
 		{
 			std::cout << "espace est pressé" << std::endl;
+		}
+	}
+
+	if (event.type == sf::Event::JoystickMoved || event.type == sf::Event::JoystickButtonPressed) 
+	{
+		if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 0 || event.joystickButton.button == sf::Joystick::PovX > 0) 
+		{
+
+		}
+		
+		if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < 0 || sf::Joystick::PovY < 0) 
+		{
+
 		}
 	}
 
