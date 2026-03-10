@@ -4,14 +4,14 @@
 class GravityEntity : public Entity
 {
 	private:
-		bool isOnGround = true;
 		float gravity_strength;
-		float y_velocity;
+		float y_velocity = 0;
+
 
 	public:
 		void UpdateVelocity();
 		void OnCollision(Entity* e) override;
 
-		GravityEntity(float g_s, float y_v);
+		GravityEntity(float g_s);
 };
 

@@ -144,6 +144,38 @@ void GameManager::Update()
 	}
 
 	mEntitiesToAdd.clear();
+
+	mAccumulatedDt += mDt;
+	while (mAccumulatedDt >= FIXED_DT)
+	{
+		FixedUpdate();
+		mAccumulatedDt -= FIXED_DT;
+	}
+}
+
+void GameManager::FixedUpdate()
+{
+	// Physic update
+	for (Entity* entity : mEntities)
+	{
+		entity->FixedUpdate(FIXED_DT);
+	}
+
+	// Collision detection
+
+	for (auto it1 = mEntities.begin(); it1 != mEntities.end(); ++it1)
+	{
+		for (auto it2 = ++it1; it2 != mEntities.end(); ++it2)
+		{
+			Entity* entity = *it1;
+			Entity* otherEntity = *it2;
+
+			if (entity->IsColliding(otherEntity))
+			{
+				// Handle Collision
+			}
+		}
+	}
 }
 
 void GameManager::Draw()

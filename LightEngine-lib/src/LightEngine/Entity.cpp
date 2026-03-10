@@ -210,6 +210,14 @@ void Entity::Update()
 	OnUpdate();
 }
 
+void Entity::FixedUpdate(float fixedDt)
+{
+
+
+
+
+}
+
 Scene* Entity::GetScene() const
 {
 	return GameManager::Get()->GetScene();

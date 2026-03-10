@@ -1,17 +1,14 @@
 #include "GravityEntity.h"
 
-GravityEntity::GravityEntity(float g_s, float y_v)
+GravityEntity::GravityEntity(float g_s)
 {
 	gravity_strength = g_s;
-	y_velocity = y_v;
 }
 
 void GravityEntity::UpdateVelocity()
 {
-	if (isOnGround == false)
-	{
-		y_velocity += gravity_strength * GetDeltaTime();
-	}
+	y_velocity += gravity_strength * GetDeltaTime();
+	SetDirection(0, 1, y_velocity);
 }
 
 void GravityEntity::OnCollision(Entity* e)
@@ -24,7 +21,5 @@ void GravityEntity::OnCollision(Entity* e)
 	if (GetCollider()->CollidingSide(e->GetCollider()) == "Down")
 	{
 		y_velocity = 0;
-		isOnGround = true;
 	}
 }
-
