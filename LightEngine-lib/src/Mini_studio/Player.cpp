@@ -2,11 +2,23 @@
 
 void Player::MoveRight(float deltatime) 
 {
-	m_speed += m_acceleration * deltatime;
-	if (m_speed > m_MaxSpeed) 
+	
+	mSpeed += m_acceleration * deltatime;
+	if (mSpeed > m_MaxSpeed) 
 	{
-		m_speed = m_MaxSpeed;
+		mSpeed = m_MaxSpeed;
 	}
 
-	m_pos.x += m_speed * deltatime;
+	SetDirection(1, 0, mSpeed);
+}
+
+void Player::MoveLeft(float deltatime)
+{
+	mSpeed += m_acceleration * deltatime;
+	if (mSpeed > m_MaxSpeed)
+	{
+		mSpeed = m_MaxSpeed;
+	}
+
+	SetDirection(-1, 0, mSpeed);
 }

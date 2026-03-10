@@ -5,11 +5,13 @@ class Player : public Entity
 {
 private :
 
-	float m_acceleration = 10.f;
-	float m_speed;
-	float m_MaxSpeed = 20.f;
+	float m_acceleration = 3000.f;
+	float m_MaxSpeed = 300.f;
 
-	sf::Vector2f m_pos;
+	
+
 public:
+
 	void MoveRight(float deltatime);
+	void MoveLeft(float delattime);
 };
