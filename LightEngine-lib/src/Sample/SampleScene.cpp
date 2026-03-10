@@ -12,10 +12,12 @@
 
 void SampleScene::OnInitialize()
 {
+	// Creation of a Sprite (with a path)
 	pEntity1 = CreateEntity<DummyEntity>(64, 64, "../../../res/image.png", new AABBCollider(64, 64));
 	pEntity1->SetPosition(100, 100);
 	pEntity1->SetRigidBody(false);
 
+	//Circle
 	pEntity2 = CreateEntity<DummyEntity>(75, 75, new sf::CircleShape, sf::Color::Green, new CircleCollider(37.5f));
 	pEntity2->SetPosition(500, 500);
 	pEntity2->SetRigidBody(true);
@@ -24,10 +26,12 @@ void SampleScene::OnInitialize()
 	pEntity3->SetPosition(200, 300);
 	pEntity3->SetRigidBody(true);
 
+	//Rectangle
 	pEntity4 = CreateEntity<DummyEntity>(50, 50, new sf::RectangleShape, sf::Color::Green, new AABBCollider(50, 50));
 	pEntity4->SetPosition(700, 100);
 	pEntity4->SetRigidBody(true);
 
+	//Choose an entity to follow
 	//GameManager::Get()->GetCamera()->SetFollowingEntity(pEntity1);
 
 	pEntitySelected = nullptr;
@@ -60,10 +64,12 @@ void SampleScene::OnEvent(const sf::Event& event)
 		{
 			if (GameManager::Get()->GetCamera()->GetFollowingEntity() == nullptr)
 			{
+				//Camera will follow the entity1
 				GameManager::Get()->GetCamera()->SetFollowingEntity(pEntity1);
 			}
 			else
 			{
+				//Camera will not follow the entity it was following
 				GameManager::Get()->GetCamera()->SetFollowingEntity(nullptr);
 			}
 		}
