@@ -8,6 +8,7 @@
 #define FIXED_DT 0.016667f
 
 class Entity;
+class GravityEntity;
 class Scene;
 class Debug;
 

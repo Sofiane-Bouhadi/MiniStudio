@@ -1,5 +1,5 @@
 #include "SampleScene.h"
-
+#include "GravityEntity.h"
 #include "DummyEntity.h"
 
 #include "Debug.h"
@@ -27,6 +27,10 @@ void SampleScene::OnInitialize()
 	pEntity4 = CreateEntity<DummyEntity>(50, 50, new sf::RectangleShape, sf::Color::Green, new AABBCollider(50, 50));
 	pEntity4->SetPosition(700, 100);
 	pEntity4->SetRigidBody(true);
+
+	gEntity = CreateEntity<GravityEntity>(50, 50, new sf::RectangleShape, sf::Color::Yellow, new AABBCollider(50, 50));
+	gEntity->SetPosition(500, 100);
+	gEntity->SetRigidBody(true);
 
 	pEntitySelected = nullptr;
 }

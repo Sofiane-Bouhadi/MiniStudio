@@ -11,6 +11,8 @@ class SampleScene : public Scene
 	DummyEntity* pEntity3;
 	DummyEntity* pEntity4;
 
+	GravityEntity* gEntity;
+
 	DummyEntity* pEntitySelected;
 
 private:
