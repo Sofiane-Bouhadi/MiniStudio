@@ -67,6 +67,9 @@ const char* AABBCollider::CollidingSide(Collider* pOther)
 {
     AABBCollider* otherAABB = dynamic_cast<AABBCollider*>(pOther);
 
+    if (otherAABB == nullptr)
+        return "None";
+
     float maxMinX = std::max(mXMin, otherAABB->mXMin);
     float minMaxX = std::min(mXMax, otherAABB->mXMax);
 
