@@ -15,7 +15,7 @@ GameManager::GameManager()
 	mpScene = nullptr;
 	mWindowWidth = -1;
 	mWindowHeight = -1;
-	mCamera = new Camera();
+	mCamera = nullptr;
 }
 
 GameManager* GameManager::Get()
@@ -46,6 +46,8 @@ void GameManager::CreateWindow(unsigned int width, unsigned int height, const ch
 
 	mWindowWidth = width;
 	mWindowHeight = height;
+
+	mCamera = new Camera(sf::Vector2f(width, height));
 
 	mClearColor = clearColor;
 }
@@ -134,8 +136,14 @@ void GameManager::Update()
     }
 
 	//Camera
-	if (mCamera->GetView() != nullptr)
-		mpWindow->setView(*mCamera->GetView());
+	if (mCamera != nullptr)
+	{
+		mCamera->Update();
+
+		if (mCamera->GetView() != nullptr)
+			mpWindow->setView(*mCamera->GetView());
+	}
+		
 
 	for (auto it = mEntitiesToDestroy.begin(); it != mEntitiesToDestroy.end(); ++it) 
 	{
