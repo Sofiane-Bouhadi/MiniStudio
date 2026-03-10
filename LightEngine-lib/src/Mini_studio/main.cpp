@@ -12,9 +12,9 @@ void OnEvent(const sf::Event& event){
 
 void OnUpdate(){
 	enemies enemy;
-	if (enemy.pEntity != nullptr)
+	if (enemy.pEnemy != nullptr)
 	{
-		sf::Vector2f position = enemy.pEntity->GetPosition();
+		sf::Vector2f position = enemy.pEnemy->GetPosition();
 		Debug::DrawCircle(position.x, position.y, 10, sf::Color::Red);
 	}
 }

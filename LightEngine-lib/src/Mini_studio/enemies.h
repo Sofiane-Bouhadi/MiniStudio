@@ -15,7 +15,6 @@ public:
 	void moveingInLigne(float x, float y, float toX, float toY, sf::Time time);
 	void attack(bool smart, bool vertN, bool vertS, bool horiE, bool horiW, bool diagNE, bool diagNW, bool diagSE, bool diagSW);
 	enemies* pEnemy;
-
 };
 
 

@@ -37,12 +37,12 @@ void SampleScene::OnEvent(const sf::Event& event)
 	}
 }
 
-void SampleScene::TrySetSelectedEntity(DummyEntity* pEntity, int x, int y)
+void SampleScene::TrySetSelectedEntity(DummyEntity* pEnemy, int x, int y)
 {
-	if (pEntity->IsInside(x, y) == false)
+	if (pEnemy->IsInside(x, y) == false)
 		return;
 
-	pEntitySelected = pEntity;
+	pEntitySelected = pEnemy;
 }
 
 void SampleScene::OnUpdate()
