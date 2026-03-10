@@ -4,7 +4,6 @@
 #include "GameManager.h"
 #include "Entity.h"
 
-
 template<typename T>
 T* Scene::CreateEntity(float width, float height, sf::Shape* shape, const sf::Color& color, Collider* collider)
 {

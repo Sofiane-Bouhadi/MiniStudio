@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "Utils.h"
 #include "Debug.h"
+#include "AABBCollider.h"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
@@ -84,6 +85,8 @@ void Entity::Destroy()
 {
 	mToDestroy = true;
 
+	delete mCollider;
+
 	OnDestroy();
 }
 
@@ -95,6 +98,9 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 	y -= size * ratioY;
 
 	mShape->setPosition(x, y);
+
+	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
+	mCollider->SetPosition(currentPosition.x, currentPosition.y);
 
 	//#TODO Optimise
 	if (mTarget.isSet) 
@@ -168,13 +174,16 @@ void Entity::SetDirection(float x, float y, float speed)
 	mTarget.isSet = false;
 }
 
-
 void Entity::Update()
 {
 	float dt = GetDeltaTime();
 	float distance = dt * mSpeed;
 	sf::Vector2f translation = distance * mDirection;
 	mShape->move(translation);
+
+	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
+	mCollider->SetPosition(currentPosition.x, currentPosition.y);
+	
 
 	if (mTarget.isSet) 
 	{

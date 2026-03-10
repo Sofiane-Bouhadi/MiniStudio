@@ -1,13 +1,11 @@
 #pragma once
 
 class GameManager;
+class Collider;
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Shape.hpp>
-
-#include "AABBCollider.h"
-#include "CircleCollider.h"
 
 class Scene
 {
