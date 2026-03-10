@@ -14,7 +14,7 @@ private:
     AssetManager();
     ~AssetManager();
 
-    sf::Texture* LoadTexture(const char* path);
+    sf::Texture* LoadTexture(const char* path, float width, float height);
 
 public:
     static AssetManager* Get() {
@@ -25,5 +25,5 @@ public:
         return Instance;
     }
 
-    sf::Texture* GetTexture(const char* path);
+    sf::Texture* GetTexture(const char* path, float width, float height);
 };

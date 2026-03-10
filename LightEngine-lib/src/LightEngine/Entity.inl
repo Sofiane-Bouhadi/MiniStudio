@@ -18,3 +18,9 @@ T* Entity::CreateEntity(float width, float height, sf::Shape* shape, const sf::C
 {
 	return GetScene()->CreateEntity<T>(width, height, shape, color, collider);
 }
+
+template<typename T>
+T* Entity::CreateEntity(float width, float height, const char* texturePath, Collider* collider)
+{
+	return GetScene()->CreateEntity<T>(texturePath, collider);
+}

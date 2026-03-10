@@ -12,7 +12,7 @@
 
 void SampleScene::OnInitialize()
 {
-	pEntity1 = CreateEntity<DummyEntity>(100, 100, new sf::RectangleShape, sf::Color::Red, new AABBCollider(100, 100));
+	pEntity1 = CreateEntity<DummyEntity>(64, 64, "../../../res/image.png", new AABBCollider(64, 64));
 	pEntity1->SetPosition(100, 100);
 	pEntity1->SetRigidBody(false);
 
@@ -28,7 +28,7 @@ void SampleScene::OnInitialize()
 	pEntity4->SetPosition(700, 100);
 	pEntity4->SetRigidBody(true);
 
-	GameManager::Get()->GetCamera()->SetFollowingEntity(pEntity1);
+	//GameManager::Get()->GetCamera()->SetFollowingEntity(pEntity1);
 
 	pEntitySelected = nullptr;
 }

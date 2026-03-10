@@ -18,3 +18,18 @@ T* Scene::CreateEntity(float width, float height, sf::Shape* shape, const sf::Co
 
 	return newEntity;
 }
+
+template<typename T>
+T* Scene::CreateEntity(float width, float height, const char* texturePath, Collider* collider)
+{
+	static_assert(std::is_base_of<Entity, T>::value, "T must be derived from Entity");
+
+	T* newEntity = new T();
+
+	Entity* entity = newEntity;
+	entity->Initialize(width, height, texturePath, collider);
+	
+	mpGameManager->mEntitiesToAdd.push_back(newEntity);
+
+	return newEntity;
+}

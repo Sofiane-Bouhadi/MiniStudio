@@ -26,6 +26,9 @@ public:
 	template<typename T>
 	T* CreateEntity(float width, float height, sf::Shape* shape, const sf::Color& color, Collider* collider);
 
+	template<typename T>
+	T* CreateEntity(float width, float height, const char* texturePath, Collider* collider);
+
 	float GetDeltaTime() const;
 
 	int GetWindowWidth() const;

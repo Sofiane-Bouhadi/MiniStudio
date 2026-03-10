@@ -166,7 +166,12 @@ void GameManager::Draw()
 	
 	for (Entity* entity : mEntities)
 	{
-		mpWindow->draw(*entity->GetShape());
+		if (sf::Shape* entityShape = entity->GetShape())
+		{
+			mpWindow->draw(*entityShape);
+		}
+		else if (sf::Sprite* entitySprite = entity->GetSprite())
+			mpWindow->draw(*entitySprite);
 	}
 	
 	Debug::Get()->Draw(mpWindow);

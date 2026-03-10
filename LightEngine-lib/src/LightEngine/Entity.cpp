@@ -1,6 +1,7 @@
 #include "Entity.h"
 
 #include "GameManager.h"
+#include "AssetManager.h"
 #include "Utils.h"
 #include "Debug.h"
 #include "AABBCollider.h"
@@ -29,6 +30,21 @@ void Entity::Initialize(float width, float height, sf::Shape* shape, const sf::C
 	mWidth = width;
 	mHeight = height;
 	
+	mCollider = collider;
+	
+	mTarget.isSet = false;
+
+	OnInitialize();
+}
+
+void Entity::Initialize(float width, float height, const char* texturePath, Collider* collider)
+{
+	mDirection = sf::Vector2f(0.0f, 0.0f);
+
+	mSprite = new sf::Sprite(*AssetManager::Get()->GetTexture(texturePath, width, height));
+	
+	mWidth = width;
+	mHeight = height;
 	mCollider = collider;
 	
 	mTarget.isSet = false;
@@ -97,7 +113,10 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 	x -= size * ratioX;
 	y -= size * ratioY;
 
-	mShape->setPosition(x, y);
+	if (mShape != nullptr)
+		mShape->setPosition(x, y);
+	else if (mSprite != nullptr)
+		mSprite->setPosition(x, y);
 
 	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
 	mCollider->SetPosition(currentPosition.x, currentPosition.y);
@@ -116,7 +135,13 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
 {
 	float size = GetRadius() * 2;
-	sf::Vector2f position = mShape->getPosition();
+
+	sf::Vector2f position;
+
+	if (mShape != nullptr)
+		position = mShape->getPosition();
+	else if (mSprite != nullptr)
+		position = mSprite->getPosition();
 
 	position.x += size * ratioX;
 	position.y += size * ratioY;
@@ -126,6 +151,9 @@ sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
 
 sf::Shape* Entity::GetShape()
 {
+	if (mShape == nullptr)
+		return nullptr;
+
 	if (dynamic_cast<sf::CircleShape*> (mShape) != nullptr)
 	{
 		return ((sf::CircleShape*)mShape);
@@ -179,7 +207,10 @@ void Entity::Update()
 	float dt = GetDeltaTime();
 	float distance = dt * mSpeed;
 	sf::Vector2f translation = distance * mDirection;
-	mShape->move(translation);
+	if (mShape != nullptr)
+		mShape->move(translation);
+	else if (mSprite != nullptr)
+		mSprite->move(translation);
 
 	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
 	mCollider->SetPosition(currentPosition.x, currentPosition.y);

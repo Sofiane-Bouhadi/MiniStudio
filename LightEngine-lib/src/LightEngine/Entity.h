@@ -2,7 +2,7 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Shape.hpp>
-//#include <SFML/Graphics/Sprite.hpp> // TODO Add Sprite to entity ?
+#include <SFML/Graphics/Sprite.hpp> // TODO Add Sprite to entity ?
 #include "Scene.h"
 #include "Collider.h"
 
@@ -25,6 +25,7 @@ class Entity
 
 protected:
     sf::Shape* mShape = nullptr;
+	sf::Sprite* mSprite = nullptr;
 	float mWidth = 0;
 	float mHeight = 0;
 
@@ -49,6 +50,7 @@ public:
 
     sf::Vector2f GetPosition(float ratioX = 0.5f, float ratioY = 0.5f) const;
 	sf::Shape* GetShape();
+	sf::Sprite* GetSprite() { return mSprite; }
 	Collider* GetCollider() { return mCollider; }
 
 	bool IsTag(int tag) const { return mTag == tag; }
@@ -67,6 +69,9 @@ public:
     template<typename T>
     T* CreateEntity(float width, float height, sf::Shape* shape, const sf::Color& color, Collider* collider);
 
+	template<typename T>
+	T* CreateEntity(float width, float height, const char* texturePath, Collider* collider);
+
 protected:
     Entity() = default;
     ~Entity() = default;
@@ -79,6 +84,7 @@ protected:
 private:
     void Update();
 	void Initialize(float width, float height, sf::Shape* shape, const sf::Color& color, Collider* collider);
+	void Initialize(float width, float height, const char* path, Collider* collider);
 	void Repulse(Entity* other);
 
     friend class GameManager;
