@@ -1,3 +1,5 @@
+/*
+
 #include "GravityEntity.h"
 
 GravityEntity::GravityEntity(float g_s)
@@ -22,4 +24,4 @@ void GravityEntity::OnCollision(Entity* e)
 	{
 		y_velocity = 0;
 	}
-}
+}*/

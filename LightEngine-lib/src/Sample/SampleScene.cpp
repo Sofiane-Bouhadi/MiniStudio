@@ -10,6 +10,8 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
+#include <iostream>
+
 void SampleScene::OnInitialize()
 {
 	// Creation of a Sprite (with a path)

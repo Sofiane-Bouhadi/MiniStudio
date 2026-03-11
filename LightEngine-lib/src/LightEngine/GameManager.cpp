@@ -115,7 +115,7 @@ void GameManager::Update()
     }
 
 	//Fixed Update
-	mAccumulatedDt += mDt;
+	mAccumulatedDt += mDeltaTime;
 	while (mAccumulatedDt >= FIXED_DT)
 	{
 		FixedUpdate();
@@ -161,7 +161,10 @@ void GameManager::FixedUpdate()
 
 	for (auto it1 = mEntities.begin(); it1 != mEntities.end(); ++it1)
 	{
-		for (auto it2 = ++it1; it2 != mEntities.end(); ++it2)
+		auto it2 = it1;
+		it2++;
+
+		for (it2; it2 != mEntities.end(); ++it2)
 		{
 			Entity* entity = *it1;
 			Entity* otherEntity = *it2;

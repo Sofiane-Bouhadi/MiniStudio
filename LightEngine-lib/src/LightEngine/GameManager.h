@@ -34,8 +34,6 @@ public :
 	Camera* mCamera;
 
 	float mDeltaTime;
-
-	float mDt;
 	float mAccumulatedDt = 0.f;
 
 	int mWindowWidth;
