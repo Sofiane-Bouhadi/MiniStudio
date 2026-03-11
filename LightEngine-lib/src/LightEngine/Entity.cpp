@@ -201,7 +201,6 @@ bool Entity::GoToPosition(int x, int y, float speed)
 {
 	sf::Vector2i worldPos = sf::Vector2i(GameManager::Get()->mpWindow->mapPixelToCoords(sf::Vector2i(x, y)));
 
-
 	if (GoToDirection(worldPos.x, worldPos.y, speed) == false)
 		return false;
 
