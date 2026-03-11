@@ -1,5 +1,5 @@
 #include "SampleScene.h"
-
+#include "GravityEntity.h"
 #include "DummyEntity.h"
 
 #include "Debug.h"
@@ -28,27 +28,44 @@ void SampleScene::OnInitialize()
 	pEntity4->SetPosition(700, 100);
 	pEntity4->SetRigidBody(true);
 
+	GameManager::Get()->GetCamera()->SetFollowingEntity(pEntity1);
+
 	pEntitySelected = nullptr;
 }
 
 void SampleScene::OnEvent(const sf::Event& event)
 {
-	if (event.type != sf::Event::EventType::MouseButtonPressed)
-		return;
-
-	if (event.mouseButton.button == sf::Mouse::Button::Right)
+	if (event.type == sf::Event::EventType::MouseButtonPressed)
 	{
-		TrySetSelectedEntity(pEntity1, event.mouseButton.x, event.mouseButton.y);
-		TrySetSelectedEntity(pEntity2, event.mouseButton.x, event.mouseButton.y);
-		TrySetSelectedEntity(pEntity3, event.mouseButton.x, event.mouseButton.y);
-		TrySetSelectedEntity(pEntity4, event.mouseButton.x, event.mouseButton.y);
+		if (event.mouseButton.button == sf::Mouse::Button::Right)
+		{
+			TrySetSelectedEntity(pEntity1, event.mouseButton.x, event.mouseButton.y);
+			TrySetSelectedEntity(pEntity2, event.mouseButton.x, event.mouseButton.y);
+			TrySetSelectedEntity(pEntity3, event.mouseButton.x, event.mouseButton.y);
+			TrySetSelectedEntity(pEntity4, event.mouseButton.x, event.mouseButton.y);
+		}
+
+		if (event.mouseButton.button == sf::Mouse::Button::Left)
+		{
+			if (pEntitySelected != nullptr)
+			{
+				pEntitySelected->GoToPosition(event.mouseButton.x, event.mouseButton.y, 100.f);
+			}
+		}
 	}
 
-	if (event.mouseButton.button == sf::Mouse::Button::Left)
+	if (event.type == sf::Event::EventType::KeyPressed)
 	{
-		if (pEntitySelected != nullptr) 
+		if (event.key.code == sf::Keyboard::Y)
 		{
-			pEntitySelected->GoToPosition(event.mouseButton.x, event.mouseButton.y, 100.f);
+			if (GameManager::Get()->GetCamera()->GetFollowingEntity() == nullptr)
+			{
+				GameManager::Get()->GetCamera()->SetFollowingEntity(pEntity1);
+			}
+			else
+			{
+				GameManager::Get()->GetCamera()->SetFollowingEntity(nullptr);
+			}
 		}
 	}
 }

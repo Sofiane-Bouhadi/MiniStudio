@@ -2,6 +2,7 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Shape.hpp>
+//#include <SFML/Graphics/Sprite.hpp> // TODO Add Sprite to entity ?
 #include "Scene.h"
 #include "Collider.h"
 
@@ -18,8 +19,8 @@ class Entity
     struct Target 
     {
 		sf::Vector2i position;
-        float distance;
-		bool isSet;
+        float distance = 0.f;
+		bool isSet = false;
     };
 
 protected:
@@ -77,6 +78,7 @@ protected:
 	
 private:
     void Update();
+	void FixedUpdate(float fixedDt);
 	void Initialize(float width, float height, sf::Shape* shape, const sf::Color& color, Collider* collider);
 	void Repulse(Entity* other);
 

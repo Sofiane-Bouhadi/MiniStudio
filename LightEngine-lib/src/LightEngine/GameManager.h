@@ -5,7 +5,12 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "Camera.h"
+
+#define FIXED_DT 0.016667f
+
 class Entity;
+class GravityEntity;
 class Scene;
 class Debug;
 
@@ -26,13 +31,18 @@ public :
 	sf::Font mFont;
 
 	Scene* mpScene;
+	Camera* mCamera;
 
 	float mDeltaTime;
+
+	float mDt;
+	float mAccumulatedDt = 0.f;
 
 	int mWindowWidth;
 	int mWindowHeight;
 
 	sf::Color mClearColor;
+
 
 private:
 	GameManager();
@@ -41,6 +51,7 @@ private:
 	
 	void HandleInput();
 	void Update();
+	void FixedUpdate();
 	void Draw();
 
 	void SetDeltaTime(float deltaTime) { mDeltaTime = deltaTime; }
@@ -58,6 +69,7 @@ public:
 
 	float GetDeltaTime() const { return mDeltaTime; }
 	Scene* GetScene() const { return mpScene; }
+	Camera* GetCamera() const { return mCamera; }
 	sf::Font& GetFont() { return mFont; };
 	void NewText(sf::Font* font);
 
