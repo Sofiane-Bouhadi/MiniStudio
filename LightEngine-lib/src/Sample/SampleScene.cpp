@@ -13,21 +13,22 @@
 void SampleScene::OnInitialize()
 {
 	// Creation of a Sprite (with a path)
-	pEntity1 = CreateEntity<DummyEntity>(64, 64, "../../../res/image.png", new AABBCollider(64, 64));
+	pEntity1 = CreateSprite<DummyEntity>(64, 64, "../../../res/image.png", new AABBCollider(64, 64));
 	pEntity1->SetPosition(100, 100);
 	pEntity1->SetRigidBody(false);
 
 	//Circle
-	pEntity2 = CreateEntity<DummyEntity>(75, 75, new sf::CircleShape, sf::Color::Green, new CircleCollider(37.5f));
+	pEntity2 = CreateCircle<DummyEntity>(50, sf::Color::Green, new CircleCollider(50));
 	pEntity2->SetPosition(500, 500);
 	pEntity2->SetRigidBody(true);
 
-	pEntity3 = CreateEntity<DummyEntity>(50, 50, new sf::CircleShape, sf::Color::Green, new CircleCollider(25));
+	//Circle
+	pEntity3 = CreateCircle<DummyEntity>(25, sf::Color::Green, new CircleCollider(25));
 	pEntity3->SetPosition(200, 300);
 	pEntity3->SetRigidBody(true);
 
 	//Rectangle
-	pEntity4 = CreateEntity<DummyEntity>(50, 50, new sf::RectangleShape, sf::Color::Green, new AABBCollider(50, 50));
+	pEntity4 = CreateRectangle<DummyEntity>(50, 50, sf::Color::Green, new AABBCollider(50, 50));
 	pEntity4->SetPosition(700, 100);
 	pEntity4->SetRigidBody(true);
 
