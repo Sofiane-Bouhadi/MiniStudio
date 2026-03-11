@@ -12,23 +12,28 @@
 
 void SampleScene::OnInitialize()
 {
-	pEntity1 = CreateEntity<DummyEntity>(100, 100, new sf::RectangleShape, sf::Color::Red, new AABBCollider(100, 100));
+	// Creation of a Sprite (with a path)
+	pEntity1 = CreateSprite<DummyEntity>(64, 64, "../../../res/image.png", new AABBCollider(64, 64));
 	pEntity1->SetPosition(100, 100);
 	pEntity1->SetRigidBody(false);
 
-	pEntity2 = CreateEntity<DummyEntity>(75, 75, new sf::CircleShape, sf::Color::Green, new CircleCollider(37.5f));
+	//Circle
+	pEntity2 = CreateCircle<DummyEntity>(50, sf::Color::Green, new CircleCollider(50));
 	pEntity2->SetPosition(500, 500);
 	pEntity2->SetRigidBody(true);
 
-	pEntity3 = CreateEntity<DummyEntity>(50, 50, new sf::CircleShape, sf::Color::Green, new CircleCollider(25));
+	//Circle
+	pEntity3 = CreateCircle<DummyEntity>(25, sf::Color::Green, new CircleCollider(25));
 	pEntity3->SetPosition(200, 300);
 	pEntity3->SetRigidBody(true);
 
-	pEntity4 = CreateEntity<DummyEntity>(50, 50, new sf::RectangleShape, sf::Color::Green, new AABBCollider(50, 50));
+	//Rectangle
+	pEntity4 = CreateRectangle<DummyEntity>(50, 50, sf::Color::Green, new AABBCollider(50, 50));
 	pEntity4->SetPosition(700, 100);
 	pEntity4->SetRigidBody(true);
 
-	GameManager::Get()->GetCamera()->SetFollowingEntity(pEntity1);
+	//Choose an entity to follow
+	//GameManager::Get()->GetCamera()->SetFollowingEntity(pEntity1);
 
 	pEntitySelected = nullptr;
 }
@@ -60,10 +65,12 @@ void SampleScene::OnEvent(const sf::Event& event)
 		{
 			if (GameManager::Get()->GetCamera()->GetFollowingEntity() == nullptr)
 			{
+				//Camera will follow the entity1
 				GameManager::Get()->GetCamera()->SetFollowingEntity(pEntity1);
 			}
 			else
 			{
+				//Camera will not follow the entity it was following
 				GameManager::Get()->GetCamera()->SetFollowingEntity(nullptr);
 			}
 		}

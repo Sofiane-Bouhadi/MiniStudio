@@ -1,6 +1,7 @@
 #include "Entity.h"
 
 #include "GameManager.h"
+#include "AssetManager.h"
 #include "Utils.h"
 #include "Debug.h"
 #include "AABBCollider.h"
@@ -9,26 +10,61 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
-void Entity::Initialize(float width, float height, sf::Shape* shape, const sf::Color& color, Collider* collider)
+void Entity::Initialize(float width, float height, sf::RectangleShape* shape, const sf::Color& color, Collider* collider)
 {
 	mDirection = sf::Vector2f(0.0f, 0.0f);
 
-	mShape = shape;
-	mShape->setOrigin(0.f, 0.f);
-	mShape->setFillColor(color);
+	mDrawable = shape;
+	mTransformable = shape;
 
-	if (dynamic_cast<sf::CircleShape*> (mShape) != nullptr)
-	{
-		((sf::CircleShape*)mShape)->setRadius(width / 2);
-	}
-	else if (dynamic_cast<sf::RectangleShape*> (mShape) != nullptr)
-	{
-		((sf::RectangleShape*)mShape)->setSize(sf::Vector2f(width, height));
-	}
+	mTransformable->setOrigin(0.f, 0.f);
+	((sf::Shape*)mDrawable)->setFillColor(color);
+
+	((sf::RectangleShape*)mTransformable)->setSize(sf::Vector2f(width, height));
 
 	mWidth = width;
 	mHeight = height;
 	
+	mCollider = collider;
+	
+	mTarget.isSet = false;
+
+	OnInitialize();
+}
+
+void Entity::Initialize(float radius, sf::CircleShape* shape, const sf::Color& color, Collider* collider)
+{
+	mDirection = sf::Vector2f(0.0f, 0.0f);
+
+	mDrawable = shape;
+	mTransformable = shape;
+
+	mTransformable->setOrigin(0.f, 0.f);
+	((sf::Shape*)mDrawable)->setFillColor(color);
+
+	((sf::CircleShape*)mTransformable)->setRadius(radius / 2);
+
+	mWidth = radius * 2;
+	mHeight = radius * 2;
+	
+	mCollider = collider;
+	
+	mTarget.isSet = false;
+
+	OnInitialize();
+}
+
+void Entity::Initialize(float width, float height, const char* texturePath, Collider* collider)
+{
+	mDirection = sf::Vector2f(0.0f, 0.0f);
+
+	sf::Sprite* sprite = new sf::Sprite(*AssetManager::Get()->GetTexture(texturePath, width, height));
+
+	mDrawable = sprite;
+	mTransformable = sprite;
+	
+	mWidth = width;
+	mHeight = height;
 	mCollider = collider;
 	
 	mTarget.isSet = false;
@@ -87,6 +123,9 @@ void Entity::Destroy()
 
 	delete mCollider;
 
+	delete mDrawable;
+	delete mTransformable;
+
 	OnDestroy();
 }
 
@@ -97,7 +136,7 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 	x -= size * ratioX;
 	y -= size * ratioY;
 
-	mShape->setPosition(x, y);
+	mTransformable->setPosition(sf::Vector2f(x, y));
 
 	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
 	mCollider->SetPosition(currentPosition.x, currentPosition.y);
@@ -116,7 +155,10 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
 {
 	float size = GetRadius() * 2;
-	sf::Vector2f position = mShape->getPosition();
+
+	sf::Vector2f position;
+
+	position = mTransformable->getPosition();
 
 	position.x += size * ratioX;
 	position.y += size * ratioY;
@@ -126,13 +168,13 @@ sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
 
 sf::Shape* Entity::GetShape()
 {
-	if (dynamic_cast<sf::CircleShape*> (mShape) != nullptr)
+	if (dynamic_cast<sf::CircleShape*> (mDrawable) != nullptr)
 	{
-		return ((sf::CircleShape*)mShape);
+		return ((sf::CircleShape*)mDrawable);
 	}
-	else if (dynamic_cast<sf::RectangleShape*> (mShape) != nullptr)
+	else if (dynamic_cast<sf::RectangleShape*> (mDrawable) != nullptr)
 	{
-		return ((sf::RectangleShape*)mShape);
+		return ((sf::RectangleShape*)mDrawable);
 	}
 }
 
@@ -184,7 +226,7 @@ void Entity::FixedUpdate(float fixedDt)
 	float dt = fixedDt;
 	float distance = dt * mSpeed;
 	sf::Vector2f translation = distance * mDirection;
-	mShape->move(translation);
+	mTransformable->move(translation);
 
 	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
 	mCollider->SetPosition(currentPosition.x, currentPosition.y);
