@@ -34,6 +34,16 @@ void SampleScene::OnInitialize()
 	pEntity4->SetPosition(700, 100);
 	pEntity4->SetRigidBody(true);
 
+
+
+
+	//gEntity = CreateRectangle<GravityEntity>(50, 50, sf::Color::Yellow, new AABBCollider(50, 50));
+	//gEntity->SetPosition(400, 400);
+	//gEntity->SetRigidBody(true);
+
+
+
+
 	//Choose an entity to follow
 	//GameManager::Get()->GetCamera()->SetFollowingEntity(pEntity1);
 

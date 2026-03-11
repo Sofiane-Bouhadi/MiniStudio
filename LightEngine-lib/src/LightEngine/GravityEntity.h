@@ -1,5 +1,3 @@
-/*
-
 #pragma once
 #include "Entity.h"
 
@@ -15,5 +13,5 @@ class GravityEntity : public Entity
 		void OnCollision(Entity* e) override;
 
 		GravityEntity(float g_s);
-};*/
+};
 
