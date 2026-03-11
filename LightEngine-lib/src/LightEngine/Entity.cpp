@@ -1,30 +1,28 @@
 #include "Entity.h"
 
 #include "GameManager.h"
+#include "AssetManager.h"
 #include "Utils.h"
 #include "Debug.h"
 #include "AABBCollider.h"
+#include "CircleCollider.h"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
-void Entity::Initialize(float width, float height, sf::Shape* shape, const sf::Color& color, Collider* collider)
+void Entity::Initialize(float width, float height, sf::RectangleShape* shape, const sf::Color& color, Collider* collider)
 {
 	mDirection = sf::Vector2f(0.0f, 0.0f);
 
-	mShape = shape;
-	mShape->setOrigin(0.f, 0.f);
-	mShape->setFillColor(color);
+	mDrawable = shape;
+	mTransformable = shape;
 
-	if (dynamic_cast<sf::CircleShape*> (mShape) != nullptr)
-	{
-		((sf::CircleShape*)mShape)->setRadius(width / 2);
-	}
-	else if (dynamic_cast<sf::RectangleShape*> (mShape) != nullptr)
-	{
-		((sf::RectangleShape*)mShape)->setSize(sf::Vector2f(width, height));
-	}
+	mTransformable->setOrigin(0.f, 0.f);
+	((sf::Shape*)mDrawable)->setFillColor(color);
+
+	((sf::RectangleShape*)mTransformable)->setSize(sf::Vector2f(width, height));
 
 	mWidth = width;
 	mHeight = height;
@@ -33,30 +31,126 @@ void Entity::Initialize(float width, float height, sf::Shape* shape, const sf::C
 	
 	mTarget.isSet = false;
 
+	Initialize();
+	OnInitialize();
+}
+
+void Entity::Initialize(float radius, sf::CircleShape* shape, const sf::Color& color, Collider* collider)
+{
+	mDirection = sf::Vector2f(0.0f, 0.0f);
+
+	mDrawable = shape;
+	mTransformable = shape;
+
+	mTransformable->setOrigin(0.f, 0.f);
+	((sf::Shape*)mDrawable)->setFillColor(color);
+
+	((sf::CircleShape*)mTransformable)->setRadius(radius / 2);
+
+	mWidth = radius * 2;
+	mHeight = radius * 2;
+	
+	mCollider = collider;
+	
+	mTarget.isSet = false;
+
+	Initialize();
+	OnInitialize();
+}
+
+void Entity::Initialize(float width, float height, const char* texturePath, Collider* collider)
+{
+	mDirection = sf::Vector2f(0.0f, 0.0f);
+
+	sf::Sprite* sprite = new sf::Sprite(*AssetManager::Get()->GetTexture(texturePath, width, height));
+
+	mDrawable = sprite;
+	mTransformable = sprite;
+	
+	mWidth = width;
+	mHeight = height;
+	mCollider = collider;
+	
+	mTarget.isSet = false;
+
+	Initialize();
 	OnInitialize();
 }
 
 void Entity::Repulse(Entity* other) 
 {
-	sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
-	
-	float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
-	float length = std::sqrt(sqrLength);
+	Collider* otherCollider = other->GetCollider();
 
-	float radius1 = GetRadius();
-	float radius2 = other->GetRadius();
+	if (dynamic_cast<CircleCollider*> (mCollider) && dynamic_cast<CircleCollider*> (otherCollider))
+	{
+		sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
 
-	float overlap = (length - (radius1 + radius2)) * 0.5f;
+		float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
+		float length = std::sqrt(sqrLength);
 
-	sf::Vector2f normal = distance / length;
+		float radius1 = GetRadius();
+		float radius2 = other->GetRadius();
 
-	sf::Vector2f translation = overlap * normal;
+		float overlap = (length - (radius1 + radius2)) * 0.5f;
 
-	sf::Vector2f position1 = GetPosition(0.5f, 0.5f) - translation;
-	sf::Vector2f position2 = other->GetPosition(0.5f, 0.5f) + translation;
+		sf::Vector2f normal = distance / length;
 
-	SetPosition(position1.x, position1.y, 0.5f, 0.5f);
-	other->SetPosition(position2.x, position2.y, 0.5f, 0.5f);
+		sf::Vector2f translation = overlap * normal;
+
+		sf::Vector2f position1 = GetPosition(0.5f, 0.5f) - translation;
+		sf::Vector2f position2 = other->GetPosition(0.5f, 0.5f) + translation;
+
+		SetPosition(position1.x, position1.y, 0.5f, 0.5f);
+		other->SetPosition(position2.x, position2.y, 0.5f, 0.5f);
+	}
+	else if (dynamic_cast<AABBCollider*>(mCollider) && dynamic_cast<AABBCollider*> (otherCollider))
+	{
+		//TODO Récup :  - la face touchée, 
+		//				- la pénétration du rectangle dans l'autre 
+		// répartir la moitié sur les deux entités (ou tout si une entité est mStatic)
+
+		sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
+
+		const char* side = mCollider->CollidingSide(other->GetCollider());
+		float overlap = 0.f;
+
+		//Touched side
+		if (side == "Up")
+		{
+			//Overlap
+			overlap = ((AABBCollider*)mCollider)->mYMax - ((AABBCollider*)otherCollider)->mYMin;
+		}
+		else if (side == "Down")
+		{
+			overlap = ((AABBCollider*)otherCollider)->mYMax - ((AABBCollider*)mCollider)->mYMin;
+		}
+		else if (side == "Right")
+		{
+			overlap = ((AABBCollider*)mCollider)->mXMax - ((AABBCollider*)otherCollider)->mXMin;
+		}
+		else if (side == "Left")
+		{
+			overlap = ((AABBCollider*)otherCollider)->mXMax - ((AABBCollider*)mCollider)->mXMin;
+		}
+
+		float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
+		float length = std::sqrt(sqrLength);
+
+		float radius1 = GetRadius();
+		float radius2 = other->GetRadius();
+
+		float overlap = (length - (radius1 + radius2)) * 0.5f;
+
+		sf::Vector2f normal = distance / length;
+
+		sf::Vector2f translation = overlap * normal;
+
+		sf::Vector2f position1 = GetPosition(0.5f, 0.5f) - translation;
+		sf::Vector2f position2 = other->GetPosition(0.5f, 0.5f) + translation;
+
+		SetPosition(position1.x, position1.y, 0.5f, 0.5f);
+		other->SetPosition(position2.x, position2.y, 0.5f, 0.5f);
+	}
 }
 
 bool Entity::IsColliding(Entity* other) const 
@@ -73,8 +167,12 @@ bool Entity::IsInside(float x, float y) const
 {
 	sf::Vector2f position = GetPosition(0.5f, 0.5f);
 
-	float dx = x - position.x;
-	float dy = y - position.y;
+	sf::Vector2i mapPos = (sf::Vector2i)position;
+
+	GameManager::Get()->mpWindow->mapPixelToCoords(mapPos);
+
+	float dx = x - mapPos.x;
+	float dy = y - mapPos.y;
 
 	float radius = GetRadius();
 
@@ -87,6 +185,9 @@ void Entity::Destroy()
 
 	delete mCollider;
 
+	delete mDrawable;
+	delete mTransformable;
+
 	OnDestroy();
 }
 
@@ -97,7 +198,7 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 	x -= size * ratioX;
 	y -= size * ratioY;
 
-	mShape->setPosition(x, y);
+	mTransformable->setPosition(sf::Vector2f(x, y));
 
 	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
 	mCollider->SetPosition(currentPosition.x, currentPosition.y);
@@ -116,7 +217,10 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
 {
 	float size = GetRadius() * 2;
-	sf::Vector2f position = mShape->getPosition();
+
+	sf::Vector2f position;
+
+	position = mTransformable->getPosition();
 
 	position.x += size * ratioX;
 	position.y += size * ratioY;
@@ -126,13 +230,13 @@ sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
 
 sf::Shape* Entity::GetShape()
 {
-	if (dynamic_cast<sf::CircleShape*> (mShape) != nullptr)
+	if (dynamic_cast<sf::CircleShape*> (mDrawable) != nullptr)
 	{
-		return ((sf::CircleShape*)mShape);
+		return ((sf::CircleShape*)mDrawable);
 	}
-	else if (dynamic_cast<sf::RectangleShape*> (mShape) != nullptr)
+	else if (dynamic_cast<sf::RectangleShape*> (mDrawable) != nullptr)
 	{
-		return ((sf::RectangleShape*)mShape);
+		return ((sf::RectangleShape*)mDrawable);
 	}
 }
 
@@ -152,13 +256,15 @@ bool Entity::GoToDirection(int x, int y, float speed)
 
 bool Entity::GoToPosition(int x, int y, float speed)
 {
-	if (GoToDirection(x, y, speed) == false)
+	sf::Vector2i worldPos = sf::Vector2i(GameManager::Get()->mpWindow->mapPixelToCoords(sf::Vector2i(x, y)));
+
+	if (GoToDirection(worldPos.x, worldPos.y, speed) == false)
 		return false;
 
 	sf::Vector2f position = GetPosition(0.5f, 0.5f);
 
-	mTarget.position = { x, y };
-	mTarget.distance = Utils::GetDistance(position.x, position.y, x, y);
+	mTarget.position = { worldPos.x, worldPos.y };
+	mTarget.distance = Utils::GetDistance(position.x, position.y, worldPos.x, worldPos.y);
 	mTarget.isSet = true;
 
 	return true;
@@ -184,7 +290,7 @@ void Entity::FixedUpdate(float fixedDt)
 	float dt = fixedDt;
 	float distance = dt * mSpeed;
 	sf::Vector2f translation = distance * mDirection;
-	mShape->move(translation);
+	mTransformable->move(translation);
 
 	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
 	mCollider->SetPosition(currentPosition.x, currentPosition.y);

@@ -5,6 +5,8 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "Camera.h"
+
 #define FIXED_DT 0.016667f
 
 class Entity;
@@ -29,6 +31,7 @@ public :
 	sf::Font mFont;
 
 	Scene* mpScene;
+	Camera* mCamera;
 
 	float mDeltaTime;
 	float mAccumulatedDt = 0.f;
@@ -64,6 +67,7 @@ public:
 
 	float GetDeltaTime() const { return mDeltaTime; }
 	Scene* GetScene() const { return mpScene; }
+	Camera* GetCamera() const { return mCamera; }
 	sf::Font& GetFont() { return mFont; };
 	void NewText(sf::Font* font);
 
