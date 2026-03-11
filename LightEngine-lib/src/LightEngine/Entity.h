@@ -94,7 +94,7 @@ private:
 	void Initialize(float radius, sf::CircleShape* shape, const sf::Color& color, Collider* collider);
 	void Initialize(float width, float height, const char* path, Collider* collider);
 
-	virtual void Initialize();
+	virtual void Initialize() {};
 
 	void Repulse(Entity* other);
 
