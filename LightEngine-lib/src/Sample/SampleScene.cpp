@@ -16,7 +16,7 @@ void SampleScene::OnInitialize()
 	// Creation of a Sprite (with a path)
 	pEntity1 = CreateSprite<DummyEntity>(64, 64, "../../../res/image.png", new AABBCollider(64, 64));
 	pEntity1->SetPosition(100, 100);
-	pEntity1->SetRigidBody(false);
+	pEntity1->SetRigidBody(true);
 
 	//Circle
 	pEntity2 = CreateCircle<DummyEntity>(50, sf::Color::Green, new CircleCollider(50));
