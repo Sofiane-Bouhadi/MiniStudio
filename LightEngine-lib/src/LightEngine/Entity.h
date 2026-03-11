@@ -78,6 +78,7 @@ protected:
 	
 private:
     void Update();
+	void FixedUpdate(float fixedDt);
 	void Initialize(float width, float height, sf::Shape* shape, const sf::Color& color, Collider* collider);
 	void Repulse(Entity* other);
 

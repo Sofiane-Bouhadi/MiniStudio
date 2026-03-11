@@ -1,5 +1,5 @@
 #include "SampleScene.h"
-
+#include "GravityEntity.h"
 #include "DummyEntity.h"
 
 #include "Debug.h"

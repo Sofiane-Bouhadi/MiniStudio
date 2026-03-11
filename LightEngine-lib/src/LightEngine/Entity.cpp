@@ -176,16 +176,21 @@ void Entity::SetDirection(float x, float y, float speed)
 
 void Entity::Update()
 {
-	float dt = GetDeltaTime();
+	OnUpdate();
+}
+
+void Entity::FixedUpdate(float fixedDt)
+{
+	float dt = fixedDt;
 	float distance = dt * mSpeed;
 	sf::Vector2f translation = distance * mDirection;
 	mShape->move(translation);
 
 	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
 	mCollider->SetPosition(currentPosition.x, currentPosition.y);
-	
 
-	if (mTarget.isSet) 
+
+	if (mTarget.isSet)
 	{
 		float x1 = GetPosition(0.5f, 0.5f).x;
 		float y1 = GetPosition(0.5f, 0.5f).y;
@@ -198,7 +203,7 @@ void Entity::Update()
 		Debug::DrawCircle(mTarget.position.x, mTarget.position.y, 5.f, sf::Color::Magenta);
 
 		mTarget.distance -= distance;
-		
+
 		if (mTarget.distance <= 0.f)
 		{
 			SetPosition(mTarget.position.x, mTarget.position.y, 0.5f, 0.5f);
@@ -207,7 +212,8 @@ void Entity::Update()
 		}
 	}
 
-	OnUpdate();
+
+
 }
 
 Scene* Entity::GetScene() const
