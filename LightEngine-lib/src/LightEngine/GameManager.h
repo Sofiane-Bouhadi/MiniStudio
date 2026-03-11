@@ -31,8 +31,6 @@ public :
 	Scene* mpScene;
 
 	float mDeltaTime;
-
-	float mDt;
 	float mAccumulatedDt = 0.f;
 
 	int mWindowWidth;

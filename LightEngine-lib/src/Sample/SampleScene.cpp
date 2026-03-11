@@ -10,13 +10,15 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
+#include <iostream>
+
 void SampleScene::OnInitialize()
 {
 	pEntity1 = CreateEntity<DummyEntity>(100, 100, new sf::RectangleShape, sf::Color::Red, new AABBCollider(100, 100));
 	pEntity1->SetPosition(100, 100);
 	pEntity1->SetRigidBody(false);
 
-	pEntity2 = CreateEntity<DummyEntity>(75, 75, new sf::CircleShape, sf::Color::Green, new CircleCollider(37.5f));
+	pEntity2 = CreateEntity<DummyEntity>(75, 75, new sf::CircleShape, sf::Color::Cyan, new CircleCollider(37.5f));
 	pEntity2->SetPosition(500, 500);
 	pEntity2->SetRigidBody(true);
 
@@ -24,13 +26,9 @@ void SampleScene::OnInitialize()
 	pEntity3->SetPosition(200, 300);
 	pEntity3->SetRigidBody(true);
 
-	pEntity4 = CreateEntity<DummyEntity>(50, 50, new sf::RectangleShape, sf::Color::Green, new AABBCollider(50, 50));
+	pEntity4 = CreateEntity<DummyEntity>(50, 50, new sf::RectangleShape, sf::Color::Yellow, new AABBCollider(50, 50));
 	pEntity4->SetPosition(700, 100);
 	pEntity4->SetRigidBody(true);
-
-	gEntity = CreateEntity<GravityEntity>(50, 50, new sf::RectangleShape, sf::Color::Yellow, new AABBCollider(50, 50));
-	gEntity->SetPosition(500, 100);
-	gEntity->SetRigidBody(true);
 
 	pEntitySelected = nullptr;
 }
