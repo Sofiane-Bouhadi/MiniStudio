@@ -3,7 +3,7 @@
 
 #pragma once
 
-class sceneTemporaire
+class sceneTemporaire : public Scene
 {
 private:
 protected:

@@ -20,12 +20,16 @@ protected:
 	float m_speed { 0 };
 	float m_x { 0 };
 	float m_y { 0 };
+	int m_PV{ 0 };
+	int m_type{ 0 };
+
+	int enemy_size{ 0 };
 
 public:
 
 	/*constructeur d'enemies*/
-	enemies(int atkwidth, int atkheight, float atkspeed, float speed, float x, float y)//error
-		: atk_size_width(atkwidth), atk_size_Height(atkheight), atk_speed(atkspeed), m_speed(speed), m_x(x), m_y(y)
+	enemies(int atkwidth, int atkheight, float atkspeed, float speed, float x, float y, int PV, int type)
+		: atk_size_Width(atkwidth), atk_size_Height(atkheight), atk_speed(atkspeed), m_speed(speed), m_x(x), m_y(y), m_PV(PV), m_type(type)
 	{};
 
 	/*cree des ennemis*/
@@ -33,6 +37,10 @@ public:
 
 	/*deplace l'ennemi en ligne*/
 	void moveingInLigne(float x, float y, float toX, float toY, sf::Time time);
+
+	sf::Vector2f detection(Entity* cible);
+
+	void Attack(Entity* ptarget);
 
 	/**/
 	void attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW);

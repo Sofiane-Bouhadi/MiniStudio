@@ -2,15 +2,15 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <ItemGroup>
     <Filter Include="header">
-      <UniqueIdentifier>{E8F9F50A-62A3-4275-A574-6264E0E494D3}</UniqueIdentifier>
+      <UniqueIdentifier>{F204CC5D-266D-4BDD-AF61-1D03C5E20D25}</UniqueIdentifier>
       <Extensions>h;hpp</Extensions>
     </Filter>
     <Filter Include="resource">
-      <UniqueIdentifier>{E2703FAB-16B2-4BA3-B8F9-6BE543F80EF1}</UniqueIdentifier>
+      <UniqueIdentifier>{F1FF8532-57A9-423A-B36B-849A27633B23}</UniqueIdentifier>
       <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
     </Filter>
     <Filter Include="source">
-      <UniqueIdentifier>{9231D711-F828-472F-9B52-9ED7AB5B026E}</UniqueIdentifier>
+      <UniqueIdentifier>{EFD4CA92-CAA4-4F2E-A4D8-1EBF2372BCB1}</UniqueIdentifier>
       <Extensions>cpp;c</Extensions>
     </Filter>
   </ItemGroup>
@@ -45,18 +45,24 @@
     <None Include="..\..\..\src\Mini_studio\small.ico">
       <Filter>resource</Filter>
     </None>
-    <ClCompile Include="attack.cpp">
+    <ClCompile Include="Attack.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="sceneTemporaire.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="TypesOfEnemies.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="attack.h">
+    <ClInclude Include="Attack.h">
       <Filter>header</Filter>
     </ClInclude>
     <ClInclude Include="sceneTemporaire.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="TypesOfEnemies.h">
       <Filter>header</Filter>
     </ClInclude>
   </ItemGroup>
