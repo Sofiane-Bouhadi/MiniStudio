@@ -90,12 +90,15 @@ protected:
 	
 private:
     void Update();
+	void FixedUpdate(float fixedDt);
+
 	void Initialize(float width, float height, sf::RectangleShape* shape, const sf::Color& color, Collider* collider);
 	void Initialize(float radius, sf::CircleShape* shape, const sf::Color& color, Collider* collider);
 	void Initialize(float width, float height, const char* path, Collider* collider);
 
 	virtual void Initialize() {};
 
+	
 	void Repulse(Entity* other);
 
     friend class GameManager;

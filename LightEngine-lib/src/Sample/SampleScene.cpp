@@ -1,5 +1,5 @@
 #include "SampleScene.h"
-
+#include "GravityEntity.h"
 #include "DummyEntity.h"
 
 #include "Debug.h"
@@ -10,6 +10,8 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+
+#include <iostream>
 
 void SampleScene::OnInitialize()
 {
