@@ -9,6 +9,7 @@
 
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 void SampleScene::OnInitialize()
 {
@@ -79,7 +80,11 @@ void SampleScene::OnEvent(const sf::Event& event)
 
 void SampleScene::TrySetSelectedEntity(DummyEntity* pEntity, int x, int y)
 {
-	if (pEntity->IsInside(x, y) == false)
+	sf::Vector2i mousePos = { x, y };
+
+	sf::Vector2f worldPos = GameManager::Get()->mpWindow->mapPixelToCoords(mousePos);
+
+	if (pEntity->IsInside(worldPos.x, worldPos.y) == false)
 		return;
 
 	pEntitySelected = pEntity;

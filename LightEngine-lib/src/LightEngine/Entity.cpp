@@ -9,6 +9,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 void Entity::Initialize(float width, float height, sf::RectangleShape* shape, const sf::Color& color, Collider* collider)
 {
@@ -109,8 +110,12 @@ bool Entity::IsInside(float x, float y) const
 {
 	sf::Vector2f position = GetPosition(0.5f, 0.5f);
 
-	float dx = x - position.x;
-	float dy = y - position.y;
+	sf::Vector2i mapPos = (sf::Vector2i)position;
+
+	GameManager::Get()->mpWindow->mapPixelToCoords(mapPos);
+
+	float dx = x - mapPos.x;
+	float dy = y - mapPos.y;
 
 	float radius = GetRadius();
 
@@ -194,13 +199,16 @@ bool Entity::GoToDirection(int x, int y, float speed)
 
 bool Entity::GoToPosition(int x, int y, float speed)
 {
-	if (GoToDirection(x, y, speed) == false)
+	sf::Vector2i worldPos = sf::Vector2i(GameManager::Get()->mpWindow->mapPixelToCoords(sf::Vector2i(x, y)));
+
+
+	if (GoToDirection(worldPos.x, worldPos.y, speed) == false)
 		return false;
 
 	sf::Vector2f position = GetPosition(0.5f, 0.5f);
 
-	mTarget.position = { x, y };
-	mTarget.distance = Utils::GetDistance(position.x, position.y, x, y);
+	mTarget.position = { worldPos.x, worldPos.y };
+	mTarget.distance = Utils::GetDistance(position.x, position.y, worldPos.x, worldPos.y);
 	mTarget.isSet = true;
 
 	return true;
