@@ -79,10 +79,6 @@ void MainScene::OnEvent(const sf::Event& event)
 			jump = true;
 		}
 
-		if (not sf::Joystick::isButtonPressed(0, 0)) 
-		{
-			jump = false;
-		}
 	}
 
 
