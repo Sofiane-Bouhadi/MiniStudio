@@ -16,6 +16,7 @@ public:
 	bool IsColliding(Collider* pOther) override;
 
 	void SetPosition(float x, float y, float anchorX = 0.5f, float anchorY = 0.5f) override;
+
 	sf::Vector2f GetPosition(float anchorX = 0.5f, float anchorY = 0.5f) override;
 
 	const char* CollidingSide(Collider* pOther) override;
