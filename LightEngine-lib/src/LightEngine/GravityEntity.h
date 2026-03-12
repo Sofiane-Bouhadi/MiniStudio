@@ -3,7 +3,7 @@
 
 class GravityEntity : public Entity
 {
-private:
+protected:
 	float mGravityStrength = 9.81f;
 	float mYVelocity = 0;
 
