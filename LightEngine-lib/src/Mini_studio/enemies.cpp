@@ -39,7 +39,18 @@ void enemies::AttackFall(Entity* pTarget) {
 	}
 }
 
-/*char, a 11 heures, distance: a 300m .(War thunder reference)*/
+/*attack bulldozer*/
+void enemies::AttackBull(Entity* pTarget) {
+	sf::Vector2f positiontarget = pTarget->GetPosition();
+	positionEnemy = pEnemy->GetPosition();
+	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
+		if (telemetrie(pTarget)==(float)500)
+		GoToPosition(positiontarget.x, positionEnemy.y, 1.0f);
+	}
+}
+
+
+/*char, a 11 heures, distance: a 400m .(War thunder reference)*/
 float enemies::telemetrie(Entity* pTarget) {
 	sf::Vector2f positiontarget = pTarget->GetPosition();
 	positionEnemy = pEnemy->GetPosition();

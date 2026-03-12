@@ -44,6 +44,8 @@ public:
 	/*attaque de l'enemies*/
 	void AttackFall(Entity* pTarget);
 
+	void AttackBull(Entity* pTarget);
+
 	float telemetrie(Entity* pTarget);
 
 	/**/

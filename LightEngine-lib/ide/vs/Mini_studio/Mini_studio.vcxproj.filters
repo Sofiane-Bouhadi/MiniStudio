@@ -1,49 +1,57 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
-    <ItemGroup>
-        <Filter Include="header">
-            <UniqueIdentifier>{8CC44EB1-4038-4B89-BDAC-068FBC9F47C3}</UniqueIdentifier>
-            <Extensions>h;hpp</Extensions>
-        </Filter>
-        <Filter Include="resource">
-            <UniqueIdentifier>{418531FD-867C-44B5-A895-52A1E709F91D}</UniqueIdentifier>
-            <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
-        </Filter>
-        <Filter Include="source">
-            <UniqueIdentifier>{860365EE-E2C6-4C4D-B917-7410777C0A30}</UniqueIdentifier>
-            <Extensions>cpp;c</Extensions>
-        </Filter>
-    </ItemGroup>
-    <ItemGroup>
-        <ClCompile Include="..\..\..\src\Mini_studio\enemies.cpp">
-            <Filter>source</Filter>
-        </ClCompile>
-        <ClCompile Include="..\..\..\src\Mini_studio\main.cpp">
-            <Filter>source</Filter>
-        </ClCompile>
-        <ClCompile Include="..\..\..\src\Mini_studio\pch.cpp">
-            <Filter>source</Filter>
-        </ClCompile>
-        <ClInclude Include="..\..\..\src\Mini_studio\enemies.h">
-            <Filter>header</Filter>
-        </ClInclude>
-        <ClInclude Include="..\..\..\src\Mini_studio\main.h">
-            <Filter>header</Filter>
-        </ClInclude>
-        <ClInclude Include="..\..\..\src\Mini_studio\pch.h">
-            <Filter>header</Filter>
-        </ClInclude>
-        <ClInclude Include="..\..\..\src\Mini_studio\resource.h">
-            <Filter>header</Filter>
-        </ClInclude>
-        <None Include="..\..\..\src\Mini_studio\app.ico">
-            <Filter>resource</Filter>
-        </None>
-        <None Include="..\..\..\src\Mini_studio\app.rc">
-            <Filter>resource</Filter>
-        </None>
-        <None Include="..\..\..\src\Mini_studio\small.ico">
-            <Filter>resource</Filter>
-        </None>
-    </ItemGroup>
+  <ItemGroup>
+    <Filter Include="header">
+      <UniqueIdentifier>{8CC44EB1-4038-4B89-BDAC-068FBC9F47C3}</UniqueIdentifier>
+      <Extensions>h;hpp</Extensions>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{418531FD-867C-44B5-A895-52A1E709F91D}</UniqueIdentifier>
+      <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{860365EE-E2C6-4C4D-B917-7410777C0A30}</UniqueIdentifier>
+      <Extensions>cpp;c</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\Mini_studio\enemies.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Mini_studio\main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Mini_studio\pch.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\src\Mini_studio\enemies.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Mini_studio\main.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Mini_studio\pch.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Mini_studio\resource.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <None Include="..\..\..\src\Mini_studio\app.ico">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\..\..\src\Mini_studio\app.rc">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\..\..\src\Mini_studio\small.ico">
+      <Filter>resource</Filter>
+    </None>
+    <ClCompile Include="StateMachine.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StateMachine.h">
+      <Filter>header</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
