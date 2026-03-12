@@ -1,6 +1,7 @@
 #include "StateMachine.h"
 
 void StateMachine::change(int nbr) {
+
 	if (nbr == 0) {
 		state(Idle);
 	}

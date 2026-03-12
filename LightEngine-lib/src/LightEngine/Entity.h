@@ -12,7 +12,7 @@ namespace sf
 
 class Scene;
 
-class Entity
+class GravityEntity
 {
     struct Target 
     {
@@ -45,7 +45,7 @@ public:
 	sf::Shape* GetShape() { return &mShape; }
 
 	bool IsTag(int tag) const { return mTag == tag; }
-    bool IsColliding(Entity* other) const;
+    bool IsColliding(GravityEntity* other) const;
 	bool IsInside(float x, float y) const;
 
     void Destroy();
@@ -61,18 +61,18 @@ public:
     T* CreateEntity(float radius, const sf::Color& color);
 
 protected:
-    Entity() = default;
-    ~Entity() = default;
+    GravityEntity() = default;
+    ~GravityEntity() = default;
 
     virtual void OnUpdate() {};
-    virtual void OnCollision(Entity* collidedWith) {};
+    virtual void OnCollision(GravityEntity* collidedWith) {};
 	virtual void OnInitialize() {};
 	virtual void OnDestroy() {};
 	
 private:
     void Update();
 	void Initialize(float radius, const sf::Color& color);
-	void Repulse(Entity* other);
+	void Repulse(GravityEntity* other);
 
     friend class GameManager;
     friend Scene;

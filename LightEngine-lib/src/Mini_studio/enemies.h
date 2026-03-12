@@ -5,7 +5,7 @@
 #include <SFML/System/Thread.hpp>
 
 #pragma once
-class enemies : public Entity
+class enemies : public GravityEntity
 {
 private:
 
@@ -39,20 +39,20 @@ public:
 	void moveingInLigne(float x, float y, float toX, float toY, sf::Time time);
 
 	/*renvois un vecteur de l'entite cible*/
-	sf::Vector2f detection(Entity* cible);
+	sf::Vector2f detection(GravityEntity* cible);
 
 	/*attaque de l'enemies*/
-	void AttackFall(Entity* pTarget);
+	void AttackFall(GravityEntity* pTarget);
 
-	void AttackBull(Entity* pTarget);
+	void AttackBull(GravityEntity* pTarget);
 
-	float telemetrie(Entity* pTarget);
+	float telemetrie(GravityEntity* pTarget);
 
 	/**/
 	void attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW);
 
 	/*tout est dans le nom.*/
-	void OnCollision(Entity* other) override;
+	void OnCollision(GravityEntity* other) override;
 
 	enemies* pEnemy;
 };

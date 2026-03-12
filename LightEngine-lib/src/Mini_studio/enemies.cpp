@@ -18,7 +18,7 @@ void enemies::moveingInLigne(float x,float y, float toX, float toY, sf::Time tim
 }
 
 /*renvois un vecteur de l'entite cible*/
-sf::Vector2f enemies::detection(Entity* pTarget) {
+sf::Vector2f enemies::detection(GravityEntity* pTarget) {
 	sf::Vector2f vectarget;
 	positionEnemy = pEnemy->GetPosition();
 	sf::Vector2f positiontarget = pTarget->GetPosition();
@@ -31,7 +31,7 @@ sf::Vector2f enemies::detection(Entity* pTarget) {
 }
 
 /*attack fall*/
-void enemies::AttackFall(Entity* pTarget) {
+void enemies::AttackFall(GravityEntity* pTarget) {
 	sf::Vector2f positiontarget = pTarget->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	if (positiontarget.y == positionEnemy.y + enemy_size / 2 || positiontarget.y == positionEnemy.y - enemy_size / 2) {
@@ -40,7 +40,7 @@ void enemies::AttackFall(Entity* pTarget) {
 }
 
 /*attack bulldozer*/
-void enemies::AttackBull(Entity* pTarget) {
+void enemies::AttackBull(GravityEntity* pTarget) {
 	sf::Vector2f positiontarget = pTarget->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
@@ -51,7 +51,7 @@ void enemies::AttackBull(Entity* pTarget) {
 
 
 /*char, a 11 heures, distance: a 400m .(War thunder reference)*/
-float enemies::telemetrie(Entity* pTarget) {
+float enemies::telemetrie(GravityEntity* pTarget) {
 	sf::Vector2f positiontarget = pTarget->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	float AC = positionEnemy.x - positiontarget.x;
@@ -66,7 +66,7 @@ float enemies::telemetrie(Entity* pTarget) {
 
 
 /*... serieux, tu ne sais pas ce que "OnCollision" fait... :/ */
-void enemies::OnCollision(Entity* other)
+void enemies::OnCollision(GravityEntity* other)
 {
 	std::cout << "Collision" << std::endl;
 }
@@ -78,7 +78,7 @@ void enemies::OnCollision(Entity* other)
 
 /*attaque de manier inteligente grace a detection ou a un paterne base sur la rose des vents*/
 void enemies::attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW) {
-	Entity* pTarget;
+	GravityEntity* pTarget;
 
 	float dist = telemetrie(pTarget);
 	if (dist == (float)400) {
