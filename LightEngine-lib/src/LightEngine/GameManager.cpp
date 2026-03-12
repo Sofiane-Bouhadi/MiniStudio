@@ -15,6 +15,7 @@ GameManager::GameManager()
 	mpScene = nullptr;
 	mWindowWidth = -1;
 	mWindowHeight = -1;
+	mCamera = nullptr;
 }
 
 GameManager* GameManager::Get()
@@ -28,6 +29,7 @@ GameManager::~GameManager()
 {
 	delete mpWindow;
 	delete mpScene;
+	delete mCamera;
 
 	for (Entity* entity : mEntities)
 	{
@@ -44,6 +46,8 @@ void GameManager::CreateWindow(unsigned int width, unsigned int height, const ch
 
 	mWindowWidth = width;
 	mWindowHeight = height;
+
+	mCamera = new Camera(sf::Vector2f(width, height));
 
 	mClearColor = clearColor;
 }
@@ -118,6 +122,16 @@ void GameManager::Update()
 		mAccumulatedDt -= FIXED_DT;
 	}
 
+	//Camera
+	if (mCamera != nullptr)
+	{
+		mCamera->Update();
+
+		if (mCamera->GetView() != nullptr)
+			mpWindow->setView(*mCamera->GetView());
+	}
+		
+
 	for (auto it = mEntitiesToDestroy.begin(); it != mEntitiesToDestroy.end(); ++it) 
 	{
 		delete *it;
@@ -173,7 +187,12 @@ void GameManager::Draw()
 	
 	for (Entity* entity : mEntities)
 	{
-		mpWindow->draw(*entity->GetShape());
+		if (sf::Shape* entityShape = entity->GetShape())
+		{
+			mpWindow->draw(*entityShape);
+		}
+		else if (sf::Sprite* entitySprite = entity->GetSprite())
+			mpWindow->draw(*entitySprite);
 	}
 	
 	Debug::Get()->Draw(mpWindow);

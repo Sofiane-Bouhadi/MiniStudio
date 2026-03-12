@@ -2,6 +2,7 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Shape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include "Scene.h"
 #include "Collider.h"
 
@@ -18,12 +19,14 @@ class Entity
     struct Target 
     {
 		sf::Vector2i position;
-        float distance;
-		bool isSet;
+        float distance = 0.f;
+		bool isSet = false;
     };
 
 protected:
-    sf::Shape* mShape = nullptr;
+	sf::Drawable* mDrawable;
+	sf::Transformable* mTransformable;
+
 	float mWidth = 0;
 	float mHeight = 0;
 
@@ -34,6 +37,7 @@ protected:
     bool mToDestroy = false;
     int mTag = -1;
 	bool mRigidBody = false;
+	bool mStatic = false;
 
 public:
 	bool GoToDirection(int x, int y, float speed = -1.f);
@@ -45,9 +49,12 @@ public:
 	float GetRadius() const { return mWidth / 2.f; }
 	void SetRigidBody(bool isRigidBody) { mRigidBody = isRigidBody; }
 	bool IsRigidBody() const { return mRigidBody; }
+	void SetStatic(bool isStatic) { mStatic = isStatic; }
+	bool IsStatic() const { return mStatic; }
 
     sf::Vector2f GetPosition(float ratioX = 0.5f, float ratioY = 0.5f) const;
 	sf::Shape* GetShape();
+	sf::Sprite* GetSprite() { return (sf::Sprite*)mDrawable; }
 	Collider* GetCollider() { return mCollider; }
 
 	bool IsTag(int tag) const { return mTag == tag; }
@@ -64,7 +71,13 @@ public:
 	float GetDeltaTime() const;
 
     template<typename T>
-    T* CreateEntity(float width, float height, sf::Shape* shape, const sf::Color& color, Collider* collider);
+    T* CreateRectangle(float width, float height, const sf::Color& color, Collider* collider = nullptr);
+
+    template<typename T>
+    T* CreateCircle(float radius, const sf::Color& color, Collider* collider = nullptr);
+
+	template<typename T>
+	T* CreateSprite(float width, float height, const char* texturePath, Collider* collider = nullptr);
 
 protected:
     Entity() = default;
@@ -78,7 +91,14 @@ protected:
 private:
     void Update();
 	void FixedUpdate(float fixedDt);
-	void Initialize(float width, float height, sf::Shape* shape, const sf::Color& color, Collider* collider);
+
+	void Initialize(float width, float height, sf::RectangleShape* shape, const sf::Color& color, Collider* collider);
+	void Initialize(float radius, sf::CircleShape* shape, const sf::Color& color, Collider* collider);
+	void Initialize(float width, float height, const char* path, Collider* collider);
+
+	virtual void Initialize() {};
+
+	
 	void Repulse(Entity* other);
 
     friend class GameManager;
