@@ -212,8 +212,6 @@ void Entity::FixedUpdate(float fixedDt)
 		}
 	}
 
-
-
 }
 
 Scene* Entity::GetScene() const

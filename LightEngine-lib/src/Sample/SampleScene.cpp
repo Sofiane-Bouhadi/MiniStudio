@@ -29,6 +29,8 @@ void SampleScene::OnInitialize()
 	pEntity4 = CreateEntity<DummyEntity>(50, 50, new sf::RectangleShape, sf::Color::Yellow, new AABBCollider(50, 50));
 	pEntity4->SetPosition(700, 100);
 	pEntity4->SetRigidBody(true);
+	
+	gEntity = CreateEntity<GravityEntity>(50, 50, new sf::CircleShape, sf::Color::Green, new CircleCollider(25));
 
 	pEntitySelected = nullptr;
 }
