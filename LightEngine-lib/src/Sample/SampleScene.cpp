@@ -31,15 +31,16 @@ void SampleScene::OnInitialize()
 	pEntity3->SetRigidBody(true);
 
 	//Rectangle
-	pEntity4 = CreateRectangle<DummyEntity>(50, 50, sf::Color::Green, new AABBCollider(50, 50));
-	pEntity4->SetPosition(700, 100);
+	pEntity4 = CreateRectangle<DummyEntity>(1280, 50, sf::Color::Green, new AABBCollider(1280, 50));
+	pEntity4->SetPosition(720 / 2, 1280);
 	pEntity4->SetRigidBody(true);
 	pEntity4->SetStatic(true);
 
 	
 	//GravityEntity
-	gEntity = CreateCircle<GravityEntity>(50, sf::Color::Green, new CircleCollider(25));
-
+	gEntity = CreateRectangle<GravityEntity>(50, 100, sf::Color::Blue, new AABBCollider(50, 50));
+	gEntity->SetPosition(1280 / 2, 720 / 2);
+	gEntity->SetRigidBody(true);
 
 
 

@@ -8,8 +8,7 @@ private:
 	float mYVelocity = 0;
 
 public:
-	void UpdateVelocity();
-	void OnCollision(Entity* entity) override;
+	void Update() override;
 
 	void SetGravityStrength(float gravityStrength) { mGravityStrength = gravityStrength; }
 };
