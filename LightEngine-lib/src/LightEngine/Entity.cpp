@@ -194,10 +194,8 @@ void Entity::Destroy()
 
 void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 {
-	float size = GetRadius() * 2;
-
-	x -= size * ratioX;
-	y -= size * ratioY;
+	x -= mWidth * ratioX;
+	y -= mHeight * ratioY;
 
 	mTransformable->setPosition(sf::Vector2f(x, y));
 
@@ -283,6 +281,9 @@ void Entity::SetDirection(float x, float y, float speed)
 
 void Entity::Update()
 {
+	if (AABBCollider* rectCollider = dynamic_cast<AABBCollider*> (mCollider))
+		Debug::DrawRectangle(rectCollider->mXMin, rectCollider->mYMin, rectCollider->mWidth, rectCollider->mHeight, sf::Color::Green);
+
 	OnUpdate();
 }
 
