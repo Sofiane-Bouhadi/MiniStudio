@@ -11,9 +11,9 @@ void enemies::createEnemy(float x, float y, int size){
 
 /*bouge en ligne*/
 void enemies::moveingInLigne(float x,float y, float toX, float toY, sf::Time time) {
-	GoToPosition(toX, toY);
+	GoToPosition(toX, toY,1.0f);
 	sf::sleep(time);
-	GoToPosition(x, y);
+	GoToPosition(x, y,1.0f);
 	sf::sleep(time);
 }
 
@@ -29,12 +29,13 @@ sf::Vector2f enemies::detection(Entity* pTarget) {
 
 	return vectarget;
 }
+
 /*attack fall*/
-void enemies::Attack(Entity* pTarget) {
+void enemies::AttackFall(Entity* pTarget) {
 	sf::Vector2f positiontarget = pTarget->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
-	if (positiontarget.y == positionEnemy.y + enemy_size) {
-
+	if (positiontarget.y == positionEnemy.y + enemy_size / 2 || positiontarget.y == positionEnemy.y - enemy_size / 2) {
+		GoToPosition(positionEnemy.x, positiontarget.y, 1.0f);
 	}
 }
 
@@ -63,6 +64,7 @@ void enemies::attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E,
 	if (smart) {
 		/*visé precise*/
 		sf::Vector2f vectarget = detection();
+
 		launchAttack(vectarget.x, vectarget.y);
 	}
 	else {

@@ -40,6 +40,8 @@ public:
 
 	sf::Vector2f detection(Entity* cible);
 
+	void AttackFall(Entity* pTarget);
+
 	void Attack(Entity* ptarget);
 
 	/**/
