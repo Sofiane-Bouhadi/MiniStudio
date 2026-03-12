@@ -130,7 +130,6 @@ void GameManager::Update()
 		if (mCamera->GetView() != nullptr)
 			mpWindow->setView(*mCamera->GetView());
 	}
-		
 
 	for (auto it = mEntitiesToDestroy.begin(); it != mEntitiesToDestroy.end(); ++it) 
 	{
@@ -145,8 +144,6 @@ void GameManager::Update()
 	}
 
 	mEntitiesToAdd.clear();
-
-
 }
 
 void GameManager::FixedUpdate()
