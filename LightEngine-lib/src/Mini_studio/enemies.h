@@ -38,17 +38,16 @@ public:
 	/*deplace l'ennemi en ligne*/
 	void moveingInLigne(float x, float y, float toX, float toY, sf::Time time);
 
+	/*renvois un vecteur de l'entite cible*/
 	sf::Vector2f detection(Entity* cible);
 
+	/*attaque de l'enemies*/
 	void AttackFall(Entity* pTarget);
 
-	void Attack(Entity* ptarget);
+	float telemetrie(Entity* pTarget);
 
 	/**/
 	void attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW);
-
-	/*parametre d'attack*/
-	void launchAttack(float x, float y);
 
 	/*tout est dans le nom.*/
 	void OnCollision(Entity* other) override;

@@ -39,7 +39,15 @@ void enemies::AttackFall(Entity* pTarget) {
 	}
 }
 
-
+/*char, a 11 heures, distance: a 300m .(War thunder reference)*/
+float enemies::telemetrie(Entity* pTarget) {
+	sf::Vector2f positiontarget = pTarget->GetPosition();
+	positionEnemy = pEnemy->GetPosition();
+	float AC = positionEnemy.x - positiontarget.x;
+	float BC = positionEnemy.y - positiontarget.y;
+	float AB = sqrt(AC*AC + BC*BC);
+	return AB;
+}
 
 
 
@@ -52,46 +60,51 @@ void enemies::OnCollision(Entity* other)
 	std::cout << "Collision" << std::endl;
 }
 
+
+
 //--------------------------------------------------------------peut-etre-utile------------------------------------------------------------------------------------------------------
 
 
 /*attaque de manier inteligente grace a detection ou a un paterne base sur la rose des vents*/
 void enemies::attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW) {
+	Entity* pTarget;
 
-	positionEnemy = pEnemy->GetPosition();
-	/* x et y sont les coordonee de l'enemey */
-
+	float dist = telemetrie(pTarget);
+	if (dist == (float)400) {
+		positionEnemy = pEnemy->GetPosition();
+		/* x et y sont les coordonee de l'enemi */
+	}
 	if (smart) {
 		/*visé precise*/
-		sf::Vector2f vectarget = detection();
+		sf::Vector2f vectarget = detection(pTarget);
 
-		launchAttack(vectarget.x, vectarget.y);
+		//launchAttack(vectarget.x, vectarget.y);
 	}
 	else {
 		if (vert_N) {/* attaque verticale vers le haut(N) */
-			launchAttack(-1, 0);
+			//launchAttack(-1, 0);
 		}
 		if (vert_S) {/* attaque verticale vers le bas(S) */
-			launchAttack(1, 0);
+			//launchAttack(1, 0);
 		}
 		if (hori_E) {/* attaque horisontal vers la droite(E) */
-			launchAttack(0, 1);
+			//launchAttack(0, 1);
 		}
 		if (hori_W) {/* attaque horisontale vers la gauche(W) */
-			launchAttack(0, -1);
+			//launchAttack(0, -1);
 		}
 
 		if (diag_NE) {/* attaque en diagonale vers le haut(N) a droite(E) */
-			launchAttack(-1, 1);
+			//launchAttack(-1, 1);
 		}
 		if (diag_NW) {/* attaque en diagonale vers le haut(N) a gauche(W) */
-			launchAttack(-1, -1);
+			//launchAttack(-1, -1);
 		}
 		if (diag_SW) {/* attaque en diagonale vers le bas(S) a gauche(W) */
-			launchAttack(1, -1);
+			//launchAttack(1, -1);
 		}
 		if (diag_SE) {/* attaque en diagonale vers le bas(S) a droite(E) */
-			launchAttack(1, 1);
+			//launchAttack(1, 1);
 		}
 	}
 }
