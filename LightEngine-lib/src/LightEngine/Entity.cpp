@@ -109,12 +109,12 @@ void Entity::Repulse(Entity* other, CollidingSide collidingSide)
 		//				- la pénétration du rectangle dans l'autre 
 		// répartir la moitié sur les deux entités (ou tout si une entité est mStatic)
 
-		sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
+		/*sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
 
 		float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
-		float length = std::sqrt(sqrLength);
+		float length = std::sqrt(sqrLength);*/
 
-		sf::Vector2f normal = distance / length;
+		sf::Vector2f normal = { 0, 0 };
 		float overlap = 0.f;
 
 		//Touched side
@@ -122,15 +122,19 @@ void Entity::Repulse(Entity* other, CollidingSide collidingSide)
 		{
 		case Top:
 			overlap = ((AABBCollider*)mCollider)->mYMax - ((AABBCollider*)otherCollider)->mYMin;
+			normal = { 0, -1 };
 			break;
 		case Bottom:
 			overlap = ((AABBCollider*)otherCollider)->mYMax - ((AABBCollider*)mCollider)->mYMin;
+			normal = { 0, 1 };
 			break;
 		case Left:
 			overlap = ((AABBCollider*)mCollider)->mXMax - ((AABBCollider*)otherCollider)->mXMin;
+			normal = { -1, 0 };
 			break;
 		case Right:
 			overlap = ((AABBCollider*)otherCollider)->mXMax - ((AABBCollider*)mCollider)->mXMin;
+			normal = { 1, 0 };
 			break;
 		}
 
