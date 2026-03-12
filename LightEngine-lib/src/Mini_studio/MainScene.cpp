@@ -41,10 +41,11 @@ void MainScene::OnEvent(const sf::Event& event)
 		if (event.key.code == sf::Keyboard::Space)
 		{
 			std::cout << "espace est pressé" << std::endl;
+			m_Player->jump();
 		}
 	}
 
-	if (event.type == sf::Event::JoystickMoved /*event.type == sf::Event::JoystickButtonPressed*/)
+	if (event.type == sf::Event::JoystickMoved || event.type == sf::Event::JoystickButtonPressed)
 	{
 
 		sf::Joystick::Axis axis = event.joystickMove.axis;
@@ -70,11 +71,11 @@ void MainScene::OnEvent(const sf::Event& event)
 		}
 		
 
-	/*	if ( sf::Joystick::isButtonPressed(0,sf::Joystick::Z) ) 
+		if ( sf::Joystick::isButtonPressed(0,sf::Joystick::getButtonCount(0) == 1)) 
 		{
-			std::cout << "gachette gauche" << std::endl;
-			MoveRight = true;
-		}*/
+			std::cout << "A est appuyé" << std::endl;
+			m_Player->jump();
+		}
 	}
 
 
@@ -85,12 +86,20 @@ void MainScene::OnEvent(const sf::Event& event)
 			std::cout << "d est relaché" << std::endl;
 			MoveRight = false;
 			m_Player->SetSpeed(0);
+			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
 		}
 		
 		if (event.mouseButton.button == sf::Keyboard::Q || sf::Joystick::PovX == 0)
 		{
 			std::cout << "q est relaché" << std::endl;
 			MoveLeft = false;
+			m_Player->SetSpeed(0);
+			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
+		}
+
+		if (event.mouseButton.button == sf::Keyboard::Space || sf::Event::JoystickButtonReleased == (sf::Joystick::getButtonCount(0) == 1))
+		{
+			std::cout << "espace est relaché" << std::endl;
 			m_Player->SetSpeed(0);
 		}
 

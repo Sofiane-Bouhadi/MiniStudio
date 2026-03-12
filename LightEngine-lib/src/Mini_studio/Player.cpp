@@ -22,3 +22,14 @@ void Player::MoveLeft(float deltatime)
 
 	SetDirection(-1, 0, mSpeed);
 }
+
+void Player::jump() 
+{
+		SetDirection(mDirection.x, -10, m_Impulsion);
+	
+}
+
+//void Player::OnUpdate() 
+//{
+//	UpdateVelocity();
+//}
