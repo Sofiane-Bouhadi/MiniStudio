@@ -31,8 +31,8 @@ void SampleScene::OnInitialize()
 	pEntity3->SetRigidBody(true);
 
 	//Rectangle
-	pEntity4 = CreateRectangle<DummyEntity>(1000, 200, sf::Color::Red, new AABBCollider(1000, 200));
-	pEntity4->SetPosition(1280 / 2, 700);
+	pEntity4 = CreateRectangle<DummyEntity>(1280, 50, sf::Color::White, new AABBCollider(1280, 50));
+	pEntity4->SetPosition(1280 / 2, 720);
 	pEntity4->SetRigidBody(true);
 	pEntity4->SetStatic(true);
 
