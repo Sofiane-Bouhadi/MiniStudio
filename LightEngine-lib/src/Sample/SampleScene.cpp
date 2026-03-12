@@ -35,6 +35,7 @@ void SampleScene::OnInitialize()
 	pEntity4->SetPosition(700, 100);
 	pEntity4->SetRigidBody(true);
 	
+	//GravityEntity
 	gEntity = CreateCircle<GravityEntity>(50, sf::Color::Green, new CircleCollider(25));
 
 	//Choose an entity to follow
