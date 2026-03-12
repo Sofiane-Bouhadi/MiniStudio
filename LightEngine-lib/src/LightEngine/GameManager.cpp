@@ -169,10 +169,12 @@ void GameManager::FixedUpdate()
 			Entity* entity = *it1;
 			Entity* otherEntity = *it2;
 
-			if (entity->IsColliding(otherEntity))
+			Entity::CollidingSide collidingSide = entity->IsColliding(otherEntity);
+
+			if (collidingSide != Entity::CollidingSide::None)
 			{
 				if (entity->IsRigidBody() && otherEntity->IsRigidBody())
-					entity->Repulse(otherEntity);
+					entity->Repulse(otherEntity, collidingSide);
 
 				entity->OnCollision(otherEntity);
 				otherEntity->OnCollision(entity);

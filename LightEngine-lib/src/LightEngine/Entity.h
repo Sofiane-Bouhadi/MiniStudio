@@ -4,7 +4,8 @@
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include "Scene.h"
-#include "Collider.h"
+
+class Collider;
 
 namespace sf 
 {
@@ -22,6 +23,18 @@ class Entity
         float distance = 0.f;
 		bool isSet = false;
     };
+
+public:
+
+	enum CollidingSide 
+	{
+		None,
+		Top,
+		Bottom,
+		Left,
+		Right,
+		Other
+	};
 
 protected:
 	sf::Drawable* mDrawable;
@@ -58,7 +71,7 @@ public:
 	Collider* GetCollider() { return mCollider; }
 
 	bool IsTag(int tag) const { return mTag == tag; }
-    bool IsColliding(Entity* other) const;
+    Entity::CollidingSide IsColliding(Entity* other) const;
 	bool IsInside(float x, float y) const;
 
     void Destroy();
@@ -99,7 +112,7 @@ private:
 	virtual void Initialize() {};
 
 	
-	void Repulse(Entity* other);
+	void Repulse(Entity* other, CollidingSide collidingSide);
 
     friend class GameManager;
     friend Scene;

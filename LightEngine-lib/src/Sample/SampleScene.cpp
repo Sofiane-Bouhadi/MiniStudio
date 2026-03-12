@@ -34,6 +34,7 @@ void SampleScene::OnInitialize()
 	pEntity4 = CreateRectangle<DummyEntity>(50, 50, sf::Color::Green, new AABBCollider(50, 50));
 	pEntity4->SetPosition(700, 100);
 	pEntity4->SetRigidBody(true);
+	pEntity4->SetStatic(true);
 
 	//Choose an entity to follow
 	//GameManager::Get()->GetCamera()->SetFollowingEntity(pEntity1);

@@ -77,7 +77,7 @@ void Entity::Initialize(float width, float height, const char* texturePath, Coll
 	OnInitialize();
 }
 
-void Entity::Repulse(Entity* other) 
+void Entity::Repulse(Entity* other, CollidingSide collidingSide) 
 {
 	Collider* otherCollider = other->GetCollider();
 
@@ -111,51 +111,54 @@ void Entity::Repulse(Entity* other)
 
 		sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
 
-		const char* side = mCollider->CollidingSide(other->GetCollider());
-		float overlap = 0.f;
-
-		//Touched side
-		if (side == "Up")
-		{
-			//Overlap
-			overlap = ((AABBCollider*)mCollider)->mYMax - ((AABBCollider*)otherCollider)->mYMin;
-		}
-		else if (side == "Down")
-		{
-			overlap = ((AABBCollider*)otherCollider)->mYMax - ((AABBCollider*)mCollider)->mYMin;
-		}
-		else if (side == "Right")
-		{
-			overlap = ((AABBCollider*)mCollider)->mXMax - ((AABBCollider*)otherCollider)->mXMin;
-		}
-		else if (side == "Left")
-		{
-			overlap = ((AABBCollider*)otherCollider)->mXMax - ((AABBCollider*)mCollider)->mXMin;
-		}
-
 		float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
 		float length = std::sqrt(sqrLength);
 
-		float radius1 = GetRadius();
-		float radius2 = other->GetRadius();
-
 		sf::Vector2f normal = distance / length;
+		float overlap = 0.f;
+
+		//Touched side
+		switch (collidingSide)
+		{
+		case Top:
+			overlap = ((AABBCollider*)mCollider)->mYMax - ((AABBCollider*)otherCollider)->mYMin;
+			break;
+		case Bottom:
+			overlap = ((AABBCollider*)otherCollider)->mYMax - ((AABBCollider*)mCollider)->mYMin;
+			break;
+		case Left:
+			overlap = ((AABBCollider*)mCollider)->mXMax - ((AABBCollider*)otherCollider)->mXMin;
+			break;
+		case Right:
+			overlap = ((AABBCollider*)otherCollider)->mXMax - ((AABBCollider*)mCollider)->mXMin;
+			break;
+		}
 
 		sf::Vector2f translation = overlap * normal;
 
-		sf::Vector2f position1 = GetPosition(0.5f, 0.5f) - translation;
-		sf::Vector2f position2 = other->GetPosition(0.5f, 0.5f) + translation;
+		if (other->IsStatic() == false)
+		{
+			sf::Vector2f position1 = GetPosition(0.5f, 0.5f) + translation;
+			sf::Vector2f position2 = other->GetPosition(0.5f, 0.5f) - translation;
 
-		SetPosition(position1.x, position1.y, 0.5f, 0.5f);
-		other->SetPosition(position2.x, position2.y, 0.5f, 0.5f);
+			SetPosition(position1.x, position1.y, 0.5f, 0.5f);
+			other->SetPosition(position2.x, position2.y, 0.5f, 0.5f);
+		}
+		else if (other->IsStatic())
+		{
+			sf::Vector2f position1 = GetPosition(0.5f, 0.5f) + translation * 2.f;
+			SetPosition(position1.x, position1.y, 0.5f, 0.5f);
+		}
 	}
 }
 
-bool Entity::IsColliding(Entity* other) const 
+
+
+Entity::CollidingSide Entity::IsColliding(Entity* other) const 
 {
 	if (mCollider == nullptr || other->mCollider == nullptr)
 	{
-		return false;
+		return None;
 	}
 
 	return mCollider->IsColliding(other->GetCollider());
