@@ -19,6 +19,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	
 	bool MoveRight = false;
 	bool MoveLeft = false;
+	bool jump = false;
 
 
 
@@ -41,7 +42,8 @@ void MainScene::OnEvent(const sf::Event& event)
 		if (event.key.code == sf::Keyboard::Space)
 		{
 			std::cout << "espace est pressé" << std::endl;
-			m_Player->jump();
+			
+			jump = true;
 		}
 	}
 
@@ -71,10 +73,15 @@ void MainScene::OnEvent(const sf::Event& event)
 		}
 		
 
-		if ( sf::Joystick::isButtonPressed(0,sf::Joystick::getButtonCount(0) == 1)) 
+		if ( sf::Joystick::isButtonPressed(0,0)) 
 		{
 			std::cout << "A est appuyé" << std::endl;
-			m_Player->jump();
+			jump = true;
+		}
+
+		if (not sf::Joystick::isButtonPressed(0, 0)) 
+		{
+			jump = false;
 		}
 	}
 
@@ -89,7 +96,7 @@ void MainScene::OnEvent(const sf::Event& event)
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
 		}
 		
-		if (event.mouseButton.button == sf::Keyboard::Q || sf::Joystick::PovX == 0)
+		if (event.mouseButton.button == sf::Keyboard::Q)
 		{
 			std::cout << "q est relaché" << std::endl;
 			MoveLeft = false;
@@ -97,10 +104,11 @@ void MainScene::OnEvent(const sf::Event& event)
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
 		}
 
-		if (event.mouseButton.button == sf::Keyboard::Space || sf::Event::JoystickButtonReleased == (sf::Joystick::getButtonCount(0) == 1))
+		if (event.mouseButton.button == sf::Keyboard::Space || sf::Event::JoystickButtonReleased == 0)
 		{
 			std::cout << "espace est relaché" << std::endl;
 			m_Player->SetSpeed(0);
+			jump == false;
 		}
 
 	}
@@ -115,6 +123,10 @@ void MainScene::OnEvent(const sf::Event& event)
 	if (MoveLeft) 
 	{
 		m_Player->MoveLeft(GetDeltaTime());
+	}
+	if (jump) 
+	{
+		m_Player->jump();
 	}
 	
 }
