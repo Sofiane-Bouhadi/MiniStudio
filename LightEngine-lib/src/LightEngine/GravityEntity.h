@@ -9,7 +9,7 @@ private:
 
 public:
 	void UpdateVelocity();
-	void OnCollision(Entity* entity) override;
+	void OnCollision(Entity* entity, CollidingSide collidingSide) override;
 
 	void SetGravityStrength(float gravityStrength) { mGravityStrength = gravityStrength; }
 };

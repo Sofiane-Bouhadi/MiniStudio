@@ -176,7 +176,7 @@ void GameManager::FixedUpdate()
 				if (entity->IsRigidBody() && otherEntity->IsRigidBody())
 					entity->Repulse(otherEntity, collidingSide);
 
-				entity->OnCollision(otherEntity);
+				entity->OnCollision(otherEntity, collidingSide);
 				otherEntity->OnCollision(entity);
 			}
 		}

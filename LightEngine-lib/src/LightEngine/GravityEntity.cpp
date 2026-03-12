@@ -7,14 +7,14 @@ void GravityEntity::UpdateVelocity()
 	SetDirection(0, 1, mYVelocity);
 }
 
-void GravityEntity::OnCollision(Entity* e)
+void GravityEntity::OnCollision(Entity* e, CollidingSide collidingSide)
 {
-	if (GetCollider()->CollidingSide(e->GetCollider()) == "Up")
+	if (collidingSide == Top)
 	{
 		mYVelocity = 0;
 	}
 
-	if (GetCollider()->CollidingSide(e->GetCollider()) == "Down")
+	if (collidingSide == Bottom)
 	{
 		mYVelocity = 0;
 	}
