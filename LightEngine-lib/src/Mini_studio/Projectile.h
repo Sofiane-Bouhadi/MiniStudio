@@ -1,17 +1,15 @@
-#pragma once
-#include "skill.h"
+#pragma once 
+#include "Entity.h"
 
-class Projectile : public Skill
+class Projectile : public Entity
 {
 private:
 
-	int damage = 15;
-	float speed = 4.0f;
+	int m_damage = 10;
 
 public:
 
-	void OnInitialize()override;
-	void OnUpdate()override;
-	void OnDestroy()override;
+	int GetDamageP() { return m_damage; };
+	void SetDamageP(int dmg) { m_damage = dmg; };
 
 };

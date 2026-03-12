@@ -7,10 +7,13 @@ class Shockwave : public Skill
 {
 private:
 
-	int damage = 5;
-	float stun = 2.0f;
+	int m_damage = 5;
+	float m_stun = 2.0f;
 
 public:
+
+	int GetDamage() { return m_damage; };
+	void SetDamage(int dmg) { m_damage = dmg; };
 
 	void Attack();
 	void TakeDamage();
