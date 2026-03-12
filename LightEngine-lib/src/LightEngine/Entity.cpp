@@ -139,8 +139,6 @@ void Entity::Repulse(Entity* other)
 		float radius1 = GetRadius();
 		float radius2 = other->GetRadius();
 
-		float overlap = (length - (radius1 + radius2)) * 0.5f;
-
 		sf::Vector2f normal = distance / length;
 
 		sf::Vector2f translation = overlap * normal;
