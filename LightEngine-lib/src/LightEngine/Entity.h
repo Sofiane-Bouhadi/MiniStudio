@@ -96,6 +96,8 @@ protected:
     Entity() = default;
     ~Entity() = default;
 
+	virtual void Update();
+
     virtual void OnUpdate() {};
     virtual void OnCollision(Entity* collidedWith, CollidingSide collidingSide) {};
     virtual void OnCollision(Entity* collidedWith) {};
@@ -103,7 +105,7 @@ protected:
 	virtual void OnDestroy() {};
 	
 private:
-    void Update();
+    
 	void FixedUpdate(float fixedDt);
 
 	void Initialize(float width, float height, sf::RectangleShape* shape, const sf::Color& color, Collider* collider);

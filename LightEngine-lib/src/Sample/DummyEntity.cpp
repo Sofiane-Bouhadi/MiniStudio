@@ -5,5 +5,5 @@
 
 void DummyEntity::OnCollision(Entity* other)
 {
-
+	std::cout << "Collision detected." << std::endl;
 }

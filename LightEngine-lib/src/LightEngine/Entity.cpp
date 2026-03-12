@@ -136,18 +136,21 @@ void Entity::Repulse(Entity* other, CollidingSide collidingSide)
 
 		sf::Vector2f translation = overlap * normal;
 
-		if (other->IsStatic() == false)
-		{
-			sf::Vector2f position1 = GetPosition(0.5f, 0.5f) + translation;
-			sf::Vector2f position2 = other->GetPosition(0.5f, 0.5f) - translation;
+		sf::Vector2f position1 = GetPosition(0.5f, 0.5f) + translation;
+		sf::Vector2f position2 = other->GetPosition(0.5f, 0.5f) - translation;
 
+		if (other->IsStatic() == false && IsStatic() == false)
+		{
 			SetPosition(position1.x, position1.y, 0.5f, 0.5f);
 			other->SetPosition(position2.x, position2.y, 0.5f, 0.5f);
 		}
 		else if (other->IsStatic())
 		{
-			sf::Vector2f position1 = GetPosition(0.5f, 0.5f) + translation * 2.f;
 			SetPosition(position1.x, position1.y, 0.5f, 0.5f);
+		}
+		else if (IsStatic())
+		{
+			other->SetPosition(position2.x, position2.y, 0.5f, 0.5f);
 		}
 	}
 }
@@ -194,10 +197,8 @@ void Entity::Destroy()
 
 void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 {
-	float size = GetRadius() * 2;
-
-	x -= size * ratioX;
-	y -= size * ratioY;
+	x -= mWidth * ratioX;
+	y -= mHeight * ratioY;
 
 	mTransformable->setPosition(sf::Vector2f(x, y));
 
@@ -217,14 +218,12 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 
 sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
 {
-	float size = GetRadius() * 2;
-
 	sf::Vector2f position;
 
 	position = mTransformable->getPosition();
 
-	position.x += size * ratioX;
-	position.y += size * ratioY;
+	position.x += mWidth * ratioX;
+	position.y += mHeight * ratioY;
 
 	return position;
 }
@@ -283,6 +282,9 @@ void Entity::SetDirection(float x, float y, float speed)
 
 void Entity::Update()
 {
+	if (AABBCollider* rectCollider = dynamic_cast<AABBCollider*> (mCollider))
+		Debug::DrawRectangle(rectCollider->mXMin, rectCollider->mYMin, rectCollider->mWidth, rectCollider->mHeight, sf::Color::Green);
+
 	OnUpdate();
 }
 

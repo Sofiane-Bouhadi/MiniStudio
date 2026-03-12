@@ -3,13 +3,12 @@
 
 class GravityEntity : public Entity
 {
-private:
+protected:
 	float mGravityStrength = 9.81f;
 	float mYVelocity = 0;
 
 public:
-	void UpdateVelocity();
-	void OnCollision(Entity* entity, CollidingSide collidingSide) override;
+	void Update() override;
 
 	void SetGravityStrength(float gravityStrength) { mGravityStrength = gravityStrength; }
 };
