@@ -9,6 +9,7 @@
 
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include <iostream>
 
@@ -17,7 +18,7 @@ void SampleScene::OnInitialize()
 	// Creation of a Sprite (with a path)
 	pEntity1 = CreateSprite<DummyEntity>(64, 64, "../../../res/image.png", new AABBCollider(64, 64));
 	pEntity1->SetPosition(100, 100);
-	pEntity1->SetRigidBody(false);
+	pEntity1->SetRigidBody(true);
 
 	//Circle
 	pEntity2 = CreateCircle<DummyEntity>(50, sf::Color::Green, new CircleCollider(50));
@@ -33,6 +34,9 @@ void SampleScene::OnInitialize()
 	pEntity4 = CreateRectangle<DummyEntity>(50, 50, sf::Color::Green, new AABBCollider(50, 50));
 	pEntity4->SetPosition(700, 100);
 	pEntity4->SetRigidBody(true);
+	
+	//GravityEntity
+	gEntity = CreateCircle<GravityEntity>(50, sf::Color::Green, new CircleCollider(25));
 
 
 
@@ -91,7 +95,11 @@ void SampleScene::OnEvent(const sf::Event& event)
 
 void SampleScene::TrySetSelectedEntity(DummyEntity* pEntity, int x, int y)
 {
-	if (pEntity->IsInside(x, y) == false)
+	sf::Vector2i mousePos = { x, y };
+
+	sf::Vector2f worldPos = GameManager::Get()->mpWindow->mapPixelToCoords(mousePos);
+
+	if (pEntity->IsInside(worldPos.x, worldPos.y) == false)
 		return;
 
 	pEntitySelected = pEntity;

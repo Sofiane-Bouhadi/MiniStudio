@@ -30,5 +30,7 @@ T* Entity::CreateCircle(float radius, const sf::Color& color, Collider* collider
 template<typename T>
 T* Entity::CreateSprite(float width, float height, const char* texturePath, Collider* collider)
 {
+
+
 	return GetScene()->CreateSprite<T>(width, height, texturePath, collider);
 }
