@@ -1,6 +1,7 @@
 #include "SampleScene.h"
 #include "GravityEntity.h"
 #include "DummyEntity.h"
+#include "Player.h"
 
 #include "Debug.h"
 
@@ -37,12 +38,12 @@ void SampleScene::OnInitialize()
 	pEntity4->SetStatic(true);
 
 	//GravityEntity
-	gEntity = CreateRectangle<GravityEntity>(50, 100, sf::Color::Blue, new AABBCollider(50, 100));
+	gEntity = CreateRectangle<Player>(50, 100, sf::Color::Blue, new AABBCollider(50, 100));
 	gEntity->SetPosition(720, 0);
 	gEntity->SetRigidBody(true);
 
 	//Choose an entity to follow
-	//GameManager::Get()->GetCamera()->SetFollowingEntity(gEntity);
+	GameManager::Get()->GetCamera()->SetFollowingEntity(gEntity);
 
 	pEntitySelected = nullptr;
 }
