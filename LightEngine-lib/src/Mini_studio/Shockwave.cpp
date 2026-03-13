@@ -1,35 +1,45 @@
 #include "Shockwave.h"
+#include "Scene.h"
+//#include "ennemi.h" à compléter avec le bon nom de fichier
 
 
-//if (/*button de competences is pressed*/)
-//{
-//	Shockw
-//}
-
-void Shockwave::Attack()
+void Shockwave::OnInitialize()
 {
-	Scene* scene = dynamic_cast<Scene*>(GetScene());
-	for(int i = 0;i < scene.GetEntityList.size();i++)
-	{
-		enemies* e = scene.GetEntityList[i];
-		if (e->GetPosition())
-		{
+    SetRigidBody(false);
+    SetStatic(true);
 
-		}
-	}
+    ApplyEffects();
+    Destroy();
 }
 
-void Shockwave::TakeDamage()
+void Shockwave::ApplyEffects()
 {
-	
+    Scene* scene = GetScene();//à remplacer avec la bonne scène
+
+    sf::Vector2f origin = GetPosition(0.5f, 0.5f);
+
+    const auto& enemies = scene->GetEnemyList(); //à remplacer avec le bon nom de fonction
+
+    for (ennemi* enemy : enemies)
+    {
+        if (enemy == nullptr || enemy->ToDestroy()) //erreur à cause de la classe ennemi i thought
+            continue;
+
+        sf::Vector2f toEnemy = enemy->GetPosition(0.5f, 0.5f) - origin;
+        float sqDist = toEnemy.x * toEnemy.x + toEnemy.y * toEnemy.y;
+
+        if (sqDist <= m_radius * m_radius)
+        {
+            enemy->TakeDamage(m_damage);
+            enemy->SetStun(m_stunTime);   
+        }
+    }
 }
 
 void Shockwave::OnUpdate()
 {
-
 }
 
 void Shockwave::OnDestroy()
 {
-
 }
