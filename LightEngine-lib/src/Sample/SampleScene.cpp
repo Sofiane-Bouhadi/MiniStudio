@@ -14,6 +14,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 void SampleScene::OnInitialize()
 {
 	// Creation of a Sprite (with a path)
@@ -46,6 +48,9 @@ void SampleScene::OnInitialize()
 	GameManager::Get()->GetCamera()->SetFollowingEntity(gEntity);
 
 	pEntitySelected = nullptr;
+
+	std::ifstream fichier("C:/Users/mblanc-tailleur/Documents/GitHub/MiniStudio/LightEngine-lib/Animations.json", ios::in);
+
 }
 
 void SampleScene::OnEvent(const sf::Event& event)

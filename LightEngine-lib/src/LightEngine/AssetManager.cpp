@@ -1,6 +1,7 @@
 #include "AssetManager.h"
-#include "AssetManager.h"
 #include <iostream>
+
+using namespace std;
 
 AssetManager* AssetManager::Instance = nullptr;
 
@@ -40,4 +41,28 @@ sf::Texture* AssetManager::GetTexture(const char* path, float width, float heigh
         return LoadTexture(path, width, height);
 
     return it->second;
+}
+
+void AssetManager::DecodeJson()
+{
+
+    if (fichier)
+    {   
+        int spriteWidth;
+        int spriteHeight;
+
+        string ligne;
+
+        if (ligne == "frame_size: { ")
+        {
+
+        }
+
+        fichier.close();
+
+    }
+    else
+    {
+        cerr << "Impossible d'ouvrir le fichier !" << endl;
+    }
 }
