@@ -8,7 +8,7 @@ class AnimatedSprite : public SpriteAnimation
 {
 	private:
 		vector<SpriteAnimation> Animations;
-		const char* name = "examplename";
+		const char* name = "exampleName";
 
 	public:
 		void DecodeJson();

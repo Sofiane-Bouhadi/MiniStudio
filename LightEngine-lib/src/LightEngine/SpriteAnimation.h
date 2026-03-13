@@ -9,5 +9,5 @@ class SpriteAnimation
     public:
         vector<sf::Texture> Textures;
         vector<int> Delays;
+        bool isLoop;
 };
-

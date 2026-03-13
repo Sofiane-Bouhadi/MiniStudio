@@ -42,27 +42,3 @@ sf::Texture* AssetManager::GetTexture(const char* path, float width, float heigh
 
     return it->second;
 }
-
-void AssetManager::DecodeJson()
-{
-
-    if (fichier)
-    {   
-        int spriteWidth;
-        int spriteHeight;
-
-        string ligne;
-
-        if (ligne == "frame_size: { ")
-        {
-
-        }
-
-        fichier.close();
-
-    }
-    else
-    {
-        cerr << "Impossible d'ouvrir le fichier !" << endl;
-    }
-}

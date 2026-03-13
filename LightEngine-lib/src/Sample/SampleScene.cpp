@@ -49,8 +49,6 @@ void SampleScene::OnInitialize()
 
 	pEntitySelected = nullptr;
 
-	std::ifstream fichier("C:/Users/mblanc-tailleur/Documents/GitHub/MiniStudio/LightEngine-lib/Animations.json", ios::in);
-
 }
 
 void SampleScene::OnEvent(const sf::Event& event)
