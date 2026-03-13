@@ -31,17 +31,17 @@ void SampleScene::OnInitialize()
 	pEntity3->SetPosition(200, 300);
 	pEntity3->SetRigidBody(true);
 
-	//GravityEntity
-	gEntity = CreateRectangle<Player>(50, 100, sf::Color::Blue, new AABBCollider(50, 100));
-	gEntity->SetPosition(720, 0);
-	gEntity->SetRigidBody(true);
-	gEntity->SetGravityStrength(300.f);
-
 	//Rectangle
 	pEntity4 = CreateRectangle<DummyEntity>(1280, 50, sf::Color::White, new AABBCollider(1280, 50));
 	pEntity4->SetPosition(1280 / 2, 720);
 	pEntity4->SetRigidBody(true);
 	pEntity4->SetStatic(true);
+
+	//GravityEntity
+	gEntity = CreateRectangle<Player>(50, 100, sf::Color::Blue, new AABBCollider(50, 100));
+	gEntity->SetPosition(720, 0);
+	gEntity->SetRigidBody(true);
+	gEntity->SetGravityStrength(300.f);
 
 	//Choose an entity to follow
 	GameManager::Get()->GetCamera()->SetFollowingEntity(gEntity);
