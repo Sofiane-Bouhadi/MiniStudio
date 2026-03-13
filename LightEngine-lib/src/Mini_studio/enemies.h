@@ -1,9 +1,9 @@
-#include "../../ide/vs/Mini_studio/Attack.h"
+#include "Attack.h"
 #include "../LightEngine/Entity.h"
 #include <iostream>
 #include <SFML/System/Sleep.hpp>
 #include <SFML/System/Thread.hpp>
-#include "../../ide/vs/Mini_studio/StateMachine.h"
+#include "StateMachine.h"
 
 #pragma once
 class enemies : public GravityEntity

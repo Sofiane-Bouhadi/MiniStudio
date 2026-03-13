@@ -1,4 +1,4 @@
-#include "../Mini_studio/StateMachine.h"
+#include "StateMachine.h"
 
 
 #pragma once

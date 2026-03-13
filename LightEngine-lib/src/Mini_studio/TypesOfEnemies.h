@@ -1,5 +1,5 @@
 
-#include "../Mini_studio/enemies.h"
+#include "enemies.h"
 #pragma once
 class TypesOfEnemies : public enemies
 {

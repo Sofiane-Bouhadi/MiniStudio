@@ -1,5 +1,5 @@
 #include "Debug.h"
-#include "../../../src/Mini_studio/enemies.h"
+#include "enemies.h"
 
 #pragma once
 
