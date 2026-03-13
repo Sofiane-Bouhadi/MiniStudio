@@ -15,7 +15,7 @@ void sceneTemporaire::OnEvent(const sf::Event& event) {
 }
 
 void sceneTemporaire::OnUpdate() {
-	enemies enemy(10, 10, 10, 100, 300, 300, 0, 0);
+	enemies enemy(10, 10, 10, 100, 300, 300, 0);
 	if (enemy.pEnemy != nullptr)
 	{
 		sf::Vector2f position = enemy.pEnemy->GetPosition();

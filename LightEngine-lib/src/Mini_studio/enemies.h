@@ -22,15 +22,15 @@ protected:
 	float m_x { 0 };
 	float m_y { 0 };
 	int m_PV{ 0 };
-	int m_type{ 0 };
+	int m_PV{ 0 };
 
 	int enemy_size{ 0 };
 
 public:
 
 	/*constructeur d'enemies*/
-	enemies(int atkwidth, int atkheight, float atkspeed, float speed, float x, float y, int PV, int type)
-		: atk_size_Width(atkwidth), atk_size_Height(atkheight), atk_speed(atkspeed), m_speed(speed), m_x(x), m_y(y), m_PV(PV), m_type(type)
+	enemies(int atkwidth, int atkheight, float atkspeed, float speed, float x, float y, int PV)
+		: atk_size_Width(atkwidth), atk_size_Height(atkheight), atk_speed(atkspeed), m_speed(speed), m_x(x), m_y(y), m_PV(PV)
 	{};
 
 	/*cree des ennemis*/
