@@ -19,6 +19,9 @@ void MainScene::OnInitialize()
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
 	m_Player->SetGravityStrength(300.f);
+	m_Player->SetJumpStrength(300);
+
+	
 }
 
 void MainScene::OnEvent(const sf::Event& event)
@@ -27,10 +30,10 @@ void MainScene::OnEvent(const sf::Event& event)
 	bool MoveRight = false;
 	bool MoveLeft = false;
 	bool jump = false;
+	bool base_attack = false;
 
 
-
-	if (event.type == sf::Event::KeyPressed)
+	if (event.type == sf::Event::KeyPressed || event.type == sf::Event::MouseButtonPressed)
 	{
 		if (event.key.code == sf::Keyboard::D )
 		{
@@ -46,11 +49,18 @@ void MainScene::OnEvent(const sf::Event& event)
 			
 		}
 
-		if (event.key.code == sf::Keyboard::Space)
+		if (event.key.code == sf::Keyboard::Space && m_Player->GetNbJump() > 0)
 		{
 			std::cout << "espace est pressé" << std::endl;
-			
 			jump = true;
+			m_Player->DecreaseJump();
+			
+		}
+
+		if (event.mouseButton.button == sf::Mouse::Button::Right) 
+		{
+			std::cout << "clic droit est appuyé" << std::endl;
+			base_attack = true;
 		}
 	}
 
@@ -80,16 +90,23 @@ void MainScene::OnEvent(const sf::Event& event)
 		}
 		
 
-		if ( sf::Joystick::isButtonPressed(0,0)) 
+		if ( sf::Joystick::isButtonPressed(0,0) && m_Player->GetNbJump() > 0)
 		{
 			std::cout << "A est appuyé" << std::endl;
 			jump = true;
+			m_Player->DecreaseJump();
+		}
+
+		if (sf::Joystick::isButtonPressed(0, 2)) 
+		{
+			std::cout << "X est appuyé" << std::endl;
+			base_attack = true;
 		}
 
 	}
 
 
-	else if (event.type == sf::Event::KeyReleased || event.type == sf::Event::JoystickButtonReleased)
+	else if (event.type == sf::Event::KeyReleased ||event.type == sf::Event::MouseButtonReleased || event.type == sf::Event::JoystickButtonReleased)
 	{
 		if (event.key.code == sf::Keyboard::D)
 		{
@@ -114,6 +131,10 @@ void MainScene::OnEvent(const sf::Event& event)
 			jump == false;
 		}
 
+		if (event.mouseButton.button == sf::Mouse::Button::Right || sf::Event::JoystickButtonReleased == 2)
+		{
+			base_attack = false;
+		}
 	}
 
 
@@ -131,12 +152,17 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		m_Player->Jump();
 	}
+	if (base_attack) 
+	{
+		m_Player->BaseAttack(this);
+		
+	}
 	
 }
 
 void MainScene::OnUpdate() 
 {
 
-	std::cout << "x:" << m_Player->GetPosition().x << " y: " << m_Player->GetPosition().y << " speed : " << m_Player->GetSpeed() <<  std::endl;
+	/*std::cout << "x:" << m_Player->GetPosition().x << " y: " << m_Player->GetPosition().y << " speed : " << m_Player->GetSpeed() <<  std::endl;*/
 	
 }

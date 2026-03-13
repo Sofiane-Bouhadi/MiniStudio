@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "AABBCollider.h"
 
 void Player::MoveRight(float deltatime) 
 {
@@ -23,11 +24,20 @@ void Player::MoveLeft(float deltatime)
 	SetDirection(-1, 0, mSpeed);
 }
 
+void Player::BaseAttack(Scene* scene) 
+{ 
+	attack = scene->CreateRectangle<Entity>(85, 20, sf::Color::Red, new AABBCollider(85, 20));
+	
+}
 
 void Player::OnCollision(Entity* pOther, CollidingSide collidingSide)
 {
-	if (collidingSide == Bottom)
+	if (collidingSide == Bottom) 
+	{
 		mYVelocity = 0.f;
+		nb_Jump = 2;
+	}
+		
 }
 
 void Player::TakeDmg(int DamageTaken) 
@@ -42,4 +52,7 @@ void Player::OnUpdate()
 	{
 		IsAlive = false;
 	}
+
+	if (attack != nullptr)
+		attack->SetPosition(GetPosition().x, GetPosition().y);
 }
