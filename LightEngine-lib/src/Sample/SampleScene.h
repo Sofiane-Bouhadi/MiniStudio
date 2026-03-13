@@ -14,10 +14,10 @@ class SampleScene : public Scene
 
 	Player* gEntity;
 
-	DummyEntity* pEntitySelected;
+	Player* pEntitySelected;
 
 private:
-	void TrySetSelectedEntity(DummyEntity* pEntity, int x, int y);
+	void TrySetSelectedEntity(Player* pEntity, int x, int y);
 
 public:
 	void OnInitialize() override;
