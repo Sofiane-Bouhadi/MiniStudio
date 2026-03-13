@@ -1,5 +1,10 @@
 #include "enemies.h"
 
+/*facilite l'utilisation de la state machine*/
+void choix(int nbr) {
+	StateMachine state;
+	state.change(nbr);
+}
 
 /*cree l'enemie*/
 void enemies::createEnemy(float x, float y, int size){
@@ -7,6 +12,7 @@ void enemies::createEnemy(float x, float y, int size){
 	pEnemy = CreateEntity<enemies>(enemy_size, sf::Color::Red);
 	pEnemy->SetPosition(x, y);
 	pEnemy->SetRigidBody(true);
+	
 }
 
 /*bouge en ligne*/

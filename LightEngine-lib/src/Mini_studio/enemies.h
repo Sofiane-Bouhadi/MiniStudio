@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SFML/System/Sleep.hpp>
 #include <SFML/System/Thread.hpp>
+#include "../../ide/vs/Mini_studio/StateMachine.h"
 
 #pragma once
 class enemies : public GravityEntity

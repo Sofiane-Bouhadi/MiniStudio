@@ -10,7 +10,7 @@ T* Scene::CreateEntity(float radius, const sf::Color& color)
 {
 	static_assert(std::is_base_of<GravityEntity, T>::value, "T must be derived from Entity");
 
-	T* newEntity = new T();
+	T* newEntity = new T(radius, color);
 
 	GravityEntity* entity = newEntity;
 	entity->Initialize(radius, color);
