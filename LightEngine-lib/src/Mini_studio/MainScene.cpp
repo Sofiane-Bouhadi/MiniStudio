@@ -11,6 +11,14 @@ void MainScene::OnInitialize()
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green,new AABBCollider(155,225) );
 	m_Player->SetPosition(100, 500);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
+	m_Player->SetRigidBody(true);
+	m_Player->SetGravityStrength(300.f);
+
+	//Rectangle
+	pEntity4 = CreateRectangle<Entity>(1280, 50, sf::Color::White, new AABBCollider(1280, 50));
+	pEntity4->SetPosition(1280 / 2, 720);
+	pEntity4->SetRigidBody(true);
+	pEntity4->SetStatic(true);
 	
 }
 

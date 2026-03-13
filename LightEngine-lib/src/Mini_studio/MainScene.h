@@ -8,6 +8,7 @@ class MainScene : public Scene
 private :
 
 	Player* m_Player;
+	Entity* pEntity4;
 
 	bool MoveRight = false;
 

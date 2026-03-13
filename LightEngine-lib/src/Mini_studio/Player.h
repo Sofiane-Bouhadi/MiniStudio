@@ -20,6 +20,8 @@ public:
 
 	float GetMinSpeed() { return m_MinSpeed; }
 
+	void OnCollision(Entity* pOther, CollidingSide collidingSide);
+
 	/*void OnUpdate() override;*/
 
 };
