@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-bool AABBCollider::IsColliding(Collider* pOther)
+Entity::CollidingSide AABBCollider::IsColliding(Collider* pOther)
 {
     // AABB vs AABB Collision
     if (AABBCollider* otherAABB = dynamic_cast<AABBCollider*>(pOther))
@@ -16,11 +16,40 @@ bool AABBCollider::IsColliding(Collider* pOther)
         bool IsPastUpperEdge = mYMax > otherAABB->mYMin;
         bool IsBeforeBottomEdge = mYMin < otherAABB->mYMax;
 
-        if (IsPastLeftEdge && IsBeforeRightEdge && IsPastUpperEdge && IsBeforeBottomEdge)
-            return true;
+        if (IsPastLeftEdge == false || IsBeforeRightEdge == false || IsPastUpperEdge == false || IsBeforeBottomEdge == false)
+            return Entity::CollidingSide::None;
 
-        
-        return false;
+        float maxMinX = std::max(mXMin, otherAABB->mXMin);
+        float minMaxX = std::min(mXMax, otherAABB->mXMax);
+
+        float overlapX = maxMinX - minMaxX;
+
+        float maxMinY = std::max(mYMin, otherAABB->mYMin);
+        float minMaxY = std::min(mYMax, otherAABB->mYMax);
+
+        float overlapY = maxMinY - minMaxY;
+
+        if (overlapY <= overlapX)
+        {
+            // X
+            bool leftSide = mXMax < otherAABB->mXMax;
+
+            if (leftSide)
+                return Entity::CollidingSide::Left;
+            else
+                return Entity::CollidingSide::Right;
+        }
+        else if (overlapX < overlapY)
+        {
+            // Y
+            bool topSide = mYMax < otherAABB->mYMax;
+
+
+            if (topSide)
+                return Entity::CollidingSide::Top;
+            else
+                return Entity::CollidingSide::Bottom;
+        }
     }
 
     // AABB vs Circle Collision
@@ -43,10 +72,11 @@ bool AABBCollider::IsColliding(Collider* pOther)
 
         float distance = (distanceVector.x * distanceVector.x) + (distanceVector.y * distanceVector.y);
 
-        return distance < otherCircle->mRadius;
+        if (distance < otherCircle->mRadius)
+            return Entity::CollidingSide::Other;
     }
 
-    return false;
+    return Entity::CollidingSide::None;
 }
 
 void AABBCollider::SetPosition(float x, float y, float anchorX, float anchorY)
@@ -61,48 +91,6 @@ void AABBCollider::SetPosition(float x, float y, float anchorX, float anchorY)
 sf::Vector2f AABBCollider::GetPosition(float anchorX, float anchorY)
 {
     return sf::Vector2f(mXMin + anchorX * mWidth, mYMin + anchorY * mHeight);
-}
-
-const char* AABBCollider::CollidingSide(Collider* pOther)
-{
-    AABBCollider* otherAABB = dynamic_cast<AABBCollider*>(pOther);
-
-    if (otherAABB == nullptr)
-        return "None";
-
-    float maxMinX = std::max(mXMin, otherAABB->mXMin);
-    float minMaxX = std::min(mXMax, otherAABB->mXMax);
-
-    float overlapX = maxMinX - minMaxX;
-
-    float maxMinY = std::max(mYMin, otherAABB->mYMin);
-    float minMaxY = std::min(mYMax, otherAABB->mYMax);
-
-    float overlapY = maxMinY - minMaxY;
-
-    if (overlapY <= overlapX)
-    {
-        // X
-        bool leftSide = mXMax < otherAABB->mXMax;
-
-        if (leftSide)
-            return "Left";
-        else
-            return "Right";
-    }
-    else if (overlapX < overlapY)
-    {
-        // Y
-        bool topSide = mYMax < otherAABB->mYMax;
-
-
-        if (topSide)
-            return "Up";
-        else
-            return "Down";
-    }
-
-    return nullptr;
 }
 
 void AABBCollider::Move(sf::Vector2f translation)

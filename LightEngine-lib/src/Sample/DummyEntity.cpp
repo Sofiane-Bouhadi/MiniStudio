@@ -5,6 +5,5 @@
 
 void DummyEntity::OnCollision(Entity* other)
 {
-	if (dynamic_cast<AABBCollider*> (GetCollider()))
-		std::cout << ((AABBCollider*)GetCollider())->CollidingSide(other->GetCollider()) << std::endl;
+	std::cout << "Collision detected." << std::endl;
 }

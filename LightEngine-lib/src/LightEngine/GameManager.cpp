@@ -130,7 +130,6 @@ void GameManager::Update()
 		if (mCamera->GetView() != nullptr)
 			mpWindow->setView(*mCamera->GetView());
 	}
-		
 
 	for (auto it = mEntitiesToDestroy.begin(); it != mEntitiesToDestroy.end(); ++it) 
 	{
@@ -145,8 +144,6 @@ void GameManager::Update()
 	}
 
 	mEntitiesToAdd.clear();
-
-
 }
 
 void GameManager::FixedUpdate()
@@ -169,12 +166,14 @@ void GameManager::FixedUpdate()
 			Entity* entity = *it1;
 			Entity* otherEntity = *it2;
 
-			if (entity->IsColliding(otherEntity))
+			Entity::CollidingSide collidingSide = entity->IsColliding(otherEntity);
+
+			if (collidingSide != Entity::CollidingSide::None)
 			{
 				if (entity->IsRigidBody() && otherEntity->IsRigidBody())
-					entity->Repulse(otherEntity);
+					entity->Repulse(otherEntity, collidingSide);
 
-				entity->OnCollision(otherEntity);
+				entity->OnCollision(otherEntity, collidingSide);
 				otherEntity->OnCollision(entity);
 			}
 		}

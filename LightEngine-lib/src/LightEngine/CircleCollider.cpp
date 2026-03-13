@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-bool CircleCollider::IsColliding(Collider* pOther)
+Entity::CollidingSide CircleCollider::IsColliding(Collider* pOther)
 {
     //Circle vs Circle Collision
 	if (CircleCollider* otherCircle = dynamic_cast<CircleCollider*> (pOther))
@@ -21,12 +21,11 @@ bool CircleCollider::IsColliding(Collider* pOther)
 		{
 			bool a = true;
 		}
-		
-		return sqrLength < sqrRadius;
+		if (sqrLength < sqrRadius)
+			return Entity::Other;
 	}
-
     //Circle vs AABB collision
-	if (AABBCollider* otherAABB = dynamic_cast<AABBCollider*>(pOther))
+	else if (AABBCollider* otherAABB = dynamic_cast<AABBCollider*>(pOther))
 	{
 		float testX = GetPosition().x;
 		float testY = GetPosition().y;
@@ -45,10 +44,11 @@ bool CircleCollider::IsColliding(Collider* pOther)
 
 		float distance = (distanceVector.x * distanceVector.x) + (distanceVector.y * distanceVector.y);
 
-		return distance < mRadius;
+		if (distance < mRadius)
+			return Entity::Other;
 	}
 
-    return false;
+    return Entity::None;
 }
 
 void CircleCollider::SetPosition(float x, float y, float anchorX, float anchorY)
@@ -60,11 +60,6 @@ void CircleCollider::SetPosition(float x, float y, float anchorX, float anchorY)
 sf::Vector2f CircleCollider::GetPosition(float anchorX, float anchorY)
 {
 	return sf::Vector2f(mX + anchorX * mRadius, mY + anchorY * mRadius);
-}
-
-const char* CircleCollider::CollidingSide(Collider* pOther)
-{
-	return nullptr;
 }
 
 void CircleCollider::Move(sf::Vector2f translation)

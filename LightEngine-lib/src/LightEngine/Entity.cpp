@@ -77,7 +77,7 @@ void Entity::Initialize(float width, float height, const char* texturePath, Coll
 	OnInitialize();
 }
 
-void Entity::Repulse(Entity* other) 
+void Entity::Repulse(Entity* other, CollidingSide collidingSide) 
 {
 	Collider* otherCollider = other->GetCollider();
 
@@ -109,53 +109,63 @@ void Entity::Repulse(Entity* other)
 		//				- la pénétration du rectangle dans l'autre 
 		// répartir la moitié sur les deux entités (ou tout si une entité est mStatic)
 
-		sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
+		/*sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
 
-		const char* side = mCollider->CollidingSide(other->GetCollider());
+		float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
+		float length = std::sqrt(sqrLength);*/
+
+		sf::Vector2f normal = { 0, 0 };
 		float overlap = 0.f;
 
 		//Touched side
-		if (side == "Up")
+		switch (collidingSide)
 		{
-			//Overlap
+		case Top:
 			overlap = ((AABBCollider*)mCollider)->mYMax - ((AABBCollider*)otherCollider)->mYMin;
-		}
-		else if (side == "Down")
-		{
+			normal = { 0, -1 };
+			break;
+		case Bottom:
 			overlap = ((AABBCollider*)otherCollider)->mYMax - ((AABBCollider*)mCollider)->mYMin;
-		}
-		else if (side == "Right")
-		{
+			normal = { 0, 1 };
+			break;
+		case Left:
 			overlap = ((AABBCollider*)mCollider)->mXMax - ((AABBCollider*)otherCollider)->mXMin;
-		}
-		else if (side == "Left")
-		{
+			normal = { -1, 0 };
+			break;
+		case Right:
 			overlap = ((AABBCollider*)otherCollider)->mXMax - ((AABBCollider*)mCollider)->mXMin;
+			normal = { 1, 0 };
+			break;
 		}
-
-		float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
-		float length = std::sqrt(sqrLength);
-
-		float radius1 = GetRadius();
-		float radius2 = other->GetRadius();
-
-		sf::Vector2f normal = distance / length;
 
 		sf::Vector2f translation = overlap * normal;
 
-		sf::Vector2f position1 = GetPosition(0.5f, 0.5f) - translation;
-		sf::Vector2f position2 = other->GetPosition(0.5f, 0.5f) + translation;
+		sf::Vector2f position1 = GetPosition(0.5f, 0.5f) + translation;
+		sf::Vector2f position2 = other->GetPosition(0.5f, 0.5f) - translation;
 
-		SetPosition(position1.x, position1.y, 0.5f, 0.5f);
-		other->SetPosition(position2.x, position2.y, 0.5f, 0.5f);
+		if (other->IsStatic() == false && IsStatic() == false)
+		{
+			SetPosition(position1.x, position1.y, 0.5f, 0.5f);
+			other->SetPosition(position2.x, position2.y, 0.5f, 0.5f);
+		}
+		else if (other->IsStatic())
+		{
+			SetPosition(position1.x, position1.y, 0.5f, 0.5f);
+		}
+		else if (IsStatic())
+		{
+			other->SetPosition(position2.x, position2.y, 0.5f, 0.5f);
+		}
 	}
 }
 
-bool Entity::IsColliding(Entity* other) const 
+
+
+Entity::CollidingSide Entity::IsColliding(Entity* other) const 
 {
 	if (mCollider == nullptr || other->mCollider == nullptr)
 	{
-		return false;
+		return None;
 	}
 
 	return mCollider->IsColliding(other->GetCollider());
@@ -191,10 +201,8 @@ void Entity::Destroy()
 
 void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 {
-	float size = GetRadius() * 2;
-
-	x -= size * ratioX;
-	y -= size * ratioY;
+	x -= mWidth * ratioX;
+	y -= mHeight * ratioY;
 
 	mTransformable->setPosition(sf::Vector2f(x, y));
 
@@ -214,14 +222,12 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 
 sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
 {
-	float size = GetRadius() * 2;
-
 	sf::Vector2f position;
 
 	position = mTransformable->getPosition();
 
-	position.x += size * ratioX;
-	position.y += size * ratioY;
+	position.x += mWidth * ratioX;
+	position.y += mHeight * ratioY;
 
 	return position;
 }
@@ -280,6 +286,9 @@ void Entity::SetDirection(float x, float y, float speed)
 
 void Entity::Update()
 {
+	if (AABBCollider* rectCollider = dynamic_cast<AABBCollider*> (mCollider))
+		Debug::DrawRectangle(rectCollider->mXMin, rectCollider->mYMin, rectCollider->mWidth, rectCollider->mHeight, sf::Color::Green);
+
 	OnUpdate();
 }
 
