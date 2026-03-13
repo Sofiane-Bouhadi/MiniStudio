@@ -41,6 +41,7 @@ void SampleScene::OnInitialize()
 	gEntity = CreateRectangle<Player>(50, 100, sf::Color::Blue, new AABBCollider(50, 100));
 	gEntity->SetPosition(720, 0);
 	gEntity->SetRigidBody(true);
+	gEntity->SetGravityStrength(300.f);
 
 	//Choose an entity to follow
 	GameManager::Get()->GetCamera()->SetFollowingEntity(gEntity);
@@ -83,6 +84,10 @@ void SampleScene::OnEvent(const sf::Event& event)
 				//Camera will not follow the entity it was following
 				GameManager::Get()->GetCamera()->SetFollowingEntity(nullptr);
 			}
+		}
+		if (event.key.code == sf::Keyboard::Space)
+		{
+			gEntity->Jump();
 		}
 	}
 }

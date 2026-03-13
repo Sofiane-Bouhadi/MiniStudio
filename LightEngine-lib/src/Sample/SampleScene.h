@@ -2,6 +2,7 @@
 
 #include "Scene.h"
 
+class Player;
 class DummyEntity;
 
 class SampleScene : public Scene
@@ -11,7 +12,7 @@ class SampleScene : public Scene
 	DummyEntity* pEntity3;
 	DummyEntity* pEntity4;
 
-	GravityEntity* gEntity;
+	Player* gEntity;
 
 	DummyEntity* pEntitySelected;
 

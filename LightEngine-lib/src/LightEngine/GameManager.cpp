@@ -174,7 +174,7 @@ void GameManager::FixedUpdate()
 					entity->Repulse(otherEntity, collidingSide);
 
 				entity->OnCollision(otherEntity, collidingSide);
-				otherEntity->OnCollision(entity);
+				otherEntity->OnCollision(entity, collidingSide);
 			}
 		}
 	}

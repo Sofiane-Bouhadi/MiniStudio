@@ -105,15 +105,6 @@ void Entity::Repulse(Entity* other, CollidingSide collidingSide)
 	}
 	else if (dynamic_cast<AABBCollider*>(mCollider) && dynamic_cast<AABBCollider*> (otherCollider))
 	{
-		//TODO Récup :  - la face touchée, 
-		//				- la pénétration du rectangle dans l'autre 
-		// répartir la moitié sur les deux entités (ou tout si une entité est mStatic)
-
-		/*sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
-
-		float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
-		float length = std::sqrt(sqrLength);*/
-
 		sf::Vector2f normal = { 0, 0 };
 		float overlap = 0.f;
 
