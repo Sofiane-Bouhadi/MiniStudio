@@ -277,9 +277,6 @@ void Entity::SetDirection(float x, float y, float speed)
 
 void Entity::Update()
 {
-	if (AABBCollider* rectCollider = dynamic_cast<AABBCollider*> (mCollider))
-		Debug::DrawRectangle(rectCollider->mXMin, rectCollider->mYMin, rectCollider->mWidth, rectCollider->mHeight, sf::Color::Green);
-
 	OnUpdate();
 }
 
@@ -293,6 +290,8 @@ void Entity::FixedUpdate(float fixedDt)
 	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
 	mCollider->SetPosition(currentPosition.x, currentPosition.y);
 
+	if (AABBCollider* rectCollider = dynamic_cast<AABBCollider*> (mCollider))
+		Debug::DrawRectangle(rectCollider->mXMin, rectCollider->mYMin, rectCollider->mWidth, rectCollider->mHeight, sf::Color::Green);
 
 	if (mTarget.isSet)
 	{
