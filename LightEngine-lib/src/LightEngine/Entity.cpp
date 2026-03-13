@@ -7,7 +7,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 
-void Entity::Initialize(float radius, const sf::Color& color)
+void GravityEntity::Initialize(float radius, const sf::Color& color)
 {
 	mDirection = sf::Vector2f(0.0f, 0.0f);
 
@@ -20,7 +20,7 @@ void Entity::Initialize(float radius, const sf::Color& color)
 	OnInitialize();
 }
 
-void Entity::Repulse(Entity* other) 
+void GravityEntity::Repulse(GravityEntity* other) 
 {
 	sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
 	
@@ -43,7 +43,7 @@ void Entity::Repulse(Entity* other)
 	other->SetPosition(position2.x, position2.y, 0.5f, 0.5f);
 }
 
-bool Entity::IsColliding(Entity* other) const 
+bool GravityEntity::IsColliding(GravityEntity* other) const 
 {
 	sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
 
@@ -57,7 +57,7 @@ bool Entity::IsColliding(Entity* other) const
 	return sqrLength < sqrRadius;
 }
 
-bool Entity::IsInside(float x, float y) const
+bool GravityEntity::IsInside(float x, float y) const
 {
 	sf::Vector2f position = GetPosition(0.5f, 0.5f);
 
@@ -69,14 +69,14 @@ bool Entity::IsInside(float x, float y) const
 	return (dx * dx + dy * dy) < (radius * radius);
 }
 
-void Entity::Destroy()
+void GravityEntity::Destroy()
 {
 	mToDestroy = true;
 
 	OnDestroy();
 }
 
-void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
+void GravityEntity::SetPosition(float x, float y, float ratioX, float ratioY)
 {
 	float size = mShape.getRadius() * 2;
 
@@ -96,7 +96,7 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 }
 
 
-sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
+sf::Vector2f GravityEntity::GetPosition(float ratioX, float ratioY) const
 {
 	float size = mShape.getRadius() * 2;
 	sf::Vector2f position = mShape.getPosition();
@@ -107,7 +107,7 @@ sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
 	return position;
 }
 
-bool Entity::GoToDirection(int x, int y, float speed)
+bool GravityEntity::GoToDirection(int x, int y, float speed)
 {
 	sf::Vector2f position = GetPosition(0.5f, 0.5f);
 	sf::Vector2f direction = sf::Vector2f(x - position.x, y - position.y);
@@ -121,7 +121,7 @@ bool Entity::GoToDirection(int x, int y, float speed)
 	return true;
 }
 
-bool Entity::GoToPosition(int x, int y, float speed)
+bool GravityEntity::GoToPosition(int x, int y, float speed)
 {
 	if (GoToDirection(x, y, speed) == false)
 		return false;
@@ -136,7 +136,7 @@ bool Entity::GoToPosition(int x, int y, float speed)
 }
 
 
-void Entity::SetDirection(float x, float y, float speed)
+void GravityEntity::SetDirection(float x, float y, float speed)
 {
 	if (speed > 0)
 		mSpeed = speed;
@@ -146,7 +146,7 @@ void Entity::SetDirection(float x, float y, float speed)
 }
 
 
-void Entity::Update()
+void GravityEntity::Update()
 {
 	float dt = GetDeltaTime();
 	float distance = dt * mSpeed;
@@ -178,12 +178,12 @@ void Entity::Update()
 	OnUpdate();
 }
 
-Scene* Entity::GetScene() const
+Scene* GravityEntity::GetScene() const
 {
 	return GameManager::Get()->GetScene();
 }
 
-float Entity::GetDeltaTime() const
+float GravityEntity::GetDeltaTime() const
 {
 	return GameManager::Get()->GetDeltaTime();
 }
