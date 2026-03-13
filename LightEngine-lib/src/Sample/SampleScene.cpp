@@ -55,10 +55,11 @@ void SampleScene::OnEvent(const sf::Event& event)
 	{
 		if (event.mouseButton.button == sf::Mouse::Button::Right)
 		{
-			TrySetSelectedEntity(pEntity1, event.mouseButton.x, event.mouseButton.y);
-			TrySetSelectedEntity(pEntity2, event.mouseButton.x, event.mouseButton.y);
-			TrySetSelectedEntity(pEntity3, event.mouseButton.x, event.mouseButton.y);
-			TrySetSelectedEntity(pEntity4, event.mouseButton.x, event.mouseButton.y);
+			//TrySetSelectedEntity(pEntity1, event.mouseButton.x, event.mouseButton.y);
+			//TrySetSelectedEntity(pEntity2, event.mouseButton.x, event.mouseButton.y);
+			//TrySetSelectedEntity(pEntity3, event.mouseButton.x, event.mouseButton.y);
+			//TrySetSelectedEntity(pEntity4, event.mouseButton.x, event.mouseButton.y);
+			TrySetSelectedEntity(gEntity, event.mouseButton.x, event.mouseButton.y);
 		}
 
 		if (event.mouseButton.button == sf::Mouse::Button::Left)
@@ -92,7 +93,7 @@ void SampleScene::OnEvent(const sf::Event& event)
 	}
 }
 
-void SampleScene::TrySetSelectedEntity(DummyEntity* pEntity, int x, int y)
+void SampleScene::TrySetSelectedEntity(Player* pEntity, int x, int y)
 {
 	sf::Vector2i mousePos = { x, y };
 

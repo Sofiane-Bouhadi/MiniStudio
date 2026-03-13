@@ -11,5 +11,5 @@ void GravityEntity::Update()
 
 void GravityEntity::Jump()
 {
-	mYVelocity = -100;
+	mYVelocity = -mJumpStrength;
 }

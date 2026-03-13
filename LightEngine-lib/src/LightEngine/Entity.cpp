@@ -111,19 +111,19 @@ void Entity::Repulse(Entity* other, CollidingSide collidingSide)
 		//Touched side
 		switch (collidingSide)
 		{
-		case Top:
+		case Bottom:
 			overlap = ((AABBCollider*)mCollider)->mYMax - ((AABBCollider*)otherCollider)->mYMin;
 			normal = { 0, -1 };
 			break;
-		case Bottom:
+		case Top:
 			overlap = ((AABBCollider*)otherCollider)->mYMax - ((AABBCollider*)mCollider)->mYMin;
 			normal = { 0, 1 };
 			break;
-		case Left:
+		case Right:
 			overlap = ((AABBCollider*)mCollider)->mXMax - ((AABBCollider*)otherCollider)->mXMin;
 			normal = { -1, 0 };
 			break;
-		case Right:
+		case Left:
 			overlap = ((AABBCollider*)otherCollider)->mXMax - ((AABBCollider*)mCollider)->mXMin;
 			normal = { 1, 0 };
 			break;
@@ -277,9 +277,6 @@ void Entity::SetDirection(float x, float y, float speed)
 
 void Entity::Update()
 {
-	if (AABBCollider* rectCollider = dynamic_cast<AABBCollider*> (mCollider))
-		Debug::DrawRectangle(rectCollider->mXMin, rectCollider->mYMin, rectCollider->mWidth, rectCollider->mHeight, sf::Color::Green);
-
 	OnUpdate();
 }
 
@@ -293,6 +290,8 @@ void Entity::FixedUpdate(float fixedDt)
 	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
 	mCollider->SetPosition(currentPosition.x, currentPosition.y);
 
+	if (AABBCollider* rectCollider = dynamic_cast<AABBCollider*> (mCollider))
+		Debug::DrawRectangle(rectCollider->mXMin, rectCollider->mYMin, rectCollider->mWidth, rectCollider->mHeight, sf::Color::Green);
 
 	if (mTarget.isSet)
 	{
