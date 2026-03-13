@@ -111,19 +111,19 @@ void Entity::Repulse(Entity* other, CollidingSide collidingSide)
 		//Touched side
 		switch (collidingSide)
 		{
-		case Top:
+		case Bottom:
 			overlap = ((AABBCollider*)mCollider)->mYMax - ((AABBCollider*)otherCollider)->mYMin;
 			normal = { 0, -1 };
 			break;
-		case Bottom:
+		case Top:
 			overlap = ((AABBCollider*)otherCollider)->mYMax - ((AABBCollider*)mCollider)->mYMin;
 			normal = { 0, 1 };
 			break;
-		case Left:
+		case Right:
 			overlap = ((AABBCollider*)mCollider)->mXMax - ((AABBCollider*)otherCollider)->mXMin;
 			normal = { -1, 0 };
 			break;
-		case Right:
+		case Left:
 			overlap = ((AABBCollider*)otherCollider)->mXMax - ((AABBCollider*)mCollider)->mXMin;
 			normal = { 1, 0 };
 			break;

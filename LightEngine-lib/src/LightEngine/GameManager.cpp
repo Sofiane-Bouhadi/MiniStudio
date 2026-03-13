@@ -174,6 +174,22 @@ void GameManager::FixedUpdate()
 					entity->Repulse(otherEntity, collidingSide);
 
 				entity->OnCollision(otherEntity, collidingSide);
+
+				switch (collidingSide)
+				{
+				case Entity::Top:
+					collidingSide = Entity::Bottom;
+					break;
+				case Entity::Bottom:
+					collidingSide = Entity::Top;
+					break;
+				case Entity::Left:
+					collidingSide = Entity::Right;
+					break;
+				case Entity::Right:
+					collidingSide = Entity::Left;
+				}
+
 				otherEntity->OnCollision(entity, collidingSide);
 			}
 		}

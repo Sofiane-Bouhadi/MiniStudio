@@ -37,8 +37,8 @@ public:
 	};
 
 protected:
-	sf::Drawable* mDrawable;
-	sf::Transformable* mTransformable;
+	sf::Drawable* mDrawable = nullptr;
+	sf::Transformable* mTransformable = nullptr;
 
 	float mWidth = 0;
 	float mHeight = 0;

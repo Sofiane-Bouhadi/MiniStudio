@@ -35,9 +35,9 @@ Entity::CollidingSide AABBCollider::IsColliding(Collider* pOther)
             bool leftSide = mXMax < otherAABB->mXMax;
 
             if (leftSide)
-                return Entity::CollidingSide::Left;
-            else
                 return Entity::CollidingSide::Right;
+            else
+                return Entity::CollidingSide::Left;
         }
         else if (overlapX < overlapY)
         {
@@ -46,9 +46,9 @@ Entity::CollidingSide AABBCollider::IsColliding(Collider* pOther)
 
 
             if (topSide)
-                return Entity::CollidingSide::Top;
-            else
                 return Entity::CollidingSide::Bottom;
+            else
+                return Entity::CollidingSide::Top;
         }
     }
 
