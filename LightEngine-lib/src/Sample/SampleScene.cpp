@@ -1,6 +1,7 @@
 #include "SampleScene.h"
-
+#include "GravityEntity.h"
 #include "DummyEntity.h"
+#include "Player.h"
 
 #include "Debug.h"
 
@@ -9,53 +10,96 @@
 
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+
+#include <iostream>
 
 void SampleScene::OnInitialize()
 {
-	pEntity1 = CreateEntity<DummyEntity>(100, 100, new sf::RectangleShape, sf::Color::Red, new AABBCollider(100, 100));
+	// Creation of a Sprite (with a path)
+	pEntity1 = CreateSprite<DummyEntity>(64, 64, "../../../res/image.png", new AABBCollider(64, 64));
 	pEntity1->SetPosition(100, 100);
-	pEntity1->SetRigidBody(false);
+	pEntity1->SetRigidBody(true);
 
-	pEntity2 = CreateEntity<DummyEntity>(75, 75, new sf::CircleShape, sf::Color::Green, new CircleCollider(37.5f));
+	//Circle
+	pEntity2 = CreateCircle<DummyEntity>(50, sf::Color::Green, new CircleCollider(50));
 	pEntity2->SetPosition(500, 500);
 	pEntity2->SetRigidBody(true);
 
-	pEntity3 = CreateEntity<DummyEntity>(50, 50, new sf::CircleShape, sf::Color::Green, new CircleCollider(25));
+	//Circle
+	pEntity3 = CreateCircle<DummyEntity>(25, sf::Color::Green, new CircleCollider(25));
 	pEntity3->SetPosition(200, 300);
 	pEntity3->SetRigidBody(true);
 
-	pEntity4 = CreateEntity<DummyEntity>(50, 50, new sf::RectangleShape, sf::Color::Green, new AABBCollider(50, 50));
-	pEntity4->SetPosition(700, 100);
+	//Rectangle
+	pEntity4 = CreateRectangle<DummyEntity>(1280, 50, sf::Color::White, new AABBCollider(1280, 50));
+	pEntity4->SetPosition(1280 / 2, 720);
 	pEntity4->SetRigidBody(true);
+	pEntity4->SetStatic(true);
+
+	//GravityEntity
+	gEntity = CreateRectangle<Player>(50, 100, sf::Color::Blue, new AABBCollider(50, 100));
+	gEntity->SetPosition(720, 0);
+	gEntity->SetRigidBody(true);
+	gEntity->SetGravityStrength(300.f);
+
+	//Choose an entity to follow
+	GameManager::Get()->GetCamera()->SetFollowingEntity(gEntity);
 
 	pEntitySelected = nullptr;
 }
 
 void SampleScene::OnEvent(const sf::Event& event)
 {
-	if (event.type != sf::Event::EventType::MouseButtonPressed)
-		return;
-
-	if (event.mouseButton.button == sf::Mouse::Button::Right)
+	if (event.type == sf::Event::EventType::MouseButtonPressed)
 	{
-		TrySetSelectedEntity(pEntity1, event.mouseButton.x, event.mouseButton.y);
-		TrySetSelectedEntity(pEntity2, event.mouseButton.x, event.mouseButton.y);
-		TrySetSelectedEntity(pEntity3, event.mouseButton.x, event.mouseButton.y);
-		TrySetSelectedEntity(pEntity4, event.mouseButton.x, event.mouseButton.y);
+		if (event.mouseButton.button == sf::Mouse::Button::Right)
+		{
+			//TrySetSelectedEntity(pEntity1, event.mouseButton.x, event.mouseButton.y);
+			//TrySetSelectedEntity(pEntity2, event.mouseButton.x, event.mouseButton.y);
+			//TrySetSelectedEntity(pEntity3, event.mouseButton.x, event.mouseButton.y);
+			//TrySetSelectedEntity(pEntity4, event.mouseButton.x, event.mouseButton.y);
+			TrySetSelectedEntity(gEntity, event.mouseButton.x, event.mouseButton.y);
+		}
+
+		if (event.mouseButton.button == sf::Mouse::Button::Left)
+		{
+			if (pEntitySelected != nullptr)
+			{
+				pEntitySelected->GoToPosition(event.mouseButton.x, event.mouseButton.y, 100.f);
+			}
+		}
 	}
 
-	if (event.mouseButton.button == sf::Mouse::Button::Left)
+	if (event.type == sf::Event::EventType::KeyPressed)
 	{
-		if (pEntitySelected != nullptr) 
+		if (event.key.code == sf::Keyboard::Y)
 		{
-			pEntitySelected->GoToPosition(event.mouseButton.x, event.mouseButton.y, 100.f);
+			if (GameManager::Get()->GetCamera()->GetFollowingEntity() == nullptr)
+			{
+				//Camera will follow the entity1
+				GameManager::Get()->GetCamera()->SetFollowingEntity(pEntity1);
+			}
+			else
+			{
+				//Camera will not follow the entity it was following
+				GameManager::Get()->GetCamera()->SetFollowingEntity(nullptr);
+			}
+		}
+		if (event.key.code == sf::Keyboard::Space)
+		{
+			gEntity->Jump();
 		}
 	}
 }
 
-void SampleScene::TrySetSelectedEntity(DummyEntity* pEntity, int x, int y)
+void SampleScene::TrySetSelectedEntity(Player* pEntity, int x, int y)
 {
-	if (pEntity->IsInside(x, y) == false)
+	sf::Vector2i mousePos = { x, y };
+
+	sf::Vector2f worldPos = GameManager::Get()->mpWindow->mapPixelToCoords(mousePos);
+
+	if (pEntity->IsInside(worldPos.x, worldPos.y) == false)
 		return;
 
 	pEntitySelected = pEntity;

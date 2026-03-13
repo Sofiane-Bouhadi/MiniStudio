@@ -17,12 +17,10 @@ public:
     AABBCollider(float width, float height) :
         mWidth(width), mHeight(height) {}
 
-    bool IsColliding(Collider* pOther) override;
+    Entity::CollidingSide IsColliding(Collider* pOther) override;
 
     void SetPosition(float x, float y, float anchorX = 0.5f, float anchorY = 0.5f) override;
     sf::Vector2f GetPosition(float anchorX = 0.5f, float anchorY = 0.5f) override;
-
-    const char* CollidingSide(Collider* pOther);
 
     void Move(sf::Vector2f translation) override;
 };

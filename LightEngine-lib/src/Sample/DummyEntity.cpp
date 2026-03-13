@@ -3,8 +3,7 @@
 
 #include <iostream>
 
-void DummyEntity::OnCollision(Entity* other)
+void DummyEntity::OnCollision(Entity* other, CollidingSide collidingSide)
 {
-	if (dynamic_cast<AABBCollider*> (GetCollider()) && GetRadius() == 50.f)
-		std::cout << ((AABBCollider*)GetCollider())->CollidingSide(other->GetCollider()) << std::endl;
+	std::cout << "Collision detected." << std::endl;
 }
