@@ -1,18 +1,16 @@
 #pragma once
 #include <SFML/Audio.hpp>
 
-class Sound
+class Music
 {
 private:
-	sf::SoundBuffer mSoundBuffer;
-	sf::Sound mSound;
+	sf::Music mMusic;
 
 public:
-	Sound(const char* path);
-	
+	Music(const char* path);
+
 	void Play();
 	void Pause();
 	void Stop();
 	void SetLoop(bool isLoop);
 };
-

@@ -5,6 +5,9 @@
 class Player;
 class DummyEntity;
 
+class Sound;
+class Music;
+
 class SampleScene : public Scene
 {
 	DummyEntity* pEntity1;
@@ -15,6 +18,9 @@ class SampleScene : public Scene
 	Player* gEntity;
 
 	Player* pEntitySelected;
+
+	Sound* mSound;
+	Music* mMusic;
 
 private:
 	void TrySetSelectedEntity(Player* pEntity, int x, int y);

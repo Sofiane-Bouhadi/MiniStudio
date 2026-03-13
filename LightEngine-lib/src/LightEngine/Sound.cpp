@@ -2,25 +2,26 @@
 
 Sound::Sound(const char* path)
 {
-
+	mSoundBuffer.loadFromFile(path);
+	mSound.setBuffer(mSoundBuffer);
 }
 
 void Sound::Play()
 {
-	mSound->play();
+	mSound.play();
 }
 
 void Sound::Pause()
 {
-	mSound->pause();
+	mSound.pause();
 }
 
 void Sound::Stop()
 {
-	mSound->stop();
+	mSound.stop();
 }
 
 void Sound::SetLoop(bool isLoop)
 {
-	mSound->setLoop(isLoop);
+	mSound.setLoop(isLoop);
 }

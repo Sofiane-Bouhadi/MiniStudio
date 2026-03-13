@@ -150,8 +150,6 @@ void Entity::Repulse(Entity* other, CollidingSide collidingSide)
 	}
 }
 
-
-
 Entity::CollidingSide Entity::IsColliding(Entity* other) const 
 {
 	if (mCollider == nullptr || other->mCollider == nullptr)
