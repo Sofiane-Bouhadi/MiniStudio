@@ -9,6 +9,7 @@ protected:
 
 public:
 	void Update() override;
+	void Jump();
 
 	void SetGravityStrength(float gravityStrength) { mGravityStrength = gravityStrength; }
 };

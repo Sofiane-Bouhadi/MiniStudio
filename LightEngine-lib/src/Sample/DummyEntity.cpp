@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-void DummyEntity::OnCollision(Entity* other)
+void DummyEntity::OnCollision(Entity* other, CollidingSide collidingSide)
 {
 	std::cout << "Collision detected." << std::endl;
 }

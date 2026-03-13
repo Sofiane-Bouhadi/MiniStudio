@@ -6,5 +6,10 @@ void GravityEntity::Update()
 	Entity::Update();
 
 	mYVelocity += mGravityStrength * GetDeltaTime();
-	SetDirection(0, 1, mYVelocity);
+	mTransformable->setPosition(mTransformable->getPosition().x, mTransformable->getPosition().y + mYVelocity * GetDeltaTime());
+}
+
+void GravityEntity::Jump()
+{
+	mYVelocity = -100;
 }
