@@ -4,28 +4,90 @@
 #include <iostream>
 #include <fstream>
 
-/*void Level::Update(sf::Vector2f playerPos)
+bool Level::IsPlatformSymbol(char symbol) const
 {
-	if (playerPos.x != mCurrentCol)
+	int i = 0;
+
+	while (mPlatformSymbols[i] != '\0')
 	{
-		if (playerPos.x < _level[0].size())
+		if (symbol == mPlatformSymbols[i])
+			return true;
+
+		++i;
+	}
+
+	return false;
+}
+
+void Level::TryMergeCollider(ColliderDesc colliderDesc)
+{
+	if (mColliderDescs.size() == 0)
+	{
+		//Resize vector by adding a line
+		mColliderDescs.resize(1);
+		
+		//Add colliderDesc to the new line
+		mColliderDescs[0].push_back(colliderDesc);
+
+		return;
+	}
+	
+	int lastIndex1 = mColliderDescs.size() - 1;
+
+	if (mColliderDescs[lastIndex1].size() == 0)
+	{
+		mColliderDescs[lastIndex1].push_back(colliderDesc);
+
+		return;
+	}
+	
+	int lastIndex2 = mColliderDescs[lastIndex1].size() - 1;
+
+    ColliderDesc* cd = &mColliderDescs[lastIndex1][lastIndex2];
+
+	if (cd->yMin != colliderDesc.yMin)
+	{
+		//Resize vector by adding a line
+		mColliderDescs.resize(mColliderDescs.size() + 1);
+		//Add colliderDesc to the new line
+		mColliderDescs[mColliderDescs.size() - 1].push_back(colliderDesc);
+
+		return;
+	}
+
+	if (cd->xMax == colliderDesc.xMin - 1)
+	{
+		//Resize the last ColliderDesc by merging it with the new ColliderDesc
+		cd->xMax = colliderDesc.xMax;
+
+		return;
+	}
+
+	mColliderDescs[lastIndex1].push_back(colliderDesc);
+}
+
+void Level::MergeVerticalCollider()
+{
+	for (int i = 0; i < mColliderDescs.size() - 1; ++i)
+	{
+		for (int j = 0; j < mColliderDescs[i].size() - 1; ++j)
 		{
-			ReadLevel();
-			if (playerPos.x > mCurrentCol)
-				mCurrentCol += 1;
-			else
-				mCurrentCol -= 1;
+			if (mColliderDescs[i][j].active == false)
+				continue;
+
+			if (mColliderDescs[i][j].yMax != mColliderDescs[i + 1][j].yMin - 1)
+				continue;
+
+			if (mColliderDescs[i][j].xMin != mColliderDescs[i + 1][j].xMin)
+				continue;
+			if (mColliderDescs[i][j].xMax != mColliderDescs[i + 1][j].xMax)
+				continue;
+
+			mColliderDescs[i][j].active = false;
+			mColliderDescs[i + 1][j].yMin = mColliderDescs[i][j].yMin;
 		}
 	}
-	else if (playerPos.y != mCurrentCol)
-	{
-		if (playerPos.y < _level.size())
-		{
-			ReadLevel();
-			mCurrentLine += 1;
-		}
-	}
-}*/
+}
 
 void Level::ReadLevel(MainScene* scene)
 {
@@ -37,40 +99,43 @@ void Level::ReadLevel(MainScene* scene)
 			{
 			case '1':
 				scene->Spawn(MainScene::Enemy1, j * mPixelPerChar, i * mPixelPerChar);
-				std::cout << "Enemy 1" << std::endl;
 				break;
 			case '2':
 				scene->Spawn(MainScene::Enemy2, j * mPixelPerChar, i * mPixelPerChar);
-				std::cout << "Enemy 2" << std::endl;
 				break;
 			case '3':
 				scene->Spawn(MainScene::Enemy3, j * mPixelPerChar, i * mPixelPerChar);
-				std::cout << "Enemy 3" << std::endl;
 				break;
 			case '4':
 				scene->Spawn(MainScene::Enemy4, j * mPixelPerChar, i * mPixelPerChar);
-				std::cout << "Enemy 4" << std::endl;
 				break;
 			case 'B':
 				scene->Spawn(MainScene::Boss, j * mPixelPerChar, i * mPixelPerChar);
-				std::cout << "Boss" << std::endl;
 				break;
 			case 'W':
 				scene->Spawn(MainScene::Wall, j * mPixelPerChar, i * mPixelPerChar);
-				std::cout << "Wall" << std::endl;
 				break;
 			case 'G':
 				scene->Spawn(MainScene::Ground, j * mPixelPerChar, i * mPixelPerChar);
-				std::cout << "Ground" << std::endl;
 				break;
 			case '=':
 				scene->Spawn(MainScene::Platform, j * mPixelPerChar, i * mPixelPerChar);
-				std::cout << "Platform" << std::endl;
 				break;
 				// ...
 			}
+
+			if (IsPlatformSymbol(mLevel[i][j])) 
+			{
+				ColliderDesc cdesc = {j, j, i, i};
+
+				TryMergeCollider(cdesc);
+			}
+
 		}
 	}
+
+	//try merge vertical
+	MergeVerticalCollider();
 }
 
 void Level::OpenFile()

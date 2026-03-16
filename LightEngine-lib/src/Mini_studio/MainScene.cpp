@@ -14,7 +14,7 @@ void MainScene::OnInitialize()
 {
 	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green,new AABBCollider(155,225) );
-	m_Player->SetPosition(0, 0);
+	m_Player->SetPosition(2000, 700);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
 	m_Player->SetGravityStrength(500.f);
@@ -23,7 +23,7 @@ void MainScene::OnInitialize()
 	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
 	GameManager::Get()->GetCamera()->Resize(sf::Vector2f(1280, 720));
 
-	m_Level = new Level("../../../res/level.txt", this);
+	m_Level = new Level("../../../res/Levels/level.txt", this);
 }
 
 void MainScene::OnEvent(const sf::Event& event)
@@ -194,12 +194,19 @@ void MainScene::OnEvent(const sf::Event& event)
 		m_Player->BaseAttack();
 		
 	}
-	
 }
+
+struct ColliderMergeCoords
+{
+	float xMin, xMax;
+	float yMin, yMax;
+};
 
 void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
 {
 	Entity* pEntity = nullptr;
+
+	std::list<ColliderMergeCoords>;
 
 	switch (objectType)
 	{
@@ -246,6 +253,4 @@ void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
 
 void MainScene::OnUpdate() 
 {
-	/*std::cout << "x:" << m_Player->GetPosition().x << " y: " << m_Player->GetPosition().y << " speed : " << m_Player->GetSpeed() <<  std::endl;*/
-	
 }
