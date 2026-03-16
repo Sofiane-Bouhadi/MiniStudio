@@ -21,17 +21,18 @@ void MainScene::OnInitialize()
 	m_Player->SetGravityStrength(300.f);
 	m_Player->SetJumpStrength(300);
 
-	
+
+
 }
 
 void MainScene::OnEvent(const sf::Event& event)
 {
 	
+
 	bool MoveRight = false;
 	bool MoveLeft = false;
 	bool jump = false;
 	bool base_attack = false;
-
 
 
 	if (event.type == sf::Event::KeyPressed )
@@ -155,14 +156,12 @@ void MainScene::OnUpdate()
 	{
 		std::cout << "d est pressé" << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
-		m_Player->NotLeft();
 		m_Player->SetRight();
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
 		std::cout << "q est pressé" << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		m_Player->NotRight();
 		m_Player->SetLeft();
 	}
 
@@ -172,15 +171,22 @@ void MainScene::OnUpdate()
 	{
 		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
-		m_Player->NotLeft();
-		m_Player->SetRight();
+		if (m_Player->GetAttack() == false) 
+		{
+			m_Player->SetRight();
+		}
+		
+
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
 	{
 		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		m_Player->NotRight();
-		m_Player->SetLeft();
+		if (m_Player->GetAttack() == false) 
+		{
+			m_Player->SetLeft();
+		}
+		
 
 	}
 

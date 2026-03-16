@@ -27,13 +27,11 @@ void Player::MoveLeft(float deltatime)
 void Player::SetRight() 
 {
 	IsRight = true;
-	Side_Cooldown = 2;
 }
 
 void Player::SetLeft()
 {
 	IsLeft = true;
-	Side_Cooldown = 2;
 }
 
 
@@ -57,6 +55,15 @@ void Player::TakeDmg(int DamageTaken)
 {
 	m_life -= DamageTaken;
 
+}
+
+bool Player::GetAttack() 
+{
+	if (IsAttack) 
+	{
+		return true;
+	}
+	return false;
 }
 
 
@@ -85,19 +92,20 @@ void Player::OnUpdate()
 		attack->SetPosition(GetPosition().x, GetPosition().y);
 
 
-	else if (IsAttack == true && Attack_Cooldown > 0) 
+
+
+
+	if (IsAttack == true && Attack_Cooldown > 0) 
 	{
 		
-		if (IsRight == true && Side_Cooldown < 0) 
+		if (IsRight) 
 		{
-			Side_Cooldown -= GetDeltaTime();
-			attack->SetPosition(GetPosition().x + 85, GetPosition().y);
+			attack->SetPosition(GetPosition().x + 115, GetPosition().y);
 			
 		}
-		if (IsLeft == true && Side_Cooldown < 0)
+		if (IsLeft)
 		{
-			Side_Cooldown -= GetDeltaTime();
-			attack->SetPosition(GetPosition().x - 85, GetPosition().y);
+			attack->SetPosition(GetPosition().x - 115, GetPosition().y);
 			
 		}
 	}
