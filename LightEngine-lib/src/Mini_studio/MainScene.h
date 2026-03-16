@@ -14,6 +14,8 @@ private :
 
 
 public :
+	Player* GetPlayer() { return m_Player; };
+
 	void OnInitialize() override;
 	void OnEvent(const sf::Event& event) override;
 
