@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "GameManager.h"
+#include "MainScene.h"
 #include <iostream>
 #include <fstream>
 
@@ -26,7 +27,7 @@
 	}
 }*/
 
-void Level::ReadLevel()
+void Level::ReadLevel(MainScene* scene)
 {
 	for (int i = 0; i < mLevel.size(); ++i)
 	{
@@ -34,14 +35,37 @@ void Level::ReadLevel()
 		{
 			switch (mLevel[i][j])
 			{
-			case '_':
-				std::cout << "Platform" << std::endl;
+			case '1':
+				scene->Spawn(MainScene::Enemy1, j * mPixelPerChar, i * mPixelPerChar);
+				std::cout << "Enemy 1" << std::endl;
 				break;
-			case 'X':
-				std::cout << "Enemy" << std::endl;
+			case '2':
+				scene->Spawn(MainScene::Enemy2, j * mPixelPerChar, i * mPixelPerChar);
+				std::cout << "Enemy 2" << std::endl;
 				break;
-			case 'Y':
+			case '3':
+				scene->Spawn(MainScene::Enemy3, j * mPixelPerChar, i * mPixelPerChar);
+				std::cout << "Enemy 3" << std::endl;
+				break;
+			case '4':
+				scene->Spawn(MainScene::Enemy4, j * mPixelPerChar, i * mPixelPerChar);
+				std::cout << "Enemy 4" << std::endl;
+				break;
+			case 'B':
+				scene->Spawn(MainScene::Boss, j * mPixelPerChar, i * mPixelPerChar);
+				std::cout << "Boss" << std::endl;
+				break;
+			case 'W':
+				scene->Spawn(MainScene::Wall, j * mPixelPerChar, i * mPixelPerChar);
+				std::cout << "Wall" << std::endl;
+				break;
+			case 'G':
+				scene->Spawn(MainScene::Ground, j * mPixelPerChar, i * mPixelPerChar);
 				std::cout << "Ground" << std::endl;
+				break;
+			case '=':
+				scene->Spawn(MainScene::Platform, j * mPixelPerChar, i * mPixelPerChar);
+				std::cout << "Platform" << std::endl;
 				break;
 				// ...
 			}

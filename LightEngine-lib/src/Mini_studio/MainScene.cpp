@@ -1,27 +1,29 @@
 #include "MainScene.h"
 #include "Player.h"
+#include "Level.h"
+
+#include "AABBCollider.h"
+
 #include "Utils.h"
 #include "Debug.h"
+
 #include <iostream>
-#include "AABBCollider.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 
 void MainScene::OnInitialize() 
 {
-	//Rectangle
-	pEntity4 = CreateRectangle<Entity>(1280, 50, sf::Color::White, new AABBCollider(1280, 50));
-	pEntity4->SetPosition(1280 / 2, 720);
-	pEntity4->SetRigidBody(true);
-	pEntity4->SetStatic(true);
-
+	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green,new AABBCollider(155,225) );
-	m_Player->SetPosition(100, 500);
+	m_Player->SetPosition(0, 0);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
-	m_Player->SetGravityStrength(300.f);
+	m_Player->SetGravityStrength(500.f);
 	m_Player->SetJumpStrength(300);
 
-	
+	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
+	GameManager::Get()->GetCamera()->Resize(sf::Vector2f(1280, 720));
+
+	m_Level = new Level("../../../res/level.txt", this);
 }
 
 void MainScene::OnEvent(const sf::Event& event)
@@ -158,6 +160,53 @@ void MainScene::OnEvent(const sf::Event& event)
 		
 	}
 	
+}
+
+void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
+{
+	Entity* pEntity = nullptr;
+
+	switch (objectType)
+	{
+	case Enemy1:
+		//mEnemies.push_back(CreateSprite<GravityEntity>(64.f, 64.f, "../../../res/Sprites/Enemies/Enemy1.png", new AABBCollider(64, 64)));
+		//mEnemies.push_back(pEntity);
+		break;
+	case Enemy2:
+		//pEntity = (CreateSprite<GravityEntity>(64.f, 64.f, "../../../res/Sprites/Enemies/Enemy2.png", new AABBCollider(64, 64)));
+		//mEnemies.push_back(pEntity);
+		break;
+	case Enemy3:
+		//pEntity = (CreateSprite<GravityEntity>(64.f, 64.f, "../../../res/Sprites/Enemies/Enemy3.png", new AABBCollider(64, 64)));
+		//mEnemies.push_back(pEntity);
+		break;
+	case Enemy4:
+		//pEntity = (CreateSprite<GravityEntity>(64.f, 64.f, "../../../res/Sprites/Enemies/Enemy4.png", new AABBCollider(64, 64)));
+		//mEnemies.push_back(pEntity);
+		break;
+	case Platform:
+		//pEntity = CreateSprite<Entity>(64.f, 64.f, "../../../res/Tiles/Platform.png", new AABBCollider(64, 64));
+		//pEntity->SetStatic(true);
+		break;
+	case DestructiblePlatform:
+		//pEntity = CreateSprite<Entity>(64.f, 64.f, "../../../res/Tiles/DestructiblePlatform.png", new AABBCollider(64, 64));
+		//pEntity->SetStatic(true);
+		break;
+	case Wall:
+		//pEntity = CreateSprite<Entity>(64.f, 64.f, "../../../res/Tiles/Wall.png", new AABBCollider(64, 64));
+		//pEntity->SetStatic(true);
+		break;
+	case Ground:
+		pEntity = CreateSprite<Entity>(124.f, 124.f, "../../../res/Tiles/Hub_Ground.png", new AABBCollider(124, 124));
+		pEntity->SetStatic(true);
+		break;
+	}
+
+	if (pEntity != nullptr)
+	{
+		pEntity->SetRigidBody(true);
+		pEntity->SetPosition(levelX, levelY, 0.f, 0.5f);
+	}
 }
 
 void MainScene::OnUpdate() 

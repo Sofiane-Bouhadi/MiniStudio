@@ -3,26 +3,27 @@
 #include <string>
 #include <SFML/System/Vector2.hpp>
 
+class MainScene;
+
 class Level
 {
 private:
 	std::vector<std::string> mLevel = {};
 
-	// float mCurrentTime = 0.f;
-	int mCurrentCol = 1;
-	int mCurrentLine = 1;
+	int mPixelPerChar = 124;
 
 	const char* _path;
 
 public:
-	Level(const char* path) : _path(path) 
+	Level(const char* path, MainScene* scene) : _path(path) 
 	{
 		OpenFile();
+		ReadLevel(scene);
 	}
 	~Level() {}
 
 	//void Update(sf::Vector2f playerPos);
-	void ReadLevel();
+	void ReadLevel(MainScene* scene);
 	void OpenFile();
 };
 
