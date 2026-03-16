@@ -26,8 +26,9 @@ void Player::MoveLeft(float deltatime)
 
 void Player::BaseAttack(Scene* scene) 
 { 
-	attack = scene->CreateRectangle<Entity>(85, 20, sf::Color::Red, new AABBCollider(85, 20));
+	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Red, new AABBCollider(85, 30));
 	
+
 }
 
 void Player::OnCollision(Entity* pOther, CollidingSide collidingSide)
@@ -54,5 +55,6 @@ void Player::OnUpdate()
 	}
 
 	if (attack != nullptr)
-		attack->SetPosition(GetPosition().x, GetPosition().y);
+		attack->SetPosition(GetPosition().x + 85 , GetPosition().y);
+
 }
