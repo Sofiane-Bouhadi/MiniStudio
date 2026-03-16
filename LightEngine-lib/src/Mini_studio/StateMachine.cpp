@@ -30,6 +30,8 @@ void StateMachine::change(int nbr) {
 		state(AttackPatern);
 	}
 	effect(nbr);
+
+	haveChange = true;
 }
 
 bool StateMachine::verifingState(int nbr) {

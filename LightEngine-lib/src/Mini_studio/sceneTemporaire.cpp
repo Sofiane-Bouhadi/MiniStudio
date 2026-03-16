@@ -12,6 +12,9 @@ void sceneTemporaire::OnEvent(const sf::Event& event) {
 }
 
 void sceneTemporaire::OnUpdate() {
+	StateMachine stateMch;
+	stateMch.haveChange = false;
+
 	enemies enemy1(10, 10, 10, 100, 300, 300);
 	Entity* target;
 	Debug debuging;

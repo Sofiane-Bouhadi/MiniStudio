@@ -31,8 +31,11 @@ protected:
 	bool canAttack;
 	bool canReload;
 	bool canMove;
+
+	
 	
 public:
+	bool haveChange = false;
 
 	void change(int nbr);
 

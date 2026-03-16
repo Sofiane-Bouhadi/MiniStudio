@@ -15,6 +15,53 @@ void enemies::createEnemy(float x, float y, int size){
 	
 }
 
+/*evenement OnPlayerDetected*/
+bool enemies::OnPlayerDetected() {
+	if (telemetrie() <= 500) {
+		return true;
+	}else {
+		return false;
+	}
+}
+
+/*evenement OnPlayerLost*/
+bool enemies::OnPlayerLost() {
+	if (telemetrie() >= 500) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+/*evenement OnDeath*/
+bool enemies::OnDeath(){
+	if (m_PV <= 0) {
+		return true;
+	}else { 
+		return false; 
+	}
+}
+
+/*evenement OnHit*/ //need to be corrctly build
+bool enemies::OnHit() {
+	if (true) {
+		return true;
+	}else {
+		return false;
+	}
+}
+
+/*evenement  OnStateChanged*/
+bool enemies::OnStateChanged() {
+	StateMachine stateMch;
+	if (stateMch.haveChange) {
+		return true;
+	}else {
+		return false;
+	}
+}
+
 /*bouge en ligne*/
 void enemies::moveingInLigne(float x,float y, float toX, float toY) {
 	bool ismoving = false;
@@ -28,7 +75,7 @@ void enemies::moveingInLigne(float x,float y, float toX, float toY) {
 }
 
 /*renvois un vecteur de l'entite cible*/
-sf::Vector2f enemies::detection(Entity* pTarget) {
+sf::Vector2f enemies::detection() {
 	sf::Vector2f vectarget;
 	positionEnemy = pEnemy->GetPosition();
 	sf::Vector2f positiontarget = pTarget->GetPosition();
@@ -41,7 +88,7 @@ sf::Vector2f enemies::detection(Entity* pTarget) {
 }
 
 /*attack fall*/
-void enemies::AttackFall(Entity* pTarget) {
+void enemies::AttackFall() {
 	sf::Vector2f positiontarget = pTarget->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	if (positiontarget.y == positionEnemy.y + enemy_size / 2 || positiontarget.y == positionEnemy.y - enemy_size / 2) {
@@ -50,18 +97,18 @@ void enemies::AttackFall(Entity* pTarget) {
 }
 
 /*attack bulldozer*/
-void enemies::AttackBull(Entity* pTarget) {
+void enemies::AttackBull() {
 	sf::Vector2f positiontarget = pTarget->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
-		if (telemetrie(pTarget)==(float)500)
+		if (telemetrie()==(float)500)
 		GoToPosition(positiontarget.x, positionEnemy.y, 1.0f);
 	}
 }
 
 
 /*char, a 11 heures, distance: a 400m .(War thunder reference)*/
-float enemies::telemetrie(Entity* pTarget) {
+float enemies::telemetrie() {
 	sf::Vector2f positiontarget = pTarget->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	float AC = positionEnemy.x - positiontarget.x;
@@ -88,16 +135,15 @@ void enemies::OnCollision(Entity* other)
 
 /*attaque de manier inteligente grace a detection ou a un paterne base sur la rose des vents*/
 void enemies::attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW) {
-	Entity* pTarget = nullptr;
-
-	float dist = telemetrie(pTarget);
+	
+	float dist = telemetrie();
 	if (dist == (float)400) {
 		positionEnemy = pEnemy->GetPosition();
 		/* x et y sont les coordonee de l'enemi */
 	}
 	if (smart) {
 		/*visé precise*/
-		sf::Vector2f vectarget = detection(pTarget);
+		sf::Vector2f vectarget = detection();
 
 		//launchAttack(vectarget.x, vectarget.y);
 	}

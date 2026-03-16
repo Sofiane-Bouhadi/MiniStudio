@@ -27,6 +27,7 @@ protected:
 
 public:
 	enemies* pEnemy = nullptr;
+	Entity* pTarget = nullptr;
 
 	/*constructeur d'enemies*/
 	enemies(int atkwidth = 0, int atkheight = 0, float atkspeed = 0, float speed = 0, float x = 0, float y = 0, int PV = 1)
@@ -36,18 +37,28 @@ public:
 	/*cree des ennemis*/
 	void createEnemy(float x, float y, int size);
 
+	bool OnPlayerDetected();
+
+	bool OnPlayerLost();
+
+	bool OnDeath();
+
+	bool OnHit();
+
+	bool OnStateChanged();
+
 	/*deplace l'ennemi en ligne*/
 	void moveingInLigne(float x, float y, float toX, float toY);
 
 	/*renvois un vecteur de l'entite cible*/
-	sf::Vector2f detection(Entity* cible);
+	sf::Vector2f detection();
 
 	/*attaque de l'enemies*/
-	void AttackFall(Entity* pTarget);
+	void AttackFall();
 
-	void AttackBull(Entity* pTarget);
+	void AttackBull();
 
-	float telemetrie(Entity* pTarget);
+	float telemetrie();
 
 	/**/
 	void attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW);
