@@ -79,22 +79,24 @@ void Player::OnUpdate()
 	}
 
 	Attack_Cooldown -= GetDeltaTime();
-	Side_Cooldown -= GetDeltaTime();
+	
 
 	if (attack != nullptr && Attack_Cooldown < 0)
 		attack->SetPosition(GetPosition().x, GetPosition().y);
 
-	
 
 	else if (IsAttack == true && Attack_Cooldown > 0) 
 	{
+		
 		if (IsRight == true && Side_Cooldown < 0) 
 		{
+			Side_Cooldown -= GetDeltaTime();
 			attack->SetPosition(GetPosition().x + 85, GetPosition().y);
 			
 		}
 		if (IsLeft == true && Side_Cooldown < 0)
 		{
+			Side_Cooldown -= GetDeltaTime();
 			attack->SetPosition(GetPosition().x - 85, GetPosition().y);
 			
 		}

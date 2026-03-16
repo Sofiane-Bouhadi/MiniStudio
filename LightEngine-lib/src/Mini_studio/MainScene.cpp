@@ -36,22 +36,6 @@ void MainScene::OnEvent(const sf::Event& event)
 
 	if (event.type == sf::Event::KeyPressed )
 	{
-		if (event.key.code == sf::Keyboard::D )
-		{
-			std::cout << "d est pressé" << std::endl;
-			MoveRight = true;
-			m_Player->NotLeft();
-			m_Player->SetRight();
-		}
-
-		if (event.key.code == sf::Keyboard::Q )
-		{
-			std::cout << "q est pressé" << std::endl;
-			MoveLeft = true;
-			m_Player->NotRight();
-			m_Player->SetLeft();
-			
-		}
 
 		if (event.key.code == sf::Keyboard::Space && m_Player->GetNbJump() > 0)
 		{
@@ -60,8 +44,6 @@ void MainScene::OnEvent(const sf::Event& event)
 			m_Player->DecreaseJump();
 			
 		}
-
-		
 	}
 
 	if (event.type == sf::Event::MouseButtonPressed) 
@@ -75,25 +57,7 @@ void MainScene::OnEvent(const sf::Event& event)
 
 	if (event.type == sf::Event::JoystickMoved)
 	{
-
 		sf::Joystick::Axis axis = event.joystickMove.axis;
-
-		if (sf::Joystick::getAxisPosition(0,axis) > 10 && axis == sf::Joystick::X)
-		{
-			std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
-			MoveRight = true;
-			m_Player->NotLeft();
-			m_Player->SetRight();
-		}
-		
-		if (sf::Joystick::getAxisPosition(0, axis) < -10 && axis == sf::Joystick::X)
-		{
-			std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
-			MoveLeft = true;
-			m_Player->NotRight();
-			m_Player->SetLeft();
-
-		}
 
 		if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < 10 && axis == sf::Joystick::X && -10 < sf::Joystick::getAxisPosition(0, sf::Joystick::X))
 		{
@@ -173,16 +137,6 @@ void MainScene::OnEvent(const sf::Event& event)
 		}
 	}
 
-
-
-	if (MoveRight) 
-	{
-		m_Player->MoveRight(GetDeltaTime());
-	}
-	if (MoveLeft) 
-	{
-		m_Player->MoveLeft(GetDeltaTime());
-	}
 	if (jump) 
 	{
 		m_Player->Jump();
@@ -197,6 +151,40 @@ void MainScene::OnEvent(const sf::Event& event)
 
 void MainScene::OnUpdate() 
 {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
+	{
+		std::cout << "d est pressé" << std::endl;
+		m_Player->MoveRight(GetDeltaTime());
+		m_Player->NotLeft();
+		m_Player->SetRight();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		std::cout << "q est pressé" << std::endl;
+		m_Player->MoveLeft(GetDeltaTime());
+		m_Player->NotRight();
+		m_Player->SetLeft();
+	}
+
+	
+
+	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10) 
+	{
+		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+		m_Player->MoveRight(GetDeltaTime());
+		m_Player->NotLeft();
+		m_Player->SetRight();
+	}
+	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
+	{
+		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+		m_Player->MoveLeft(GetDeltaTime());
+		m_Player->NotRight();
+		m_Player->SetLeft();
+
+	}
+
+
 	/*std::cout << "x:" << m_Player->GetPosition().x << " y: " << m_Player->GetPosition().y << " speed : " << m_Player->GetSpeed() <<  std::endl;*/
 	
 }
