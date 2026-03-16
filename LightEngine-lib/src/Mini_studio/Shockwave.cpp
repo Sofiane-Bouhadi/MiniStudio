@@ -28,6 +28,9 @@ void Shockwave::ApplyEffects()
         sf::Vector2f toEnemy = enemy->GetPosition(0.5f, 0.5f) - origin;
         float sqDist = toEnemy.x * toEnemy.x + toEnemy.y * toEnemy.y;
 
+        sf::CircleShape shape(m_radius);
+        shape.setFillColor(sf::Color(100, 250, 80));
+
         if (sqDist <= m_radius * m_radius)
         {
             enemy->TakeDamage(m_damage);
