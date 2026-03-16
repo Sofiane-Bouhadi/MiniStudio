@@ -16,15 +16,19 @@ void enemies::createEnemy(float x, float y, int size){
 }
 
 /*bouge en ligne*/
-void enemies::moveingInLigne(float x,float y, float toX, float toY, sf::Time time) {
-	GoToPosition(toX, toY,1.0f);
-	sf::sleep(time);
-	GoToPosition(x, y,1.0f);
-	sf::sleep(time);
+void enemies::moveingInLigne(float x,float y, float toX, float toY) {
+	bool ismoving = false;
+	positionEnemy = pEnemy->GetPosition();
+	if (positionEnemy.x != toX && positionEnemy.y != toY){ 
+		GoToPosition(toX, toY,1.0f);
+	}
+	if (positionEnemy.x != x && positionEnemy.y != y){
+		GoToPosition(x, y, 1.0f);
+	}
 }
 
 /*renvois un vecteur de l'entite cible*/
-sf::Vector2f enemies::detection(GravityEntity* pTarget) {
+sf::Vector2f enemies::detection(Entity* pTarget) {
 	sf::Vector2f vectarget;
 	positionEnemy = pEnemy->GetPosition();
 	sf::Vector2f positiontarget = pTarget->GetPosition();
@@ -37,7 +41,7 @@ sf::Vector2f enemies::detection(GravityEntity* pTarget) {
 }
 
 /*attack fall*/
-void enemies::AttackFall(GravityEntity* pTarget) {
+void enemies::AttackFall(Entity* pTarget) {
 	sf::Vector2f positiontarget = pTarget->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	if (positiontarget.y == positionEnemy.y + enemy_size / 2 || positiontarget.y == positionEnemy.y - enemy_size / 2) {
@@ -46,7 +50,7 @@ void enemies::AttackFall(GravityEntity* pTarget) {
 }
 
 /*attack bulldozer*/
-void enemies::AttackBull(GravityEntity* pTarget) {
+void enemies::AttackBull(Entity* pTarget) {
 	sf::Vector2f positiontarget = pTarget->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
@@ -57,7 +61,7 @@ void enemies::AttackBull(GravityEntity* pTarget) {
 
 
 /*char, a 11 heures, distance: a 400m .(War thunder reference)*/
-float enemies::telemetrie(GravityEntity* pTarget) {
+float enemies::telemetrie(Entity* pTarget) {
 	sf::Vector2f positiontarget = pTarget->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	float AC = positionEnemy.x - positiontarget.x;
@@ -72,7 +76,7 @@ float enemies::telemetrie(GravityEntity* pTarget) {
 
 
 /*... serieux, tu ne sais pas ce que "OnCollision" fait... :/ */
-void enemies::OnCollision(GravityEntity* other)
+void enemies::OnCollision(Entity* other)
 {
 	std::cout << "Collision" << std::endl;
 }
@@ -84,7 +88,7 @@ void enemies::OnCollision(GravityEntity* other)
 
 /*attaque de manier inteligente grace a detection ou a un paterne base sur la rose des vents*/
 void enemies::attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW) {
-	GravityEntity* pTarget;
+	Entity* pTarget = nullptr;
 
 	float dist = telemetrie(pTarget);
 	if (dist == (float)400) {

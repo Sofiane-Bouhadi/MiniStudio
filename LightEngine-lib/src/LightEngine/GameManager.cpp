@@ -29,7 +29,7 @@ GameManager::~GameManager()
 	delete mpWindow;
 	delete mpScene;
 
-	for (GravityEntity* entity : mEntities)
+	for (Entity* entity : mEntities)
 	{
 		delete entity;
 	}
@@ -96,7 +96,7 @@ void GameManager::Update()
     //Update
     for (auto it = mEntities.begin(); it != mEntities.end(); )
     {
-		GravityEntity* entity = *it;
+		Entity* entity = *it;
 
         entity->Update();
 
@@ -117,8 +117,8 @@ void GameManager::Update()
         ++it2;
         for (; it2 != mEntities.end(); ++it2)
         {
-            GravityEntity* entity = *it1;
-            GravityEntity* otherEntity = *it2;
+            Entity* entity = *it1;
+            Entity* otherEntity = *it2;
 
             if (entity->IsColliding(otherEntity))
             {
@@ -150,7 +150,7 @@ void GameManager::Draw()
 {
 	mpWindow->clear(mClearColor);
 	
-	for (GravityEntity* entity : mEntities)
+	for (Entity* entity : mEntities)
 	{
 		mpWindow->draw(*entity->GetShape());
 	}

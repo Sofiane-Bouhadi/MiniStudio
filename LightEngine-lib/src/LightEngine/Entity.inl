@@ -3,7 +3,7 @@
 #include "GameManager.h"
 
 template<typename T>
-T* GravityEntity::GetScene() const
+T* Entity::GetScene() const
 {
 	T* pScene = dynamic_cast<T*>(GetScene());
 
@@ -14,7 +14,7 @@ T* GravityEntity::GetScene() const
 
 
 template<typename T>
-T* GravityEntity::CreateEntity(float radius, const sf::Color& color)
+T* Entity::CreateEntity(float radius, const sf::Color& color)
 {
 	return GetScene()->CreateEntity<T>(radius, color);
 }

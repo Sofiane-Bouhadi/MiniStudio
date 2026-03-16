@@ -32,6 +32,14 @@ void StateMachine::change(int nbr) {
 	effect(nbr);
 }
 
+bool StateMachine::verifingState(int nbr) {
+	return true;
+}
+
+
+
+
+
 void StateMachine::effect(int nbr) {
 	if (nbr == 0 && canIdle == true) {
 		//can idle

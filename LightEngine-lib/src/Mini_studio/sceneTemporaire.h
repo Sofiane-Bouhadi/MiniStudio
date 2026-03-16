@@ -7,6 +7,8 @@ class sceneTemporaire : public Scene
 {
 private:
 protected:
+
+
 public:
 	void OnInitialize();
 	void OnEvent(const sf::Event& event);

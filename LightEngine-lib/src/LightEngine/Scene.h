@@ -8,9 +8,12 @@ class GameManager;
 class Scene
 {
 private:
+
+	float m_radius = { 0 };
+
+
 	GameManager* mpGameManager;
 
-private:
 	void SetGameManager(GameManager* pGameManager) { mpGameManager = pGameManager; }
 	
 protected:
@@ -22,7 +25,9 @@ protected:
 
 public:
 	template<typename T>
+
 	T* CreateEntity(float radius, const sf::Color& color);
+
 
 	float GetDeltaTime() const;
 

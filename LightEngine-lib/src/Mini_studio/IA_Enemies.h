@@ -10,7 +10,7 @@ protected:
 
 public:
 
-	void live(GravityEntity* pTarget);
+	void live(Entity* pTarget);
 
 };
 

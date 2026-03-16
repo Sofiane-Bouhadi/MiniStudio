@@ -5,7 +5,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-class GravityEntity;
+class Entity;
 class Scene;
 class Debug;
 
@@ -18,9 +18,9 @@ namespace sf
 class GameManager
 {
 public :
-	std::list<GravityEntity*> mEntities;
-	std::list<GravityEntity*> mEntitiesToDestroy;
-	std::list<GravityEntity*> mEntitiesToAdd;
+	std::list<Entity*> mEntities;
+	std::list<Entity*> mEntitiesToDestroy;
+	std::list<Entity*> mEntitiesToAdd;
 
 	sf::RenderWindow* mpWindow;
 	sf::Font mFont;

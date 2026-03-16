@@ -36,6 +36,8 @@ public:
 
 	void change(int nbr);
 
+	bool verifingState(int nbr);
+
 	void effect(int nbr);
 
 };

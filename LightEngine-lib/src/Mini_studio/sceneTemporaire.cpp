@@ -4,21 +4,28 @@
 
 void sceneTemporaire::OnInitialize() {
 	sf::RenderWindow* window = nullptr;
-
-
-	//enemies enemy(10,10,10,100,300,300);
-	//enemy.createEnemy(100, 100, 50);
+	enemies enemy1(10, 10, 10, 100, 300, 300);
+	enemy1.createEnemy(100, 100, 50);
 }
 
 void sceneTemporaire::OnEvent(const sf::Event& event) {
-	//enemies enemy(10, 10, 10, 100, 300, 300);
 }
 
 void sceneTemporaire::OnUpdate() {
-	enemies enemy(10, 10, 10, 100, 300, 300, 0);
-	if (enemy.pEnemy != nullptr)
+	enemies enemy1(10, 10, 10, 100, 300, 300);
+	Entity* target;
+	Debug debuging;
+
+	//enemy1.moveingInLigne(100, 100, 500, 500);
+	//enemy1.AttackBull(target);
+
+	//debug
+	sf::Vector2f positionEn = enemy1.pEnemy->GetPosition();
+	//debuging.DrawText(positionEn.x, positionEn.y, (std::string)"text",sf::Color::White);
+
+	if (enemy1.pEnemy != nullptr)
 	{
-		sf::Vector2f position = enemy.pEnemy->GetPosition();
+		sf::Vector2f position = enemy1.pEnemy->GetPosition();
 		Debug::DrawCircle(position.x, position.y, 10, sf::Color::Red);
 	}
 }

@@ -8,16 +8,14 @@
 int main()
 {
 	sceneTemporaire scene;
-	bool running = true;
 #ifdef _DEBUG
 	_CrtDumpMemoryLeaks();
 #endif
-	scene.OnInitialize();
-	while (running == true)
-	{
-		//scene.OnEvent();
-		scene.OnUpdate();
-	}
+	GameManager* pInstance = GameManager::Get();
+
+	pInstance->CreateWindow(1280, 720, "Scene", 60, sf::Color::Black);
+
+	pInstance->LaunchScene<sceneTemporaire>();
 
 	return 0;
 }
