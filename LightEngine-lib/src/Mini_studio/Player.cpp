@@ -24,11 +24,23 @@ void Player::MoveLeft(float deltatime)
 	SetDirection(-1, 0, mSpeed);
 }
 
-void Player::BaseAttack(Scene* scene) 
-{ 
-	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Red, new AABBCollider(85, 30));
-	
+void Player::SetRight() 
+{
+	IsRight = true;
+	Side_Cooldown = 2;
+}
 
+void Player::SetLeft()
+{
+	IsLeft = true;
+	Side_Cooldown = 2;
+}
+
+
+void Player::BaseAttack() 
+{
+	IsAttack = true;
+	Attack_Cooldown = 2;
 }
 
 void Player::OnCollision(Entity* pOther, CollidingSide collidingSide)
@@ -47,14 +59,45 @@ void Player::TakeDmg(int DamageTaken)
 
 }
 
+
+void Player::OnInitialize() 
+{
+	Scene* scene = GetScene();
+
+	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Red, new AABBCollider(85, 30)); 
+	attack->SetPosition(GetPosition().x, GetPosition().y);
+}
+
+
 void Player::OnUpdate() 
 {
+	
+
 	if (m_life == 0)
 	{
 		IsAlive = false;
 	}
 
-	if (attack != nullptr)
-		attack->SetPosition(GetPosition().x + 85 , GetPosition().y);
+	Attack_Cooldown -= GetDeltaTime();
+	Side_Cooldown -= GetDeltaTime();
+
+	if (attack != nullptr && Attack_Cooldown < 0)
+		attack->SetPosition(GetPosition().x, GetPosition().y);
+
+	
+
+	else if (IsAttack == true && Attack_Cooldown > 0) 
+	{
+		if (IsRight == true && Side_Cooldown < 0) 
+		{
+			attack->SetPosition(GetPosition().x + 85, GetPosition().y);
+			
+		}
+		if (IsLeft == true && Side_Cooldown < 0)
+		{
+			attack->SetPosition(GetPosition().x - 85, GetPosition().y);
+			
+		}
+	}
 
 }
