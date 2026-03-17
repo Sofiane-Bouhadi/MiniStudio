@@ -14,6 +14,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 void SampleScene::OnInitialize()
 {
 	// Creation of a Sprite (with a path)
@@ -47,6 +49,7 @@ void SampleScene::OnInitialize()
 	GameManager::Get()->GetCamera()->SetFollowingEntity(gEntity);
 
 	pEntitySelected = nullptr;
+
 }
 
 void SampleScene::OnEvent(const sf::Event& event)
