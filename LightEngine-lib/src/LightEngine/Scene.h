@@ -1,9 +1,12 @@
 #pragma once
 
 class GameManager;
+class Collider;
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 class Scene
 {
@@ -22,7 +25,13 @@ protected:
 
 public:
 	template<typename T>
-	T* CreateEntity(float radius, const sf::Color& color);
+	T* CreateRectangle(float width, float height, const sf::Color& color, Collider* collider);
+
+	template<typename T>
+	T* CreateCircle(float radius, const sf::Color& color, Collider* collider);
+
+	template<typename T>
+	T* CreateSprite(float width, float height, const char* texturePath, Collider* collider);
 
 	float GetDeltaTime() const;
 
