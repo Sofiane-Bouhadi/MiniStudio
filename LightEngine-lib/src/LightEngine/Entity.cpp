@@ -182,10 +182,6 @@ void Entity::Destroy()
 {
 	mToDestroy = true;
 
-	delete mCollider;
-
-	delete mDrawable;
-
 	OnDestroy();
 }
 
