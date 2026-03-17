@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "AABBCollider.h"
+#include "Shoot.h"
 
 void Player::MoveRight(float deltatime) 
 {
@@ -39,6 +40,15 @@ void Player::BaseAttack()
 {
 	IsAttack = true;
 	Attack_Cooldown = 2;
+	
+}
+
+void Player::PlayerShoot() 
+{
+	if (shoot != nullptr) 
+	{
+		shoot->Fire(PlayerTag, GetPosition());
+	}
 	
 }
 
@@ -94,9 +104,6 @@ void Player::OnUpdate()
 		attack->SetPosition(GetPosition().x, GetPosition().y);
 
 	}
-		
-
-
 
 
 	if (IsAttack == true && Attack_Cooldown > 0) 
@@ -113,5 +120,7 @@ void Player::OnUpdate()
 			
 		}
 	}
+
+	
 	
 }

@@ -33,6 +33,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	bool MoveLeft = false;
 	bool jump = false;
 	bool base_attack = false;
+	bool shoot = false;
 
 
 	if (event.type == sf::Event::KeyPressed )
@@ -83,6 +84,12 @@ void MainScene::OnEvent(const sf::Event& event)
 		{
 			std::cout << "X est appuyé" << std::endl;
 			base_attack = true;
+		}
+		
+		if (sf::Joystick::isButtonPressed(0, 3))
+		{
+			std::cout << "Y est appuyé" << std::endl;
+			 shoot = true;
 		}
 	}
 
@@ -136,6 +143,12 @@ void MainScene::OnEvent(const sf::Event& event)
 			m_Player->SetSpeed(0);
 			jump = false;
 		}
+
+		if (sf::Event::JoystickButtonReleased == 3)
+		{
+			shoot = false;
+
+		}
 	}
 
 	if (jump) 
@@ -145,9 +158,11 @@ void MainScene::OnEvent(const sf::Event& event)
 	if (base_attack) 
 	{
 		m_Player->BaseAttack();
-		
 	}
-	
+	if (shoot) 
+	{
+		m_Player->PlayerShoot();
+	}
 }
 
 void MainScene::OnUpdate() 

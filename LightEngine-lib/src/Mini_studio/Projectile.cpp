@@ -1,5 +1,6 @@
 #include "Projectile.h"
 #include <cmath>
+#include <iostream>
 
 #define M_PI 3.14159265358979323846
 
@@ -55,11 +56,13 @@ void Projectile::RotateTowardDirection(float dx, float dy)
 void Projectile::OnUpdate()
 {
     sf::Vector2f pos = GetPosition(0.5f, 0.5f);
+    std::cout << pos.x << pos.y << std::endl;
     const float LIMIT = 2000.f;
     if (pos.x < -LIMIT || pos.x > LIMIT || pos.y < -LIMIT || pos.y > LIMIT) // à changer si besoin
     {
         Destroy();
     }
+    
 }
 
 void Projectile::OnDestroy()
