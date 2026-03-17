@@ -1,9 +1,10 @@
 #pragma once
+
+#include "Entity.h"
 #include <SFML/Graphics/View.hpp>
 
-class Entity;
 
-class Camera
+class Camera : public Entity
 {
 private:
 	sf::View* mView = nullptr;
@@ -11,11 +12,12 @@ private:
 	bool mFollow = false;
 	Entity* mFollowingEntity = nullptr;
 
+	int followType = 1;
+
 public:
-	Camera(const sf::Vector2f& size);
-	~Camera();
 	void Update();
 
+	void SetView(const sf::Vector2f& size);
 	sf::View* GetView();
 
 	bool IsFollowing() { return mFollow; }
@@ -24,6 +26,7 @@ public:
 	void SetPosition(const sf::Vector2f& pos);
 	void SetFollowingEntity(Entity* entity) { mFollowingEntity = entity; }
 	void SetFollow(bool follow) { mFollow = follow; }
+	void SetType(int type);
 
 	void Zoom(float factor);
 

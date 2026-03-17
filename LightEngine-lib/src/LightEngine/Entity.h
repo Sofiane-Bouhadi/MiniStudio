@@ -3,13 +3,14 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
-#include "Scene.h"
 
 class Collider;
 
 namespace sf 
 {
 	class Shape;
+	class RectangleShape;
+	class CircleShape;
     class Color;
 }
 

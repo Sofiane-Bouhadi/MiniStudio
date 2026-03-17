@@ -59,7 +59,8 @@ void Player::OnCollision(Entity* pOther, CollidingSide collidingSide)
 		mYVelocity = 0.f;
 		nb_Jump = 2;
 	}
-		
+
+	//GameManager::Get()->GetCamera()->GoToPosition(1000, 1000, 100);s
 }
 
 void Player::TakeDmg(int DamageTaken) 
@@ -120,7 +121,4 @@ void Player::OnUpdate()
 			
 		}
 	}
-
-	
-	
 }

@@ -124,26 +124,27 @@ void Level::ReadLevel(MainScene* scene)
 			case 'B':
 				scene->Spawn(MainScene::Boss, j * mPixelPerChar, i * mPixelPerChar);
 				break;
+			
 			case 'C':
-				scene->Spawn(MainScene::JazzWall1, j * mPixelPerChar, i * mPixelPerChar);
+				//scene->Spawn(MainScene::JazzWall1, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case 'D':
-				scene->Spawn(MainScene::JazzWall2, j * mPixelPerChar, i * mPixelPerChar);
+				//scene->Spawn(MainScene::JazzWall2, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case 'E':
-				scene->Spawn(MainScene::HubWall1, j * mPixelPerChar, i * mPixelPerChar);
+				//scene->Spawn(MainScene::HubWall1, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case 'F':
-				scene->Spawn(MainScene::HubWall2, j * mPixelPerChar, i * mPixelPerChar);
+				//scene->Spawn(MainScene::HubWall2, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case 'G':
-				scene->Spawn(MainScene::MetalWall1, j * mPixelPerChar, i * mPixelPerChar);
+				//scene->Spawn(MainScene::MetalWall1, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case 'H':
-				scene->Spawn(MainScene::MetalWall2, j * mPixelPerChar, i * mPixelPerChar);
+				//scene->Spawn(MainScene::MetalWall2, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case 'I':
-				scene->Spawn(MainScene::LeftJazzPlatform, j * mPixelPerChar, i * mPixelPerChar);
+				//scene->Spawn(MainScene::LeftJazzPlatform, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case 'J':
 				scene->Spawn(MainScene::DestructiblePlatform, j * mPixelPerChar, i * mPixelPerChar);

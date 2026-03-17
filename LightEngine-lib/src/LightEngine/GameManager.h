@@ -5,14 +5,13 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-#include "Camera.h"
-
 #define FIXED_DT 0.016667f
 
 class Entity;
 class GravityEntity;
 class Scene;
 class Debug;
+class Camera;
 
 namespace sf 
 {

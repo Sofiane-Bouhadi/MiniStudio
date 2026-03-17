@@ -6,7 +6,7 @@
 
 #include "Utils.h"
 #include "Debug.h"
-
+#include "Camera.h"
 #include <iostream>
 #include <SFML/Graphics/RectangleShape.hpp>
 
@@ -21,7 +21,7 @@ void MainScene::OnInitialize()
 	m_Player->SetJumpStrength(750);
 
 	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
-	GameManager::Get()->GetCamera()->Zoom(2.f);
+	//GameManager::Get()->GetCamera()->Zoom(2.f);
 
 	m_Level = new Level("../../../res/Levels/levelFull.txt", this);
 }
@@ -158,28 +158,28 @@ void MainScene::OnEvent(const sf::Event& event)
 	}
 }
 
-void MainScene::OnUpdate() 
+void MainScene::OnUpdate()
 {
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		std::cout << "d est press�" << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
-		if (m_Player->GetAttack() == false) 
+		if (m_Player->GetAttack() == false)
 		{
 			m_Player->SetRight();
 		}
-		
+
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
 		std::cout << "q est press�" << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		if (m_Player->GetAttack() == false) 
+		if (m_Player->GetAttack() == false)
 		{
 			m_Player->SetLeft();
 		}
-		
+
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10)
 	{
@@ -187,20 +187,22 @@ void MainScene::OnUpdate()
 		m_Player->MoveRight(GetDeltaTime());
 
 		/*if (m_Player->GetAttack() == true)*/
-		
-			m_Player->SetRight();
-			m_Player->UnsetLeft();
-		
+
+		m_Player->SetRight();
+		m_Player->UnsetLeft();
+
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
 	{
 		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		
+
 		/*if (m_Player->GetAttack() == true)*/
-		
-			m_Player->SetLeft();
-			m_Player->UnsetRight();
+
+		m_Player->SetLeft();
+		m_Player->UnsetRight();
+	}
+}
 
 struct ColliderMergeCoords
 {
@@ -213,10 +215,10 @@ void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
 	Entity* pEntity = nullptr;
 
 	std::list<ColliderMergeCoords>;
-
+	/*
 	switch (objectType)
 	{
-	/*case Enemy1:
+	case Enemy1:
 		mEnemies.push_back(CreateSprite<GravityEntity>(128.f, 128.f, "../../../res/Sprites/Enemies/Enemy1.png", new AABBCollider(64, 64))); // TODO Replace by the right enemy class
 		mEnemies.push_back(pEntity);
 		break;
@@ -255,7 +257,7 @@ void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
 	case Wall3:
 		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Metal_Wall.png", nullptr);
 		pEntity->SetStatic(true);
-		break;*/
+		break;
 	case Ground1:
 		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Jazz_Ground.png", nullptr);
 		pEntity->SetStatic(true);
@@ -268,8 +270,8 @@ void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
 		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Metal_Ground.png", nullptr);
 		pEntity->SetStatic(true);
 		break;
-	}
-
+	}*/
+	
 	if (pEntity != nullptr)
 	{
 		pEntity->SetRigidBody(true);
