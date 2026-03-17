@@ -15,14 +15,26 @@ private :
 	float m_MinSpeed = 150.f;
 	
 	Entity* attack = nullptr; //créer a l'initialisation et déplacment au bon endroit lors de l'appel de l'attaque 
+	bool IsAttack = false;
+	float Attack_Cooldown = 2;
+
+	bool IsRight = false;
+	bool IsLeft = false;
+	float Side_Cooldown = 2;
+
 public:
 
 	void MoveRight(float deltatime);
 	void MoveLeft(float delattime);
 	void DecreaseJump() { nb_Jump -= 1; }
 
+	void SetRight();
+	void SetLeft();
 
-	void BaseAttack(Scene* scene);
+	void NotRight() { IsRight = false; }
+	void NotLeft() { IsLeft = false; }
+
+	void BaseAttack();
 
 	void TakeDmg(int DamageTaken);
 
@@ -33,6 +45,8 @@ public:
 
 	void OnCollision(Entity* pOther, CollidingSide collidingSide) override;
 
+	
+	void OnInitialize() override;
 	void OnUpdate() override;
 
 };
