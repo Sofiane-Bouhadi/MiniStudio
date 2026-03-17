@@ -3,10 +3,8 @@
 #include "Entity.h"
 #include "Debug.h"
 #include "Camera.h"
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-
 #include <iostream>
 
 GameManager::GameManager()
@@ -50,9 +48,8 @@ void GameManager::CreateWindow(unsigned int width, unsigned int height, const ch
 
 	mCamera = new Camera();
 	mEntities.push_back(mCamera);
-	//mCamera->SetView();
-
-	//mCamera->SetSize()
+	mCamera->SetView(sf::Vector2f(width, height));
+	mCamera->SetRigidBody(false);
 
 	mClearColor = clearColor;
 }
