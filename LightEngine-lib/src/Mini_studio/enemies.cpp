@@ -118,8 +118,9 @@ void enemies::AttackPunch() {
 	sf::Vector2f positiontarget = pTarget;
 	positionEnemy = pEnemy->GetPosition();
 	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
-		if (telemetrie() == (float)500)
-			GoToPosition(positiontarget.x, positionEnemy.y, 1.0f);
+		if (telemetrie() == (float)50) {
+			/*attack close fight*/
+		}
 	}
 }
 
@@ -127,9 +128,8 @@ void enemies::AttackPunch() {
 void enemies::AttackSmart() {
 	sf::Vector2f positiontarget = pTarget;
 	positionEnemy = pEnemy->GetPosition();
-	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
-		if (telemetrie() == (float)500)
-			GoToPosition(positiontarget.x, positionEnemy.y, 1.0f);
+	if (telemetrie() == (float)500){
+		/*attack smart*/
 	}
 }
 
