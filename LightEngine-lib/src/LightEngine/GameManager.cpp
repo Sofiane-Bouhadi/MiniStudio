@@ -15,6 +15,7 @@ GameManager::GameManager()
 	mpScene = nullptr;
 	mWindowWidth = -1;
 	mWindowHeight = -1;
+	mCamera = nullptr;
 }
 
 GameManager* GameManager::Get()
@@ -28,6 +29,7 @@ GameManager::~GameManager()
 {
 	delete mpWindow;
 	delete mpScene;
+	delete mCamera;
 
 	for (Entity* entity : mEntities)
 	{
@@ -44,6 +46,8 @@ void GameManager::CreateWindow(unsigned int width, unsigned int height, const ch
 
 	mWindowWidth = width;
 	mWindowHeight = height;
+
+	mCamera = new Camera(sf::Vector2f(width, height));
 
 	mClearColor = clearColor;
 }
@@ -110,26 +114,22 @@ void GameManager::Update()
         it = mEntities.erase(it);
     }
 
-    //Collision
-    for (auto it1 = mEntities.begin(); it1 != mEntities.end(); ++it1)
-    {
-        auto it2 = it1;
-        ++it2;
-        for (; it2 != mEntities.end(); ++it2)
-        {
-            Entity* entity = *it1;
-            Entity* otherEntity = *it2;
+	//Fixed Update
+	mAccumulatedDt += mDeltaTime;
+	while (mAccumulatedDt >= FIXED_DT)
+	{
+		FixedUpdate();
+		mAccumulatedDt -= FIXED_DT;
+	}
 
-            if (entity->IsColliding(otherEntity))
-            {
-				if (entity->IsRigidBody() && otherEntity->IsRigidBody())
-					entity->Repulse(otherEntity);
+	//Camera
+	if (mCamera != nullptr)
+	{
+		mCamera->Update();
 
-                entity->OnCollision(otherEntity);
-                otherEntity->OnCollision(entity);
-            }
-        }
-    }
+		if (mCamera->GetView() != nullptr)
+			mpWindow->setView(*mCamera->GetView());
+	}
 
 	for (auto it = mEntitiesToDestroy.begin(); it != mEntitiesToDestroy.end(); ++it) 
 	{
@@ -146,13 +146,68 @@ void GameManager::Update()
 	mEntitiesToAdd.clear();
 }
 
+void GameManager::FixedUpdate()
+{
+	// Physic update
+	for (Entity* entity : mEntities)
+	{
+		entity->FixedUpdate(FIXED_DT);
+	}
+
+	// Collision detection
+
+	for (auto it1 = mEntities.begin(); it1 != mEntities.end(); ++it1)
+	{
+		auto it2 = it1;
+		it2++;
+
+		for (it2; it2 != mEntities.end(); ++it2)
+		{
+			Entity* entity = *it1;
+			Entity* otherEntity = *it2;
+
+			Entity::CollidingSide collidingSide = entity->IsColliding(otherEntity);
+
+			if (collidingSide != Entity::CollidingSide::None)
+			{
+				if (entity->IsRigidBody() && otherEntity->IsRigidBody())
+					entity->Repulse(otherEntity, collidingSide);
+
+				entity->OnCollision(otherEntity, collidingSide);
+
+				switch (collidingSide)
+				{
+				case Entity::Top:
+					collidingSide = Entity::Bottom;
+					break;
+				case Entity::Bottom:
+					collidingSide = Entity::Top;
+					break;
+				case Entity::Left:
+					collidingSide = Entity::Right;
+					break;
+				case Entity::Right:
+					collidingSide = Entity::Left;
+				}
+
+				otherEntity->OnCollision(entity, collidingSide);
+			}
+		}
+	}
+}
+
 void GameManager::Draw()
 {
 	mpWindow->clear(mClearColor);
 	
 	for (Entity* entity : mEntities)
 	{
-		mpWindow->draw(*entity->GetShape());
+		if (sf::Shape* entityShape = entity->GetShape())
+		{
+			mpWindow->draw(*entityShape);
+		}
+		else if (sf::Sprite* entitySprite = entity->GetSprite())
+			mpWindow->draw(*entitySprite);
 	}
 	
 	Debug::Get()->Draw(mpWindow);
