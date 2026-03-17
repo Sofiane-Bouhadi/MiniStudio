@@ -124,7 +124,7 @@ void Level::ReadLevel(MainScene* scene)
 			case 'B':
 				scene->Spawn(MainScene::Boss, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case 'C':
+			/*case 'C':
 				scene->Spawn(MainScene::JazzWall1, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case 'D':
@@ -144,7 +144,7 @@ void Level::ReadLevel(MainScene* scene)
 				break;
 			case 'I':
 				scene->Spawn(MainScene::LeftJazzPlatform, j * mPixelPerChar, i * mPixelPerChar);
-				break;
+				break;*/
 			case 'J':
 				scene->Spawn(MainScene::DestructiblePlatform, j * mPixelPerChar, i * mPixelPerChar);
 				break;

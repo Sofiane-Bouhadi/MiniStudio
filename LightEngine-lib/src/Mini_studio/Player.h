@@ -1,6 +1,6 @@
 #pragma once
 #include "GravityEntity.h"
-#include "Shoot.h"
+#include "projectile.h"
 
 class Player : public GravityEntity 
 {
@@ -16,10 +16,14 @@ private :
 	float m_MaxSpeed = 300.f;
 	float m_MinSpeed = 150.f;
 	
-	Shoot* shoot;
+	
 	Entity* attack = nullptr; 
 	bool IsAttack = false;
 	float Attack_Cooldown = 2;
+
+	Projectile* proj;
+	bool IsShooting = false;
+	float Shooting_Cooldown = 3;
 
 	bool IsRight = false;
 	bool IsLeft = false;

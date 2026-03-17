@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "AABBCollider.h"
-#include "Shoot.h"
+
 
 void Player::MoveRight(float deltatime) 
 {
@@ -45,11 +45,24 @@ void Player::BaseAttack()
 
 void Player::PlayerShoot() 
 {
-	if (shoot != nullptr) 
-	{
-		shoot->Fire(PlayerTag, GetPosition());
-	}
+	IsShooting = true;
+	Shooting_Cooldown = 3;
+
+	proj = CreateSprite<Projectile>(200.f, 100.f, "../../../res/Sprites/projectile.png", new AABBCollider(200, 100));
+
+	sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
+	proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
 	
+	proj->SetProjectileSpeed(400.f);
+
+	if (IsRight)
+	{
+		proj->SetDirection(1, 0, proj->GetProjectileSpeed());
+	}
+	if (IsLeft)
+	{
+		proj->SetDirection(-1, 0, proj->GetProjectileSpeed());
+	}
 }
 
 void Player::OnCollision(Entity* pOther, CollidingSide collidingSide)
@@ -121,6 +134,11 @@ void Player::OnUpdate()
 		}
 	}
 
-	
+	Shooting_Cooldown -= GetDeltaTime();
+
+	if (Shooting_Cooldown < 0.f)
+	{
+		IsShooting = false;
+	}
 	
 }

@@ -158,28 +158,28 @@ void MainScene::OnEvent(const sf::Event& event)
 	}
 }
 
-void MainScene::OnUpdate() 
+void MainScene::OnUpdate()
 {
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		std::cout << "d est press�" << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
-		if (m_Player->GetAttack() == false) 
+		if (m_Player->GetAttack() == false)
 		{
 			m_Player->SetRight();
 		}
-		
+
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
 		std::cout << "q est press�" << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		if (m_Player->GetAttack() == false) 
+		if (m_Player->GetAttack() == false)
 		{
 			m_Player->SetLeft();
 		}
-		
+
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10)
 	{
@@ -187,20 +187,22 @@ void MainScene::OnUpdate()
 		m_Player->MoveRight(GetDeltaTime());
 
 		/*if (m_Player->GetAttack() == true)*/
-		
-			m_Player->SetRight();
-			m_Player->UnsetLeft();
-		
+
+		m_Player->SetRight();
+		m_Player->UnsetLeft();
+
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
 	{
 		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		
+
 		/*if (m_Player->GetAttack() == true)*/
-		
-			m_Player->SetLeft();
-			m_Player->UnsetRight();
+
+		m_Player->SetLeft();
+		m_Player->UnsetRight();
+	}
+}
 
 struct ColliderMergeCoords
 {

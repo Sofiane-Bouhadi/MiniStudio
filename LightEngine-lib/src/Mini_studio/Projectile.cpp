@@ -53,6 +53,7 @@ void Projectile::RotateTowardDirection(float dx, float dy)
     }
 }
 
+
 void Projectile::OnUpdate()
 {
     sf::Vector2f pos = GetPosition(0.5f, 0.5f);
