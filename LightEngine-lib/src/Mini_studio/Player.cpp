@@ -2,125 +2,121 @@
 #include "AABBCollider.h"
 #include "Shoot.h"
 
-void Player::MoveRight(float deltatime) 
+void Player::DashRight(float deltatime)
 {
-	mSpeed += m_acceleration * deltatime;
-	if (mSpeed > m_MaxSpeed) 
-	{
-		mSpeed = m_MaxSpeed;
-	}
+    if (!CanDash)
+        return;
 
-	SetDirection(1, 0, mSpeed);
+    SetDirection(1, 0, m_DashSpeed);
+    CanDash = false;
+    dashCooldownTimer = 0.f;
+}
+
+void Player::DashLeft(float deltatime)
+{
+    if (!CanDash)
+        return;
+
+    SetDirection(-1, 0, m_DashSpeed);
+    CanDash = false;
+    dashCooldownTimer = 0.f;
+}
+
+void Player::MoveRight(float deltatime)
+{
+    mSpeed += m_acceleration * deltatime;
+    if (mSpeed > m_MaxSpeed)
+        mSpeed = m_MaxSpeed;
+
+    SetDirection(1, 0, mSpeed);
+    IsRight = true;
+    IsLeft = false;
 }
 
 void Player::MoveLeft(float deltatime)
 {
-	
-	mSpeed += m_acceleration * deltatime;
-	if (mSpeed > m_MaxSpeed)
-	{
-		mSpeed = m_MaxSpeed;
-	}
+    mSpeed += m_acceleration * deltatime;
+    if (mSpeed > m_MaxSpeed)
+        mSpeed = m_MaxSpeed;
 
-	SetDirection(-1, 0, mSpeed);
+    SetDirection(-1, 0, mSpeed);
+    IsLeft = true;
+    IsRight = false;
 }
 
-void Player::SetRight() 
+void Player::BaseAttack()
 {
-	IsRight = true;
+    if (Attack_Cooldown > 0)
+        return;
+
+    IsAttack = true;
+    Attack_Cooldown = AttackDuration;
 }
 
-void Player::SetLeft()
+void Player::PlayerShoot()
 {
-	IsLeft = true;
-}
-
-
-void Player::BaseAttack() 
-{
-	IsAttack = true;
-	Attack_Cooldown = 2;
-	
-}
-
-void Player::PlayerShoot() 
-{
-	if (shoot != nullptr) 
-	{
-		shoot->Fire(PlayerTag, GetPosition());
-	}
-	
+    if (shoot != nullptr)
+        shoot->Fire(PlayerTag, GetPosition());
 }
 
 void Player::OnCollision(Entity* pOther, CollidingSide collidingSide)
 {
-	if (collidingSide == Bottom) 
-	{
-		mYVelocity = 0.f;
-		nb_Jump = 2;
-	}
-		
+    if (collidingSide == Bottom)
+    {
+        mYVelocity = 0.f;
+        nb_Jump = 2;
+    }
 }
 
-void Player::TakeDmg(int DamageTaken) 
+void Player::TakeDmg(int DamageTaken)
 {
-	m_life -= DamageTaken;
-
+    m_life -= DamageTaken;
+    if (m_life <= 0)
+        IsAlive = false;
 }
 
-bool Player::GetAttack() 
+bool Player::GetAttack()
 {
-	if (IsAttack) 
-	{
-		return true;
-	}
-	return false;
+    return IsAttack;
 }
 
-
-void Player::OnInitialize() 
+void Player::OnInitialize()
 {
-	Scene* scene = GetScene();
+    Scene* scene = GetScene();
 
-	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Red, new AABBCollider(85, 30)); 
-	attack->SetPosition(GetPosition().x, GetPosition().y);
+    attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Red, new AABBCollider(85, 30));
+    attack->SetPosition(-9999, -9999); 
 }
 
-
-void Player::OnUpdate() 
+void Player::OnUpdate()
 {
-	
+    float dt = GetDeltaTime();
 
-	if (m_life == 0)
-	{
-		IsAlive = false;
-	}
+    if (!CanDash)
+    {
+        m_dashdela += dt;
+        if (dashCooldownTimer >= m_DashDelay)
+        {
+            CanDash = true;
+            dashCooldownTimer = 0.f;
+        }
+    }
 
-	Attack_Cooldown -= GetDeltaTime();
-	
+    if (IsAttack)
+    {
+        Attack_Cooldown -= dt;
 
-	if (attack != nullptr && Attack_Cooldown < 0) 
-	{
-		attack->SetPosition(GetPosition().x, GetPosition().y);
+        if (IsRight)
+            attack->SetPosition(GetPosition().x + 115, GetPosition().y);
+        else if (IsLeft)
+            attack->SetPosition(GetPosition().x - 115, GetPosition().y);
 
-	}
-
-
-	if (IsAttack == true && Attack_Cooldown > 0) 
-	{
-		
-		if (IsRight) 
-		{
-			attack->SetPosition(GetPosition().x + 115, GetPosition().y);
-			
-		}
-		if (IsLeft)
-		{
-			attack->SetPosition(GetPosition().x - 115, GetPosition().y);
-			
-		}
-	}
-
-	
-	
+        if (Attack_Cooldown <= 0)
+        {
+            IsAttack = false;
+            attack->SetPosition(-9999, -9999);
+        }
+    }
+    if (m_life <= 0)
+        IsAlive = false;
 }

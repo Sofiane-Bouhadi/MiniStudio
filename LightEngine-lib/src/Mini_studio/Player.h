@@ -9,27 +9,30 @@ private :
 	int m_life = 100;
 	int nb_Jump = 2;
 	int PlayerTag = 1;
-
-	bool IsAlive = true;
-
+	int m_DashSpeed = 1500;
+	
+	float m_DashDelay = 50;
 	float m_acceleration = 3000.f;
 	float m_MaxSpeed = 300.f;
 	float m_MinSpeed = 150.f;
-	
-	Shoot* shoot;
-	Entity* attack = nullptr; 
-	bool IsAttack = false;
 	float Attack_Cooldown = 2;
 
+	Shoot* shoot;
+	Entity* attack = nullptr; 
+
+	bool IsAttack = false;
 	bool IsRight = false;
 	bool IsLeft = false;
-	
-public:
+	bool IsAlive = true;
+	bool CanDash = false;
 
+public:
+	void DashRight(float deltatime);
+	void DashLeft(float deltatime);
 	void MoveRight(float deltatime);
 	void MoveLeft(float delattime);
 	void DecreaseJump() { nb_Jump -= 1; }
-
+	bool IsDashAvailable() { return CanDash; };
 	void SetRight();
 	void SetLeft();
 	void UnsetRight() {IsRight = false; }
