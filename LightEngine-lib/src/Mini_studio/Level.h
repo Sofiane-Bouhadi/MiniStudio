@@ -27,7 +27,7 @@ private:
 	void TryMergeCollider(ColliderDesc colliderDesc);
 	void MergeVerticalCollider();
 
-	int mPixelPerChar = 124;
+	int mPixelPerChar = 128;
 
 	const char* _path;
 

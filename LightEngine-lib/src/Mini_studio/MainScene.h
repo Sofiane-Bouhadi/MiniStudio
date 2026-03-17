@@ -14,10 +14,14 @@ public:
 		Enemy3,
 		Enemy4,
 		Boss,
+		Wall1,
+		Wall2,
+		Wall3,
+		Ground1,
+		Ground2,
+		Ground3,
 		Platform,
 		DestructiblePlatform,
-		Ground,
-		Wall
 	};
 private :
 	Player* m_Player;

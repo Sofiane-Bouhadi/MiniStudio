@@ -17,24 +17,21 @@ void MainScene::OnInitialize()
 	m_Player->SetPosition(1000, 300);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
-	m_Player->SetGravityStrength(500.f);
-	m_Player->SetJumpStrength(300);
+	m_Player->SetGravityStrength(1200.f);
+	m_Player->SetJumpStrength(750);
 
 	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
-	GameManager::Get()->GetCamera()->Resize(sf::Vector2f(1280 * 2, 720 * 2));
+	GameManager::Get()->GetCamera()->Zoom(2.f);
 
-	m_Level = new Level("../../../res/Levels/level.txt", this);
+	m_Level = new Level("../../../res/Levels/levelFull.txt", this);
 }
 
 void MainScene::OnEvent(const sf::Event& event)
 {
-	
-
 	bool MoveRight = false;
 	bool MoveLeft = false;
 	bool jump = false;
 	bool base_attack = false;
-
 
 	if (event.type == sf::Event::KeyPressed )
 	{
@@ -67,8 +64,6 @@ void MainScene::OnEvent(const sf::Event& event)
 			MoveLeft = false;
 			m_Player->SetSpeed(0);
 		}
-		
-
 	}
 
 	if (event.type == sf::Event::JoystickButtonPressed)
@@ -111,8 +106,6 @@ void MainScene::OnEvent(const sf::Event& event)
 			m_Player->SetSpeed(0);
 			jump == false;
 		}
-
-		
 	}
 	
 	if (event.type == sf::Event::MouseButtonReleased) 
@@ -129,7 +122,6 @@ void MainScene::OnEvent(const sf::Event& event)
 		if (sf::Event::JoystickButtonReleased == 2)
 		{
 			base_attack = false;
-
 		}
 
 		if (sf::Event::JoystickButtonReleased == 0) 
@@ -146,9 +138,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	if (base_attack) 
 	{
 		m_Player->BaseAttack();
-		
 	}
-	
 }
 
 void MainScene::OnUpdate() 
@@ -168,14 +158,31 @@ void MainScene::OnUpdate()
 		m_Player->MoveLeft(GetDeltaTime());
 		m_Player->SetLeft();
 	}
-	if (jump) 
+	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10)
 	{
-		m_Player->Jump();
+		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+		m_Player->MoveRight(GetDeltaTime());
+		if (m_Player->GetAttack() == false)
+		{
+			m_Player->SetRight();
+		}
+		if (m_Player->GetAttack() == true && AttackCD < 0)
+		{
+			m_Player->UnsetRight();
+		}
 	}
-	if (base_attack) 
+	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
 	{
-		m_Player->BaseAttack();
-		
+		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+		m_Player->MoveLeft(GetDeltaTime());
+		if (m_Player->GetAttack() == false)
+		{
+			m_Player->SetLeft();
+		}
+		if (m_Player->GetAttack() == true && AttackCD < 0)
+		{
+			m_Player->UnsetLeft();
+		}
 	}
 }
 
@@ -193,36 +200,56 @@ void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
 
 	switch (objectType)
 	{
-	case Enemy1:
-		//mEnemies.push_back(CreateSprite<GravityEntity>(64.f, 64.f, "../../../res/Sprites/Enemies/Enemy1.png", new AABBCollider(64, 64)));
-		//mEnemies.push_back(pEntity);
+	/*case Enemy1:
+		mEnemies.push_back(CreateSprite<GravityEntity>(128.f, 128.f, "../../../res/Sprites/Enemies/Enemy1.png", new AABBCollider(64, 64))); // TODO Replace by the right enemy class
+		mEnemies.push_back(pEntity);
 		break;
 	case Enemy2:
-		//pEntity = (CreateSprite<GravityEntity>(64.f, 64.f, "../../../res/Sprites/Enemies/Enemy2.png", new AABBCollider(64, 64)));
-		//mEnemies.push_back(pEntity);
+		pEntity = (CreateSprite<GravityEntity>(128.f, 128.f, "../../../res/Sprites/Enemies/Enemy2.png", new AABBCollider(64, 64))); // TODO Replace by the right enemy class
+		mEnemies.push_back(pEntity);
 		break;
 	case Enemy3:
-		//pEntity = (CreateSprite<GravityEntity>(64.f, 64.f, "../../../res/Sprites/Enemies/Enemy3.png", new AABBCollider(64, 64)));
-		//mEnemies.push_back(pEntity);
+		pEntity = (CreateSprite<GravityEntity>(128.f, 128.f, "../../../res/Sprites/Enemies/Enemy3.png", new AABBCollider(64, 64))); // TODO Replace by the right enemy class
+		mEnemies.push_back(pEntity);
 		break;
 	case Enemy4:
-		//pEntity = (CreateSprite<GravityEntity>(64.f, 64.f, "../../../res/Sprites/Enemies/Enemy4.png", new AABBCollider(64, 64)));
-		//mEnemies.push_back(pEntity);
+		pEntity = (CreateSprite<GravityEntity>(128.f, 128.f, "../../../res/Sprites/Enemies/Enemy4.png", new AABBCollider(64, 64))); // TODO Replace by the right enemy class
+		mEnemies.push_back(pEntity);
+		break;
+	case Boss:
+		pEntity = (CreateSprite<Entity>(0.f, 0.f, "../../../res/Sprites/Enemies/Enemy4.png", new AABBCollider(64, 64))); // TODO Replace by the boss class
+		mEnemies.push_back(pEntity);
 		break;
 	case Platform:
-		//pEntity = CreateSprite<Entity>(64.f, 64.f, "../../../res/Tiles/Platform.png", nullptr));
-		//pEntity->SetStatic(true);
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Platform.png", nullptr);
+		pEntity->SetStatic(true);
 		break;
 	case DestructiblePlatform:
-		//pEntity = CreateSprite<Entity>(64.f, 64.f, "../../../res/Tiles/DestructiblePlatform.png", nullptr);
-		//pEntity->SetStatic(true);
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/DestructiblePlatform.png", nullptr);
+		pEntity->SetStatic(true);
 		break;
-	case Wall:
-		//pEntity = CreateSprite<Entity>(64.f, 64.f, "../../../res/Tiles/Wall.png", nullptr);
-		//pEntity->SetStatic(true);
+	case Wall1:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Jazz_Wall.png", nullptr);
+		pEntity->SetStatic(true);
 		break;
-	case Ground:
-		pEntity = CreateSprite<Entity>(124.f, 124.f, "../../../res/Tiles/Hub_Ground.png", nullptr);
+	case Wall2:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Hub_Wall.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case Wall3:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Metal_Wall.png", nullptr);
+		pEntity->SetStatic(true);
+		break;*/
+	case Ground1:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Jazz_Ground.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case Ground2:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Hub_Ground.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case Ground3:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Metal_Ground.png", nullptr);
 		pEntity->SetStatic(true);
 		break;
 	}
@@ -230,7 +257,7 @@ void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
 	if (pEntity != nullptr)
 	{
 		pEntity->SetRigidBody(true);
-		pEntity->SetPosition(levelX, levelY, 0.f, 0.5f);
+		pEntity->SetPosition(levelX, levelY, 0.f, 0.f);
 	}
 }
 
@@ -240,40 +267,4 @@ void MainScene::SpawnCollider(float x, float y, float width, float height)
 	pEntity->SetPosition(x, y, 0.f, 0.f);
 	pEntity->SetRigidBody(true);
 	pEntity->SetStatic(true);
-}
-
-	
-
-	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10) 
-	{
-		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
-		m_Player->MoveRight(GetDeltaTime());
-		if (m_Player->GetAttack() == false)
-		{
-			m_Player->SetRight();
-		}
-		if (m_Player->GetAttack() == true && AttackCD < 0) 
-		{
-			m_Player->UnsetRight();
-		}
-		
-
-	}
-	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
-	{
-		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
-		m_Player->MoveLeft(GetDeltaTime());
-		if (m_Player->GetAttack() == false)
-		{
-			m_Player->SetLeft();
-		}
-		if (m_Player->GetAttack() == true && AttackCD < 0)
-		{
-			m_Player->UnsetLeft();
-		}
-
-	}
-
-void MainScene::OnUpdate() 
-{
 }

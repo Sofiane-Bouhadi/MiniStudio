@@ -77,7 +77,7 @@ void Level::MergeVerticalCollider()
 			if (cd1.active == false)
 				continue;
 
-			for (int k = 0; k < mColliderDescs[i + 1].size() - 1; ++k)
+			for (int k = 0; k < mColliderDescs[i + 1].size(); ++k)
 			{
 				ColliderDesc& cd2 = mColliderDescs[i + 1][k];
 
@@ -124,16 +124,30 @@ void Level::ReadLevel(MainScene* scene)
 			case 'B':
 				scene->Spawn(MainScene::Boss, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case 'W':
-				scene->Spawn(MainScene::Wall, j * mPixelPerChar, i * mPixelPerChar);
+			case 'C':
+				scene->Spawn(MainScene::JazzWall1, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'D':
+				scene->Spawn(MainScene::JazzWall2, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'E':
+				scene->Spawn(MainScene::HubWall1, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'F':
+				scene->Spawn(MainScene::HubWall2, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case 'G':
-				scene->Spawn(MainScene::Ground, j * mPixelPerChar, i * mPixelPerChar);
+				scene->Spawn(MainScene::MetalWall1, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case '=':
-				scene->Spawn(MainScene::Platform, j * mPixelPerChar, i * mPixelPerChar);
+			case 'H':
+				scene->Spawn(MainScene::MetalWall2, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-				// ...
+			case 'I':
+				scene->Spawn(MainScene::LeftJazzPlatform, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'J':
+				scene->Spawn(MainScene::DestructiblePlatform, j * mPixelPerChar, i * mPixelPerChar);
+				break;
 			}
 
 			if (IsPlatformSymbol(mLevel[i][j])) 
@@ -149,9 +163,9 @@ void Level::ReadLevel(MainScene* scene)
 	MergeVerticalCollider();
 
 	// Create Colliders in scene
-	for (int i = 0; i < mColliderDescs.size() - 1; ++i)
+	for (int i = 0; i < mColliderDescs.size(); ++i)
 	{
-		for (int j = 0; j < mColliderDescs[i].size() - 1; ++j)
+		for (int j = 0; j < mColliderDescs[i].size(); ++j)
 		{
 			if (mColliderDescs[i][j].active == false)
 				continue;
