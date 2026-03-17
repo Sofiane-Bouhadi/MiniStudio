@@ -96,7 +96,7 @@ void MainScene::OnEvent(const sf::Event& event)
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
 		}
 		
-		if (event.mouseButton.button == sf::Keyboard::Q)
+		if (event.key.code == sf::Keyboard::Q)
 		{
 			std::cout << "q est relaché" << std::endl;
 			MoveLeft = false;
@@ -104,11 +104,11 @@ void MainScene::OnEvent(const sf::Event& event)
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
 		}
 
-		if (event.mouseButton.button == sf::Keyboard::Space )
+		if (event.key.code == sf::Keyboard::Space )
 		{
 			std::cout << "espace est relaché" << std::endl;
 			m_Player->SetSpeed(0);
-			jump == false;
+			jump = false;
 		}
 
 		
@@ -134,7 +134,7 @@ void MainScene::OnEvent(const sf::Event& event)
 		if (sf::Event::JoystickButtonReleased == 0) 
 		{
 			m_Player->SetSpeed(0);
-			jump == false;
+			jump = false;
 		}
 	}
 
@@ -152,20 +152,26 @@ void MainScene::OnEvent(const sf::Event& event)
 
 void MainScene::OnUpdate() 
 {
-	float AttackCD = m_Player->GetAttackCD();
-	AttackCD -= GetDeltaTime();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
 	{
 		std::cout << "d est pressé" << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
-		m_Player->SetRight();
+		if (m_Player->GetAttack() == false) 
+		{
+			m_Player->SetRight();
+		}
+		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
 		std::cout << "q est pressé" << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		m_Player->SetLeft();
+		if (m_Player->GetAttack() == false) 
+		{
+			m_Player->SetLeft();
+		}
+		
 	}
 
 	
@@ -174,29 +180,22 @@ void MainScene::OnUpdate()
 	{
 		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
-		if (m_Player->GetAttack() == false)
-		{
-			m_Player->SetRight();
-		}
-		if (m_Player->GetAttack() == true && AttackCD < 0) 
-		{
-			m_Player->UnsetRight();
-		}
-		
 
+		/*if (m_Player->GetAttack() == true)*/
+		
+			m_Player->SetRight();
+			m_Player->UnsetLeft();
+		
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
 	{
 		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		if (m_Player->GetAttack() == false)
-		{
+		
+		/*if (m_Player->GetAttack() == true)*/
+		
 			m_Player->SetLeft();
-		}
-		if (m_Player->GetAttack() == true && AttackCD < 0)
-		{
-			m_Player->UnsetLeft();
-		}
+			m_Player->UnsetRight();
 
 	}
 
