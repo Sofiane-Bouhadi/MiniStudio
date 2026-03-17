@@ -152,6 +152,9 @@ void MainScene::OnEvent(const sf::Event& event)
 
 void MainScene::OnUpdate() 
 {
+	float AttackCD = m_Player->GetAttackCD();
+	AttackCD -= GetDeltaTime();
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
 	{
 		std::cout << "d est pressé" << std::endl;
@@ -171,9 +174,13 @@ void MainScene::OnUpdate()
 	{
 		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
-		if (m_Player->GetAttack() == false) 
+		if (m_Player->GetAttack() == false)
 		{
 			m_Player->SetRight();
+		}
+		if (m_Player->GetAttack() == true && AttackCD < 0) 
+		{
+			m_Player->UnsetRight();
 		}
 		
 
@@ -182,11 +189,14 @@ void MainScene::OnUpdate()
 	{
 		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		if (m_Player->GetAttack() == false) 
+		if (m_Player->GetAttack() == false)
 		{
 			m_Player->SetLeft();
 		}
-		
+		if (m_Player->GetAttack() == true && AttackCD < 0)
+		{
+			m_Player->UnsetLeft();
+		}
 
 	}
 

@@ -29,6 +29,8 @@ public:
 
 	void SetRight();
 	void SetLeft();
+	void UnsetRight() {IsRight = false; }
+	void UnsetLeft() { IsLeft = false; }
 
 	void BaseAttack();
 
@@ -37,6 +39,7 @@ public:
 	float GetSpeed() { return mSpeed; }
 	int GetNbJump() { return nb_Jump; }
 	bool GetAttack();
+	float GetAttackCD() { return Attack_Cooldown; }
 
 	float GetMinSpeed() { return m_MinSpeed; }
 

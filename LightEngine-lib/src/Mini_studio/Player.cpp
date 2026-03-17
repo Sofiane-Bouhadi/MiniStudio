@@ -39,6 +39,7 @@ void Player::BaseAttack()
 {
 	IsAttack = true;
 	Attack_Cooldown = 2;
+	
 }
 
 void Player::OnCollision(Entity* pOther, CollidingSide collidingSide)
@@ -88,9 +89,12 @@ void Player::OnUpdate()
 	Attack_Cooldown -= GetDeltaTime();
 	
 
-	if (attack != nullptr && Attack_Cooldown < 0)
+	if (attack != nullptr && Attack_Cooldown < 0) 
+	{
 		attack->SetPosition(GetPosition().x, GetPosition().y);
 
+	}
+		
 
 
 
@@ -109,5 +113,5 @@ void Player::OnUpdate()
 			
 		}
 	}
-
+	
 }
