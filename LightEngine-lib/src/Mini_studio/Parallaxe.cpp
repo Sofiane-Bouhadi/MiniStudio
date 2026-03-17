@@ -25,7 +25,7 @@ void Parallaxe::OnInitialize()
 void Parallaxe::OnUpdate()
 {
 	sf::Vector2f pos = GetPlayerPos();
-	GoToDirection(pos.x, pos.y, player->GetSpeed());
+	GoToDirection((int)pos.x, (int)pos.y, player->GetSpeed());
 }
 
 void Parallaxe::OnDestroy()
