@@ -1,47 +1,45 @@
 #include "MainScene.h"
 #include "Player.h"
+#include "Level.h"
+
+#include "AABBCollider.h"
+
 #include "Utils.h"
 #include "Debug.h"
+
 #include <iostream>
-#include "AABBCollider.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 
 void MainScene::OnInitialize() 
 {
-	//Rectangle
-	pEntity4 = CreateRectangle<Entity>(1280, 50, sf::Color::White, new AABBCollider(1280, 50));
-	pEntity4->SetPosition(1280 / 2, 720);
-	pEntity4->SetRigidBody(true);
-	pEntity4->SetStatic(true);
-
+	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green,new AABBCollider(155,225) );
-	m_Player->SetPosition(100, 500);
+	m_Player->SetPosition(1000, 300);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
-	m_Player->SetGravityStrength(300.f);
-	m_Player->SetJumpStrength(300);
+	m_Player->SetGravityStrength(1200.f);
+	m_Player->SetJumpStrength(750);
 
+	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
+	GameManager::Get()->GetCamera()->Zoom(2.f);
 
-
+	m_Level = new Level("../../../res/Levels/levelFull.txt", this);
 }
 
 void MainScene::OnEvent(const sf::Event& event)
 {
-	
-
 	bool MoveRight = false;
 	bool MoveLeft = false;
 	bool jump = false;
 	bool base_attack = false;
 	bool shoot = false;
 
-
 	if (event.type == sf::Event::KeyPressed )
 	{
 
 		if (event.key.code == sf::Keyboard::Space && m_Player->GetNbJump() > 0)
 		{
-			std::cout << "espace est pressé" << std::endl;
+			std::cout << "espace est pressï¿½" << std::endl;
 			jump = true;
 			m_Player->DecreaseJump();
 			
@@ -52,7 +50,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		if (event.mouseButton.button == sf::Mouse::Button::Right)
 		{
-			std::cout << "clic droit est appuyé" << std::endl;
+			std::cout << "clic droit est appuyï¿½" << std::endl;
 			base_attack = true;
 		}
 	}
@@ -67,28 +65,26 @@ void MainScene::OnEvent(const sf::Event& event)
 			MoveLeft = false;
 			m_Player->SetSpeed(0);
 		}
-		
-
 	}
 
 	if (event.type == sf::Event::JoystickButtonPressed)
 	{
 		if (sf::Joystick::isButtonPressed(0, 0) && m_Player->GetNbJump() > 0)
 		{
-			std::cout << "A est appuyé" << std::endl;
+			std::cout << "A est appuyï¿½" << std::endl;
 			jump = true;
 			m_Player->DecreaseJump();
 		}
 
 		if (sf::Joystick::isButtonPressed(0, 2))
 		{
-			std::cout << "X est appuyé" << std::endl;
+			std::cout << "X est appuyï¿½" << std::endl;
 			base_attack = true;
 		}
 		
 		if (sf::Joystick::isButtonPressed(0, 3))
 		{
-			std::cout << "Y est appuyé" << std::endl;
+			std::cout << "Y est appuyï¿½" << std::endl;
 			 shoot = true;
 		}
 	}
@@ -97,7 +93,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		if (event.key.code == sf::Keyboard::D)
 		{
-			std::cout << "d est relaché" << std::endl;
+			std::cout << "d est relachï¿½" << std::endl;
 			MoveRight = false;
 			m_Player->SetSpeed(0);
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
@@ -105,7 +101,7 @@ void MainScene::OnEvent(const sf::Event& event)
 		
 		if (event.key.code == sf::Keyboard::Q)
 		{
-			std::cout << "q est relaché" << std::endl;
+			std::cout << "q est relachï¿½" << std::endl;
 			MoveLeft = false;
 			m_Player->SetSpeed(0);
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
@@ -113,12 +109,10 @@ void MainScene::OnEvent(const sf::Event& event)
 
 		if (event.key.code == sf::Keyboard::Space )
 		{
-			std::cout << "espace est relaché" << std::endl;
+			std::cout << "espace est relachï¿½" << std::endl;
 			m_Player->SetSpeed(0);
 			jump = false;
 		}
-
-		
 	}
 	
 	if (event.type == sf::Event::MouseButtonReleased) 
@@ -135,7 +129,6 @@ void MainScene::OnEvent(const sf::Event& event)
 		if (sf::Event::JoystickButtonReleased == 2)
 		{
 			base_attack = false;
-
 		}
 
 		if (sf::Event::JoystickButtonReleased == 0) 
@@ -170,7 +163,7 @@ void MainScene::OnUpdate()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
 	{
-		std::cout << "d est pressé" << std::endl;
+		std::cout << "d est pressï¿½" << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
 		if (m_Player->GetAttack() == false) 
 		{
@@ -180,7 +173,7 @@ void MainScene::OnUpdate()
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
-		std::cout << "q est pressé" << std::endl;
+		std::cout << "q est pressï¿½" << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
 		if (m_Player->GetAttack() == false) 
 		{
@@ -188,10 +181,7 @@ void MainScene::OnUpdate()
 		}
 		
 	}
-
-	
-
-	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10) 
+	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10)
 	{
 		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
@@ -212,9 +202,85 @@ void MainScene::OnUpdate()
 			m_Player->SetLeft();
 			m_Player->UnsetRight();
 
+struct ColliderMergeCoords
+{
+	float xMin, xMax;
+	float yMin, yMax;
+};
+
+void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
+{
+	Entity* pEntity = nullptr;
+
+	std::list<ColliderMergeCoords>;
+
+	switch (objectType)
+	{
+	/*case Enemy1:
+		mEnemies.push_back(CreateSprite<GravityEntity>(128.f, 128.f, "../../../res/Sprites/Enemies/Enemy1.png", new AABBCollider(64, 64))); // TODO Replace by the right enemy class
+		mEnemies.push_back(pEntity);
+		break;
+	case Enemy2:
+		pEntity = (CreateSprite<GravityEntity>(128.f, 128.f, "../../../res/Sprites/Enemies/Enemy2.png", new AABBCollider(64, 64))); // TODO Replace by the right enemy class
+		mEnemies.push_back(pEntity);
+		break;
+	case Enemy3:
+		pEntity = (CreateSprite<GravityEntity>(128.f, 128.f, "../../../res/Sprites/Enemies/Enemy3.png", new AABBCollider(64, 64))); // TODO Replace by the right enemy class
+		mEnemies.push_back(pEntity);
+		break;
+	case Enemy4:
+		pEntity = (CreateSprite<GravityEntity>(128.f, 128.f, "../../../res/Sprites/Enemies/Enemy4.png", new AABBCollider(64, 64))); // TODO Replace by the right enemy class
+		mEnemies.push_back(pEntity);
+		break;
+	case Boss:
+		pEntity = (CreateSprite<Entity>(0.f, 0.f, "../../../res/Sprites/Enemies/Enemy4.png", new AABBCollider(64, 64))); // TODO Replace by the boss class
+		mEnemies.push_back(pEntity);
+		break;
+	case Platform:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Platform.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case DestructiblePlatform:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/DestructiblePlatform.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case Wall1:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Jazz_Wall.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case Wall2:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Hub_Wall.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case Wall3:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Metal_Wall.png", nullptr);
+		pEntity->SetStatic(true);
+		break;*/
+	case Ground1:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Jazz_Ground.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case Ground2:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Hub_Ground.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case Ground3:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Metal_Ground.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
 	}
 
+	if (pEntity != nullptr)
+	{
+		pEntity->SetRigidBody(true);
+		pEntity->SetPosition(levelX, levelY, 0.f, 0.f);
+	}
+}
 
-	/*std::cout << "x:" << m_Player->GetPosition().x << " y: " << m_Player->GetPosition().y << " speed : " << m_Player->GetSpeed() <<  std::endl;*/
-	
+void MainScene::SpawnCollider(float x, float y, float width, float height)
+{
+	Entity* pEntity = CreateRectangle<Entity>(width, height, sf::Color::Transparent, new AABBCollider(width, height));
+	pEntity->SetPosition(x, y, 0.f, 0.f);
+	pEntity->SetRigidBody(true);
+	pEntity->SetStatic(true);
 }
