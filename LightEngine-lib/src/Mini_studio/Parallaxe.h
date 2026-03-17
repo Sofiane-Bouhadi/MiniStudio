@@ -18,8 +18,6 @@ public:
 
 	void GetPLayer(MainScene* AScene);
 
-	void OnInitialize()override;
-
 	void OnUpdate()override;
 
 	void OnDestroy()override;
