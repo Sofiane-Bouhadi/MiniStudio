@@ -6,8 +6,32 @@
 #include "AABBCollider.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 
-void MainScene::OnInitialize() 
+void MainScene::OnInitialize()
 {
+	const char* pathFar = "C:\Users\Admin\Desktop\Parallax\Layer 4.png";
+	const char* pathMid = "C:\Users\Admin\Desktop\Parallax\Layer 3.png";
+	const char* pathNear = "C:\Users\Admin\Desktop\Parallax\Layer 2.png";
+	const char* pathClose = "C:\Users\Admin\Desktop\Parallax\Layer 1.png";
+
+	float winW = (float)GetWindowWidth();
+	float winH = (float)GetWindowHeight();
+
+	mParallaxFar = CreateSprite<Parallaxe>(winW, winH, pathFar, new AABBCollider(0, 0));
+	mParallaxFar->SetPosition(0.f, 0.f, 0.f, 0.f);
+	mParallaxFar->Init(this, 6.0f);
+
+	mParallaxMid = CreateSprite<Parallaxe>(winW, winH, pathMid, new AABBCollider(0, 0));
+	mParallaxMid->SetPosition(0.f, 0.f, 0.f, 0.f);
+	mParallaxMid->Init(this, 4.0f);
+
+	mParallaxNear = CreateSprite<Parallaxe>(winW, winH, pathNear, new AABBCollider(0, 0));
+	mParallaxNear->SetPosition(0.f, 0.f, 0.f, 0.f);
+	mParallaxNear->Init(this, 2.5f);
+
+	mParallaxClose = CreateSprite<Parallaxe>(winW, winH, pathClose, new AABBCollider(0, 0));
+	mParallaxClose->SetPosition(0.f, 0.f, 0.f, 0.f);
+	mParallaxClose->Init(this, 1.5f);
+
 	//Rectangle
 	pEntity4 = CreateRectangle<Entity>(1280, 50, sf::Color::White, new AABBCollider(1280, 50));
 	pEntity4->SetPosition(1280 / 2, 720);
