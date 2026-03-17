@@ -121,32 +121,65 @@ void Level::ReadLevel(MainScene* scene)
 			case '4':
 				scene->Spawn(MainScene::Enemy4, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case 'B':
+			case '5':
 				scene->Spawn(MainScene::Boss, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case 'C':
+			case 'A':
 				scene->Spawn(MainScene::JazzWall1, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case 'D':
+			case 'B':
 				scene->Spawn(MainScene::JazzWall2, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case 'E':
+			case 'C':
 				scene->Spawn(MainScene::HubWall1, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case 'F':
+			case 'D':
 				scene->Spawn(MainScene::HubWall2, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case 'G':
+			case 'E':
 				scene->Spawn(MainScene::MetalWall1, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case 'H':
+			case 'F':
 				scene->Spawn(MainScene::MetalWall2, j * mPixelPerChar, i * mPixelPerChar);
 				break;
+			case 'G':
+				scene->Spawn(MainScene::JazzLeftPlatform, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'H':
+				scene->Spawn(MainScene::JazzMiddlePlatform1, j * mPixelPerChar, i * mPixelPerChar);
+				break;
 			case 'I':
-				scene->Spawn(MainScene::LeftJazzPlatform, j * mPixelPerChar, i * mPixelPerChar);
+				scene->Spawn(MainScene::JazzMiddlePlatform2, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case 'J':
-				scene->Spawn(MainScene::DestructiblePlatform, j * mPixelPerChar, i * mPixelPerChar);
+				scene->Spawn(MainScene::JazzRightPlatform, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'K':
+				scene->Spawn(MainScene::HubLeftPlatform, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'L':
+				scene->Spawn(MainScene::HubMiddlePlatform1, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'M':
+				scene->Spawn(MainScene::HubMiddlePlatform2, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'N':
+				scene->Spawn(MainScene::HubRightPlatform, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'O':
+				scene->Spawn(MainScene::MetalLeftPlatform, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'P':
+				scene->Spawn(MainScene::MetalMiddlePlatform1, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'Q':
+				scene->Spawn(MainScene::MetalMiddlePlatform2, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'R':
+				scene->Spawn(MainScene::MetalRightPlatform, j * mPixelPerChar, i * mPixelPerChar);
+				break;
+			case 'S':
+				scene->Spawn(MainScene::MetalRightPlatform, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			}
 

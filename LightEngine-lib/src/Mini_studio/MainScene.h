@@ -9,19 +9,63 @@ class MainScene : public Scene
 public:
 	enum ObjectType
 	{
+		//////Enemies//////
 		Enemy1,
 		Enemy2,
 		Enemy3,
 		Enemy4,
 		Boss,
-		Wall1,
-		Wall2,
-		Wall3,
-		Ground1,
-		Ground2,
-		Ground3,
-		Platform,
+
+		//////CEILINGS//////
+		JazzCeiling1,
+		JazzCeiling2,
+
+		HubCeiling1,
+		HubCeiling2,
+
+		MetalCeiling1,
+		MetalCeiling2,
+
+		//////WALLS//////
+		JazzWall1,
+		JazzWall2,
+
+		HubWall1,
+		HubWall2,
+
+		MetalWall1,
+		MetalWall2,
+
+		//////GROUNDS//////
+		JazzGround1,
+		JazzGround2,
+
+		HubGround1,
+		HubGround2,
+
+		MetalGround1,
+		MetalGround2,
+
+		//////PLATFORMS//////
+		JazzLeftPlatform,
+		JazzMiddlePlatform1,
+		JazzMiddlePlatform2,
+		JazzRightPlatform,
+
+		HubLeftPlatform,
+		HubMiddlePlatform1,
+		HubMiddlePlatform2,
+		HubRightPlatform,
+
+		MetalLeftPlatform,
+		MetalMiddlePlatform1,
+		MetalMiddlePlatform2,
+		MetalRightPlatform,
+
+		//////DestructiblePlatforms//////
 		DestructiblePlatform,
+
+		Count
 	};
 private :
 	Player* m_Player;
@@ -33,6 +77,13 @@ private :
 
 	bool MoveRight = false;
 
+	struct SpawnDesc 
+	{
+		const char* path;
+		bool isStatic;
+	};
+
+	SpawnDesc tilePath[(int)ObjectType::Count];
 
 public :
 	void OnInitialize() override;

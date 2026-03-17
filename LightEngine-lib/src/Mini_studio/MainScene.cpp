@@ -24,6 +24,29 @@ void MainScene::OnInitialize()
 	GameManager::Get()->GetCamera()->Zoom(2.f);
 
 	m_Level = new Level("../../../res/Levels/levelFull.txt", this);
+
+	///ENEMIES
+	tilePath[(int)ObjectType::Enemy1] = { "../../../res/Sprites/Enemies/Enemy1.png", false };
+	tilePath[(int)ObjectType::Enemy2] = { "../../../res/Sprites/Enemies/Enemy2.png", false };
+	tilePath[(int)ObjectType::Enemy3] = { "../../../res/Sprites/Enemies/Enemy2.png", true };
+	tilePath[(int)ObjectType::Enemy4] = { "../../../res/Sprites/Enemies/Enemy2.png", true };
+	tilePath[(int)ObjectType::Boss] = { "../../../res/Sprites/Enemies/Boss.png", true };
+
+	///CEILINGS
+	tilePath[(int)ObjectType::JazzCeiling1] = { "../../../res/Tiles/Jazz_Ceiling1.png", true };
+	tilePath[(int)ObjectType::JazzCeiling2] = { "../../../res/Tiles/Jazz_Ceiling2.png", true };
+	tilePath[(int)ObjectType::HubCeiling1] = { "../../../res/Tiles/Hub_Ceiling1.png", true };
+	tilePath[(int)ObjectType::HubCeiling2] = { "../../../res/Tiles/Hub_Ceiling2.png", true };
+	tilePath[(int)ObjectType::MetalCeiling1] = { "../../../res/Tiles/Metal_Ceiling1.png", true };
+	tilePath[(int)ObjectType::MetalCeiling2] = { "../../../res/Tiles/Metal_Ceiling2.png", true };
+
+	///WALLS
+	tilePath[(int)ObjectType::JazzWall1] = { "../../../res/Tiles/Jazz_Wall1.png", true };
+	tilePath[(int)ObjectType::JazzWall2] = {"../../../res/Tiles/Jazz_Wall2.png", true };
+	tilePath[(int)ObjectType::HubWall1] = {"../../../res/Tiles/Hub_Wall1.png", true };
+	tilePath[(int)ObjectType::HubWall2] = {"../../../res/Tiles/Hub_Wall2.png", true };
+	tilePath[(int)ObjectType::MetalWall1] = {"../../../res/Tiles/Metal_Wall1.png", true };
+	tilePath[(int)ObjectType::MetalWall2] = {"../../../res/Tiles/Metal_Wall2.png", true };
 }
 
 void MainScene::OnEvent(const sf::Event& event)
@@ -194,7 +217,7 @@ struct ColliderMergeCoords
 
 void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
 {
-	Entity* pEntity = nullptr;
+	Entity* pEntity = CreateSprite<Entity>(128.f, 128.f, tilePath[objectType], nullptr);
 
 	std::list<ColliderMergeCoords>;
 
@@ -219,37 +242,60 @@ void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
 	case Boss:
 		pEntity = (CreateSprite<Entity>(0.f, 0.f, "../../../res/Sprites/Enemies/Enemy4.png", new AABBCollider(64, 64))); // TODO Replace by the boss class
 		mEnemies.push_back(pEntity);
+		break;*/
+	case JazzLeftPlatform:
+		pEntity->SetStatic(true);
 		break;
-	case Platform:
+	case JazzMiddlePlatform1:
 		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Platform.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case JazzMiddlePlatform2:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Platform.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case JazzRightPlatform:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Platform.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case Wall:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Jazz_Wall.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case Wall:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Hub_Wall.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case Wall:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Metal_Wall.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case JazzGround1:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Jazz_Ground1.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case JazzGround2:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Jazz_Ground2.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case HubGround1:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Hub_Ground1.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case HubGround2:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Hub_Ground2.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case MetalGround1:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Metal_Ground1.png", nullptr);
+		pEntity->SetStatic(true);
+		break;
+	case MetalGround2:
+		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Metal_Ground2.png", nullptr);
 		pEntity->SetStatic(true);
 		break;
 	case DestructiblePlatform:
 		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/DestructiblePlatform.png", nullptr);
-		pEntity->SetStatic(true);
-		break;
-	case Wall1:
-		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Jazz_Wall.png", nullptr);
-		pEntity->SetStatic(true);
-		break;
-	case Wall2:
-		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Hub_Wall.png", nullptr);
-		pEntity->SetStatic(true);
-		break;
-	case Wall3:
-		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Metal_Wall.png", nullptr);
-		pEntity->SetStatic(true);
-		break;*/
-	case Ground1:
-		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Jazz_Ground.png", nullptr);
-		pEntity->SetStatic(true);
-		break;
-	case Ground2:
-		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Hub_Ground.png", nullptr);
-		pEntity->SetStatic(true);
-		break;
-	case Ground3:
-		pEntity = CreateSprite<Entity>(128.f, 128.f, "../../../res/Tiles/Metal_Ground.png", nullptr);
 		pEntity->SetStatic(true);
 		break;
 	}
