@@ -7,7 +7,12 @@ using namespace std;
 class SpriteAnimation
 {
     public:
-        vector<sf::Texture> Textures;
+        sf::Texture* Textures;
         vector<int> Delays;
         bool isLoop;
+
+        int frameWidth;
+        int frameHeight;
+        int line;
+        int column;
 };
