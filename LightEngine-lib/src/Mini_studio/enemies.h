@@ -29,12 +29,16 @@ protected:
 
 public:
 	enemies* pEnemy = nullptr;
-	Entity* pTarget = nullptr;
+	sf::Vector2f pTarget;
 
 	/*constructeur d'enemies*/
 	enemies(int atkwidth = 0, int atkheight = 0, float atkspeed = 0, float speed = 0, float x = 0, float y = 0, int PV = 1)
 		: atk_size_Width(atkwidth), atk_size_Height(atkheight), atk_speed(atkspeed), m_speed(speed), m_x(x), m_y(y), m_PV(PV)
 	{};
+
+	void choix(int nbr);
+
+	void init();
 
 	/*cree des ennemis*/
 	void createEnemy(float x, float y, int size);
@@ -60,13 +64,10 @@ public:
 
 	void AttackBull();
 
+	void AttackPunch();
+
+	void AttackSmart();
+
 	float telemetrie();
 
-	/**/
-	void attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW);
-
-	/*tout est dans le nom.*/
-	void OnCollision(Entity* other) /*override*/;
-
-	
 };

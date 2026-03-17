@@ -27,10 +27,7 @@ protected:
 		count
 	};
 
-	bool canIdle;
-	bool canAttack;
-	bool canReload;
-	bool canMove;
+
 
 	
 	
@@ -43,4 +40,8 @@ public:
 
 	void effect(int nbr);
 
+	bool canIdle;
+	bool canAttack;
+	bool canReload;
+	bool canMove;
 };

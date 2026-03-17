@@ -1,10 +1,16 @@
 #include "enemies.h"
 #include "CircleCollider.h"
+#include "Player.h"
 
 /*facilite l'utilisation de la state machine*/
-void choix(int nbr) {
+void enemies::choix(int nbr) {
 	StateMachine state;
 	state.change(nbr);
+}
+
+void enemies::init() {
+	Player player;
+	pTarget = player.GetPosition();
 }
 
 /*cree l'enemie*/
@@ -79,7 +85,7 @@ void enemies::moveingInLigne(float x,float y, float toX, float toY) {
 sf::Vector2f enemies::detection() {
 	sf::Vector2f vectarget;
 	positionEnemy = pEnemy->GetPosition();
-	sf::Vector2f positiontarget = pTarget->GetPosition();
+	sf::Vector2f positiontarget = pTarget;
 	vectarget.x = positionEnemy.x - positiontarget.x;
 	vectarget.y = positionEnemy.y - positiontarget.y;
 	vectarget.x = vectarget.x;
@@ -90,7 +96,7 @@ sf::Vector2f enemies::detection() {
 
 /*attack fall*/
 void enemies::AttackFall() {
-	sf::Vector2f positiontarget = pTarget->GetPosition();
+	sf::Vector2f positiontarget = pTarget;
 	positionEnemy = pEnemy->GetPosition();
 	if (positiontarget.y == positionEnemy.y + enemy_size / 2 || positiontarget.y == positionEnemy.y - enemy_size / 2) {
 		GoToPosition(positionEnemy.x, positiontarget.y, 1.0f);
@@ -99,7 +105,7 @@ void enemies::AttackFall() {
 
 /*attack bulldozer*/
 void enemies::AttackBull() {
-	sf::Vector2f positiontarget = pTarget->GetPosition();
+	sf::Vector2f positiontarget = pTarget;
 	positionEnemy = pEnemy->GetPosition();
 	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
 		if (telemetrie()==(float)500)
@@ -107,9 +113,29 @@ void enemies::AttackBull() {
 	}
 }
 
+/*attack punch*/
+void enemies::AttackPunch() {
+	sf::Vector2f positiontarget = pTarget;
+	positionEnemy = pEnemy->GetPosition();
+	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
+		if (telemetrie() == (float)500)
+			GoToPosition(positiontarget.x, positionEnemy.y, 1.0f);
+	}
+}
+
+/*attack smart*/
+void enemies::AttackSmart() {
+	sf::Vector2f positiontarget = pTarget;
+	positionEnemy = pEnemy->GetPosition();
+	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
+		if (telemetrie() == (float)500)
+			GoToPosition(positiontarget.x, positionEnemy.y, 1.0f);
+	}
+}
+
 /*char, a 11 heures, distance: a 400m .(War thunder reference)*/
 float enemies::telemetrie() {
-	sf::Vector2f positiontarget = pTarget->GetPosition();
+	sf::Vector2f positiontarget = pTarget;
 	positionEnemy = pEnemy->GetPosition();
 	float AC = positionEnemy.x - positiontarget.x;
 	float BC = positionEnemy.y - positiontarget.y;
