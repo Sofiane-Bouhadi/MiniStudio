@@ -20,9 +20,6 @@ public:
 		JazzCeiling1,
 		JazzCeiling2,
 
-		HubCeiling1,
-		HubCeiling2,
-
 		MetalCeiling1,
 		MetalCeiling2,
 
@@ -39,23 +36,22 @@ public:
 		//////GROUNDS//////
 		JazzGround1,
 		JazzGround2,
+		JazzGroundCorner,
+		JazzToHubGround1,
+		JazzToHubGround2,
 
-		HubGround1,
-		HubGround2,
+		HubGround,
 
 		MetalGround1,
 		MetalGround2,
 
 		//////PLATFORMS//////
-		JazzLeftPlatform,
-		JazzMiddlePlatform1,
-		JazzMiddlePlatform2,
-		JazzRightPlatform,
-
-		HubLeftPlatform,
-		HubMiddlePlatform1,
-		HubMiddlePlatform2,
-		HubRightPlatform,
+		JazzUpperLeftPlatform,
+		JazzUpperMiddlePlatform,
+		JazzUpperRightPlatform,
+		JazzBottomLeftPlatform,
+		JazzBottomMiddlePlatform,
+		JazzBottomRightPlatform,
 
 		MetalLeftPlatform,
 		MetalMiddlePlatform1,
