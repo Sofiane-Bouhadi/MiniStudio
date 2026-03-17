@@ -3,7 +3,7 @@
 
 class Player;
 
-class Paralax : public Entity
+class Parallaxe : public Entity
 {
 private:
 

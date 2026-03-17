@@ -3,32 +3,32 @@
 #include "Player.h"
 #include "MainScene.h"
 
-void Paralax::SetPlayerPos(Player* player)
+void Parallaxe::SetPlayerPos(Player* player)
 {
 	PLayerPos = player->GetPosition();
 }
 
-sf::Vector2f Paralax::GetPlayerPos()
+sf::Vector2f Parallaxe::GetPlayerPos()
 {
 	return PLayerPos;
 }
 
-void Paralax::GetPLayer(MainScene* ActuScene)
+void Parallaxe::GetPLayer(MainScene* ActuScene)
 {
 	player = ActuScene->GetPlayer();
 }
 
-void Paralax::OnInitialize()
+void Parallaxe::OnInitialize()
 {
 }
 
-void Paralax::OnUpdate()
+void Parallaxe::OnUpdate()
 {
 	sf::Vector2f pos = GetPlayerPos();
 	GoToDirection(pos.x, pos.y, player->GetSpeed());
 }
 
-void Paralax::OnDestroy()
+void Parallaxe::OnDestroy()
 {
 }
 
