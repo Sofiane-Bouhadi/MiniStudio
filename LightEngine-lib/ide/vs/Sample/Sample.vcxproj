@@ -13,7 +13,7 @@
     <PropertyGroup Label="Globals">
         <VCProjectVersion>17.0</VCProjectVersion>
         <Keyword>Win32Proj</Keyword>
-        <ProjectGuid>{B3A42DBC-A84B-4D33-AF8D-79E9373BCAB7}</ProjectGuid>
+        <ProjectGuid>{910FAABC-1EB1-409D-82D6-93D5DF3FF072}</ProjectGuid>
         <RootNamespace>Sample</RootNamespace>
         <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     </PropertyGroup>
@@ -96,10 +96,12 @@
     <ItemGroup>
         <ClCompile Include="..\..\..\src\Sample\DummyEntity.cpp"/>
         <ClCompile Include="..\..\..\src\Sample\main.cpp"/>
+        <ClCompile Include="..\..\..\src\Sample\Player.cpp"/>
         <ClCompile Include="..\..\..\src\Sample\SampleScene.cpp"/>
     </ItemGroup>
     <ItemGroup>
         <ClInclude Include="..\..\..\src\Sample\DummyEntity.h"/>
+        <ClInclude Include="..\..\..\src\Sample\Player.h"/>
         <ClInclude Include="..\..\..\src\Sample\SampleScene.h"/>
     </ItemGroup>
     <ItemGroup/>

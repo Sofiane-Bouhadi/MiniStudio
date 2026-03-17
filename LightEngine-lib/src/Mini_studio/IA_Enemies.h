@@ -10,7 +10,7 @@ protected:
 
 public:
 
-	void live(Entity* pTarget);
+	void live();
 
 };
 

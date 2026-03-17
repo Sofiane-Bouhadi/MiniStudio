@@ -13,7 +13,7 @@
     <PropertyGroup Label="Globals">
         <VCProjectVersion>17.0</VCProjectVersion>
         <Keyword>Win32Proj</Keyword>
-        <ProjectGuid>{32EE51C2-C04F-47A0-B1E6-5064B9373396}</ProjectGuid>
+        <ProjectGuid>{4464B9C3-64EF-47AA-829E-DBE39C491197}</ProjectGuid>
         <RootNamespace>LightEngine</RootNamespace>
         <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     </PropertyGroup>
@@ -94,16 +94,28 @@
         </Link>
     </ItemDefinitionGroup>
     <ItemGroup>
+        <ClCompile Include="..\..\..\src\LightEngine\AABBCollider.cpp"/>
+        <ClCompile Include="..\..\..\src\LightEngine\AssetManager.cpp"/>
+        <ClCompile Include="..\..\..\src\LightEngine\Camera.cpp"/>
+        <ClCompile Include="..\..\..\src\LightEngine\CircleCollider.cpp"/>
+        <ClCompile Include="..\..\..\src\LightEngine\Collider.cpp"/>
         <ClCompile Include="..\..\..\src\LightEngine\Debug.cpp"/>
         <ClCompile Include="..\..\..\src\LightEngine\Entity.cpp"/>
         <ClCompile Include="..\..\..\src\LightEngine\GameManager.cpp"/>
+        <ClCompile Include="..\..\..\src\LightEngine\GravityEntity.cpp"/>
         <ClCompile Include="..\..\..\src\LightEngine\Scene.cpp"/>
         <ClCompile Include="..\..\..\src\LightEngine\Utils.cpp"/>
     </ItemGroup>
     <ItemGroup>
+        <ClInclude Include="..\..\..\src\LightEngine\AABBCollider.h"/>
+        <ClInclude Include="..\..\..\src\LightEngine\AssetManager.h"/>
+        <ClInclude Include="..\..\..\src\LightEngine\Camera.h"/>
+        <ClInclude Include="..\..\..\src\LightEngine\CircleCollider.h"/>
+        <ClInclude Include="..\..\..\src\LightEngine\Collider.h"/>
         <ClInclude Include="..\..\..\src\LightEngine\Debug.h"/>
         <ClInclude Include="..\..\..\src\LightEngine\Entity.h"/>
         <ClInclude Include="..\..\..\src\LightEngine\GameManager.h"/>
+        <ClInclude Include="..\..\..\src\LightEngine\GravityEntity.h"/>
         <ClInclude Include="..\..\..\src\LightEngine\Scene.h"/>
         <ClInclude Include="..\..\..\src\LightEngine\Utils.h"/>
     </ItemGroup>

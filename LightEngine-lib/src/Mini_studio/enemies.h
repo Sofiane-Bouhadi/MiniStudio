@@ -1,5 +1,7 @@
 #include "Attack.h"
 #include "../LightEngine/Entity.h"
+#include "Shoot.h"
+
 #include <iostream>
 #include <SFML/System/Sleep.hpp>
 #include <SFML/System/Thread.hpp>
@@ -64,7 +66,7 @@ public:
 	void attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW);
 
 	/*tout est dans le nom.*/
-	void OnCollision(Entity* other) override;
+	void OnCollision(Entity* other) /*override*/;
 
 	
 };
