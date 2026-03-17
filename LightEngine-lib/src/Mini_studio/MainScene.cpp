@@ -227,19 +227,19 @@ void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
 		//mEnemies.push_back(pEntity);
 		break;
 	case Platform:
-		//pEntity = CreateSprite<Entity>(64.f, 64.f, "../../../res/Tiles/Platform.png", new AABBCollider(64, 64));
+		//pEntity = CreateSprite<Entity>(64.f, 64.f, "../../../res/Tiles/Platform.png", nullptr));
 		//pEntity->SetStatic(true);
 		break;
 	case DestructiblePlatform:
-		//pEntity = CreateSprite<Entity>(64.f, 64.f, "../../../res/Tiles/DestructiblePlatform.png", new AABBCollider(64, 64));
+		//pEntity = CreateSprite<Entity>(64.f, 64.f, "../../../res/Tiles/DestructiblePlatform.png", nullptr);
 		//pEntity->SetStatic(true);
 		break;
 	case Wall:
-		//pEntity = CreateSprite<Entity>(64.f, 64.f, "../../../res/Tiles/Wall.png", new AABBCollider(64, 64));
+		//pEntity = CreateSprite<Entity>(64.f, 64.f, "../../../res/Tiles/Wall.png", nullptr);
 		//pEntity->SetStatic(true);
 		break;
 	case Ground:
-		pEntity = CreateSprite<Entity>(124.f, 124.f, "../../../res/Tiles/Hub_Ground.png", new AABBCollider(124, 124));
+		pEntity = CreateSprite<Entity>(124.f, 124.f, "../../../res/Tiles/Hub_Ground.png", nullptr);
 		pEntity->SetStatic(true);
 		break;
 	}

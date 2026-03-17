@@ -72,6 +72,9 @@ void Level::MergeVerticalCollider()
 	{
 		for (int j = 0; j < mColliderDescs[i].size() - 1; ++j)
 		{
+			//j représente le ColliderDesc horizontal. Il faut donc un moyen de tester chaque ColliderDesc de la ligne i avec TOUS les ColliderDescs de la ligne i + 1
+			//3 ème boucle for ?
+
 			if (mColliderDescs[i][j].active == false)
 				continue;
 
@@ -134,8 +137,9 @@ void Level::ReadLevel(MainScene* scene)
 		}
 	}
 
-	//try merge vertical
 	MergeVerticalCollider();
+
+	// Create Colliders in scene
 }
 
 void Level::OpenFile()
