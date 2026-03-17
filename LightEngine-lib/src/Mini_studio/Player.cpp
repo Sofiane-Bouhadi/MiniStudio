@@ -48,19 +48,23 @@ void Player::PlayerShoot()
 	IsShooting = true;
 	Shooting_Cooldown = 3;
 
-	proj = CreateSprite<Projectile>(200.f, 100.f, "../../../res/Sprites/projectile.png", new AABBCollider(200, 100));
-
-	sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
-	proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
-	
-	proj->SetProjectileSpeed(400.f);
 
 	if (IsRight)
 	{
+		proj = CreateSprite<Projectile>(200.f, 100.f, "../../../res/Sprites/projectile_right.png", new AABBCollider(200, 100));
+		sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
+		proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
+		proj->SetOwnerTag(mTag);
+		proj->SetProjectileSpeed(1000.f);
 		proj->SetDirection(1, 0, proj->GetProjectileSpeed());
 	}
 	if (IsLeft)
 	{
+		proj = CreateSprite<Projectile>(200.f, 100.f, "../../../res/Sprites/projectile_left.png", new AABBCollider(200, 100));
+		sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
+		proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
+		proj->SetOwnerTag(mTag);
+		proj->SetProjectileSpeed(1000.f);
 		proj->SetDirection(-1, 0, proj->GetProjectileSpeed());
 	}
 }
@@ -93,10 +97,13 @@ bool Player::GetAttack()
 
 void Player::OnInitialize() 
 {
+	SetTag(1);
+
 	Scene* scene = GetScene();
 
 	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Red, new AABBCollider(85, 30)); 
 	attack->SetPosition(GetPosition().x, GetPosition().y);
+	attack->SetTag(1);
 }
 
 

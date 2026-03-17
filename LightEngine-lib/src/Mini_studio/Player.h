@@ -8,7 +8,6 @@ private :
 
 	int m_life = 100;
 	int nb_Jump = 2;
-	int PlayerTag = 1;
 
 	bool IsAlive = true;
 
