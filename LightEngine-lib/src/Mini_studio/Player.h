@@ -20,8 +20,7 @@ private :
 
 	bool IsRight = false;
 	bool IsLeft = false;
-	float Side_Cooldown = 2;
-
+	
 public:
 
 	void MoveRight(float deltatime);
@@ -30,9 +29,8 @@ public:
 
 	void SetRight();
 	void SetLeft();
-
-	void NotRight() { IsRight = false; }
-	void NotLeft() { IsLeft = false; }
+	void UnsetRight() {IsRight = false; }
+	void UnsetLeft() { IsLeft = false; }
 
 	void BaseAttack();
 
@@ -40,6 +38,8 @@ public:
 
 	float GetSpeed() { return mSpeed; }
 	int GetNbJump() { return nb_Jump; }
+	bool GetAttack();
+	float GetAttackCD() { return Attack_Cooldown; }
 
 	float GetMinSpeed() { return m_MinSpeed; }
 
