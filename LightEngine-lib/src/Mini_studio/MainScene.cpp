@@ -14,14 +14,14 @@ void MainScene::OnInitialize()
 {
 	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green,new AABBCollider(155,225) );
-	m_Player->SetPosition(2000, 700);
+	m_Player->SetPosition(1000, 300);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
 	m_Player->SetGravityStrength(500.f);
 	m_Player->SetJumpStrength(300);
 
 	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
-	GameManager::Get()->GetCamera()->Resize(sf::Vector2f(1280, 720));
+	GameManager::Get()->GetCamera()->Resize(sf::Vector2f(1280 * 2, 720 * 2));
 
 	m_Level = new Level("../../../res/Levels/level.txt", this);
 }
@@ -249,6 +249,14 @@ void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
 		pEntity->SetRigidBody(true);
 		pEntity->SetPosition(levelX, levelY, 0.f, 0.5f);
 	}
+}
+
+void MainScene::SpawnCollider(float x, float y, float width, float height)
+{
+	Entity* pEntity = CreateRectangle<Entity>(width, height, sf::Color::Transparent, new AABBCollider(width, height));
+	pEntity->SetPosition(x, y, 0.f, 0.f);
+	pEntity->SetRigidBody(true);
+	pEntity->SetStatic(true);
 }
 
 void MainScene::OnUpdate() 

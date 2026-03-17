@@ -70,16 +70,16 @@ void Level::MergeVerticalCollider()
 {
 	for (int i = 0; i < mColliderDescs.size() - 1; ++i)
 	{
-		for (int j = 0; j < mColliderDescs[i].size() - 1; ++j)
+		for (int j = 0; j < mColliderDescs[i].size(); ++j)
 		{
 			ColliderDesc& cd1 = mColliderDescs[i][j];
 
 			if (cd1.active == false)
 				continue;
 
-			for (int k = 0; k < mColliderDescs[i + 1].size() - 1; ++j)
+			for (int k = 0; k < mColliderDescs[i + 1].size() - 1; ++k)
 			{
-				ColliderDesc& cd2 = mColliderDescs[i + 1][j];
+				ColliderDesc& cd2 = mColliderDescs[i + 1][k];
 
 				if (cd1.active == false)
 					continue;
@@ -153,11 +153,14 @@ void Level::ReadLevel(MainScene* scene)
 	{
 		for (int j = 0; j < mColliderDescs[i].size() - 1; ++j)
 		{
+			if (mColliderDescs[i][j].active == false)
+				continue;
+
 			float posX = mColliderDescs[i][j].xMin * mPixelPerChar;
 			float posY = mColliderDescs[i][j].yMin * mPixelPerChar;
 
-			float width = (mColliderDescs[i][j].xMax - mColliderDescs[i][j].xMin) * mPixelPerChar;
-			float height = (mColliderDescs[i][j].yMax - mColliderDescs[i][j].yMin) * mPixelPerChar;
+			float width = (mColliderDescs[i][j].xMax - mColliderDescs[i][j].xMin + 1) * mPixelPerChar;
+			float height = (mColliderDescs[i][j].yMax - mColliderDescs[i][j].yMin + 1) * mPixelPerChar;
 
 			scene->SpawnCollider(posX, posY, width, height);
 		}
