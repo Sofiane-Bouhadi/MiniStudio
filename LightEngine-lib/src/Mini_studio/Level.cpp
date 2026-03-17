@@ -72,22 +72,31 @@ void Level::MergeVerticalCollider()
 	{
 		for (int j = 0; j < mColliderDescs[i].size() - 1; ++j)
 		{
-			//j représente le ColliderDesc horizontal. Il faut donc un moyen de tester chaque ColliderDesc de la ligne i avec TOUS les ColliderDescs de la ligne i + 1
-			//3 ème boucle for ?
+			ColliderDesc& cd1 = mColliderDescs[i][j];
 
-			if (mColliderDescs[i][j].active == false)
+			if (cd1.active == false)
 				continue;
 
-			if (mColliderDescs[i][j].yMax != mColliderDescs[i + 1][j].yMin - 1)
-				continue;
+			for (int k = 0; k < mColliderDescs[i + 1].size() - 1; ++j)
+			{
+				ColliderDesc& cd2 = mColliderDescs[i + 1][j];
 
-			if (mColliderDescs[i][j].xMin != mColliderDescs[i + 1][j].xMin)
-				continue;
-			if (mColliderDescs[i][j].xMax != mColliderDescs[i + 1][j].xMax)
-				continue;
+				if (cd1.active == false)
+					continue;
+				if (cd2.active == false)
+					continue;
 
-			mColliderDescs[i][j].active = false;
-			mColliderDescs[i + 1][j].yMin = mColliderDescs[i][j].yMin;
+				if (cd1.yMax != cd2.yMin - 1)
+					continue;
+
+				if (cd1.xMin != cd2.xMin)
+					continue;
+				if (cd1.xMax != cd2.xMax)
+					continue;
+
+				cd1.active = false;
+				cd2.yMin = cd1.yMin;
+			}
 		}
 	}
 }
@@ -140,6 +149,19 @@ void Level::ReadLevel(MainScene* scene)
 	MergeVerticalCollider();
 
 	// Create Colliders in scene
+	for (int i = 0; i < mColliderDescs.size() - 1; ++i)
+	{
+		for (int j = 0; j < mColliderDescs[i].size() - 1; ++j)
+		{
+			float posX = mColliderDescs[i][j].xMin * mPixelPerChar;
+			float posY = mColliderDescs[i][j].yMin * mPixelPerChar;
+
+			float width = (mColliderDescs[i][j].xMax - mColliderDescs[i][j].xMin) * mPixelPerChar;
+			float height = (mColliderDescs[i][j].yMax - mColliderDescs[i][j].yMin) * mPixelPerChar;
+
+			scene->SpawnCollider(posX, posY, width, height);
+		}
+	}
 }
 
 void Level::OpenFile()

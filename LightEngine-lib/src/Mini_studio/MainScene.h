@@ -35,6 +35,7 @@ public :
 	void OnEvent(const sf::Event& event) override;
 
 	void Spawn(ObjectType objectType, float levelX, float levelY);
+	void SpawnCollider(float x, float y, float width, float height);
 
 	void OnUpdate() override;
 };
