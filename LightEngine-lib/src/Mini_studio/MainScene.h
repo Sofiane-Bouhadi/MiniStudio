@@ -7,7 +7,7 @@ class Level;
 class MainScene : public Scene
 {
 public:
-	enum ObjectType
+	enum class ObjectType
 	{
 		//////Enemies//////
 		Enemy1,

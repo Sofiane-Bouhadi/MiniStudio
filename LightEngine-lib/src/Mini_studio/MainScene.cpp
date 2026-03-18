@@ -274,8 +274,8 @@ void MainScene::OnUpdate()
 
 void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
 {
-	Entity* pEntity = CreateSprite<Entity>(128.f, 128.f, tilePath[objectType].path, nullptr);
-	pEntity->SetStatic(tilePath[objectType].isStatic);
+	Entity* pEntity = CreateSprite<Entity>(128.f, 128.f, tilePath[(int)objectType].path, nullptr);
+	pEntity->SetStatic(tilePath[(int)objectType].isStatic);
 
 	if (pEntity != nullptr)
 	{
