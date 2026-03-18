@@ -13,7 +13,7 @@
 void MainScene::OnInitialize() 
 {
 	//Player
-	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green,new AABBCollider(155,225) );
+	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green,new AABBCollider(155,225));
 	m_Player->SetPosition(1000, 300);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
@@ -21,7 +21,10 @@ void MainScene::OnInitialize()
 	m_Player->SetJumpStrength(750);
 
 	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
-	//GameManager::Get()->GetCamera()->Zoom(2.f);
+	GameManager::Get()->GetCamera()->Zoom(2.f);
+	GameManager::Get()->GetCamera()->SetType(1);
+
+	std::cout << "Main scene initialized" << std::endl;
 
 	m_Level = new Level("../../../res/Levels/levelFull.txt", this);
 }

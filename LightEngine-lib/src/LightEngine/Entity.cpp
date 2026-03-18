@@ -288,6 +288,7 @@ void Entity::FixedUpdate(float fixedDt)
 	sf::Vector2f translation = distance * mDirection;
 	mTransformable->move(translation);
 
+	//Camera* c = GameManager::Get()->GetCamera();
 	
 	if (mCollider != nullptr)
 	{

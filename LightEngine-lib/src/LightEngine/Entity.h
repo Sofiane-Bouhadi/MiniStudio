@@ -60,6 +60,7 @@ public:
 	void SetDirection(float x, float y, float speed = -1.f);
 	void SetSpeed(float speed) { mSpeed = speed; }
 	void SetTag(int tag) { mTag = tag; }
+	void SetCollider(Collider* c) { mCollider = c; }
 	float GetRadius() const { return mWidth / 2.f; }
 	void SetRigidBody(bool isRigidBody) { mRigidBody = isRigidBody; }
 	bool IsRigidBody() const { return mRigidBody; }

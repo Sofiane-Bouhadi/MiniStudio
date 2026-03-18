@@ -47,9 +47,13 @@ void GameManager::CreateWindow(unsigned int width, unsigned int height, const ch
 	mWindowHeight = height;
 
 	mCamera = new Camera();
+	sf::RectangleShape* shape = new sf::RectangleShape(sf::Vector2f(width, height));
+	mCamera->Initialize(width, height, shape, sf::Color::Transparent, nullptr);
+
 	mEntities.push_back(mCamera);
 	mCamera->SetView(sf::Vector2f(width, height));
 	mCamera->SetRigidBody(false);
+	//mCamera->SetCollider(nullptr);
 
 	mClearColor = clearColor;
 }

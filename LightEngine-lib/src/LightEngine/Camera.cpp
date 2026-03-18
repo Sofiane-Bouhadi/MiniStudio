@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Camera.h"
 #include "Entity.h"
 
@@ -12,6 +14,8 @@ Camera::~Camera()
 	delete mView;
 }
 */
+
+class Player;
 
 void Camera::Update()
 {
@@ -30,7 +34,11 @@ void Camera::Update()
 
 	else if (followType == 2)
 	{
+		//SetPosition(mFollowingEntity->GetPosition());
+		//SetDirection(mFollowingEntity->GetPosition().x, mFollowingEntity->GetPosition().y, 100000);
+		//this->GoToDirection(mFollowingEntity->GetPosition().x, mFollowingEntity->GetPosition().y, 100);
 
+		std::cout << "Type 2" << std::endl;
 	}
 }
 
@@ -49,12 +57,8 @@ Entity* Camera::GetFollowingEntity()
 	return mFollowingEntity;
 }
 
-void Camera::SetPosition
-(const sf::Vector2f& pos)
+void Camera::SetPosition (const sf::Vector2f& pos)
 {
-
-
-
 	mView->setCenter(pos);
 
 }
