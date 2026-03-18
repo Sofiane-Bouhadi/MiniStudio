@@ -150,8 +150,6 @@ void Entity::Repulse(Entity* other, CollidingSide collidingSide)
 	}
 }
 
-
-
 Entity::CollidingSide Entity::IsColliding(Entity* other) const 
 {
 	if (mCollider == nullptr || other->mCollider == nullptr)
@@ -181,11 +179,6 @@ bool Entity::IsInside(float x, float y) const
 void Entity::Destroy()
 {
 	mToDestroy = true;
-
-	delete mCollider;
-
-	delete mDrawable;
-	delete mTransformable;
 
 	OnDestroy();
 }

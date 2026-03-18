@@ -2,6 +2,8 @@
 #include "GravityEntity.h"
 #include "DummyEntity.h"
 #include "Player.h"
+#include "Sound.h"
+#include "Music.h"
 
 #include "Debug.h"
 
@@ -13,6 +15,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include <iostream>
+
+using namespace std;
 
 void SampleScene::OnInitialize()
 {
@@ -41,12 +45,17 @@ void SampleScene::OnInitialize()
 	gEntity = CreateRectangle<Player>(50, 100, sf::Color::Blue, new AABBCollider(50, 100));
 	gEntity->SetPosition(720, 0);
 	gEntity->SetRigidBody(true);
-	gEntity->SetGravityStrength(300.f);
+	gEntity->SetGravityStrength(400.f);
+	gEntity->SetJumpStrength(200.f);
 
 	//Choose an entity to follow
 	GameManager::Get()->GetCamera()->SetFollowingEntity(gEntity);
 
+	mMusic = new Music("../../../res/foret.wav");
+	mMusic->Play();
+
 	pEntitySelected = nullptr;
+
 }
 
 void SampleScene::OnEvent(const sf::Event& event)
