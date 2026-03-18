@@ -183,7 +183,6 @@ void Entity::Destroy()
 	mToDestroy = true;
 
 	delete mCollider;
-
 	delete mDrawable;
 	delete mTransformable;
 
@@ -201,7 +200,6 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 	if (mCollider != nullptr)
 		mCollider->SetPosition(currentPosition.x, currentPosition.y);
 
-	//#TODO Optimise
 	if (mTarget.isSet) 
 	{
 		sf::Vector2f position = GetPosition(0.5f, 0.5f);
@@ -226,14 +224,17 @@ sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
 
 sf::Shape* Entity::GetShape()
 {
-	if (dynamic_cast<sf::CircleShape*> (mDrawable) != nullptr)
+	if (dynamic_cast<sf::CircleShape*>(mDrawable) != nullptr)
 	{
-		return ((sf::CircleShape*)mDrawable);
+		return (sf::CircleShape*)mDrawable;
 	}
-	else if (dynamic_cast<sf::RectangleShape*> (mDrawable) != nullptr)
+	else if (dynamic_cast<sf::RectangleShape*>(mDrawable) != nullptr)
 	{
-		return ((sf::RectangleShape*)mDrawable);
+		return (sf::RectangleShape*)mDrawable;
 	}
+
+	// Aucun shape disponible
+	return nullptr;
 }
 
 bool Entity::GoToDirection(int x, int y, float speed)

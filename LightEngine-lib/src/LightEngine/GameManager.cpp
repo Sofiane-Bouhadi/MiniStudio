@@ -148,13 +148,13 @@ void GameManager::Update()
 
 void GameManager::FixedUpdate()
 {
-	// Physic update
+	
 	for (Entity* entity : mEntities)
 	{
 		entity->FixedUpdate(FIXED_DT);
 	}
 
-	// Collision detection
+	
 
 	for (auto it1 = mEntities.begin(); it1 != mEntities.end(); ++it1)
 	{

@@ -6,12 +6,14 @@
 #include "Utils.h"
 #include "Debug.h"
 
+#include "Collectible.h"
+#include "HealthCharm.h"
+
 #include <iostream>
 #include <SFML/Graphics/RectangleShape.hpp>
 
 void MainScene::OnInitialize()
 {
-
     m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
     m_Player->SetPosition(1000, 300);
     m_Player->SetSpeed(m_Player->GetMinSpeed());
@@ -23,6 +25,11 @@ void MainScene::OnInitialize()
     GameManager::Get()->GetCamera()->Zoom(2.f);
 
     m_Level = new Level("../../../res/Levels/levelFull.txt", this);
+
+  
+    Collectible* coin = CreateRectangle<Collectible>(64, 64, sf::Color::Yellow, new AABBCollider(64,64));
+    coin->SetPosition(1200, 200);
+
 }
 
 void MainScene::OnEvent(const sf::Event& event)
@@ -88,7 +95,7 @@ void MainScene::OnEvent(const sf::Event& event)
         if (event.joystickButton.button == 3)
             shoot = false;
     }
-
+    
     if (jump)
         m_Player->Jump();
 
