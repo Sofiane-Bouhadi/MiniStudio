@@ -100,6 +100,8 @@ protected:
 
 	virtual void Update();
 
+	virtual void OnSetPosition(float x, float y) {};
+
     virtual void OnUpdate() {};
     virtual void OnCollision(Entity* collidedWith, CollidingSide collidingSide) {};
 	virtual void OnInitialize() {};

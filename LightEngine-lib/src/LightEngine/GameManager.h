@@ -9,6 +9,7 @@
 
 class Entity;
 class GravityEntity;
+class Player;
 class Scene;
 class Debug;
 class Camera;
@@ -28,6 +29,8 @@ public :
 
 	sf::RenderWindow* mpWindow;
 	sf::Font mFont;
+
+	Player* player;
 
 	Scene* mpScene;
 	Camera* mCamera;
@@ -64,6 +67,8 @@ public:
 	template<typename T>
 	void LaunchScene();
 
+	void SetPlayer(Player* p);
+	Player* GetPlayer();
 	float GetDeltaTime() const { return mDeltaTime; }
 	Scene* GetScene() const { return mpScene; }
 	Camera* GetCamera() const { return mCamera; }

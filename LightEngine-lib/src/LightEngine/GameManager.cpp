@@ -58,6 +58,16 @@ void GameManager::CreateWindow(unsigned int width, unsigned int height, const ch
 	mClearColor = clearColor;
 }
 
+void GameManager::SetPlayer(Player* p)
+{
+	player = p;
+}
+
+Player* GameManager::GetPlayer()
+{
+	return player;
+}
+
 void GameManager::Run()
 {
 	if (mpWindow == nullptr) 

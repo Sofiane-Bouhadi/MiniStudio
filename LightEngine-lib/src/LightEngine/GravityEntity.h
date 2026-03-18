@@ -14,5 +14,6 @@ public:
 
 	void SetGravityStrength(float gravityStrength) { mGravityStrength = gravityStrength; }
 	void SetJumpStrength(float jumpStrength) { mJumpStrength = jumpStrength; }
+	float GetYVelocity();
 };
 

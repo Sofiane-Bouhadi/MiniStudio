@@ -11,7 +11,10 @@ void GravityEntity::Update()
 
 void GravityEntity::Jump()
 {
-
 	mYVelocity = -mJumpStrength;
-	
+}
+
+float GravityEntity::GetYVelocity()
+{
+	return mYVelocity;
 }

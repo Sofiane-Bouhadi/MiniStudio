@@ -20,9 +20,11 @@ void MainScene::OnInitialize()
 	m_Player->SetGravityStrength(1200.f);
 	m_Player->SetJumpStrength(750);
 
+	GameManager::Get()->SetPlayer(m_Player);
+
 	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
 	GameManager::Get()->GetCamera()->Zoom(2.f);
-	GameManager::Get()->GetCamera()->SetType(1);
+	GameManager::Get()->GetCamera()->SetType(2);
 
 	std::cout << "Main scene initialized" << std::endl;
 

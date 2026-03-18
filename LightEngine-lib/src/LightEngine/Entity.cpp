@@ -252,7 +252,7 @@ bool Entity::GoToDirection(int x, int y, float speed)
 
 bool Entity::GoToPosition(int x, int y, float speed)
 {
-	sf::Vector2i worldPos = sf::Vector2i(GameManager::Get()->mpWindow->mapPixelToCoords(sf::Vector2i(x, y)));
+	sf::Vector2i worldPos = sf::Vector2i(x, y);// sf::Vector2i(GameManager::Get()->mpWindow->mapPixelToCoords(sf::Vector2i(x, y)));
 
 	if (GoToDirection(worldPos.x, worldPos.y, speed) == false)
 		return false;
@@ -287,6 +287,8 @@ void Entity::FixedUpdate(float fixedDt)
 	float distance = dt * mSpeed;
 	sf::Vector2f translation = distance * mDirection;
 	mTransformable->move(translation);
+
+	OnSetPosition(mTransformable->getPosition().x, mTransformable->getPosition().y);
 
 	//Camera* c = GameManager::Get()->GetCamera();
 	

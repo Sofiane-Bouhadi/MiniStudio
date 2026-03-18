@@ -1,6 +1,7 @@
 #include <iostream>
-
+#include "GameManager.h"
 #include "Camera.h"
+#include "GravityEntity.h"
 #include "Entity.h"
 
 /*
@@ -34,9 +35,16 @@ void Camera::Update()
 
 	else if (followType == 2)
 	{
+		sf::Vector2f pos = mFollowingEntity->GetPosition();
+
+		
+		GravityEntity* g = (GravityEntity*)mFollowingEntity;
+
+		//float YVelocity = GameManager::Get()->GetPlayer()->GetYVelocity(); //= p1->GetYVelocity();
+
 		//SetPosition(mFollowingEntity->GetPosition());
-		//SetDirection(mFollowingEntity->GetPosition().x, mFollowingEntity->GetPosition().y, 100000);
-		//this->GoToDirection(mFollowingEntity->GetPosition().x, mFollowingEntity->GetPosition().y, 100);
+		GoToPosition(pos.x, pos.y + g->GetYVelocity(), 100);
+		//GoToDirection(mFollowingEntity->GetPosition().x, mFollowingEntity->GetPosition().y, 100);
 
 		std::cout << "Type 2" << std::endl;
 	}
@@ -57,10 +65,24 @@ Entity* Camera::GetFollowingEntity()
 	return mFollowingEntity;
 }
 
+
+void Camera::SetFollowingEntity(Entity* entity) 
+{ 
+	mFollowingEntity = entity;
+	SetPosition(mFollowingEntity->GetPosition());
+}
+
 void Camera::SetPosition (const sf::Vector2f& pos)
 {
+	Entity::SetPosition(pos.x, pos.y, 0.5f, 0.5f);
 	mView->setCenter(pos);
+}
 
+void Camera::OnSetPosition(float x, float y)
+{
+	float halfHeight = GetScene()->GetWindowHeight() / 2;
+	float halfWidth = GetScene()->GetWindowWidth() / 2;
+	mView->setCenter(x + halfWidth, y + halfHeight);
 }
 
 void Camera::SetType(int type)

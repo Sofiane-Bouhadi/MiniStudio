@@ -23,8 +23,10 @@ public:
 	bool IsFollowing() { return mFollow; }
 	Entity* GetFollowingEntity();
 
+	void OnSetPosition(float x, float y) override;
+
 	void SetPosition(const sf::Vector2f& pos);
-	void SetFollowingEntity(Entity* entity) { mFollowingEntity = entity; }
+	void SetFollowingEntity(Entity* entity);
 	void SetFollow(bool follow) { mFollow = follow; }
 	void SetType(int type);
 
