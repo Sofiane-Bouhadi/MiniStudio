@@ -33,6 +33,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	bool jump = false;
 	bool base_attack = false;
 	bool shoot = false;
+	
 
 	if (event.type == sf::Event::KeyPressed )
 	{
@@ -48,10 +49,15 @@ void MainScene::OnEvent(const sf::Event& event)
 
 	if (event.type == sf::Event::MouseButtonPressed) 
 	{
+		if (event.mouseButton.button == sf::Mouse::Button::Left)
+		{
+			std::cout << "clic gauche est appuy�" << std::endl;
+			base_attack = true;
+		}
 		if (event.mouseButton.button == sf::Mouse::Button::Right)
 		{
 			std::cout << "clic droit est appuy�" << std::endl;
-			base_attack = true;
+			shoot = true;
 		}
 	}
 
@@ -117,9 +123,13 @@ void MainScene::OnEvent(const sf::Event& event)
 	
 	if (event.type == sf::Event::MouseButtonReleased) 
 	{
-		if (event.mouseButton.button == sf::Mouse::Button::Right )
+		if (event.mouseButton.button == sf::Mouse::Button::Left )
 		{
 			base_attack = false;
+		}
+		if (event.mouseButton.button == sf::Mouse::Button::Right)
+		{
+			shoot = false;
 		}
 	}
 

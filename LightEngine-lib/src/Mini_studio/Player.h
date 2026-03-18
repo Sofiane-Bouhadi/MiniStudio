@@ -40,13 +40,14 @@ public:
 
 	void BaseAttack();
 	void PlayerShoot();
-
+	
 	void TakeDmg(int DamageTaken);
 
 	float GetSpeed() { return mSpeed; }
 	int GetNbJump() { return nb_Jump; }
 	bool GetAttack();
 	float GetAttackCD() { return Attack_Cooldown; }
+	float GetShootCD() { return Shooting_Cooldown; }
 
 	float GetMinSpeed() { return m_MinSpeed; }
 

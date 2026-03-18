@@ -51,21 +51,23 @@ void Player::PlayerShoot()
 
 	if (IsRight)
 	{
-		proj = CreateSprite<Projectile>(200.f, 100.f, "../../../res/Sprites/projectile_right.png", new AABBCollider(200, 100));
+		proj = CreateSprite<Projectile>(136.f, 53.f, "../../../res/Sprites/projectile_right.png", new AABBCollider(136, 53));
 		sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
 		proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
 		proj->SetOwnerTag(mTag);
 		proj->SetProjectileSpeed(1000.f);
 		proj->SetDirection(1, 0, proj->GetProjectileSpeed());
+	
 	}
 	if (IsLeft)
 	{
-		proj = CreateSprite<Projectile>(200.f, 100.f, "../../../res/Sprites/projectile_left.png", new AABBCollider(200, 100));
+		proj = CreateSprite<Projectile>(136.f, 53.f, "../../../res/Sprites/projectile_left.png", new AABBCollider(136, 53));
 		sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
 		proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
 		proj->SetOwnerTag(mTag);
 		proj->SetProjectileSpeed(1000.f);
 		proj->SetDirection(-1, 0, proj->GetProjectileSpeed());
+		Shooting_Cooldown = 3;
 	}
 }
 
@@ -143,9 +145,9 @@ void Player::OnUpdate()
 
 	Shooting_Cooldown -= GetDeltaTime();
 
-	if (Shooting_Cooldown < 0.f)
+	if (Shooting_Cooldown > 0.f)
 	{
 		IsShooting = false;
 	}
-	
+
 }
