@@ -1,6 +1,4 @@
 #include "enemies.h"
-#include "CircleCollider.h"
-#include "Player.h"
 
 /*facilite l'utilisation de la state machine*/
 void enemies::choix(int nbr) {
@@ -11,15 +9,14 @@ void enemies::choix(int nbr) {
 void enemies::init() {
 	Player player;
 	pTarget = player.GetPosition();
+
 }
 
 /*cree l'enemie*/
 void enemies::createEnemy(float x, float y, int size){
 
 	enemy_size = size;
-	pEnemy = CreateCircle<enemies>(enemy_size, sf::Color::Red, new CircleCollider(50));
-	pEnemy->SetPosition(x, y);
-	pEnemy->SetRigidBody(true);
+
 }
 
 /*evenement OnPlayerDetected*/
@@ -50,7 +47,7 @@ bool enemies::OnDeath(){
 	}
 }
 
-/*evenement OnHit*/ //need to be corrctly build
+/*evenement OnHit*/ //need to be corrctly recode
 bool enemies::OnHit() {
 	if (true) {
 		return true;
@@ -59,7 +56,7 @@ bool enemies::OnHit() {
 	}
 }
 
-/*evenement  OnStateChanged*/
+/*evenement OnStateChanged*/
 bool enemies::OnStateChanged() {
 	StateMachine stateMch;
 	if (stateMch.haveChange) {

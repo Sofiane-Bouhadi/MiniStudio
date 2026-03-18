@@ -1,6 +1,8 @@
 #include "Attack.h"
 #include "../LightEngine/Entity.h"
 #include "Shoot.h"
+#include "CircleCollider.h"
+#include "Player.h"
 
 #include <iostream>
 #include <SFML/System/Sleep.hpp>
@@ -8,12 +10,11 @@
 #include "StateMachine.h"
 
 #pragma once
-class enemies : public Entity
+class enemies : public GravityEntity
 {
 private:
 
-	float size_enemy = 0;
-	sf::Vector2f positionEnemy;
+	
 
 protected:
 
@@ -21,8 +22,6 @@ protected:
 	int atk_size_Height { 0 };
 	float atk_speed { 0 };
 	float m_speed { 0 };
-	float m_x { 0 };
-	float m_y { 0 };
 	int m_PV{ 0 };
 
 	int enemy_size{ 0 };
@@ -30,11 +29,8 @@ protected:
 public:
 	enemies* pEnemy = nullptr;
 	sf::Vector2f pTarget;
-
-	/*constructeur d'enemies*/
-	enemies(int atkwidth = 0, int atkheight = 0, float atkspeed = 0, float speed = 0, float x = 0, float y = 0, int PV = 1)
-		: atk_size_Width(atkwidth), atk_size_Height(atkheight), atk_speed(atkspeed), m_speed(speed), m_x(x), m_y(y), m_PV(PV)
-	{};
+	float size_enemy = 0;
+	sf::Vector2f positionEnemy;
 
 	void choix(int nbr);
 
@@ -70,4 +66,5 @@ public:
 
 	float telemetrie();
 
+	sf::Transformable* GetTransformable() { return mTransformable ; }
 };

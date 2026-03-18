@@ -9,7 +9,7 @@ private :
 
 	Player* m_Player;
 	Entity* pEntity4;
-
+	enemies* enemy1;
 	bool MoveRight = false;
 
 
