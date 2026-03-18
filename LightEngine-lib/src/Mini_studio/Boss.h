@@ -3,7 +3,8 @@
 
 #include <functional>
 
-class Boss : Entity
+class Boss : 
+	public Entity
 {
 	int mAtkStep = -1;
 
