@@ -23,7 +23,9 @@ void sceneTemporaire::OnUpdate() {
 	//enemy1.AttackBull(target);
 
 	//debug
-	sf::Vector2f positionEn = enemy1.pEnemy->GetPosition();
+	if (enemy1.pEnemy != nullptr) {
+		sf::Vector2f positionEn = enemy1.pEnemy->GetPosition();
+	}
 	//debuging.DrawText(positionEn.x, positionEn.y, (std::string)"text",sf::Color::White);
 
 	if (enemy1.pEnemy != nullptr)

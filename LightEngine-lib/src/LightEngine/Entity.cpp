@@ -235,10 +235,6 @@ sf::Shape* Entity::GetShape()
 	}
 }
 
-sf::Vector2f Entity::GetEnemyList()
-{
-}
-
 bool Entity::GoToDirection(int x, int y, float speed)
 {
 	sf::Vector2f position = GetPosition(0.5f, 0.5f);
