@@ -17,7 +17,7 @@ void MainScene::OnInitialize()
 
 	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
-	m_Player->SetPosition(300, 0);
+	m_Player->SetPosition(0, 600);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
 	m_Player->SetGravityStrength(1200.f);
@@ -30,7 +30,7 @@ void MainScene::OnInitialize()
 	entity->SetPosition(0, 720);
 
 	Boss* boss = CreateRectangle<Boss>(250, 300, sf::Color::Red, new AABBCollider(250, 300));
-	boss->SetPosition(500, 500);
+	boss->SetPosition(0, 250);
 	boss->SetRigidBody(false);
 	boss->SetStatic(true);
 

@@ -44,75 +44,83 @@ void Boss::DashAtk()
 	switch (mAtkStep) 
 	{
 	case 0:
-		mTarget.isSet = true;
+		// Go on the top of the screen
+		GoToPosition(mCenterX, mUpperY);
 		mAtkStep++;
 		break;
 	case 1:
-		// Go on the top of the screen
 		if (mTarget.isSet == false)
 		{
-			// if on top of the screen go to a random side (right / left)
+			mWaitTimer = 0.5f;
+			mAtkStep++;
+		}
+		break;
+	case 2:
+		if (mWaitTimer <= 0.f)
+			mAtkStep++;
+		break;
+	case 3:
+		// if on top of the screen go to a random side (right / left)
+		if (mTarget.isSet == false)
+		{
 			if (rand() % 2 == 1)
 				SetPosition(mLeftSideX, mLeftSideY);
 			else
 				SetPosition(mRightSideX, mRightSideY);
 			mAtkStep++;
-			mWaitTimer = 0.5f;
+			mWaitTimer = 1.5f;
 		}
-		else
-		{
-			GoToPosition(mUpperX, mUpperY);
-		}
-
 		break;
-	case 2:
-		// Wait 0.5 seconds
+	case 4:
+		// Wait 1.5 seconds
 		if (mWaitTimer <= 0.f)
 		{
 			mAtkStep++;
-			mTarget.isSet = true;
+
+			// Dash to the other side
+			SetSpeed(mAccelerationSpeed);
+
+			if (GetPosition().x == mLeftSideX)
+			{
+				GoToPosition(mRightSideX, mRightSideY);
+			}
+			else
+			{
+				GoToPosition(mLeftSideX, mLeftSideY);
+			}
 		}
 		break;
-	case 3:
-		// Dash to the other side
-		SetSpeed(mAccelerationSpeed);
-
-		if (GetPosition().x == mLeftSideX)
-			GoToPosition(mRightSideX, 100);
-		else
-			GoToPosition(mLeftSideX, 100);
-
+	case 5:
+		// Reset speed
 		if (mTarget.isSet == false)
 		{
 			SetSpeed(mBaseSpeed);
 			mAtkStep++;
-			mWaitTimer = 0.5f;
+			mWaitTimer = 1.5f;
 		}
 		break;
-	case 4:
-		// Wait 2 seconds
+	case 6:
+		// Wait 1.5 seconds
 		if (mWaitTimer <= 0.f)
 		{
 			mAtkStep++;
-			mTarget.isSet = true;
+			// Go to center of the scene
+			GoToPosition(mCenterX, mCenterY);
 		}
 		break;
-	case 5:
-		// Go to center of the scene
+	case 7:
 		if (mTarget.isSet == false)
 		{
 			mAtkStep++;
 			mWaitTimer = 1.f;
 		}
-		else
-			GoToPosition(mCenterX, mCenterY);
 		break;
-	case 6:
+	case 8:
 		// Wait 1 second
 		if (mWaitTimer <= 0.f)
 			mAtkStep++;
 		break;
-	case 7:
+	case 9:
 		//Change Atk
 		LaunchAtk();
 		break;

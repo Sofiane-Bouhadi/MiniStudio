@@ -11,19 +11,18 @@ class Boss :
 	int mHp = 20;
 
 	// Ces variables sont à changer selon la scène une fois qu'elle sera faite.
-	float mUpperX = 250;
-	float mUpperY = 250;
+	float mUpperY = -720;
 
-	float mCenterX = 500;
-	float mCenterY = 650;
+	float mCenterX = 0;
+	float mCenterY = 360;
 
-	float mLeftSideX = 0;
-	float mLeftSideY = 100;
+	float mLeftSideX = -1280;
+	float mLeftSideY = 520;
 
-	float mRightSideX = 1000;
-	float mRightSideY = 100;
+	float mRightSideX = 1280;
+	float mRightSideY = 520;
 
-	float mBaseSpeed = 500.f;
+	float mBaseSpeed = 300.f;
 	float mAccelerationSpeed = 1500.f;
 
 	float mWaitTimer = 0.f;
