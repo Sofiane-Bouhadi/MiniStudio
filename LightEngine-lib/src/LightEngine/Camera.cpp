@@ -40,11 +40,19 @@ void Camera::Update()
 		
 		GravityEntity* g = (GravityEntity*)mFollowingEntity;
 
-		//float YVelocity = GameManager::Get()->GetPlayer()->GetYVelocity(); //= p1->GetYVelocity();
+		float YVelocity = g->GetYVelocity();
 
-		//SetPosition(mFollowingEntity->GetPosition());
-		GoToPosition(pos.x, pos.y + g->GetYVelocity(), 100);
-		//GoToDirection(mFollowingEntity->GetPosition().x, mFollowingEntity->GetPosition().y, 100);
+		if (YVelocity > GetScene()->GetWindowHeight() * 0.8)
+		{
+			YVelocity = GetScene()->GetWindowHeight() * 0.8;
+		}
+
+		if (YVelocity < - GetScene()->GetWindowHeight() * 0.8)
+		{
+			YVelocity = - GetScene()->GetWindowHeight() * 0.8;
+		}
+
+		GoToPosition(pos.x, pos.y + g->GetYVelocity(), 300);
 
 		std::cout << "Type 2" << std::endl;
 	}
