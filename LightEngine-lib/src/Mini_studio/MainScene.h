@@ -11,7 +11,7 @@ private :
 	Entity* pEntity4;
 	enemies* enemy1;
 	bool MoveRight = false;
-
+	StateMachine* state;
 
 public :
 	void OnInitialize() override;

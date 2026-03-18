@@ -10,7 +10,7 @@
 #include "StateMachine.h"
 
 #pragma once
-class enemies : public GravityEntity
+class enemies : public Entity
 {
 private:
 
@@ -26,8 +26,6 @@ public:
 	Player* pPlayer;
 	float size_enemy = 0;
 	sf::Vector2f positionEnemy;
-
-	void OnCollision(Entity* pOther, CollidingSide collidingSide);
 
 	void choix(int nbr);
 
@@ -46,13 +44,10 @@ public:
 
 	bool OnStateChanged();
 
-	/*deplace l'ennemi en ligne*/
-	void moveingInLigne(float x, float y, float toX, float toY);
+	void moveingInLigne(float x, float toX);
 
 	/*renvois un vecteur de l'entite cible*/
 	sf::Vector2f direction();
-
-	void detection();
 
 	/*attaque de l'enemies*/
 	void AttackFall();

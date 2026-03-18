@@ -13,15 +13,6 @@ void enemies::init(enemies* enemy, Player* player) {
 	pEnemy = enemy;
 }
 
-void enemies::OnCollision(Entity* pOther, CollidingSide collidingSide)
-{
-	if (collidingSide == Bottom)
-	{
-		mYVelocity = 0.f;
-	}
-
-}
-
 /*cree l'enemie*/
 void enemies::createEnemy(float x, float y, int size){
 
@@ -68,14 +59,14 @@ bool enemies::OnStateChanged() {
 }
 
 /*bouge en ligne*/
-void enemies::moveingInLigne(float x,float y, float toX, float toY) {
+void enemies::moveingInLigne(float x, float toX) {
 	bool ismoving = false;
 	positionEnemy = pEnemy->GetPosition();
-	if (positionEnemy.x != toX && positionEnemy.y != toY){ 
-		GoToPosition(toX, toY,1.0f);
+	if (positionEnemy.x != toX ){ 
+		GoToPosition(toX, positionEnemy.y);
 	}
-	if (positionEnemy.x != x && positionEnemy.y != y){
-		GoToPosition(x, y, 1.0f);
+	if (positionEnemy.x != x){
+		GoToPosition(x, positionEnemy.y);
 	}
 }
 

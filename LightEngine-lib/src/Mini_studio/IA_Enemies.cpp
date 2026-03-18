@@ -11,7 +11,7 @@ void IA::liveBull(enemies* pEnemy) {
 		state.effect(5);
 	}
 	else {
-		pEnemy->moveingInLigne(0,100,1000,1000);
+		pEnemy->moveingInLigne(0,100);
 		state.change(1);
 		state.effect(1);
 	}

@@ -9,6 +9,12 @@ private:
 protected:
 
 public:
+	enum typesEn {
+		Fall,
+		smart,
+
+		count
+	};
 
 	void liveBull(enemies* pEnemy);
 
