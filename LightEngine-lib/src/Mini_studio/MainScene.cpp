@@ -5,7 +5,7 @@
 #include <iostream>
 #include "AABBCollider.h"
 #include <SFML/Graphics/RectangleShape.hpp>
-#include "enemies.h"
+
 
 void MainScene::OnInitialize() 
 {
@@ -22,8 +22,7 @@ void MainScene::OnInitialize()
 	m_Player->SetGravityStrength(300.f);
 	m_Player->SetJumpStrength(300);
 
-	enemy1->createEnemy(100, 100, 50);
-	enemy1->CreateRectangle<enemies>(20, 20, sf::Color::Red, new AABBCollider(20, 20));
+	enemy1=CreateRectangle<enemies>(20, 20, sf::Color::Red, new AABBCollider(20, 20));
 	enemy1->SetRigidBody(true);
 	enemy1->SetPosition(100, 100);
 }

@@ -12,6 +12,15 @@ void enemies::init() {
 
 }
 
+void enemies::OnCollision(Entity* pOther, CollidingSide collidingSide)
+{
+	if (collidingSide == Bottom)
+	{
+		mYVelocity = 0.f;
+	}
+
+}
+
 /*cree l'enemie*/
 void enemies::createEnemy(float x, float y, int size){
 

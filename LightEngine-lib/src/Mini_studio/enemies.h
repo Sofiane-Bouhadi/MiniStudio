@@ -17,12 +17,7 @@ private:
 	
 
 protected:
-
-	int atk_size_Width { 0 };
-	int atk_size_Height { 0 };
-	float atk_speed { 0 };
-	float m_speed { 0 };
-	int m_PV{ 0 };
+	int m_PV{ 5 };
 
 	int enemy_size{ 0 };
 
@@ -31,6 +26,8 @@ public:
 	sf::Vector2f pTarget;
 	float size_enemy = 0;
 	sf::Vector2f positionEnemy;
+
+	void OnCollision(Entity* pOther, CollidingSide collidingSide);
 
 	void choix(int nbr);
 
