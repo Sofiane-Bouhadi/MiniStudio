@@ -12,7 +12,7 @@ class Boss :
 
 	// Ces variables sont à changer selon la scène une fois qu'elle sera faite.
 	float mUpperX = 250;
-	float mUpperY = 1300;
+	float mUpperY = 250;
 
 	float mCenterX = 500;
 	float mCenterY = 650;
@@ -34,6 +34,7 @@ class Boss :
 
 	std::function<void()> mFunction;
 
+	void OnInitialize() override;
 	void OnUpdate() override;
 
 	void LaunchAtk();

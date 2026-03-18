@@ -1,32 +1,36 @@
 #include "Boss.h"
 //#include "Projectile.h"
 
+void Boss::OnInitialize()
+{
+	LaunchAtk();
+	SetSpeed(mBaseSpeed);
+}
+
 void Boss::OnUpdate()
 {
 	mWaitTimer -= GetDeltaTime();
 
-	if (mHp <= 0)
-		Destroy();
-
-	mFunction();
+	if (mFunction != nullptr)
+		mFunction();
 }
 
 void Boss::LaunchAtk()
 {
-	int randomAtk = rand() % 4;
+	int randomAtk = 0;
 
 	switch (randomAtk)
 	{
-	case 1:
+	case 0:
 		mFunction = std::bind(&Boss::DashAtk, this);
 		break;
-	case 2:
+	case 1:
 		mFunction = std::bind(&Boss::ProjectileAtk, this);
 		break;
-	case 3:
+	case 2:
 		mFunction = std::bind(&Boss::ShockwaveAtk, this);
 		break;
-	case 4:
+	case 3:
 		mFunction = std::bind(&Boss::HealAtk, this);
 		break;
 	}
@@ -41,6 +45,7 @@ void Boss::DashAtk()
 	{
 	case 0:
 		mTarget.isSet = true;
+		mAtkStep++;
 		break;
 	case 1:
 		// Go on the top of the screen
@@ -70,20 +75,19 @@ void Boss::DashAtk()
 		break;
 	case 3:
 		// Dash to the other side
-		if (mTarget.isSet == false)
-		{
-			SetSpeed(mBaseSpeed);
-			mAtkStep++;
-			mWaitTimer = 0.5f;
-			break;
-		}
-
 		SetSpeed(mAccelerationSpeed);
 
 		if (GetPosition().x == mLeftSideX)
 			GoToPosition(mRightSideX, 100);
 		else
 			GoToPosition(mLeftSideX, 100);
+
+		if (mTarget.isSet == false)
+		{
+			SetSpeed(mBaseSpeed);
+			mAtkStep++;
+			mWaitTimer = 0.5f;
+		}
 		break;
 	case 4:
 		// Wait 2 seconds
@@ -163,13 +167,13 @@ void Boss::ShockwaveAtk()
 	switch (mAtkStep)
 	{
 	case 0:
-
+		mAtkStep++;
 		break;
 	case 1:
-
+		mAtkStep++;
 		break;
 	case 2:
-
+		mAtkStep++;
 		break;
 	case 3:
 		LaunchAtk();
@@ -191,7 +195,7 @@ void Boss::HealAtk()
 		if (mWaitTimer <= 0.f)
 			mAtkStep++;
 		break;
-	case 3:
+	case 2:
 		LaunchAtk();
 		break;
 	}

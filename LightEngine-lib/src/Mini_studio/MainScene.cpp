@@ -17,7 +17,7 @@ void MainScene::OnInitialize()
 
 	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
-	m_Player->SetPosition(500, 0);
+	m_Player->SetPosition(300, 0);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
 	m_Player->SetGravityStrength(1200.f);
@@ -26,11 +26,13 @@ void MainScene::OnInitialize()
 	//Platform
 	Entity* entity = CreateRectangle<Entity>(1280, 100, sf::Color::White, new AABBCollider(1280, 100));
 	entity->SetStatic(true);
-	entity->SetRigidBody(false);
+	entity->SetRigidBody(true);
 	entity->SetPosition(0, 720);
 
 	Boss* boss = CreateRectangle<Boss>(250, 300, sf::Color::Red, new AABBCollider(250, 300));
 	boss->SetPosition(500, 500);
+	boss->SetRigidBody(false);
+	boss->SetStatic(true);
 
 	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
 	GameManager::Get()->GetCamera()->Zoom(2.f);
