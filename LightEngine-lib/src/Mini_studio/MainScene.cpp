@@ -12,6 +12,8 @@
 
 void MainScene::OnInitialize() 
 {
+	srand(time(NULL));
+
 	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
 	m_Player->SetPosition(1000, 300);
