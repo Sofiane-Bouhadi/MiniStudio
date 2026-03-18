@@ -26,8 +26,6 @@ void MainScene::OnInitialize()
 	enemy1->SetRigidBody(true);
 	enemy1->SetPosition(100, 100);
 	enemy1->init(enemy1, m_Player);
-
-	
 }
 
 void MainScene::OnEvent(const sf::Event& event)
@@ -139,28 +137,21 @@ void MainScene::OnEvent(const sf::Event& event)
 		if (sf::Event::JoystickButtonReleased == 0) 
 		{
 			m_Player->SetSpeed(0);
-			jump = false;
-		}
+			jump = false;}
 	}
-
-	if (jump) 
-	{
+	if (jump) {
 		m_Player->Jump();
 	}
-	if (base_attack) 
-	{
+
+	if (base_attack){
 		m_Player->BaseAttack();
-		
 	}
-	
 }
 
 void MainScene::OnUpdate() 
 {
 	if (enemy1->telemetrie() <= 500 && enemy1 != nullptr) {
 		std::cout << "detected" << std::endl;
-		state->change(4);//fall
-		state->change(6);//smart
 	}
 	else {
 		std::cout << "lost" << std::endl;

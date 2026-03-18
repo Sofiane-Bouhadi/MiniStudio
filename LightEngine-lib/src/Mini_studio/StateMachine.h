@@ -38,8 +38,6 @@ public:
 
 	bool verifingState(int nbr);
 
-	void effect(int nbr);
-
 	bool canIdle;
 	bool canAttack;
 	bool canReload;
