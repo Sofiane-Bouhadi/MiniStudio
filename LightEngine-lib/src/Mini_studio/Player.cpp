@@ -38,6 +38,9 @@ void Player::SetLeft()
 
 void Player::BaseAttack() 
 {
+	if (IsShooting)
+		return;
+
 	IsAttack = true;
 	Attack_Cooldown = 2;
 	
@@ -45,8 +48,11 @@ void Player::BaseAttack()
 
 void Player::PlayerShoot() 
 {
+	if (IsAttack)
+		return;
+
 	IsShooting = true;
-	Shooting_Cooldown = 3;
+	Shooting_Cooldown = 0.6f;
 
 
 	if (IsRight)
@@ -67,7 +73,6 @@ void Player::PlayerShoot()
 		proj->SetOwnerTag(mTag);
 		proj->SetProjectileSpeed(1000.f);
 		proj->SetDirection(-1, 0, proj->GetProjectileSpeed());
-		Shooting_Cooldown = 3;
 	}
 }
 
@@ -123,6 +128,7 @@ void Player::OnUpdate()
 
 	if (attack != nullptr && Attack_Cooldown < 0) 
 	{
+		IsAttack = false;
 		attack->SetPosition(GetPosition().x, GetPosition().y);
 
 	}
@@ -145,9 +151,13 @@ void Player::OnUpdate()
 
 	Shooting_Cooldown -= GetDeltaTime();
 
-	if (Shooting_Cooldown > 0.f)
+
+
+	if (Shooting_Cooldown < 0.f)
 	{
 		IsShooting = false;
+		Shooting_Cooldown = 0.f;
+
 	}
 
 }

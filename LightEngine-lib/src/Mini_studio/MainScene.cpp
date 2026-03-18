@@ -54,7 +54,7 @@ void MainScene::OnEvent(const sf::Event& event)
 			std::cout << "clic gauche est appuy�" << std::endl;
 			base_attack = true;
 		}
-		if (event.mouseButton.button == sf::Mouse::Button::Right)
+		if (event.mouseButton.button == sf::Mouse::Button::Right && m_Player->GetShootCD() <= 0.f)
 		{
 			std::cout << "clic droit est appuy�" << std::endl;
 			shoot = true;
@@ -88,7 +88,7 @@ void MainScene::OnEvent(const sf::Event& event)
 			base_attack = true;
 		}
 		
-		if (sf::Joystick::isButtonPressed(0, 3))
+		if (sf::Joystick::isButtonPressed(0, 3) && m_Player->GetShootCD() <= 0.f)
 		{
 			std::cout << "Y est appuy�" << std::endl;
 			 shoot = true;
@@ -175,20 +175,22 @@ void MainScene::OnUpdate()
 	{
 		std::cout << "d est press�" << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
-		if (m_Player->GetAttack() == false)
-		{
+		/*if (m_Player->GetAttack() == false)*/
+		
 			m_Player->SetRight();
-		}
+			m_Player->UnsetLeft();
+		
 
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
 		std::cout << "q est press�" << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		if (m_Player->GetAttack() == false)
-		{
+		/*if (m_Player->GetAttack() == false)*/
+		
 			m_Player->SetLeft();
-		}
+			m_Player->UnsetRight();
+		
 
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10)

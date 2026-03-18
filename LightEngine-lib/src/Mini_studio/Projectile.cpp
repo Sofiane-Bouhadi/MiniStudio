@@ -64,12 +64,20 @@ void Projectile::OnCollision(Entity* pOther, CollidingSide collidingSide)
 
 void Projectile::OnUpdate()
 {
+    sf::Vector2f cameraCenter = GameManager::Get()->GetCamera()->GetView()->getCenter();
+    sf::Vector2f cameraSize = GameManager::Get()->GetCamera()->GetView()->getSize();
+
     sf::Vector2f pos = GetPosition(0.5f, 0.5f);
-    const float LIMIT = 2000.f;
-    if (pos.x < -LIMIT || pos.x > LIMIT || pos.y < -LIMIT || pos.y > LIMIT ) // à changer si besoin
+    float negative_camX = cameraCenter.x - cameraSize.x;
+    float positive_camX = cameraCenter.x + cameraSize.x;
+    float negative_camY = cameraCenter.y - cameraSize.y;
+    float positive_camY = cameraCenter.y + cameraSize.y;
+    if (pos.x <  negative_camX || pos.x > positive_camX || pos.y < negative_camY || pos.y > positive_camY) // à changer si besoin
     {
         Destroy();
     }
+   
+    
     
 }
 

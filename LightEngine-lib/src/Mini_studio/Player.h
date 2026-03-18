@@ -22,7 +22,7 @@ private :
 
 	Projectile* proj;
 	bool IsShooting = false;
-	float Shooting_Cooldown = 3;
+	float Shooting_Cooldown = 0.6f;
 
 	bool IsRight = false;
 	bool IsLeft = false;
