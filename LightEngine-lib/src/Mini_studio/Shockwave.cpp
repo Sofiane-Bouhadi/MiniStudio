@@ -18,9 +18,9 @@ void Shockwave::ApplyEffects()
 
     sf::Vector2f origin = GetPosition(0.5f, 0.5f);
 
-    const auto& enemies = scene->GetEnemyList(); //à remplacer avec le bon nom de fonction
+    //const auto& enemies = scene->GetEnemyList(); //à remplacer avec le bon nom de fonction
 
-    for (ennemi* enemy : enemies)
+    /*for (ennemi* enemy : enemies)
     {
         if (enemy == nullptr || enemy->ToDestroy()) //erreur à cause de la classe ennemi i thought
             continue;
@@ -36,7 +36,7 @@ void Shockwave::ApplyEffects()
             enemy->TakeDamage(m_damage);
             enemy->SetStun(m_stunTime);   
         }
-    }
+    }*/
 }
 
 void Shockwave::OnUpdate()

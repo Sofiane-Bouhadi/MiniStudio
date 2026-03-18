@@ -2,6 +2,7 @@
 #include "Entity.h"
 
 class Player;
+class MainScene;
 
 class Parallaxe : public Entity
 {
@@ -16,7 +17,7 @@ public:
 	void SetPlayerPos(Player* player);
 	sf::Vector2f GetPlayerPos();
 
-	void GetPLayer(MainScene* AScene);
+	void GetPlayer(MainScene* AScene);
 
 	void OnUpdate()override;
 

@@ -13,7 +13,7 @@ sf::Vector2f Parallaxe::GetPlayerPos()
 	return PLayerPos;
 }
 
-void Parallaxe::GetPLayer(MainScene* AScene)
+void Parallaxe::GetPlayer(MainScene* AScene)
 {
 	player = AScene->GetPlayer();
 }
@@ -24,7 +24,7 @@ void Parallaxe::OnUpdate()
 
 	GoToDirection((int)pos.x, (int)pos.y, player->GetSpeed() - 20.0f);
 
-	pos.x += (int)movement.y / gap;
+	//pos.x += (int)movement.y / gap; // TODO Remplacer par les bons noms de variable
 
 	if (pos.x >= ActualScene->GetWindowWidth())
 	{

@@ -9,7 +9,7 @@ void choix(int nbr) {
 /*cree l'enemie*/
 void enemies::createEnemy(float x, float y, int size){
 	enemy_size = size;
-	pEnemy = CreateEntity<enemies>(enemy_size, sf::Color::Red);
+	pEnemy = CreateRectangle<enemies>(enemy_size, enemy_size, sf::Color::Red, nullptr); // TODO Remplacer le collider
 	pEnemy->SetPosition(x, y);
 	pEnemy->SetRigidBody(true);
 	
@@ -123,9 +123,9 @@ float enemies::telemetrie() {
 
 
 /*... serieux, tu ne sais pas ce que "OnCollision" fait... :/ */
-void enemies::OnCollision(Entity* other)
+void enemies::OnCollision(Entity* other, CollidingSide collidingSide)
 {
-	std::cout << "Collision" << std::endl;
+	//std::cout << "Collision" << std::endl;
 }
 
 
@@ -133,7 +133,7 @@ void enemies::OnCollision(Entity* other)
 //--------------------------------------------------------------peut-etre-utile------------------------------------------------------------------------------------------------------
 
 
-/*attaque de manier inteligente grace a detection ou a un paterne base sur la rose des vents*/
+/*attaque de manier intelligente grace a detection ou a un paterne base sur la rose des vents*/
 void enemies::attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW) {
 	
 	float dist = telemetrie();
