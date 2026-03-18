@@ -40,8 +40,10 @@ void Boss::DashAtk()
 	switch (mAtkStep) 
 	{
 	case 0:
+		mTarget.isSet = true;
+		break;
+	case 1:
 		// Go on the top of the screen
-		GoToPosition(mUpperX, mUpperY);
 		if (mTarget.isSet == false)
 		{
 			// if on top of the screen go to a random side (right / left)
@@ -50,23 +52,29 @@ void Boss::DashAtk()
 			else
 				SetPosition(mRightSideX, mRightSideY);
 			mAtkStep++;
+			mWaitTimer = 0.5f;
 		}
+		else
+		{
+			GoToPosition(mUpperX, mUpperY);
+		}
+
 		break;
-	case 1:
+	case 2:
 		// Wait 0.5 seconds
-		mWaitTimer = 0.5f;
-		if (mWaitTimer == 0.f)
+		if (mWaitTimer <= 0.f)
 		{
 			mAtkStep++;
 			mTarget.isSet = true;
 		}
 		break;
-	case 2:
+	case 3:
 		// Dash to the other side
 		if (mTarget.isSet == false)
 		{
 			SetSpeed(mBaseSpeed);
 			mAtkStep++;
+			mWaitTimer = 0.5f;
 			break;
 		}
 
@@ -77,36 +85,34 @@ void Boss::DashAtk()
 		else
 			GoToPosition(mLeftSideX, 100);
 		break;
-	case 3:
+	case 4:
 		// Wait 2 seconds
-		mWaitTimer = 0.5f;
-		if (mWaitTimer == 0.f)
+		if (mWaitTimer <= 0.f)
 		{
 			mAtkStep++;
 			mTarget.isSet = true;
 		}
 		break;
-	case 4:
+	case 5:
 		// Go to center of the scene
 		if (mTarget.isSet == false)
 		{
 			mAtkStep++;
+			mWaitTimer = 1.f;
 		}
 		else
 			GoToPosition(mCenterX, mCenterY);
 		break;
-	case 5:
-		// Wait 2 seconds
-		mWaitTimer = 1.f;
-		if (mWaitTimer == 0.f)
+	case 6:
+		// Wait 1 second
+		if (mWaitTimer <= 0.f)
 			mAtkStep++;
 		break;
-	case 6:
+	case 7:
 		//Change Atk
 		LaunchAtk();
 		break;
 	}
-
 }
 
 void Boss::ProjectileAtk()
@@ -114,15 +120,18 @@ void Boss::ProjectileAtk()
 	switch (mAtkStep)
 	{
 	case 0:
-		//Wait 1 second then choose a random number of projectile
 		mWaitTimer = 1.f;
-		if (mWaitTimer == 0.f)
+		mAtkStep++;
+		break;
+	case 1:
+		//Wait 1 second then choose a random number of projectile
+		if (mWaitTimer <= 0.f)
 		{
 			mProjectileNb = rand() % 5 + 5;
 			mAtkStep++;
 		}
 		break;
-	case 1:
+	case 2:
 		//Shoot projectiles
 		if (mWaitTimer <= 0.f)
 		{
@@ -132,15 +141,17 @@ void Boss::ProjectileAtk()
 		}
 		
 		if (mProjectileNb <= 0)
+		{
+			mWaitTimer = 1.f;
 			mAtkStep++;
-		break;
-	case 2:
-		//Wait 1 second
-		mWaitTimer = 1.f;
-		if (mWaitTimer == 0.f)
-			mAtkStep++;
+		}
 		break;
 	case 3:
+		//Wait 1 second
+		if (mWaitTimer <= 0.f)
+			mAtkStep++;
+		break;
+	case 4:
 		//Change Atk
 		LaunchAtk();
 		break;
@@ -171,18 +182,14 @@ void Boss::HealAtk()
 	switch (mAtkStep)
 	{
 	case 0:
-		GoToPosition(mCenterX, mCenterY);
-
-		if (mTarget.isSet == false)
-		{
-
-		}
+		mHp += 2;
+		mAtkStep++;
+		//Add some things like repeat it and wait between heals
+		mWaitTimer = 0.5f;
 		break;
 	case 1:
-
-		break;
-	case 2:
-
+		if (mWaitTimer <= 0.f)
+			mAtkStep++;
 		break;
 	case 3:
 		LaunchAtk();
