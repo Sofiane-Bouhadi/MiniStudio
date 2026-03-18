@@ -25,6 +25,7 @@ void MainScene::OnInitialize()
 	enemy1=CreateRectangle<enemies>(20, 20, sf::Color::Red, new AABBCollider(20, 20));
 	enemy1->SetRigidBody(true);
 	enemy1->SetPosition(100, 100);
+	enemy1->init(enemy1, m_Player);
 }
 
 void MainScene::OnEvent(const sf::Event& event)
@@ -154,6 +155,16 @@ void MainScene::OnEvent(const sf::Event& event)
 
 void MainScene::OnUpdate() 
 {
+	if (enemy1->telemetrie() <= 500 && enemy1 != nullptr) {
+		std::cout << "detected" << std::endl;
+	}
+	else {
+		std::cout << "lost" << std::endl;
+	}
+	//std::cout << enemy1->telemetrie() << std::endl;
+
+
+
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
 	{

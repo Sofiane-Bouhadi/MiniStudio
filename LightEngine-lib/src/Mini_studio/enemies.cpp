@@ -1,4 +1,6 @@
 #include "enemies.h"
+#include <cmath>
+
 
 /*facilite l'utilisation de la state machine*/
 void enemies::choix(int nbr) {
@@ -6,10 +8,9 @@ void enemies::choix(int nbr) {
 	state.change(nbr);
 }
 
-void enemies::init() {
-	Player player;
-	pTarget = player.GetPosition();
-
+void enemies::init(enemies* enemy, Player* player) {
+	pPlayer = player;
+	pEnemy = enemy;
 }
 
 void enemies::OnCollision(Entity* pOther, CollidingSide collidingSide)
@@ -29,22 +30,13 @@ void enemies::createEnemy(float x, float y, int size){
 }
 
 /*evenement OnPlayerDetected*/
-bool enemies::OnPlayerDetected() {
-	if (telemetrie() <= 500) {
-		return true;
-	}else {
-		return false;
-	}
+void enemies::OnPlayerDetected() {
+
 }
 
 /*evenement OnPlayerLost*/
-bool enemies::OnPlayerLost() {
-	if (telemetrie() >= 500) {
-		return true;
-	}
-	else {
-		return false;
-	}
+void enemies::OnPlayerLost() {
+
 }
 
 /*evenement OnDeath*/
@@ -88,10 +80,11 @@ void enemies::moveingInLigne(float x,float y, float toX, float toY) {
 }
 
 /*renvois un vecteur de l'entite cible*/
-sf::Vector2f enemies::detection() {
+sf::Vector2f enemies::direction() {
 	sf::Vector2f vectarget;
+
 	positionEnemy = pEnemy->GetPosition();
-	sf::Vector2f positiontarget = pTarget;
+	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	vectarget.x = positionEnemy.x - positiontarget.x;
 	vectarget.y = positionEnemy.y - positiontarget.y;
 	vectarget.x = vectarget.x;
@@ -102,7 +95,7 @@ sf::Vector2f enemies::detection() {
 
 /*attack fall*/
 void enemies::AttackFall() {
-	sf::Vector2f positiontarget = pTarget;
+	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	if (positiontarget.y == positionEnemy.y + enemy_size / 2 || positiontarget.y == positionEnemy.y - enemy_size / 2) {
 		GoToPosition(positionEnemy.x, positiontarget.y, 1.0f);
@@ -111,7 +104,7 @@ void enemies::AttackFall() {
 
 /*attack bulldozer*/
 void enemies::AttackBull() {
-	sf::Vector2f positiontarget = pTarget;
+	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
 		if (telemetrie()==(float)500)
@@ -121,7 +114,7 @@ void enemies::AttackBull() {
 
 /*attack punch*/
 void enemies::AttackPunch() {
-	sf::Vector2f positiontarget = pTarget;
+	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
 		if (telemetrie() == (float)50) {
@@ -132,19 +125,16 @@ void enemies::AttackPunch() {
 
 /*attack smart*/
 void enemies::AttackSmart() {
-	sf::Vector2f positiontarget = pTarget;
+	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
 	if (telemetrie() == (float)500){
 		/*attack smart*/
 	}
 }
 
-/*char, a 11 heures, distance: a 400m .(War thunder reference)*/
 float enemies::telemetrie() {
-	sf::Vector2f positiontarget = pTarget;
-	positionEnemy = pEnemy->GetPosition();
-	float AC = positionEnemy.x - positiontarget.x;
-	float BC = positionEnemy.y - positiontarget.y;
-	float AB = sqrt(AC*AC + BC*BC);
-	return AB;
+	if (!pEnemy) return 0.0f;
+
+	sf::Vector2f delta = pEnemy->GetPosition() - pPlayer->GetPosition();
+	return std::hypot(delta.x, delta.y);
 }

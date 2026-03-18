@@ -22,8 +22,8 @@ protected:
 	int enemy_size{ 0 };
 
 public:
-	enemies* pEnemy = nullptr;
-	sf::Vector2f pTarget;
+	enemies* pEnemy;
+	Player* pPlayer;
 	float size_enemy = 0;
 	sf::Vector2f positionEnemy;
 
@@ -31,14 +31,14 @@ public:
 
 	void choix(int nbr);
 
-	void init();
+	void init(enemies* enemy, Player* player);
 
 	/*cree des ennemis*/
 	void createEnemy(float x, float y, int size);
 
-	bool OnPlayerDetected();
+	void OnPlayerDetected();
 
-	bool OnPlayerLost();
+	void OnPlayerLost();
 
 	bool OnDeath();
 
@@ -50,7 +50,9 @@ public:
 	void moveingInLigne(float x, float y, float toX, float toY);
 
 	/*renvois un vecteur de l'entite cible*/
-	sf::Vector2f detection();
+	sf::Vector2f direction();
+
+	void detection();
 
 	/*attaque de l'enemies*/
 	void AttackFall();
