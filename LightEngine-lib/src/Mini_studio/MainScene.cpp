@@ -12,6 +12,30 @@
 
 void MainScene::OnInitialize() 
 {
+	const char* pathFar = "C:\\Users\mahea\Downloads\Layer 4.png";
+	const char* pathMid = "C:\\Users\mahea\Downloads\Layer 3.png";
+	const char* pathNear = "C:\\Users\mahea\Downloads\Layer 2.png";
+	const char* pathClose = "C:\\Users\mahea\Downloads\Layer 1.png";
+
+	float winW = (float)GetWindowWidth();
+	float winH = (float)GetWindowHeight();
+
+	mParallaxFar = CreateSprite<Parallaxe>(winW, winH, pathFar, new AABBCollider(0, 0));
+	mParallaxFar->SetPosition(0.f, 0.f, 0.f, 0.f);
+	mParallaxFar->Init(this, 6.0f);
+
+	mParallaxMid = CreateSprite<Parallaxe>(winW, winH, pathMid, new AABBCollider(0, 0));
+	mParallaxMid->SetPosition(0.f, 0.f, 0.f, 0.f);
+	mParallaxMid->Init(this, 4.0f);
+
+	mParallaxNear = CreateSprite<Parallaxe>(winW, winH, pathNear, new AABBCollider(0, 0));
+	mParallaxNear->SetPosition(0.f, 0.f, 0.f, 0.f);
+	mParallaxNear->Init(this, 2.5f);
+
+	mParallaxClose = CreateSprite<Parallaxe>(winW, winH, pathClose, new AABBCollider(0, 0));
+	mParallaxClose->SetPosition(0.f, 0.f, 0.f, 0.f);
+	mParallaxClose->Init(this, 1.5f);
+
 	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Blue,new AABBCollider(155,225) );
 	m_Player->SetPosition(1000, 300);
