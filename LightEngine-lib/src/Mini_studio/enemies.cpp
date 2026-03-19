@@ -12,6 +12,7 @@ void enemies::choix(int nbr) {
 void enemies::init(enemies* enemy, Player* player) {
 	pPlayer = player;
 	pEnemy = enemy;
+	Shooting_Cooldown = 0.6f;
 }
 
 /*cree l'enemie*/
@@ -129,18 +130,19 @@ void enemies::AttackSmart() {
 	if (telemetrie() <= (float)500) {
 
 		IsShooting = true;
-		Shooting_Cooldown = 0.6f;
+
 
 		Projectile* proj = nullptr;
 
 		Shooting_Cooldown -= GetDeltaTime();
 
 		sf::Vector2f trgt = direction();
-
+		std::cout << Shooting_Cooldown << std::endl;
 		if (Shooting_Cooldown < 0)
 		{
 			std::cout << "pew" << std::endl;
-			proj = CreateRectangle<Projectile>(136, 53, sf::Color::Blue, new AABBCollider(136, 53));
+			proj = GetScene()->CreateRectangle<Projectile>(136, 53, sf::Color::Blue, new AABBCollider(136, 53));
+			//proj->CreateRectangle<Projectile>(136, 53, sf::Color::Blue, new AABBCollider(136, 53));
 			sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
 			proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
 			proj->SetOwnerTag(2);
