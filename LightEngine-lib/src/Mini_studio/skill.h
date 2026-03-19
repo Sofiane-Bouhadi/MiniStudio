@@ -12,6 +12,8 @@ private:
 
 public:
 
+	int GetManaCost() { return mana_cost;}
+
 	void Unlocking() { unlocked = true; };
 
 };

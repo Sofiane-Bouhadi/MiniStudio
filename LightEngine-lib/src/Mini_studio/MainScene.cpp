@@ -18,6 +18,10 @@ void MainScene::OnInitialize()
 
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green,new AABBCollider(155,225) );
 	m_Player->SetPosition(100, 500);
+
+	//Player
+	m_Player = CreateSprite<Player>(155, 225, player_sprite,new AABBCollider(155,225) );
+	m_Player->SetPosition(1000, 300);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
 	m_Player->SetGravityStrength(300.f);
@@ -181,6 +185,10 @@ void MainScene::OnEvent(const sf::Event& event)
 	bool MoveLeft = false;
 	bool jump = false;
 	bool base_attack = false;
+	bool shoot = false;
+	bool shockwave = false;
+	bool potion = false;
+	
 	fall_attack = false;
 	smart_attack = false;
 
@@ -193,6 +201,18 @@ void MainScene::OnEvent(const sf::Event& event)
 			jump = true;
 			m_Player->DecreaseJump();
 			
+		}
+		if (event.key.code == sf::Keyboard::E )
+		{
+			std::cout << "e est press�" << std::endl;
+			shockwave = true;
+
+		}
+		if (event.key.code == sf::Keyboard::A)
+		{
+			std::cout << "a est press�" << std::endl;
+			potion = true;
+
 		}
 	}
 
@@ -228,10 +248,31 @@ void MainScene::OnEvent(const sf::Event& event)
 			m_Player->DecreaseJump();
 		}
 
-		if (sf::Joystick::isButtonPressed(0, 2))
+		if (sf::Joystick::isButtonPressed(0, 5))
 		{
 			//std::cout << "X est appuy�" << std::endl;
 			base_attack = true;
+		}
+			std::cout << "RB est appuy�" << std::endl;
+			base_attack = true;
+		}
+		
+		if (sf::Joystick::isButtonPressed(0, 3) && m_Player->GetShootCD() <= 0.f)
+		{
+			std::cout << "Y est appuy�" << std::endl;
+			 shoot = true;
+		}
+
+		if (sf::Joystick::isButtonPressed(0, 1) && m_Player->GetShootCD() <= 0.f)
+		{
+			std::cout << "Y est appuy�" << std::endl;
+			shockwave = true;
+		}
+
+		if (sf::Joystick::isButtonPressed(0, 2))
+		{
+			std::cout << "X est appuy�" << std::endl;
+			potion = true;
 		}
 	}
 
@@ -261,6 +302,17 @@ void MainScene::OnEvent(const sf::Event& event)
 		}
 
 		
+		if (event.key.code == sf::Keyboard::E)
+		{
+			std::cout << "e est relach�" << std::endl;
+			shockwave = false;
+		}
+
+		if (event.key.code == sf::Keyboard::A)
+		{
+			std::cout << "a est relach�" << std::endl;
+			potion = false;
+		}
 	}
 	
 	if (event.type == sf::Event::MouseButtonReleased) 
@@ -278,12 +330,32 @@ void MainScene::OnEvent(const sf::Event& event)
 		{
 			base_attack = false;
 
+			potion = false;
 		}
 
 		if (sf::Event::JoystickButtonReleased == 0) 
 		{
 			m_Player->SetSpeed(0);
 			jump = false;}
+			jump = false;
+		}
+
+		if (sf::Event::JoystickButtonReleased == 3)
+		{
+			shoot = false;
+
+		}
+		if (sf::Event::JoystickButtonReleased == 1)
+		{
+			shockwave = false;
+
+		}
+		if (sf::Event::JoystickButtonReleased == 5)
+		{
+			base_attack = false;
+
+		}
+
 	}
 	if (jump) {
 		m_Player->Jump();
@@ -291,6 +363,18 @@ void MainScene::OnEvent(const sf::Event& event)
 
 	if (base_attack){
 		m_Player->BaseAttack();
+	}
+	if (shoot) 
+	{
+		m_Player->PlayerShoot();
+	}
+	if (shockwave)
+	{
+		m_Player->PlayerShockwave();
+	}
+	if (potion) 
+	{
+		m_Player->UsePotion();
 	}
 }
 
@@ -373,6 +457,7 @@ void MainScene::OnUpdate()
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
 	{
+		const char* player_sprite = "../../../res/Sprites/course_1.png";
 		//std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
 		

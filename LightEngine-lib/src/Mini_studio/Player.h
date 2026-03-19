@@ -3,12 +3,16 @@
 #include "projectile.h"
 #include "skill.h"
 
+
+
 class Player : public GravityEntity 
 {
 private :
 
-	int m_life = 100;
+	int m_life = 3;
 	int nb_Jump = 2;
+	int nb_potion = 3;
+	int mana_stack = 8;
 
 	bool IsAlive = true;
 
@@ -19,7 +23,7 @@ private :
 	
 	Entity* attack = nullptr; 
 	bool IsAttack = false;
-	float Attack_Cooldown = 2;
+	float Attack_Cooldown = 1;
 
 	Projectile* proj = nullptr;
 	bool IsShooting = false;
@@ -32,6 +36,18 @@ private :
 	bool IsRight = false;
 	bool IsLeft = false;
 	
+	Entity* Disc;
+	const char* disc_sprite = "../../../res/hud/VINYL_FULL.png";
+
+	Entity* LifeBar_back;
+	Entity* LifeBar_top;
+	Entity* LifeBar;
+	const char* life_sprite = "../../../res/hud/JAUGE_VIE.png";
+
+	Entity* ManaBar;
+	const char* mana_sprite = "../../../res/hud/MANA_FULL.png";
+
+
 public:
 
 	void MoveRight(float deltatime);
@@ -46,8 +62,9 @@ public:
 	void BaseAttack();
 	void PlayerShoot();
 	void PlayerShockwave();
+	void UsePotion();
 	
-	void TakeDmg(int DamageTaken);
+	void TakeDmg() { m_life -= 1; }
 
 	float GetSpeed() { return mSpeed; }
 	int GetNbJump() { return nb_Jump; }
