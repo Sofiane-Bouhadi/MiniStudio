@@ -1,6 +1,9 @@
 #pragma once
 #include <map>
 #include <SFML/Graphics/Texture.hpp>
+#include <vector>
+
+using namespace std;
 
 class AssetManager
 {

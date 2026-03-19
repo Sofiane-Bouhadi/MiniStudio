@@ -1,6 +1,7 @@
 #include "AssetManager.h"
-#include "AssetManager.h"
 #include <iostream>
+
+using namespace std;
 
 AssetManager* AssetManager::Instance = nullptr;
 
