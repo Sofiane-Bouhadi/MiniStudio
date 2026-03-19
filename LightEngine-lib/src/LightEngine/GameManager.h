@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/System/Clock.hpp>
 
 #include "Camera.h"
 
@@ -22,6 +23,8 @@ namespace sf
 
 class GameManager
 {
+private:
+	sf::Clock m_clock;
 public :
 	std::list<Entity*> mEntities;
 	std::list<Entity*> mEntitiesToDestroy;
@@ -32,6 +35,9 @@ public :
 
 	Scene* mpScene;
 	Camera* mCamera;
+
+	float mStartTimer = 0.f;
+	float mProfilingTimer = 0.f;
 
 	float mDeltaTime;
 	float mAccumulatedDt = 0.f;
@@ -64,6 +70,18 @@ public:
 
 	template<typename T>
 	void LaunchScene();
+
+	void StartTimer()
+	{
+		m_clock.restart();
+	}
+
+	float StopTimer()
+	{
+		return m_clock.getElapsedTime().asMilliseconds();
+	}
+
+public:
 
 	float GetDeltaTime() const { return mDeltaTime; }
 	Scene* GetScene() const { return mpScene; }

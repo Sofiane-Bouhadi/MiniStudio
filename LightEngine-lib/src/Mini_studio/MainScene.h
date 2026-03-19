@@ -25,6 +25,78 @@ public:
 		Ground3,
 		Platform,
 		DestructiblePlatform,
+
+		//////CEILINGS//////
+		JazzCeillingP,
+		JazzCeillingY,
+
+		MetalCeiling1,
+		MetalCeiling2,
+
+		//////WALLS//////
+		JazzWallBLY,
+		JazzWallBRY,
+
+		HubWall1,
+		HubWall2,
+		HubWallFill,
+
+		MetalWallBL,
+		MetalWallBR,
+		MetalWall3,
+		MetalWall4,
+		MetalWall5,
+
+		//////GROUNDS//////
+		JazzGroundY,
+		JazzGroundP,
+		JazzGroundCorner,
+		JazzToHubGround1,
+		JazzToHubGroundCorner,
+
+		HubGround,
+
+		MetalGround1,
+		MetalGround2,
+
+		//////PLATFORMS//////
+		JazzPlatform,
+		PlateformSide,
+		PlateformIn,
+		BedPlaLeft,
+		BedPlaMid,
+		BedPlaRight,
+
+		MetalLeftPlatform,
+		MetalMiddlePlatform1,
+		MetalMiddlePlatform2,
+		MetalRightPlatform,
+
+
+		// TODO ADD THESE
+		PlateformPurple,
+		PlateformBlueMid,
+		PlateformBlueSide,
+		PlateformOrangeLeft,
+		PlateformOrangeRight,
+
+		JazzWallBBicolore,
+		JazzWallBBlueOut,
+		JazzWallBLP,
+		JazzWallBRP,
+		JazzWallFill,
+		JazzDestructiblePlateformBase,
+
+		DestructibleVent,
+
+		HubCornerDL,
+		HubCornerDR,
+
+		MetalDestructibleUP,
+		MetalDestructibleMid,
+		MetalDestructibleDown,
+	
+		Count
 	};
 private :
 	Player* m_Player;

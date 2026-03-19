@@ -13,8 +13,8 @@ private :
 	bool IsAlive = true;
 
 	float m_acceleration = 3000.f;
-	float m_MaxSpeed = 300.f;
-	float m_MinSpeed = 150.f;
+	float m_MaxSpeed = 1500.f;
+	float m_MinSpeed = 1000.f;
 	
 	
 	Entity* attack = nullptr; 

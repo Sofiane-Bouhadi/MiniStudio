@@ -28,6 +28,11 @@ void MainScene::OnInitialize()
 	enemy1->SetPosition(100, 100);
 	enemy1->init(enemy1, m_Player);
 	enemy1->SetGravityStrength(0);
+	//Platform
+	Entity* entity = CreateRectangle<Entity>(3000, 100, sf::Color::White, new AABBCollider(3000, 100));
+	entity->SetStatic(true);
+	entity->SetRigidBody(true);
+	entity->SetPosition(0, 720);
 
 	enemy2 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset\ennemi stamp\idle_1.png)", new AABBCollider(128, 128));
 	enemy2->SetRigidBody(true);
@@ -46,6 +51,126 @@ void MainScene::OnInitialize()
 	enemy4->SetPosition(400, 100);
 	enemy4->init(enemy4, m_Player);
 	enemy4->SetGravityStrength(0);
+		///CEILINGS
+		{
+			//Jazz
+			{
+				tilePath[(int)ObjectType::JazzCeillingP] = { "../../../res/Tiles/TILES_JAZZ/Plafond2.png", true };//
+				tilePath[(int)ObjectType::JazzCeillingY] = { "../../../res/Tiles/TILES_JAZZ/Plafond1.png", true };//
+			}
+			//Metal
+			{
+				tilePath[(int)ObjectType::MetalCeiling1] = { "../../../res/Tiles/TILES_METAL/Plafond1.png", true };//
+				tilePath[(int)ObjectType::MetalCeiling2] = { "../../../res/Tiles/TILES_METAL/Plafond1.png", true };//
+			}
+		}
+
+		///WALLS
+		{
+			//Jazz
+			{
+				tilePath[(int)ObjectType::JazzWallBLY] = { "../../../res/Tiles/TILES_JAZZ/Mur1.png", true };//
+				tilePath[(int)ObjectType::JazzWallBRY] = { "../../../res/Tiles/TILES_JAZZ/Mur2.png", true };//
+
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::JazzWallBBicolore] = { "../../../res/Tiles/TILES_JAZZ/Mur4.png", true };//
+				tilePath[(int)ObjectType::JazzWallBBlueOut] = { "../../../res/Tiles/TILES_JAZZ/Mur7.png", true };//
+				tilePath[(int)ObjectType::JazzWallBLP] = { "../../../res/Tiles/TILES_JAZZ/Mur5.png", true };//
+				tilePath[(int)ObjectType::JazzWallBRP] = { "../../../res/Tiles/TILES_JAZZ/Mur6.png", true };//
+				tilePath[(int)ObjectType::JazzWallFill] = { "../../../res/Tiles/TILES_JAZZ/Mur8(remplissage).png", true };//
+			}
+			//Hub
+			{
+				tilePath[(int)ObjectType::HubWall1] = { "../../../res/Tiles/TILES_HUB/Mur2.png", true };//
+				tilePath[(int)ObjectType::HubWall2] = { "../../../res/Tiles/TILES_HUB/Mur4.png", true };//
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::HubCornerDL] = { "../../../res/Tiles/TILES_HUB/Mur1.png", true };//
+				tilePath[(int)ObjectType::HubCornerDR] = { "../../../res/Tiles/TILES_HUB/Mur3.png", true };//
+			}
+			//Metal
+			{
+				tilePath[(int)ObjectType::MetalGround1] = { "../../../res/Tiles/TILES_METAL/Mur1.png", true };//
+				tilePath[(int)ObjectType::MetalGround2] = { "../../../res/Tiles/TILES_METAL/Mur5.png", true };//
+			}
+		}
+
+		///GROUNDS
+		{
+			//Jazz
+			{
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::JazzGroundY] = { "../../../res/Tiles/TILES_JAZZ/Sol1.png", true };//
+				tilePath[(int)ObjectType::JazzGroundP] = { "../../../res/Tiles/TILES_JAZZ/Sol3.png", true };//
+				tilePath[(int)ObjectType::JazzGroundCorner] = { "../../../res/Tiles/TILES_JAZZ/Sol2.png", true };//
+				tilePath[(int)ObjectType::JazzToHubGround1] = { "../../../res/Tiles/TILES_JAZZ/Sol4.png", true };//
+				tilePath[(int)ObjectType::JazzToHubGroundCorner] = { "../../../res/Tiles/TILES_JAZZ/Sol5.png", true };//
+			}
+			//Hub
+			{
+				tilePath[(int)ObjectType::HubGround] = { "../../../res/Tiles/TILES_HUB/Sol.png", true };//
+				tilePath[(int)ObjectType::HubWallFill] = { "../../../res/Tiles/TILES_HUB/Mur5.png", true };//
+			}
+			//Metal
+			{
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::MetalWall3] = { "../../../res/Tiles/TILES_METAL/Mur4.png", true };//
+				tilePath[(int)ObjectType::MetalWall4] = { "../../../res/Tiles/TILES_METAL/Mur2.png", true };//
+				tilePath[(int)ObjectType::MetalWall5] = { "../../../res/Tiles/TILES_METAL/Mur3.png", true };//
+			}
+		}
+
+		///PLATFORMS
+		{
+			//Jazz
+			{
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::JazzPlatform] = { "../../../res/Tiles/TILES_JAZZ/Plat1.png", true };//
+				tilePath[(int)ObjectType::PlateformSide] = { "../../../res/Tiles/TILES_JAZZ/Plat2.png", true };//
+				tilePath[(int)ObjectType::PlateformIn] = { "../../../res/Tiles/TILES_JAZZ/Mur9.png", true };//
+				tilePath[(int)ObjectType::BedPlaLeft] = { "../../../res/Tiles/TILES_JAZZ/Plat10.png", true };//
+				tilePath[(int)ObjectType::BedPlaMid] = { "../../../res/Tiles/TILES_JAZZ/Plat9.png", true };//
+				tilePath[(int)ObjectType::BedPlaRight] = { "../../../res/Tiles/TILES_JAZZ/Plat8.png", true };//
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::JazzDestructiblePlateformBase] = { "../../../res/Tiles/TILES_JAZZ/Destructible.png", true };//
+				tilePath[(int)ObjectType::DestructibleVent] = { "../../../res/Tiles/TILES_JAZZ/Destructible_projectile.png", true };//
+			}
+
+			//Metal
+			{
+				tilePath[(int)ObjectType::MetalLeftPlatform] = { "../../../res/Tiles/TILES_METAL/Plat2.png", true };//
+				tilePath[(int)ObjectType::MetalMiddlePlatform1] = { "../../../res/Tiles/TILES_METAL/Plat4.png", true };//
+				tilePath[(int)ObjectType::MetalMiddlePlatform2] = { "../../../res/Tiles/TILES_METAL/Plat1.png", true };//
+				tilePath[(int)ObjectType::MetalRightPlatform] = { "../../../res/Tiles/TILES_METAL/Plat3.png", true };//
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::MetalDestructibleUP] = { "../../../res/Tiles/TILES_METAL/Destructible1.png", true };//
+				tilePath[(int)ObjectType::MetalDestructibleMid] = { "../../../res/Tiles/TILES_METAL/Destructible2.png", true };//
+				tilePath[(int)ObjectType::MetalDestructibleDown] = { "../../../res/Tiles/TILES_METAL/Destructible3.png", true };//
+			}
+
+			{
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::PlateformPurple] = { "../../../res/Tiles/TILES_JAZZ/Plat7.png", true };//
+				tilePath[(int)ObjectType::PlateformBlueMid] = { "../../../res/Tiles/TILES_JAZZ/Plat4.png", true };//
+				tilePath[(int)ObjectType::PlateformBlueSide] = { "../../../res/Tiles/TILES_JAZZ/Plat3.png", true };//
+				tilePath[(int)ObjectType::PlateformOrangeLeft] = { "../../../res/Tiles/TILES_JAZZ/Plat5.png", true };//
+				tilePath[(int)ObjectType::PlateformOrangeRight] = { "../../../res/Tiles/TILES_JAZZ/Plat6.png", true };//
+			}
+		}
+	}
+
+	m_Level = new Level("../../../res/Levels/Niveau.txt", this);
+
+	//Player
+	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
+	m_Player->SetPosition(6272, 4864);
+	//m_Player->SetPosition(0, 0);
+	m_Player->SetSpeed(m_Player->GetMinSpeed());
+	m_Player->SetRigidBody(true);
+	m_Player->SetGravityStrength(2500.f);
+	m_Player->SetJumpStrength(1500.f);
+
+	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
+	GameManager::Get()->GetCamera()->Zoom(2.f);
 }
 
 void MainScene::OnEvent(const sf::Event& event)
@@ -64,7 +189,7 @@ void MainScene::OnEvent(const sf::Event& event)
 
 		if (event.key.code == sf::Keyboard::Space && m_Player->GetNbJump() > 0)
 		{
-			//std::cout << "espace est pressé" << std::endl;
+			//std::cout << "espace est pressï¿½" << std::endl;
 			jump = true;
 			m_Player->DecreaseJump();
 			
@@ -75,7 +200,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		if (event.mouseButton.button == sf::Mouse::Button::Right)
 		{
-			//std::cout << "clic droit est appuyé" << std::endl;
+			//std::cout << "clic droit est appuyï¿½" << std::endl;
 			base_attack = true;
 		}
 	}
@@ -98,14 +223,14 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		if (sf::Joystick::isButtonPressed(0, 0) && m_Player->GetNbJump() > 0)
 		{
-			//std::cout << "A est appuyé" << std::endl;
+			//std::cout << "A est appuyï¿½" << std::endl;
 			jump = true;
 			m_Player->DecreaseJump();
 		}
 
 		if (sf::Joystick::isButtonPressed(0, 2))
 		{
-			//std::cout << "X est appuyé" << std::endl;
+			//std::cout << "X est appuyï¿½" << std::endl;
 			base_attack = true;
 		}
 	}
@@ -114,7 +239,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		if (event.key.code == sf::Keyboard::D)
 		{
-			//std::cout << "d est relaché" << std::endl;
+			//std::cout << "d est relachï¿½" << std::endl;
 			MoveRight = false;
 			m_Player->SetSpeed(0);
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
@@ -122,7 +247,7 @@ void MainScene::OnEvent(const sf::Event& event)
 		
 		if (event.key.code == sf::Keyboard::Q)
 		{
-			//std::cout << "q est relaché" << std::endl;
+			//std::cout << "q est relachï¿½" << std::endl;
 			MoveLeft = false;
 			m_Player->SetSpeed(0);
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
@@ -130,7 +255,7 @@ void MainScene::OnEvent(const sf::Event& event)
 
 		if (event.key.code == sf::Keyboard::Space )
 		{
-			//std::cout << "espace est relaché" << std::endl;
+			//std::cout << "espace est relachï¿½" << std::endl;
 			m_Player->SetSpeed(0);
 			jump = false;
 		}
@@ -200,9 +325,22 @@ void MainScene::OnUpdate()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
 	{
-		//std::cout << "d est pressé" << std::endl;
+		//std::cout << "d est pressï¿½" << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
 		if (m_Player->GetAttack() == false) 
+		m_Player->SetRight();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		//std::cout << "q est pressï¿½" << std::endl;
+		m_Player->MoveLeft(GetDeltaTime());
+		m_Player->SetLeft();
+	}
+	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10)
+	{
+		//std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+		m_Player->MoveRight(GetDeltaTime());
+		if (m_Player->GetAttack() == false)
 		{
 			m_Player->SetRight();
 		}
@@ -210,7 +348,8 @@ void MainScene::OnUpdate()
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
-		//std::cout << "q est pressé" << std::endl;
+		//std::cout << "q est pressï¿½" << std::endl;
+		//std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
 		if (m_Player->GetAttack() == false) 
 		{
