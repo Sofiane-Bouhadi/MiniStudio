@@ -199,7 +199,6 @@ void MainScene::OnUpdate()
 	{
 		std::cout << "d est press�" << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
-		/*if (m_Player->GetAttack() == false)*/
 		
 			m_Player->SetRight();
 			m_Player->UnsetLeft();
@@ -210,7 +209,6 @@ void MainScene::OnUpdate()
 	{
 		std::cout << "q est press�" << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		/*if (m_Player->GetAttack() == false)*/
 		
 			m_Player->SetLeft();
 			m_Player->UnsetRight();
@@ -222,7 +220,6 @@ void MainScene::OnUpdate()
 		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
 
-		/*if (m_Player->GetAttack() == true)*/
 
 		m_Player->SetRight();
 		m_Player->UnsetLeft();
@@ -233,7 +230,6 @@ void MainScene::OnUpdate()
 		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
 
-		/*if (m_Player->GetAttack() == true)*/
 
 		m_Player->SetLeft();
 		m_Player->UnsetRight();

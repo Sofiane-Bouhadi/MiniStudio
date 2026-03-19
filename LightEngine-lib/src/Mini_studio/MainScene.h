@@ -43,6 +43,8 @@ private :
 public :
 	Player* GetPlayer() { return m_Player; }
 
+	std::vector<Entity*> GetEnnemyList() { return mEnemies; }
+
 	void OnInitialize() override;
 	void OnEvent(const sf::Event& event) override;
 
