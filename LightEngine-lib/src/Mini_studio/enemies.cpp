@@ -140,9 +140,9 @@ void enemies::AttackSmart() {
 		std::cout << Shooting_Cooldown << std::endl;
 		if (Shooting_Cooldown < 0)
 		{
-			std::cout << "pew" << std::endl;
+			pEnemy->SetTag(2);
+			std::cout << "pew-------------------------------------------------------------" << std::endl;
 			proj = GetScene()->CreateRectangle<Projectile>(136, 53, sf::Color::Blue, new AABBCollider(136, 53));
-			//proj->CreateRectangle<Projectile>(136, 53, sf::Color::Blue, new AABBCollider(136, 53));
 			sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
 			proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
 			proj->SetOwnerTag(2);

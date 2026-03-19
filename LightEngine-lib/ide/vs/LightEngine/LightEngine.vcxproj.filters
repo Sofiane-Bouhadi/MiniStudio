@@ -2,15 +2,15 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
     <ItemGroup>
         <Filter Include="header">
-            <UniqueIdentifier>{BCF09396-5A45-45D6-AF48-F37815D0AD23}</UniqueIdentifier>
+            <UniqueIdentifier>{DCE2617F-5C51-493C-8C8F-9B4A7DD1816A}</UniqueIdentifier>
             <Extensions>h;hpp</Extensions>
         </Filter>
         <Filter Include="resource">
-            <UniqueIdentifier>{F23C0BCB-1B87-477C-B8A8-76193DD5DA62}</UniqueIdentifier>
+            <UniqueIdentifier>{4885D220-970D-4596-9E37-0151BCDF2604}</UniqueIdentifier>
             <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
         </Filter>
         <Filter Include="source">
-            <UniqueIdentifier>{0A068606-E1F6-4607-85AB-8FD603D48934}</UniqueIdentifier>
+            <UniqueIdentifier>{D8769F1F-18CA-4F1F-A122-9F94CA44BA29}</UniqueIdentifier>
             <Extensions>cpp;c</Extensions>
         </Filter>
     </ItemGroup>
