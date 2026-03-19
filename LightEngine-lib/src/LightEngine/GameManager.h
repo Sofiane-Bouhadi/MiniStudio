@@ -88,7 +88,7 @@ public:
 	Camera* GetCamera() const 
 	{ 
 		int a = 1; 
-		return mCamera; 
+		return mCamera;
 	}
 	sf::Font& GetFont() { return mFont; };
 	void NewText(sf::Font* font);
