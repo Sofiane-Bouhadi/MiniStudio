@@ -19,11 +19,12 @@ void MainScene::OnInitialize()
 
 	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
-	m_Player->SetPosition(0, 600);
+	m_Player->SetPosition(0, 0);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
 	m_Player->SetGravityStrength(5000.f);
 	m_Player->SetJumpStrength(1800);
+
 	//Platform
 	Entity* entity = CreateRectangle<Entity>(3000, 100, sf::Color::White, new AABBCollider(3000, 100));
 	entity->SetStatic(true);
@@ -147,16 +148,7 @@ void MainScene::OnInitialize()
 		}
 	}
 
-	m_Level = new Level("../../../res/Levels/Niveau.txt", this);
-
-	//Player
-	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
-	m_Player->SetPosition(6272, 4864);
-	//m_Player->SetPosition(0, 0);
-	m_Player->SetSpeed(m_Player->GetMinSpeed());
-	m_Player->SetRigidBody(true);
-	m_Player->SetGravityStrength(2500.f);
-	m_Player->SetJumpStrength(1500.f);
+	//m_Level = new Level("../../../res/Levels/Niveau.txt", this);
 
 	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
 	GameManager::Get()->GetCamera()->Zoom(2.f);
@@ -246,8 +238,6 @@ void MainScene::OnEvent(const sf::Event& event)
 			m_Player->SetSpeed(0);
 			jump = false;
 		}
-
-		
 	}
 	
 	if (event.type == sf::Event::MouseButtonReleased) 
@@ -283,21 +273,20 @@ void MainScene::OnEvent(const sf::Event& event)
 
 void MainScene::OnUpdate() 
 {
-	enemy1->OnCollision(m_Player, Entity::CollidingSide::Other);
-	enemy2->OnCollision(m_Player, Entity::CollidingSide::Other);
-	enemy3->OnCollision(m_Player, Entity::CollidingSide::Other);
-	enemy4->OnCollision(m_Player, Entity::CollidingSide::Other);
-
-	if (enemy1->telemetrie() <= 800 && enemy1 != nullptr) {
-		//std::cout << "detected" << std::endl;
-		fall_attack = true;
-		smart_attack = true;
+	if (enemy1 != nullptr)
+	{
+		if (enemy1->telemetrie() <= 800 && enemy1 != nullptr) {
+			//std::cout << "detected" << std::endl;
+			fall_attack = true;
+			smart_attack = true;
+		}
+		else {
+			//std::cout << "lost" << std::endl;
+			fall_attack = false;
+			smart_attack = false;
+		}
 	}
-	else {
-		//std::cout << "lost" << std::endl;
-		fall_attack = false;
-		smart_attack = false;
-	}
+	
 	//std::cout << enemy1->telemetrie() << std::endl;
 	if (fall_attack) {
 		ia->liveFall(enemy2);

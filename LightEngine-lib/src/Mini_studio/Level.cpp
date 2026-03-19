@@ -121,9 +121,6 @@ void Level::ReadLevel(MainScene* scene)
 			case '4':
 				scene->Spawn(MainScene::Enemy4, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case 'B':
-				scene->Spawn(MainScene::Boss, j * mPixelPerChar, i * mPixelPerChar);
-				break;
 			case 'A':
 				scene->Spawn(MainScene::ObjectType::JazzCeillingP, j * mPixelPerChar, i * mPixelPerChar);
 				break;
@@ -143,8 +140,8 @@ void Level::ReadLevel(MainScene* scene)
 				scene->Spawn(MainScene::ObjectType::JazzWallBRY, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case 'I':
-				scene->Spawn(MainScene::LeftJazzPlatform, j * mPixelPerChar, i * mPixelPerChar);
-				break;*/
+				//scene->Spawn(MainScene::LeftJazzPlatform, j * mPixelPerChar, i * mPixelPerChar);
+				break;
 			case 'J':
 				scene->Spawn(MainScene::ObjectType::HubWall2, j * mPixelPerChar, i * mPixelPerChar);
 				break;
