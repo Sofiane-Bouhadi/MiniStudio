@@ -2,20 +2,26 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
     <ItemGroup>
         <Filter Include="header">
-            <UniqueIdentifier>{C11EB63F-2C21-4B51-9573-2A6151AD401A}</UniqueIdentifier>
+            <UniqueIdentifier>{5D926AF6-75E8-4E36-B9C8-889F70DA8121}</UniqueIdentifier>
             <Extensions>h;hpp</Extensions>
         </Filter>
         <Filter Include="resource">
-            <UniqueIdentifier>{9579E376-B996-4558-8DE3-2031CBF0965F}</UniqueIdentifier>
+            <UniqueIdentifier>{DAF14B5E-AABA-4E17-BA76-44791CB0FA85}</UniqueIdentifier>
             <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
         </Filter>
         <Filter Include="source">
-            <UniqueIdentifier>{03F3947C-A898-46D0-8136-2EB0B9185E67}</UniqueIdentifier>
+            <UniqueIdentifier>{68549EC7-0629-417C-B0B0-3B929421C179}</UniqueIdentifier>
             <Extensions>cpp;c</Extensions>
         </Filter>
     </ItemGroup>
     <ItemGroup>
         <ClCompile Include="..\..\..\src\Mini_studio\Attack.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
+        <ClCompile Include="..\..\..\src\Mini_studio\Collectible.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
+        <ClCompile Include="..\..\..\src\Mini_studio\Destructible.cpp">
             <Filter>source</Filter>
         </ClCompile>
         <ClCompile Include="..\..\..\src\Mini_studio\enemies.cpp">
@@ -64,6 +70,12 @@
             <Filter>source</Filter>
         </ClCompile>
         <ClInclude Include="..\..\..\src\Mini_studio\Attack.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\Mini_studio\Collectible.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\Mini_studio\Destructible.h">
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\Mini_studio\enemies.h">

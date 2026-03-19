@@ -2,20 +2,23 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
     <ItemGroup>
         <Filter Include="header">
-            <UniqueIdentifier>{0F3458A4-D0AA-4DB6-A5B0-6ADD8EDDB091}</UniqueIdentifier>
+            <UniqueIdentifier>{29F577B8-2DB0-43BF-BE72-9D9FD80283A7}</UniqueIdentifier>
             <Extensions>h;hpp</Extensions>
         </Filter>
         <Filter Include="resource">
-            <UniqueIdentifier>{6C7FB02D-0FFC-43FD-85B1-D03C91622665}</UniqueIdentifier>
+            <UniqueIdentifier>{CBD9EDC0-BDF0-40B1-8C57-3502900533F2}</UniqueIdentifier>
             <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
         </Filter>
         <Filter Include="source">
-            <UniqueIdentifier>{6EF2BF2C-E1E3-4B9F-93A8-A211E804AE5D}</UniqueIdentifier>
+            <UniqueIdentifier>{7FC3AB53-7EA6-4E10-9761-C98342D619AC}</UniqueIdentifier>
             <Extensions>cpp;c</Extensions>
         </Filter>
     </ItemGroup>
     <ItemGroup>
         <ClCompile Include="..\..\..\src\LightEngine\AABBCollider.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
+        <ClCompile Include="..\..\..\src\LightEngine\AnimatedSprite.cpp">
             <Filter>source</Filter>
         </ClCompile>
         <ClCompile Include="..\..\..\src\LightEngine\AssetManager.cpp">
@@ -42,13 +45,25 @@
         <ClCompile Include="..\..\..\src\LightEngine\GravityEntity.cpp">
             <Filter>source</Filter>
         </ClCompile>
+        <ClCompile Include="..\..\..\src\LightEngine\Music.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
         <ClCompile Include="..\..\..\src\LightEngine\Scene.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
+        <ClCompile Include="..\..\..\src\LightEngine\Sound.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
+        <ClCompile Include="..\..\..\src\LightEngine\SpriteAnimation.cpp">
             <Filter>source</Filter>
         </ClCompile>
         <ClCompile Include="..\..\..\src\LightEngine\Utils.cpp">
             <Filter>source</Filter>
         </ClCompile>
         <ClInclude Include="..\..\..\src\LightEngine\AABBCollider.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\LightEngine\AnimatedSprite.h">
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\LightEngine\AssetManager.h">
@@ -75,7 +90,19 @@
         <ClInclude Include="..\..\..\src\LightEngine\GravityEntity.h">
             <Filter>header</Filter>
         </ClInclude>
+        <ClInclude Include="..\..\..\src\LightEngine\json.hpp">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\LightEngine\Music.h">
+            <Filter>header</Filter>
+        </ClInclude>
         <ClInclude Include="..\..\..\src\LightEngine\Scene.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\LightEngine\Sound.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\LightEngine\SpriteAnimation.h">
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\LightEngine\Utils.h">
