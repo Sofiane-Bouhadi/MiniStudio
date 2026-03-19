@@ -20,8 +20,8 @@ void MainScene::OnInitialize()
 	m_Player->SetPosition(0, 600);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
-	m_Player->SetGravityStrength(1200.f);
-	m_Player->SetJumpStrength(750);
+	m_Player->SetGravityStrength(3000.f);
+	m_Player->SetJumpStrength(1200);
 
 	//Platform
 	Entity* entity = CreateRectangle<Entity>(1280, 100, sf::Color::White, new AABBCollider(1280, 100));
@@ -29,8 +29,8 @@ void MainScene::OnInitialize()
 	entity->SetRigidBody(true);
 	entity->SetPosition(0, 720);
 
-	Boss* boss = CreateRectangle<Boss>(250, 300, sf::Color::Red, new AABBCollider(250, 300));
-	boss->SetPosition(0, 250);
+	Boss* boss = CreateSprite<Boss>(558, 441, "../../../res/Sprites/Boss/Boss_Idle.png", new AABBCollider(558, 441));
+	boss->SetPosition(0, 0);
 	boss->SetRigidBody(false);
 	boss->SetStatic(true);
 

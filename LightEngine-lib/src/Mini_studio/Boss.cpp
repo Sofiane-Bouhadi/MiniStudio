@@ -1,5 +1,7 @@
 #include "Boss.h"
-//#include "Projectile.h"
+#include "Projectile.h"
+#include "AABBCollider.h"
+#include "Debug.h"
 
 void Boss::OnInitialize()
 {
@@ -10,6 +12,10 @@ void Boss::OnInitialize()
 void Boss::OnUpdate()
 {
 	mWaitTimer -= GetDeltaTime();
+	mInvulnerabilityTime -= GetDeltaTime();
+
+	if (mHp <= 0)
+		Destroy();
 
 	if (mFunction != nullptr)
 		mFunction();
@@ -17,7 +23,7 @@ void Boss::OnUpdate()
 
 void Boss::LaunchAtk()
 {
-	int randomAtk = 0;
+	int randomAtk = rand() % 4;
 
 	switch (randomAtk)
 	{
@@ -139,7 +145,7 @@ void Boss::ProjectileAtk()
 		//Wait 1 second then choose a random number of projectile
 		if (mWaitTimer <= 0.f)
 		{
-			mProjectileNb = rand() % 5 + 5;
+			mProjectileNb = rand() % 3 + 2;
 			mAtkStep++;
 		}
 		break;
@@ -147,19 +153,23 @@ void Boss::ProjectileAtk()
 		//Shoot projectiles
 		if (mWaitTimer <= 0.f)
 		{
-			//CreateSprite<Projectile>();
-			mWaitTimer = 0.2f;
+			Projectile* pProjectile = CreateSprite<Projectile>(310, 494, "../../../res/Sprites/Boss/Boss_Projectile.png", new AABBCollider(128, 128));
+			pProjectile->GetSprite()->scale(sf::Vector2f(0.35, 0.35));
+			pProjectile->SetOwnerTag(3);
+			pProjectile->SetPosition(rand() % 1280 - 640, -360);
+			pProjectile->SetDirection(0, 1, 400);
+			mWaitTimer = 0.5f;
 			mProjectileNb -= 1;
 		}
 		
 		if (mProjectileNb <= 0)
 		{
-			mWaitTimer = 1.f;
+			mWaitTimer = 2.5f;
 			mAtkStep++;
 		}
 		break;
 	case 3:
-		//Wait 1 second
+		//Wait
 		if (mWaitTimer <= 0.f)
 			mAtkStep++;
 		break;
@@ -175,15 +185,39 @@ void Boss::ShockwaveAtk()
 	switch (mAtkStep)
 	{
 	case 0:
+		mWaitTimer = 1.5f;
 		mAtkStep++;
 		break;
 	case 1:
-		mAtkStep++;
+		if (mWaitTimer <= 0.f)
+		{
+			mAtkStep++;
+		}
+		else
+		{
+			Debug::DrawRectangle(mCenterX - 500, mCenterY - 500, 1000, 1000, sf::Color::Cyan); // Draw a indication for the player
+		}
 		break;
 	case 2:
 		mAtkStep++;
 		break;
 	case 3:
+		mAtkStep++;
+		break;
+	case 4:
+		mAtkStep++;
+		break;
+	case 5:
+		GoToPosition(mCenterX, mCenterY);
+		mAtkStep++;
+		break;
+	case 6:
+		if (mTarget.isSet == false)
+		{
+			mAtkStep++;
+		}
+		break;
+	case 7:
 		LaunchAtk();
 		break;
 	}
@@ -197,7 +231,7 @@ void Boss::HealAtk()
 		mHp += 2;
 		mAtkStep++;
 		//Add some things like repeat it and wait between heals
-		mWaitTimer = 0.5f;
+		mWaitTimer = 1.f;
 		break;
 	case 1:
 		if (mWaitTimer <= 0.f)
@@ -211,13 +245,17 @@ void Boss::HealAtk()
 
 void Boss::OnCollision(Entity* pOther, CollidingSide collidingSide)
 {
-	//Projectile* collidingProjectile = dynamic_cast<Projectile*> (pOther)
+	Projectile* collidingProjectile = dynamic_cast<Projectile*> (pOther);
 
-	//if (collidingProjectile == nullptr)
-	//	return;
+	if (collidingProjectile == nullptr)
+		return;
 
-	//if (collidingProjectile->GetOwnerTag() == 3) // TODO Compare if it's a projectile of the boss (for the moment the tag of the boss is 3 as shown in the condition)
-	//	return;
+	if (collidingProjectile->GetOwnerTag() == 3) // TODO Compare if it's a projectile of the boss (for the moment the tag of the boss is 3 as shown in the condition)
+		return;
 
-	mHp -= 1; // TODO Change with the attack of pOther
+	if (mInvulnerabilityTime <= 0.f)
+	{
+		mHp -= 1; // TODO Change with the attack of pOther
+		mInvulnerabilityTime = 0.2f;
+	}
 }
