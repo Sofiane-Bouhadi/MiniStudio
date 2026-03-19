@@ -18,7 +18,7 @@ void MainScene::OnInitialize()
 
 	//Player
 	m_Player = CreateSprite<Player>(155, 225, "../../../res/Sprites/idle_1.png", new AABBCollider(155, 225));
-	m_Player->SetPosition(0, 0);
+	m_Player->SetPosition(6272, 4864);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
 	m_Player->SetGravityStrength(5000.f);
