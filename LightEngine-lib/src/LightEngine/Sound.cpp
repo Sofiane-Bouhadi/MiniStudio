@@ -25,3 +25,8 @@ void Sound::SetLoop(bool isLoop)
 {
 	mSound.setLoop(isLoop);
 }
+
+void Sound::SetVolume(float volume)
+{
+	mSound.setVolume(volume);
+}

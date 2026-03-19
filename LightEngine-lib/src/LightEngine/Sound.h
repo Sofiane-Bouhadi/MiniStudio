@@ -14,5 +14,6 @@ public:
 	void Pause();
 	void Stop();
 	void SetLoop(bool isLoop);
+	void SetVolume(float volume);
 };
 

@@ -11,11 +11,12 @@ void Boss::OnInitialize()
 	SetSpeed(mBaseSpeed);
 	SetTag(3);
 
-	mMusic = new Music("../../../res/Musics/foret.wav");
-	//mMusic->Play();
+	mMusic = new Music("../../../res/Musics/Boss_Music.wav");
+	mMusic->Play();
+	mMusic->SetLoop(true);
 
 	mHealSound = new Sound("../../../res/Sounds/heal.wav");
-
+	mDashSound = new Sound("../../../res/Sounds/Dash_Boss.wav");
 }
 
 Projectile* pProjectile;
@@ -102,6 +103,7 @@ void Boss::DashAtk()
 
 			// Dash to the other side
 			SetSpeed(mAccelerationSpeed);
+			mDashSound->Play();
 
 			if (GetPosition().x == mLeftSideX)
 			{
@@ -162,7 +164,7 @@ void Boss::ProjectileAtk()
 		//Wait 1 second then choose a random number of projectile
 		if (mWaitTimer <= 0.f)
 		{
-			mProjectileNb = rand() % 3 + 2;
+			mProjectileNb = rand() % 7 + 5;
 			mAtkStep++;
 		}
 		break;
@@ -170,12 +172,12 @@ void Boss::ProjectileAtk()
 		//Shoot projectiles
 		if (mWaitTimer <= 0.f)
 		{
-			Projectile* pProjectile = CreateSprite<Projectile>(310, 494, "../../../res/Sprites/Boss/Boss_Projectile.png", new AABBCollider(128, 128));
+			Projectile* pProjectile = CreateSprite<Projectile>(128, 250, "../../../res/Sprites/Boss/Boss_Projectile.png", new AABBCollider(128, 250));
 			pProjectile->GetSprite()->setScale(sf::Vector2f(0.5, 0.5));
 			pProjectile->SetOwnerTag(3);
 			pProjectile->SetPosition(rand() % 1280 - 640, -360);
-			pProjectile->SetDirection(0, 1, 400);
-			mWaitTimer = 0.5f;
+			pProjectile->SetDirection(0, 1, 800);
+			mWaitTimer = 0.3f;
 			mProjectileNb -= 1;
 		}
 		

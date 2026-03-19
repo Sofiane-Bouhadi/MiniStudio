@@ -24,3 +24,8 @@ void Music::SetLoop(bool isLoop)
 {
 	mMusic.setLoop(isLoop);
 }
+
+void Music::SetVolume(float volume)
+{
+	mMusic.setVolume(volume);
+}

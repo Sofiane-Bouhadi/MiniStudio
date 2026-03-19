@@ -12,11 +12,12 @@ class Boss :
 private:
 	int mAtkStep = -1;
 
-	int mHp = 10;
-	int mHpMax = 10;
+	int mHp = 25;
+	int mHpMax = 25;
 
 	Music* mMusic = nullptr;
 	Sound* mHealSound = nullptr;
+	Sound* mDashSound = nullptr;
 
 	// Ces variables sont à changer selon la scène une fois qu'elle sera faite.
 	float mUpperY = -720;
