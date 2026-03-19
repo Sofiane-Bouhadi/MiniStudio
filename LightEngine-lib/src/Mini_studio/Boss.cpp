@@ -30,12 +30,6 @@ void Boss::OnUpdate()
 
 	if (mFunction != nullptr)
 		mFunction();
-
-	/*if (pProjectile)
-	{
-		sf::FloatRect rect = pProjectile->GetSprite()->getGlobalBounds();
-		Debug::DrawRectangle(rect.left, rect.top, rect.width, rect.height, sf::Color::Green);
-	}*/
 }
 
 
@@ -172,7 +166,7 @@ void Boss::ProjectileAtk()
 		//Shoot projectiles
 		if (mWaitTimer <= 0.f)
 		{
-			Projectile* pProjectile = CreateSprite<Projectile>(128, 250, "../../../res/Sprites/Boss/Boss_Projectile.png", new AABBCollider(128, 250));
+			Projectile* pProjectile = CreateSprite<Projectile>(128, 250, "../../../res/Sprites/Boss/Boss_Projectile.png", new AABBCollider(135, 240));
 			pProjectile->GetSprite()->setScale(sf::Vector2f(0.5, 0.5));
 			pProjectile->SetOwnerTag(3);
 			pProjectile->SetPosition(rand() % 1280 - 640, -360);
