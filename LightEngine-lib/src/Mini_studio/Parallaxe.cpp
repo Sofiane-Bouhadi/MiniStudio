@@ -8,8 +8,8 @@ void Parallaxe::Init(MainScene* scene, float gap)
     mPlayer = scene->GetPlayer();
     mActualScene = scene;
     mGap = gap;
-   
-    if (mPlayer != nullptr) 
+
+    if (mPlayer != nullptr)
     {
         mPreviousPlayerPos = mPlayer->GetPosition();
         mInitialized = true;

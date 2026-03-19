@@ -44,6 +44,10 @@ void Player::BaseAttack()
 	IsAttack = true;
 	Attack_Cooldown = 1;
 	
+	Attack_Cooldown = 2;
+
+	mAttackSound->Play();
+	
 }
 
 void Player::PlayerShoot() 
@@ -55,6 +59,7 @@ void Player::PlayerShoot()
 	IsShooting = true;
 	Shooting_Cooldown = 0.6f;
 
+	mProjectileSound->Play();
 
 	if (IsRight)
 	{
@@ -85,6 +90,8 @@ void Player::PlayerShockwave()
 	mana_stack -= 3;
 	IsShockwave = true;
 	Shockwave_cooldown = 1;
+
+	mShockwaveSound->Play();
 
 	shockwave = CreateRectangle<Skill>(600, 600, sf::Color::Transparent, new AABBCollider(600, 600));
 	shockwave->SetTag(1);
@@ -132,6 +139,11 @@ void Player::OnInitialize()
 	Scene* scene = GetScene();
 
 	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Transparent, new AABBCollider(85, 30)); 
+	mAttackSound = new Sound("../../../Attack.wav");
+	mProjectileSound = new Sound("../../../res/Sounds/Projectile.wav");
+	mShockwaveSound = new Sound("../../../res/Sounds/Shockwave.wav");
+
+	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Red, new AABBCollider(85, 30)); 
 	attack->SetPosition(GetPosition().x, GetPosition().y);
 	attack->SetTag(1);
 

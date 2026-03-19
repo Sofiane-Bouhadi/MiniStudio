@@ -38,8 +38,8 @@ public:
 
 	bool verifingState(int nbr);
 
-	bool canIdle;
-	bool canAttack;
-	bool canReload;
-	bool canMove;
+	bool canIdle = true;
+	bool canAttack = true;
+	bool canReload = true;
+	bool canMove = true;
 };

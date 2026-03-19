@@ -2,6 +2,7 @@
 #include "GravityEntity.h"
 #include "projectile.h"
 #include "skill.h"
+#include "Sound.h"
 
 
 
@@ -17,20 +18,22 @@ private :
 	bool IsAlive = true;
 
 	float m_acceleration = 3000.f;
-	float m_MaxSpeed = 300.f;
-	float m_MinSpeed = 150.f;
+	float m_MaxSpeed = 1500.f;
+	float m_MinSpeed = 1000.f;
 	
-	
-	Entity* attack = nullptr; 
+	Entity* attack = nullptr;
+	Sound* mAttackSound = nullptr;
 	bool IsAttack = false;
 	float Attack_Cooldown = 1;
 
-	Projectile* proj;
+	Projectile* proj = nullptr;
+	Sound* mProjectileSound = nullptr;
 	bool IsShooting = false;
 	float Shooting_Cooldown = 0.6f;
 
-	Skill* shockwave;
-	bool IsShockwave;
+	Skill* shockwave = nullptr;
+	Sound* mShockwaveSound = nullptr;
+	bool IsShockwave = false;
 	float Shockwave_cooldown = 1;
 
 	bool IsRight = false;

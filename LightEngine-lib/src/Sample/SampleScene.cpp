@@ -2,6 +2,8 @@
 #include "GravityEntity.h"
 #include "DummyEntity.h"
 #include "Player.h"
+#include "Sound.h"
+#include "Music.h"
 
 #include "Debug.h"
 
@@ -13,6 +15,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include <iostream>
+
+using namespace std;
 
 void SampleScene::OnInitialize()
 {
@@ -26,27 +30,21 @@ void SampleScene::OnInitialize()
 	pEntity2->SetPosition(500, 500);
 	pEntity2->SetRigidBody(true);
 
-	//Circle
-	pEntity3 = CreateCircle<DummyEntity>(25, sf::Color::Green, new CircleCollider(25));
-	pEntity3->SetPosition(200, 300);
-	pEntity3->SetRigidBody(true);
-
-	//Rectangle
-	pEntity4 = CreateRectangle<DummyEntity>(1280, 50, sf::Color::White, new AABBCollider(1280, 50));
-	pEntity4->SetPosition(1280 / 2, 720);
-	pEntity4->SetRigidBody(true);
-	pEntity4->SetStatic(true);
-
 	//GravityEntity
 	gEntity = CreateRectangle<Player>(50, 100, sf::Color::Blue, new AABBCollider(50, 100));
 	gEntity->SetPosition(720, 0);
 	gEntity->SetRigidBody(true);
-	gEntity->SetGravityStrength(300.f);
+	gEntity->SetGravityStrength(400.f);
+	gEntity->SetJumpStrength(200.f);
 
 	//Choose an entity to follow
 	GameManager::Get()->GetCamera()->SetFollowingEntity(gEntity);
 
+	mMusic = new Music("../../../res/foret.wav");
+	mMusic->Play();
+
 	pEntitySelected = nullptr;
+
 }
 
 void SampleScene::OnEvent(const sf::Event& event)

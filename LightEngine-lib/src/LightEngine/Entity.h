@@ -49,8 +49,10 @@ protected:
     float mSpeed = 0.f;
     bool mToDestroy = false;
     int mTag = -1;
+	//int mTagEnemy = 2;
 	bool mRigidBody = false;
 	bool mStatic = false;
+	bool mActive = true;
 
 public:
 	bool GoToDirection(int x, int y, float speed = -1.f);
@@ -64,6 +66,7 @@ public:
 	bool IsRigidBody() const { return mRigidBody; }
 	void SetStatic(bool isStatic) { mStatic = isStatic; }
 	bool IsStatic() const { return mStatic; }
+	void SetScale(float ratioX, float ratioY);
 
     sf::Vector2f GetPosition(float ratioX = 0.5f, float ratioY = 0.5f) const;
 	sf::Shape* GetShape();
@@ -73,6 +76,8 @@ public:
 	bool IsTag(int tag) const { return mTag == tag; }
     Entity::CollidingSide IsColliding(Entity* other) const;
 	bool IsInside(float x, float y) const;
+	void SetActive(bool isActive) { mActive = isActive; }
+	bool IsActive() const { return mActive; }
 
     void Destroy();
 	bool ToDestroy() const { return mToDestroy; }

@@ -1,7 +1,6 @@
 #include "enemies.h"
 #include <cmath>
 #include "AABBCollider.h"
-#include "Projectile.h"
 
 /*facilite l'utilisation de la state machine*/
 void enemies::choix(int nbr) {
@@ -12,6 +11,8 @@ void enemies::choix(int nbr) {
 void enemies::init(enemies* enemy, Player* player) {
 	pPlayer = player;
 	pEnemy = enemy;
+	Shooting_Cooldown = 0.6f;
+	enemy->SetTag(2);
 }
 
 /*cree l'enemie*/
@@ -95,8 +96,8 @@ void enemies::AttackFall() {
 		positiontarget.x <= positionEnemy.x + halfSize)
 	{
 		//std::cout << "falling" << std::endl;
-		GoToPosition(positionEnemy.x, positiontarget.y, 100.0f);
-
+		//GoToPosition(positionEnemy.x, positiontarget.y, 100.0f);
+		pEnemy->SetGravityStrength(1000);
 	}
 }
 
@@ -126,40 +127,53 @@ void enemies::AttackSmart() {
 	StateMachine state;
 	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
-	if (telemetrie() == (float)500) {
+	if (telemetrie() <= (float)800) {
 
 		IsShooting = true;
-		Shooting_Cooldown = 0.6f;
+
 
 		Projectile* proj = nullptr;
 
-		if (positionEnemy.x > positiontarget.x)
-		{
-			std::cout << "pew" << std::endl;
-			proj = CreateSprite<Projectile>(136.f, 53.f, "../../../res/Sprites/projectile_right.png", new AABBCollider(136, 53));
-			sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
-			proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
-			proj->SetOwnerTag(2);
-			proj->SetProjectileSpeed(1000.f);
-			proj->SetDirection(1, 0, proj->GetProjectileSpeed());
+		Shooting_Cooldown -= GetDeltaTime();
 
-		}
-		if (positionEnemy.x < positiontarget.x)
+		sf::Vector2f trgt = direction();
+		//std::cout << Shooting_Cooldown << std::endl;
+		if (Shooting_Cooldown < 0)
 		{
-			proj = CreateSprite<Projectile>(136.f, 53.f, "../../../res/Sprites/projectile_left.png", new AABBCollider(136, 53));
+			pEnemy->SetTag(2);
+			std::cout << "pew-------------------------------------------------------------" << std::endl;
+			//enemy2 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\stamp.png)", new AABBCollider(128, 128));
+			proj = GetScene()->CreateSprite<Projectile>(53, 53,R"(..\..\..\asset_by_tech\bullet.png)", new AABBCollider(53, 53));
 			sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
 			proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
 			proj->SetOwnerTag(2);
-			proj->SetProjectileSpeed(1000.f);
-			proj->SetDirection(-1, 0, proj->GetProjectileSpeed());
+			proj->SetProjectileSpeed(1.5f);
+			proj->SetDirection(-trgt.x, -trgt.y, proj->GetProjectileSpeed());
+			Shooting_Cooldown = 0.6f;
 		}
+
 	}
+}
+void enemies::OnCollision(Entity* pOther, CollidingSide collidingSide)
+{
+    if (collidingSide == Bottom)
+    {
+        mYVelocity = 0.f;
+    }
 }
 
 void enemies::setStun() {
-    if (state) {
-        state->change(3);
-    }
+	stun_time -= GetDeltaTime();
+	bool stun = true;
+	if (stun && stun_time > 0) {
+		state->change(3);
+		stun_time = 1;
+
+	}
+	else if (stun_time <= 0) {
+		stun = false;
+	}
+	state->change(0);
 }
 
 void enemies::isHit(){

@@ -39,5 +39,5 @@ void IA::liveFall(enemies* pEnemy) {
 void IA::liveShot(enemies* pEnemy) {
 
 	pEnemy->AttackSmart();
-	std::cout << "smart attaque" << std::endl;
+	//std::cout << "smart attaque" << std::endl;
 }
