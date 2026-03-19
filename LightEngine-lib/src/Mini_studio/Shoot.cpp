@@ -23,8 +23,6 @@ void Shoot::Fire(int ownerTag, sf::Vector2f facingDir)
 
 void Shoot::OnInitialize()
 {
-    Scene* scene = GetScene();
-    proj = scene->CreateRectangle<Projectile>(m_projWidth, m_projHeight, sf::Color::Red, new AABBCollider(20, 10));
 
 }
 
