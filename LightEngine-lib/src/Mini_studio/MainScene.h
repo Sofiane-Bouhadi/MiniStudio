@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Player.h"
+#include "Parallaxe.h"
 
 class Level;
 
@@ -66,6 +67,11 @@ public:
 private :
 	Player* m_Player;
 	Entity* pEntity4;
+
+	Parallaxe* mParallaxFar = nullptr;
+	Parallaxe* mParallaxMid = nullptr;
+	Parallaxe* mParallaxNear = nullptr;
+	Parallaxe* mParallaxClose = nullptr;
 
 	std::vector<Entity*> mEnemies;
 

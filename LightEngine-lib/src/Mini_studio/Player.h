@@ -1,5 +1,6 @@
 #pragma once
 #include "GravityEntity.h"
+#include "projectile.h"
 
 class Player : public GravityEntity 
 {
@@ -14,9 +15,14 @@ private :
 	float m_MaxSpeed = 300.f;
 	float m_MinSpeed = 150.f;
 	
-	Entity* attack = nullptr; //créer a l'initialisation et déplacment au bon endroit lors de l'appel de l'attaque 
+	
+	Entity* attack = nullptr; 
 	bool IsAttack = false;
 	float Attack_Cooldown = 2;
+
+	Projectile* proj;
+	bool IsShooting = false;
+	float Shooting_Cooldown = 0.6f;
 
 	bool IsRight = false;
 	bool IsLeft = false;
@@ -33,13 +39,15 @@ public:
 	void UnsetLeft() { IsLeft = false; }
 
 	void BaseAttack();
-
+	void PlayerShoot();
+	
 	void TakeDmg(int DamageTaken);
 
 	float GetSpeed() { return mSpeed; }
 	int GetNbJump() { return nb_Jump; }
 	bool GetAttack();
 	float GetAttackCD() { return Attack_Cooldown; }
+	float GetShootCD() { return Shooting_Cooldown; }
 
 	float GetMinSpeed() { return m_MinSpeed; }
 

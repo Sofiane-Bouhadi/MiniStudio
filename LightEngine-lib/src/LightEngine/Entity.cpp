@@ -62,13 +62,20 @@ void Entity::Initialize(float width, float height, const char* texturePath, Coll
 {
 	mDirection = sf::Vector2f(0.0f, 0.0f);
 
-	sf::Sprite* sprite = new sf::Sprite(*AssetManager::Get()->GetTexture(texturePath, width, height));
+	sf::Sprite* sprite = new sf::Sprite(*AssetManager::Get()->GetTexture(texturePath));
+	sf::FloatRect rect = sprite->getGlobalBounds();
+
+	float ratioX = width / rect.width;
+	float ratioY = height / rect.height;
+	float ratioMin = std::min(ratioX, ratioY);
+
+	sprite->setScale(ratioMin, ratioMin);
 
 	mDrawable = sprite;
 	mTransformable = sprite;
 	
-	mWidth = width;
-	mHeight = height;
+	mWidth = ratioMin * rect.width;
+	mHeight = ratioMin * rect.height;
 	mCollider = collider;
 	
 	mTarget.isSet = false;
@@ -183,6 +190,14 @@ void Entity::Destroy()
 	OnDestroy();
 }
 
+void Entity::SetScale(float ratioX, float ratioY)
+{
+	mTransformable->setScale(ratioX, ratioY);
+
+	mWidth *= ratioX;
+	mHeight *= ratioY;
+}
+
 void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 {
 	x -= mWidth * ratioX;
@@ -203,7 +218,6 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 		mTarget.isSet = true;
 	}
 }
-
 
 sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
 {
@@ -245,7 +259,7 @@ bool Entity::GoToDirection(int x, int y, float speed)
 
 bool Entity::GoToPosition(int x, int y, float speed)
 {
-	sf::Vector2i worldPos = sf::Vector2i(GameManager::Get()->mpWindow->mapPixelToCoords(sf::Vector2i(x, y)));
+	sf::Vector2i worldPos = sf::Vector2i(x, y);
 
 	if (GoToDirection(worldPos.x, worldPos.y, speed) == false)
 		return false;
@@ -299,9 +313,9 @@ void Entity::FixedUpdate(float fixedDt)
 		float x2 = x1 + mDirection.x * mTarget.distance;
 		float y2 = y1 + mDirection.y * mTarget.distance;
 
-		Debug::DrawLine(x1, y1, x2, y2, sf::Color::Cyan);
+		//Debug::DrawLine(x1, y1, x2, y2, sf::Color::Cyan);
 
-		Debug::DrawCircle(mTarget.position.x, mTarget.position.y, 5.f, sf::Color::Magenta);
+		//Debug::DrawCircle(mTarget.position.x, mTarget.position.y, 5.f, sf::Color::Magenta);
 
 		mTarget.distance -= distance;
 

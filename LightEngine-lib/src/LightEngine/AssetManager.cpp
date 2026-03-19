@@ -19,11 +19,11 @@ AssetManager::~AssetManager() {
     delete Instance;
 }
 
-sf::Texture* AssetManager::LoadTexture(const char* path, float width, float height)
+sf::Texture* AssetManager::LoadTexture(const char* path)
 {
     sf::Texture* pTexture = new sf::Texture;
 
-    if (pTexture->loadFromFile(path, sf::IntRect(0, 0, width, height)))
+    if (pTexture->loadFromFile(path))
     {
         mTexturePaths[path] = pTexture;
 
@@ -33,12 +33,12 @@ sf::Texture* AssetManager::LoadTexture(const char* path, float width, float heig
     std::cout << "Couldn't load texture." << std::endl;
 }
 
-sf::Texture* AssetManager::GetTexture(const char* path, float width, float height)
+sf::Texture* AssetManager::GetTexture(const char* path)
 {
     auto it = mTexturePaths.find(path);
 
     if (it == mTexturePaths.end())
-        return LoadTexture(path, width, height);
+        return LoadTexture(path);
 
     return it->second;
 }

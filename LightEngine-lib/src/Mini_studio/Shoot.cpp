@@ -2,12 +2,13 @@
 #include "Projectile.h"
 #include "AABBCollider.h"
 
+
 void Shoot::Fire(int ownerTag, sf::Vector2f facingDir)
 {
 
     AABBCollider* collider = new AABBCollider(m_projWidth, m_projHeight);
 
-    Projectile* proj = CreateSprite<Projectile>(m_projWidth, m_projHeight, m_texturePath, collider);
+    proj = CreateSprite<Projectile>(m_projWidth, m_projHeight, m_texturePath, collider);
 
     proj->SetDamage(m_damage);
     proj->SetProjectileSpeed(m_projectileSpeed);
@@ -22,10 +23,12 @@ void Shoot::Fire(int ownerTag, sf::Vector2f facingDir)
 
 void Shoot::OnInitialize()
 {
+
 }
 
 void Shoot::OnUpdate()
 {
+    
 }
 
 void Shoot::OnDestroy()
