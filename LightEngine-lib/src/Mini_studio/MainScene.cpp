@@ -14,7 +14,7 @@ void MainScene::OnInitialize()
 {
 	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
-	m_Player->SetPosition(1000, 300);
+	m_Player->SetPosition(6272, 4864);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
 	m_Player->SetGravityStrength(1200.f);
@@ -71,8 +71,8 @@ void MainScene::OnInitialize()
 			}
 			//Metal
 			{
-				tilePath[(int)ObjectType::MetalWallBL] = { "../../../res/Tiles/TILES_METAL/Mur1.png", true };//
-				tilePath[(int)ObjectType::MetalWallBR] = { "../../../res/Tiles/TILES_METAL/Mur5.png", true };//
+				tilePath[(int)ObjectType::MetalGround1] = { "../../../res/Tiles/TILES_METAL/Mur1.png", true };//
+				tilePath[(int)ObjectType::MetalGround2] = { "../../../res/Tiles/TILES_METAL/Mur5.png", true };//
 			}
 		}
 

@@ -148,12 +148,7 @@ void Level::ReadLevel(MainScene* scene)
 			case 'J':
 				scene->Spawn(MainScene::ObjectType::HubWall2, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case 'K':
-				scene->Spawn(MainScene::ObjectType::MetalWallBL, j * mPixelPerChar, i * mPixelPerChar);
-				break;
-			case 'L':
-				scene->Spawn(MainScene::ObjectType::MetalWallBR, j * mPixelPerChar, i * mPixelPerChar);
-				break;
+
 			case 'M':
 				scene->Spawn(MainScene::ObjectType::JazzGroundY, j * mPixelPerChar, i * mPixelPerChar);
 				break;
