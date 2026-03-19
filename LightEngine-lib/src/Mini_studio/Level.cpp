@@ -221,7 +221,7 @@ void Level::ReadLevel(MainScene* scene)
 			case '*':
 				scene->Spawn(MainScene::ObjectType::JazzWallBLP, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case '€':
+			case 'p':
 				scene->Spawn(MainScene::ObjectType::JazzWallBRP, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case '(':
@@ -245,7 +245,7 @@ void Level::ReadLevel(MainScene* scene)
 			case '~':
 				scene->Spawn(MainScene::ObjectType::HubGround, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case '#':
+			case 'd':
 				scene->Spawn(MainScene::ObjectType::MetalDestructibleUP, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case '{':
