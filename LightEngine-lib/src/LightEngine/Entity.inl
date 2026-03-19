@@ -18,7 +18,7 @@ T* Entity::GetScene() const
 template<typename T>
 T* Entity::CreateRectangle(float width, float height, const sf::Color& color, Collider* collider)
 {
-	return GetScene()->CreateRectangle<T>(width, height, new sf::RectangleShape(sf::Vector2f(width, height)), color, collider);
+	return GetScene()->CreateRectangle<T>(width, height, color, collider);
 }
 
 template<typename T>
