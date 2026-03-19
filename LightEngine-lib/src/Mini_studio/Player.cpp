@@ -122,7 +122,7 @@ void Player::OnInitialize()
 
 	Scene* scene = GetScene();
 
-	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Red, new AABBCollider(85, 30)); 
+	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Transparent, new AABBCollider(85, 30)); 
 	attack->SetPosition(GetPosition().x, GetPosition().y);
 	attack->SetTag(1);
 
