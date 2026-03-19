@@ -2,18 +2,20 @@
 #include <iostream>
 
 #include "GameManager.h"
-#include "SampleScene.h"
+#include "ExampleScene.h"
 
 #include <cstdlib>
+#ifdef _WIN32
 #include <crtdbg.h>
+#endif
 
 int main()
 {
 	GameManager* pInstance = GameManager::Get();
 
-	pInstance->CreateWindow(1280, 720, "SampleScene", 60, sf::Color::Black);
+	pInstance->CreateWindow(1280, 720, "Example Scene - Enemies & Platforms", 60, sf::Color(30, 30, 50));
 
-	pInstance->LaunchScene<SampleScene>();
+	pInstance->LaunchScene<ExampleScene>();
 
 	return 0;
 }

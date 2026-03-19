@@ -284,3 +284,4 @@ FodyWeavers.xsd
 /LightEngine-lib/ide/vs/Mini_studio/Mini_studio.vcxproj.filters
 /LightEngine-lib/ide/vs/Sample/Sample.vcxproj
 /LightEngine-lib/ide/vs/Sample/Sample.vcxproj.filters
+*.o

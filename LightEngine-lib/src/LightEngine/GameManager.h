@@ -1,10 +1,15 @@
 #pragma once
 
 #include <list>
+#include <cassert>
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/System/Clock.hpp>
+
+#ifndef _ASSERT
+#define _ASSERT(expr) assert(expr)
+#endif
 
 #define FIXED_DT 0.016667f
 

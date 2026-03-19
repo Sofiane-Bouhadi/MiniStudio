@@ -9,7 +9,9 @@
 #include "sceneTemporaire.h"
 
 #include <cstdlib>
+#ifdef _WIN32
 #include <crtdbg.h>
+#endif
 
 
 int main()
