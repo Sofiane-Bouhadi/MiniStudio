@@ -53,7 +53,7 @@ void Player::PlayerShoot()
 
 	IsShooting = true;
 	Shooting_Cooldown = 0.6f;
-
+	mProjectileSound->Play();
 
 	if (IsRight)
 	{
@@ -119,6 +119,8 @@ void Player::OnInitialize()
 	SetTag(1);
 
 	Scene* scene = GetScene();
+
+	mProjectileSound = new Sound("../../../res/Sounds/Projectile.wav");
 
 	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Red, new AABBCollider(85, 30)); 
 	attack->SetPosition(GetPosition().x, GetPosition().y);

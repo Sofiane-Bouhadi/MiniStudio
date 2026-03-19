@@ -2,6 +2,7 @@
 #include "GravityEntity.h"
 #include "projectile.h"
 #include "skill.h"
+#include "Sound.h"
 
 class Player : public GravityEntity 
 {
@@ -16,12 +17,12 @@ private :
 	float m_MaxSpeed = 1500.f;
 	float m_MinSpeed = 1000.f;
 	
-	
 	Entity* attack = nullptr; 
 	bool IsAttack = false;
 	float Attack_Cooldown = 2;
 
 	Projectile* proj = nullptr;
+	Sound* mProjectileSound = nullptr;
 	bool IsShooting = false;
 	float Shooting_Cooldown = 0.6f;
 
