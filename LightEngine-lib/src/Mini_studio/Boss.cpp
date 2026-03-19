@@ -228,7 +228,7 @@ void Boss::HealAtk()
 	switch (mAtkStep)
 	{
 	case 0:
-		mHp += 2;
+		mHp += 5;
 		mAtkStep++;
 		//Add some things like repeat it and wait between heals
 		mWaitTimer = 1.f;
