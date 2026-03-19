@@ -12,7 +12,7 @@ void Boss::OnInitialize()
 	SetTag(3);
 
 	mMusic = new Music("../../../res/Musics/Boss_Music.wav");
-	mMusic->Play();
+	//mMusic->Play();
 	mMusic->SetLoop(true);
 
 	mHealSound = new Sound("../../../res/Sounds/heal.wav");
@@ -124,7 +124,7 @@ void Boss::DashAtk()
 		{
 			mAtkStep++;
 			// Go to center of the scene
-			GoToPosition(mCenterX, mCenterY);
+			GoToPosition(0, 0);
 		}
 		break;
 	case 7:
@@ -167,7 +167,6 @@ void Boss::ProjectileAtk()
 		if (mWaitTimer <= 0.f)
 		{
 			Projectile* pProjectile = CreateSprite<Projectile>(128, 250, "../../../res/Sprites/Boss/Boss_Projectile.png", new AABBCollider(135, 240));
-			pProjectile->GetSprite()->setScale(sf::Vector2f(0.5, 0.5));
 			pProjectile->SetOwnerTag(3);
 			pProjectile->SetPosition(rand() % 1280 - 640, -360);
 			pProjectile->SetDirection(0, 1, 800);
