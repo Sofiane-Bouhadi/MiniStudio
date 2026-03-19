@@ -64,6 +64,7 @@ public:
 	bool IsRigidBody() const { return mRigidBody; }
 	void SetStatic(bool isStatic) { mStatic = isStatic; }
 	bool IsStatic() const { return mStatic; }
+	void SetScale(float ratioX, float ratioY);
 
     sf::Vector2f GetPosition(float ratioX = 0.5f, float ratioY = 0.5f) const;
 	sf::Shape* GetShape();

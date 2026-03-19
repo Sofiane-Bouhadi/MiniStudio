@@ -62,13 +62,20 @@ void Entity::Initialize(float width, float height, const char* texturePath, Coll
 {
 	mDirection = sf::Vector2f(0.0f, 0.0f);
 
-	sf::Sprite* sprite = new sf::Sprite(*AssetManager::Get()->GetTexture(texturePath, width, height));
+	sf::Sprite* sprite = new sf::Sprite(*AssetManager::Get()->GetTexture(texturePath));
+	sf::FloatRect rect = sprite->getGlobalBounds();
+
+	float ratioX = width / rect.width;
+	float ratioY = height / rect.height;
+	float ratioMin = std::min(ratioX, ratioY);
+
+	sprite->setScale(ratioMin, ratioMin);
 
 	mDrawable = sprite;
 	mTransformable = sprite;
 	
-	mWidth = width;
-	mHeight = height;
+	mWidth = ratioMin * rect.width;
+	mHeight = ratioMin * rect.height;
 	mCollider = collider;
 	
 	mTarget.isSet = false;
@@ -183,6 +190,14 @@ void Entity::Destroy()
 	OnDestroy();
 }
 
+void Entity::SetScale(float ratioX, float ratioY)
+{
+	mTransformable->setScale(ratioX, ratioY);
+
+	mWidth *= ratioX;
+	mHeight *= ratioY;
+}
+
 void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 {
 	x -= mWidth * ratioX;
@@ -203,7 +218,6 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 		mTarget.isSet = true;
 	}
 }
-
 
 sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
 {

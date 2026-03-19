@@ -2,14 +2,23 @@
 #include "Projectile.h"
 #include "AABBCollider.h"
 #include "Debug.h"
+#include "Music.h"
+#include "Sound.h"
 
 void Boss::OnInitialize()
 {
 	LaunchAtk();
 	SetSpeed(mBaseSpeed);
 	SetTag(3);
+
+	mMusic = new Music("../../../res/Musics/foret.wav");
+	//mMusic->Play();
+
+	mHealSound = new Sound("../../../res/Sounds/heal.wav");
+
 }
 
+Projectile* pProjectile;
 void Boss::OnUpdate()
 {
 	mWaitTimer -= GetDeltaTime();
@@ -20,11 +29,23 @@ void Boss::OnUpdate()
 
 	if (mFunction != nullptr)
 		mFunction();
+
+	/*if (pProjectile)
+	{
+		sf::FloatRect rect = pProjectile->GetSprite()->getGlobalBounds();
+		Debug::DrawRectangle(rect.left, rect.top, rect.width, rect.height, sf::Color::Green);
+	}*/
 }
+
 
 void Boss::LaunchAtk()
 {
-	int randomAtk = rand() % 4;
+	pProjectile = CreateSprite<Projectile>(128, 250, "../../../res/Sprites/Boss/Boss_Projectile.png", new AABBCollider(128, 200));
+	pProjectile->SetPosition(GetScene()->GetWindowWidth() / 2, GetScene()->GetWindowHeight() / 2);
+
+	return;
+
+	int randomAtk = 1;
 
 	switch (randomAtk)
 	{
@@ -155,7 +176,7 @@ void Boss::ProjectileAtk()
 		if (mWaitTimer <= 0.f)
 		{
 			Projectile* pProjectile = CreateSprite<Projectile>(310, 494, "../../../res/Sprites/Boss/Boss_Projectile.png", new AABBCollider(128, 128));
-			pProjectile->GetSprite()->scale(sf::Vector2f(0.35, 0.35));
+			pProjectile->GetSprite()->setScale(sf::Vector2f(0.5, 0.5));
 			pProjectile->SetOwnerTag(3);
 			pProjectile->SetPosition(rand() % 1280 - 640, -360);
 			pProjectile->SetDirection(0, 1, 400);
@@ -186,7 +207,7 @@ void Boss::ShockwaveAtk()
 	switch (mAtkStep)
 	{
 	case 0:
-		mWaitTimer = 1.5f;
+		mWaitTimer = 2.5f;
 		mAtkStep++;
 		break;
 	case 1:
@@ -196,14 +217,25 @@ void Boss::ShockwaveAtk()
 		}
 		else
 		{
-			Debug::DrawRectangle(mCenterX - 500, mCenterY - 500, 1000, 1000, sf::Color::Cyan); // Draw a indication for the player
+			Debug::DrawRectangle(mCenterX - 450, mCenterY - 450, 900, 900, sf::Color::Cyan); // Draw a indication for the player
 		}
 		break;
 	case 2:
+		mShockwave = CreateRectangle<Entity>(900, 900, sf::Color::Transparent, new AABBCollider(900, 900));
+		mShockwave->SetPosition(mCenterX, mCenterY);
+		mShockwave->SetStatic(true);
+		mShockwave->SetRigidBody(true);
+
+		mWaitTimer = 1.f;
 		mAtkStep++;
 		break;
 	case 3:
-		mAtkStep++;
+		if (mWaitTimer <= 0.f)
+		{
+			mAtkStep++;
+			mShockwave->Destroy();
+			mShockwave = nullptr;
+		}
 		break;
 	case 4:
 		mAtkStep++;
@@ -229,7 +261,9 @@ void Boss::HealAtk()
 	switch (mAtkStep)
 	{
 	case 0:
-		mHp = std::max(mHpMax, mHp + 5);
+		if (mHealSound != nullptr)
+			mHealSound->Play();
+		mHp = std::min(mHpMax, mHp + 5);
 		mAtkStep++;
 		//Add some things like repeat it and wait between heals
 		mWaitTimer = 1.f;
@@ -259,4 +293,11 @@ void Boss::OnCollision(Entity* pOther, CollidingSide collidingSide)
 		mHp -= 1; // TODO Change with the attack of pOther
 		mInvulnerabilityTime = 0.2f;
 	}
+}
+
+void Boss::OnDestruction()
+{
+	mMusic->Stop();
+	delete mMusic;
+	delete mHealSound;
 }

@@ -3,14 +3,20 @@
 
 #include <functional>
 
+class Music;
+class Sound;
+
 class Boss : 
 	public Entity
 {
 private:
 	int mAtkStep = -1;
 
-	int mHp = 33;
-	int mHpMax = 33;
+	int mHp = 20;
+	int mHpMax = 20;
+
+	Music* mMusic = nullptr;
+	Sound* mHealSound = nullptr;
 
 	// Ces variables sont à changer selon la scène une fois qu'elle sera faite.
 	float mUpperY = -720;
@@ -32,6 +38,8 @@ private:
 
 	float mProjectileNb = 0.f;
 
+	Entity* mShockwave = nullptr;
+
 	//
 
 	std::function<void()> mFunction;
@@ -40,6 +48,7 @@ protected:
 	void OnInitialize() override;
 	void OnUpdate() override;
 	void OnCollision(Entity* pOther, CollidingSide collidingSide) override;
+	void OnDestruction();
 
 public:
 	void LaunchAtk();
