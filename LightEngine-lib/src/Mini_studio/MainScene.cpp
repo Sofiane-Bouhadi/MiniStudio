@@ -129,7 +129,7 @@ void MainScene::OnInitialize()
 		}
 	}
 
-	m_Level = new Level("../../../res/Levels/Niveau.txt", this);
+	//m_Level = new Level("../../../res/Levels/Niveau.txt", this);
 
 	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
@@ -155,7 +155,7 @@ void MainScene::OnEvent(const sf::Event& event)
 
 		if (event.key.code == sf::Keyboard::Space && m_Player->GetNbJump() > 0)
 		{
-			std::cout << "espace est pressé" << std::endl;
+			//std::cout << "espace est pressé" << std::endl;
 			jump = true;
 			m_Player->DecreaseJump();
 			
@@ -166,7 +166,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		if (event.mouseButton.button == sf::Mouse::Button::Right)
 		{
-			std::cout << "clic droit est appuyé" << std::endl;
+			//std::cout << "clic droit est appuyé" << std::endl;
 			base_attack = true;
 		}
 	}
@@ -187,14 +187,14 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		if (sf::Joystick::isButtonPressed(0, 0) && m_Player->GetNbJump() > 0)
 		{
-			std::cout << "A est appuyé" << std::endl;
+			//std::cout << "A est appuyé" << std::endl;
 			jump = true;
 			m_Player->DecreaseJump();
 		}
 
 		if (sf::Joystick::isButtonPressed(0, 2))
 		{
-			std::cout << "X est appuyé" << std::endl;
+			//std::cout << "X est appuyé" << std::endl;
 			base_attack = true;
 		}
 	}
@@ -203,7 +203,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		if (event.key.code == sf::Keyboard::D)
 		{
-			std::cout << "d est relaché" << std::endl;
+			//std::cout << "d est relaché" << std::endl;
 			MoveRight = false;
 			m_Player->SetSpeed(0);
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
@@ -211,7 +211,7 @@ void MainScene::OnEvent(const sf::Event& event)
 		
 		if (event.mouseButton.button == sf::Keyboard::Q)
 		{
-			std::cout << "q est relaché" << std::endl;
+			//std::cout << "q est relaché" << std::endl;
 			MoveLeft = false;
 			m_Player->SetSpeed(0);
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
@@ -219,7 +219,7 @@ void MainScene::OnEvent(const sf::Event& event)
 
 		if (event.mouseButton.button == sf::Keyboard::Space )
 		{
-			std::cout << "espace est relaché" << std::endl;
+			//std::cout << "espace est relaché" << std::endl;
 			m_Player->SetSpeed(0);
 			jump == false;
 		}
@@ -265,19 +265,19 @@ void MainScene::OnUpdate()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
 	{
-		std::cout << "d est pressé" << std::endl;
+		//std::cout << "d est pressé" << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
 		m_Player->SetRight();
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
-		std::cout << "q est pressé" << std::endl;
+		//std::cout << "q est pressé" << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
 		m_Player->SetLeft();
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10)
 	{
-		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+		//std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
 		if (m_Player->GetAttack() == false)
 		{
@@ -290,7 +290,7 @@ void MainScene::OnUpdate()
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
 	{
-		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+		//std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
 		if (m_Player->GetAttack() == false)
 		{

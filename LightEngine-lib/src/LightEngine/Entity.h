@@ -51,6 +51,7 @@ protected:
     int mTag = -1;
 	bool mRigidBody = false;
 	bool mStatic = false;
+	bool mActive = true;
 
 public:
 	bool GoToDirection(int x, int y, float speed = -1.f);
@@ -73,6 +74,8 @@ public:
 	bool IsTag(int tag) const { return mTag == tag; }
     Entity::CollidingSide IsColliding(Entity* other) const;
 	bool IsInside(float x, float y) const;
+	void SetActive(bool isActive) { mActive = isActive; }
+	bool IsActive() const { return mActive; }
 
     void Destroy();
 	bool ToDestroy() const { return mToDestroy; }
