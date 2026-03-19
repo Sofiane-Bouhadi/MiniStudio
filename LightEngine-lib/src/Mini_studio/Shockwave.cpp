@@ -21,7 +21,7 @@ void Shockwave::ApplyEffects()
 
     const auto& ennemies = scene->GetEnnemyList(); //à remplacer avec le bon nom de fonction
 
-    for (ennemi* ennemy : ennemies)
+    for (enemies* ennemy : ennemies)
     {
         if (ennemy == nullptr || ennemy->ToDestroy()) //erreur à cause de la classe ennemi i thought
             continue;

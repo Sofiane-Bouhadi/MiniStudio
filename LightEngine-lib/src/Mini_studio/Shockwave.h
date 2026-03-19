@@ -1,7 +1,8 @@
 #pragma once
 #include "Skill.h"
+#include "enemies.h"
 
-class ennemi;
+class enemies;
 
 class Shockwave : public Skill
 {
