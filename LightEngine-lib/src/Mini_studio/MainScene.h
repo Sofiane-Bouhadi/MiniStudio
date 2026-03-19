@@ -64,6 +64,7 @@ public:
 		MetalMiddlePlatform2,
 		MetalRightPlatform,
 
+		DestructiblePlatform,
 
 		// TODO ADD THESE
 		PlateformPurple,
@@ -139,4 +140,5 @@ public :
 	void SpawnCollider(float x, float y, float width, float height);
 
 	void OnUpdate() override;
+
 };

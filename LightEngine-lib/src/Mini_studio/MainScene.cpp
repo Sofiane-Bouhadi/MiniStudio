@@ -27,6 +27,7 @@ void MainScene::OnInitialize()
 	float winW = 5800;
 	float winH = 4200;
 
+
 	mParallaxFar = CreateSprite<Parallaxe>(winW, winH, pathFar, new AABBCollider(0, 0));
 	mParallaxFar->SetPosition(0.f, 0.f, 0.f, 0.f);
 	mParallaxFar->Init(this, 6.0f);
@@ -46,6 +47,7 @@ void MainScene::OnInitialize()
 	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
 	m_Player->SetPosition(0, 0);
+
 
 
 	m_Player->SetSpeed(m_Player->GetMinSpeed());

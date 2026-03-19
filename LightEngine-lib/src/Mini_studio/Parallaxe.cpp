@@ -15,6 +15,7 @@ void Parallaxe::Init(MainScene* scene, float gap)
         mInitialized = true;
     }
  
+
 }
 
 void Parallaxe::OnUpdate()
@@ -34,6 +35,7 @@ void Parallaxe::OnUpdate()
 
     float deltaX = currentPos.x - mPreviousPlayerPos.x;
 
+
     mOffsetX -= deltaX / mGap;
 
     float width = (float)mActualScene->GetWindowWidth();
@@ -45,6 +47,7 @@ void Parallaxe::OnUpdate()
     mPreviousPlayerPos = currentPos;
 }
 
-void Parallaxe::OnDestroy()
+void Parallaxe::OnDestroy() 
 {
 }
+
