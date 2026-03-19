@@ -2,15 +2,15 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
     <ItemGroup>
         <Filter Include="header">
-            <UniqueIdentifier>{0E89248F-6D97-4FAC-8281-F0194B6B3643}</UniqueIdentifier>
+            <UniqueIdentifier>{C11EB63F-2C21-4B51-9573-2A6151AD401A}</UniqueIdentifier>
             <Extensions>h;hpp</Extensions>
         </Filter>
         <Filter Include="resource">
-            <UniqueIdentifier>{6D8BD45A-DB17-48B1-A243-E2DC891BF30C}</UniqueIdentifier>
+            <UniqueIdentifier>{9579E376-B996-4558-8DE3-2031CBF0965F}</UniqueIdentifier>
             <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
         </Filter>
         <Filter Include="source">
-            <UniqueIdentifier>{A20D0806-6453-4E5C-AE05-F8D221E68AFA}</UniqueIdentifier>
+            <UniqueIdentifier>{03F3947C-A898-46D0-8136-2EB0B9185E67}</UniqueIdentifier>
             <Extensions>cpp;c</Extensions>
         </Filter>
     </ItemGroup>
@@ -24,10 +24,16 @@
         <ClCompile Include="..\..\..\src\Mini_studio\IA_Enemies.cpp">
             <Filter>source</Filter>
         </ClCompile>
+        <ClCompile Include="..\..\..\src\Mini_studio\Level.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
         <ClCompile Include="..\..\..\src\Mini_studio\main.cpp">
             <Filter>source</Filter>
         </ClCompile>
         <ClCompile Include="..\..\..\src\Mini_studio\MainScene.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
+        <ClCompile Include="..\..\..\src\Mini_studio\Parallaxe.cpp">
             <Filter>source</Filter>
         </ClCompile>
         <ClCompile Include="..\..\..\src\Mini_studio\pch.cpp">
@@ -66,10 +72,16 @@
         <ClInclude Include="..\..\..\src\Mini_studio\IA_Enemies.h">
             <Filter>header</Filter>
         </ClInclude>
+        <ClInclude Include="..\..\..\src\Mini_studio\Level.h">
+            <Filter>header</Filter>
+        </ClInclude>
         <ClInclude Include="..\..\..\src\Mini_studio\main.h">
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\Mini_studio\MainScene.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\Mini_studio\Parallaxe.h">
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\Mini_studio\pch.h">

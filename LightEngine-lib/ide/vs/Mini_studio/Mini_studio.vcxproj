@@ -13,7 +13,7 @@
     <PropertyGroup Label="Globals">
         <VCProjectVersion>17.0</VCProjectVersion>
         <Keyword>Win32Proj</Keyword>
-        <ProjectGuid>{BECE0E64-AE33-468C-81FB-6CDECCF8BEF4}</ProjectGuid>
+        <ProjectGuid>{3F70F58D-AA35-4854-AC35-B86984647FFD}</ProjectGuid>
         <RootNamespace>Mini_studio</RootNamespace>
         <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     </PropertyGroup>
@@ -97,8 +97,10 @@
         <ClCompile Include="..\..\..\src\Mini_studio\Attack.cpp"/>
         <ClCompile Include="..\..\..\src\Mini_studio\enemies.cpp"/>
         <ClCompile Include="..\..\..\src\Mini_studio\IA_Enemies.cpp"/>
+        <ClCompile Include="..\..\..\src\Mini_studio\Level.cpp"/>
         <ClCompile Include="..\..\..\src\Mini_studio\main.cpp"/>
         <ClCompile Include="..\..\..\src\Mini_studio\MainScene.cpp"/>
+        <ClCompile Include="..\..\..\src\Mini_studio\Parallaxe.cpp"/>
         <ClCompile Include="..\..\..\src\Mini_studio\pch.cpp">
             <PrecompiledHeader Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">Create</PrecompiledHeader>
             <PrecompiledHeader Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">Create</PrecompiledHeader>
@@ -116,8 +118,10 @@
         <ClInclude Include="..\..\..\src\Mini_studio\Attack.h"/>
         <ClInclude Include="..\..\..\src\Mini_studio\enemies.h"/>
         <ClInclude Include="..\..\..\src\Mini_studio\IA_Enemies.h"/>
+        <ClInclude Include="..\..\..\src\Mini_studio\Level.h"/>
         <ClInclude Include="..\..\..\src\Mini_studio\main.h"/>
         <ClInclude Include="..\..\..\src\Mini_studio\MainScene.h"/>
+        <ClInclude Include="..\..\..\src\Mini_studio\Parallaxe.h"/>
         <ClInclude Include="..\..\..\src\Mini_studio\pch.h"/>
         <ClInclude Include="..\..\..\src\Mini_studio\Player.h"/>
         <ClInclude Include="..\..\..\src\Mini_studio\Projectile.h"/>

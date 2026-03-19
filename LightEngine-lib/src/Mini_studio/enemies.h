@@ -3,6 +3,8 @@
 #include "Shoot.h"
 #include "CircleCollider.h"
 #include "Player.h"
+#include "Projectile.h"
+
 
 #include <iostream>
 #include <SFML/System/Sleep.hpp>
@@ -24,10 +26,10 @@ protected:
 
 public:
 	int enemy_size{ 100 };
-	enemies* pEnemy;
-	Player* pPlayer;
+	enemies* pEnemy = nullptr;
+	Player* pPlayer = nullptr;
 	float size_enemy = 0;
-	StateMachine* state;
+	StateMachine* state = nullptr;
 	sf::Vector2f positionEnemy;
 
 	void choix(int nbr);
@@ -60,6 +62,8 @@ public:
 	//void AttackPunch();
 
 	void AttackSmart();
+
+	void OnCollision(Entity* pOther, CollidingSide collidingSide) override;
 
 	void setStun();
 

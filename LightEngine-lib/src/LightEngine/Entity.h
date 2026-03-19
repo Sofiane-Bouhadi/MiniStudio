@@ -49,6 +49,7 @@ protected:
     float mSpeed = 0.f;
     bool mToDestroy = false;
     int mTag = -1;
+	//int mTagEnemy = 2;
 	bool mRigidBody = false;
 	bool mStatic = false;
 

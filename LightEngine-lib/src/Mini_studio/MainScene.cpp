@@ -6,7 +6,8 @@
 #include "AABBCollider.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 
-
+void MainScene::Spawn(ObjectType objectType, float levelX, float levelY){}
+void MainScene::SpawnCollider(float x, float y, float width, float height){}
 void MainScene::OnInitialize() 
 {
 	//Rectangle
@@ -24,7 +25,7 @@ void MainScene::OnInitialize()
 
 	enemy1=CreateRectangle<enemies>(128, 128, sf::Color::Red, new AABBCollider(128, 128));
 	enemy1->SetRigidBody(true);
-	enemy1->SetPosition(400, 400);
+	enemy1->SetPosition(100, 100);
 	enemy1->init(enemy1, m_Player);
 	enemy1->SetGravityStrength(0);
 
@@ -158,13 +159,15 @@ void MainScene::OnEvent(const sf::Event& event)
 
 void MainScene::OnUpdate() 
 {
+	enemy1->OnCollision(m_Player, Entity::CollidingSide::Other);
+
 	if (enemy1->telemetrie() <= 500 && enemy1 != nullptr) {
-		std::cout << "detected" << std::endl;
+		//std::cout << "detected" << std::endl;
 		fall_attack = true;
 		smart_attack = true;
 	}
 	else {
-		std::cout << "lost" << std::endl;
+		//std::cout << "lost" << std::endl;
 	}
 	//std::cout << enemy1->telemetrie() << std::endl;
 	if (fall_attack) {

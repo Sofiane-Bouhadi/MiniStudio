@@ -1,7 +1,6 @@
 #include "enemies.h"
 #include <cmath>
 #include "AABBCollider.h"
-#include "Projectile.h"
 
 /*facilite l'utilisation de la state machine*/
 void enemies::choix(int nbr) {
@@ -13,6 +12,7 @@ void enemies::init(enemies* enemy, Player* player) {
 	pPlayer = player;
 	pEnemy = enemy;
 	Shooting_Cooldown = 0.6f;
+	enemy->SetTag(2);
 }
 
 /*cree l'enemie*/
@@ -96,8 +96,8 @@ void enemies::AttackFall() {
 		positiontarget.x <= positionEnemy.x + halfSize)
 	{
 		//std::cout << "falling" << std::endl;
-		GoToPosition(positionEnemy.x, positiontarget.y, 100.0f);
-
+		//GoToPosition(positionEnemy.x, positiontarget.y, 100.0f);
+		pEnemy->SetGravityStrength(1000);
 	}
 }
 
@@ -137,7 +137,7 @@ void enemies::AttackSmart() {
 		Shooting_Cooldown -= GetDeltaTime();
 
 		sf::Vector2f trgt = direction();
-		std::cout << Shooting_Cooldown << std::endl;
+		//std::cout << Shooting_Cooldown << std::endl;
 		if (Shooting_Cooldown < 0)
 		{
 			pEnemy->SetTag(2);
@@ -146,12 +146,19 @@ void enemies::AttackSmart() {
 			sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
 			proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
 			proj->SetOwnerTag(2);
-			proj->SetProjectileSpeed(1000.f);
-			proj->SetDirection(trgt.x, trgt.y, proj->GetProjectileSpeed());
+			proj->SetProjectileSpeed(10.f);
+			proj->SetDirection(-trgt.x, -trgt.y, proj->GetProjectileSpeed());
 			Shooting_Cooldown = 0.6f;
 		}
 
 	}
+}
+void enemies::OnCollision(Entity* pOther, CollidingSide collidingSide)
+{
+    if (collidingSide == Bottom)
+    {
+        mYVelocity = 0.f;
+    }
 }
 
 void enemies::setStun() {
