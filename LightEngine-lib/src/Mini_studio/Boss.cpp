@@ -36,6 +36,7 @@ void Boss::OnUpdate()
 void Boss::LaunchAtk()
 {
 	int randomAtk = rand() % 4;
+	//int randomAtk = 1;
 
 	switch (randomAtk)
 	{
@@ -158,7 +159,7 @@ void Boss::ProjectileAtk()
 		//Wait 1 second then choose a random number of projectile
 		if (mWaitTimer <= 0.f)
 		{
-			mProjectileNb = rand() % 7 + 5;
+			mProjectileNb = rand() % 10 + 15;
 			mAtkStep++;
 		}
 		break;
@@ -168,7 +169,7 @@ void Boss::ProjectileAtk()
 		{
 			Projectile* pProjectile = CreateSprite<Projectile>(128, 250, "../../../res/Sprites/Boss/Boss_Projectile.png", new AABBCollider(135, 240));
 			pProjectile->SetOwnerTag(3);
-			pProjectile->SetPosition(rand() % 1280 - 640, -360);
+			pProjectile->SetPosition(rand() % 2500 - 1500, -500);
 			pProjectile->SetDirection(0, 1, 800);
 			mWaitTimer = 0.3f;
 			mProjectileNb -= 1;
@@ -211,10 +212,10 @@ void Boss::ShockwaveAtk()
 		}
 		break;
 	case 2:
-		mShockwave = CreateRectangle<Entity>(900, 900, sf::Color::Transparent, new AABBCollider(900, 900));
+		mShockwave = CreateSprite<Entity>(900, 900, "../../../res/Sprites/Boss/Boss_Shockwave.png", new AABBCollider(900, 900));
 		mShockwave->SetPosition(mCenterX, mCenterY);
 		mShockwave->SetStatic(true);
-		mShockwave->SetRigidBody(true);
+		//mShockwave->SetRigidBody(true);
 
 		mWaitTimer = 1.f;
 		mAtkStep++;

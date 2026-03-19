@@ -52,6 +52,7 @@ protected:
 	void OnDestruction();
 
 public:
+
 	void LaunchAtk();
 
 	void DashAtk();
