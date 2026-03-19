@@ -37,13 +37,13 @@ void MainScene::OnInitialize()
 		{
 			//Jazz
 			{
-				tilePath[(int)ObjectType::JazzCeillingP] = { "../../../res/Tiles/Jazz_Ceiling1.png", true };
-				tilePath[(int)ObjectType::JazzCeillingY] = { "../../../res/Tiles/Jazz_Ceiling2.png", true };
+				tilePath[(int)ObjectType::JazzCeillingP] = { "../../../res/Tiles/TILES_JAZZ/Plafond2.png", true };//
+				tilePath[(int)ObjectType::JazzCeillingY] = { "../../../res/Tiles/TILES_JAZZ/Plafond1.png", true };//
 			}
 			//Metal
 			{
-				tilePath[(int)ObjectType::MetalCeiling1] = { "../../../res/Tiles/Metal_Ceiling1.png", true };
-				tilePath[(int)ObjectType::MetalCeiling2] = { "../../../res/Tiles/Metal_Ceiling2.png", true };
+				tilePath[(int)ObjectType::MetalCeiling1] = { "../../../res/Tiles/TILES_METAL/Plafond1.png", true };//
+				tilePath[(int)ObjectType::MetalCeiling2] = { "../../../res/Tiles/TILES_METAL/Plafond1.png", true };//
 			}
 		}
 
@@ -51,28 +51,28 @@ void MainScene::OnInitialize()
 		{
 			//Jazz
 			{
-				tilePath[(int)ObjectType::JazzWallBLY] = { "../../../res/Tiles/Jazz_Wall1.png", true };
-				tilePath[(int)ObjectType::JazzWallBRY] = { "../../../res/Tiles/Jazz_Wall2.png", true };
+				tilePath[(int)ObjectType::JazzWallBLY] = { "../../../res/Tiles/TILES_JAZZ/Mur1.png", true };//
+				tilePath[(int)ObjectType::JazzWallBRY] = { "../../../res/Tiles/TILES_JAZZ/Mur2.png", true };//
 
 				// TODO CHANGE PATH
-				tilePath[(int)ObjectType::JazzWallBBicolore] = { "../../../res/Tiles/Jazz_Wall2.png", true };
-				tilePath[(int)ObjectType::JazzWallBBlueOut] = { "../../../res/Tiles/Jazz_Wall2.png", true };
-				tilePath[(int)ObjectType::JazzWallBLP] = { "../../../res/Tiles/Jazz_Wall2.png", true };
-				tilePath[(int)ObjectType::JazzWallBRP] = { "../../../res/Tiles/Jazz_Wall2.png", true };
-				tilePath[(int)ObjectType::JazzWallFill] = { "../../../res/Tiles/Jazz_Wall2.png", true };
+				tilePath[(int)ObjectType::JazzWallBBicolore] = { "../../../res/Tiles/TILES_JAZZ/Mur4.png", true };//
+				tilePath[(int)ObjectType::JazzWallBBlueOut] = { "../../../res/Tiles/TILES_JAZZ/Mur7.png", true };//
+				tilePath[(int)ObjectType::JazzWallBLP] = { "../../../res/Tiles/TILES_JAZZ/Mur5.png", true };//
+				tilePath[(int)ObjectType::JazzWallBRP] = { "../../../res/Tiles/TILES_JAZZ/Mur6.png", true };//
+				tilePath[(int)ObjectType::JazzWallFill] = { "../../../res/Tiles/TILES_JAZZ/Mur8(remplissage).png", true };//
 			}
 			//Hub
 			{
-				tilePath[(int)ObjectType::HubWall1] = { "../../../res/Tiles/Hub_Wall1.png", true };
-				tilePath[(int)ObjectType::HubWall2] = { "../../../res/Tiles/Hub_Wall2.png", true };
+				tilePath[(int)ObjectType::HubWall1] = { "../../../res/Tiles/TILES_HUB/Mur2.png", true };//
+				tilePath[(int)ObjectType::HubWall2] = { "../../../res/Tiles/TILES_HUB/Mur4.png", true };//
 				// TODO CHANGE PATH
-				tilePath[(int)ObjectType::HubCornerDL] = { "../../../res/Tiles/Hub_Wall2.png", true };
-				tilePath[(int)ObjectType::HubCornerDR] = { "../../../res/Tiles/Hub_Wall2.png", true };
+				tilePath[(int)ObjectType::HubCornerDL] = { "../../../res/Tiles/TILES_HUB/Mur1.png", true };//
+				tilePath[(int)ObjectType::HubCornerDR] = { "../../../res/Tiles/TILES_HUB/Mur3.png", true };//
 			}
 			//Metal
 			{
-				tilePath[(int)ObjectType::MetalWallBL] = { "../../../res/Tiles/Metal_Wall1.png", true };
-				tilePath[(int)ObjectType::MetalWallBR] = { "../../../res/Tiles/Metal_Wall2.png", true };
+				tilePath[(int)ObjectType::MetalWallBL] = { "../../../res/Tiles/TILES_METAL/Mur1.png", true };//
+				tilePath[(int)ObjectType::MetalWallBR] = { "../../../res/Tiles/TILES_METAL/Mur5.png", true };//
 			}
 		}
 
@@ -81,24 +81,23 @@ void MainScene::OnInitialize()
 			//Jazz
 			{
 				// TODO CHANGE PATH
-				tilePath[(int)ObjectType::JazzGroundY] = { "../../../res/Tiles/Jazz_Ground1.png", true };
-				tilePath[(int)ObjectType::JazzGroundP] = { "../../../res/Tiles/Jazz_Ground2.png", true };
-				tilePath[(int)ObjectType::JazzGroundCorner] = { "../../../res/Tiles/Jazz_Ground2.png", true };
-				tilePath[(int)ObjectType::JazzToHubGround1] = { "../../../res/Tiles/Jazz_Ground2.png", true };
-				tilePath[(int)ObjectType::JazzToHubGroundCorner] = { "../../../res/Tiles/Jazz_Ground2.png", true };
+				tilePath[(int)ObjectType::JazzGroundY] = { "../../../res/Tiles/TILES_JAZZ/Sol1.png", true };//
+				tilePath[(int)ObjectType::JazzGroundP] = { "../../../res/Tiles/TILES_JAZZ/Sol3.png", true };//
+				tilePath[(int)ObjectType::JazzGroundCorner] = { "../../../res/Tiles/TILES_JAZZ/Sol2.png", true };//
+				tilePath[(int)ObjectType::JazzToHubGround1] = { "../../../res/Tiles/TILES_JAZZ/Sol4.png", true };//
+				tilePath[(int)ObjectType::JazzToHubGroundCorner] = { "../../../res/Tiles/TILES_JAZZ/Sol5.png", true };//
 			}
 			//Hub
 			{
-				tilePath[(int)ObjectType::HubGround] = { "../../../res/Tiles/Hub_Ground.png", true };
+				tilePath[(int)ObjectType::HubGround] = { "../../../res/Tiles/TILES_HUB/Sol.png", true };//
+				tilePath[(int)ObjectType::HubWallFill] = { "../../../res/Tiles/TILES_HUB/Mur5.png", true };//
 			}
 			//Metal
 			{
 				// TODO CHANGE PATH
-				tilePath[(int)ObjectType::MetalWallBL] = { "../../../res/Tiles/Metal_Ground1.png", true };
-				tilePath[(int)ObjectType::MetalWallBR] = { "../../../res/Tiles/Metal_Ground2.png", true };
-				tilePath[(int)ObjectType::MetalWall3] = { "../../../res/Tiles/Metal_Ground2.png", true };
-				tilePath[(int)ObjectType::MetalWall4] = { "../../../res/Tiles/Metal_Ground2.png", true };
-				tilePath[(int)ObjectType::MetalWall5] = { "../../../res/Tiles/Metal_Ground2.png", true };
+				tilePath[(int)ObjectType::MetalWall3] = { "../../../res/Tiles/TILES_METAL/Mur4.png", true };//
+				tilePath[(int)ObjectType::MetalWall4] = { "../../../res/Tiles/TILES_METAL/Mur2.png", true };//
+				tilePath[(int)ObjectType::MetalWall5] = { "../../../res/Tiles/TILES_METAL/Mur3.png", true };//
 			}
 		}
 
@@ -107,41 +106,41 @@ void MainScene::OnInitialize()
 			//Jazz
 			{
 				// TODO CHANGE PATH
-				tilePath[(int)ObjectType::JazzPlatform] = { "../../../res/Tiles/Jazz_Upper_Left_Platform.png", true };
-				tilePath[(int)ObjectType::PlateformSide] = { "../../../res/Tiles/Jazz_Upper_Middle_Platform.png", true };
-				tilePath[(int)ObjectType::PlateformIn] = { "../../../res/Tiles/Jazz_Upper_Right_Platform.png", true };
-				tilePath[(int)ObjectType::BedPlaLeft] = { "../../../res/Tiles/Jazz_Bottom_Left_Platform.png", true };
-				tilePath[(int)ObjectType::BedPlaMid] = { "../../../res/Tiles/Jazz_Bottom_Middle_Platform.png", true };
-				tilePath[(int)ObjectType::BedPlaRight] = { "../../../res/Tiles/Jazz_Bottom_Right_Platform.png", true };
+				tilePath[(int)ObjectType::JazzPlatform] = { "../../../res/Tiles/TILES_JAZZ/Plat1.png", true };//
+				tilePath[(int)ObjectType::PlateformSide] = { "../../../res/Tiles/TILES_JAZZ/Plat2.png", true };//
+				tilePath[(int)ObjectType::PlateformIn] = { "../../../res/Tiles/TILES_JAZZ/Mur9.png", true };//
+				tilePath[(int)ObjectType::BedPlaLeft] = { "../../../res/Tiles/TILES_JAZZ/Plat10.png", true };//
+				tilePath[(int)ObjectType::BedPlaMid] = { "../../../res/Tiles/TILES_JAZZ/Plat9.png", true };//
+				tilePath[(int)ObjectType::BedPlaRight] = { "../../../res/Tiles/TILES_JAZZ/Plat8.png", true };//
 				// TODO CHANGE PATH
-				tilePath[(int)ObjectType::JazzDestructiblePlateformBase] = { "../../../res/Tiles/Jazz_Bottom_Right_Platform.png", true };
-				tilePath[(int)ObjectType::DestructibleVent] = { "../../../res/Tiles/Jazz_Bottom_Right_Platform.png", true };
+				tilePath[(int)ObjectType::JazzDestructiblePlateformBase] = { "../../../res/Tiles/TILES_JAZZ/Destructible.png", true };//
+				tilePath[(int)ObjectType::DestructibleVent] = { "../../../res/Tiles/TILES_JAZZ/Destructible_projectile.png", true };//
 			}
 
 			//Metal
 			{
-				tilePath[(int)ObjectType::MetalLeftPlatform] = { "../../../res/Tiles/Metal_Left_Platform.png", true };
-				tilePath[(int)ObjectType::MetalMiddlePlatform1] = { "../../../res/Tiles/Metal_Middle_Platform1.png", true };
-				tilePath[(int)ObjectType::MetalMiddlePlatform2] = { "../../../res/Tiles/Metal_Middle_Platform2.png", true };
-				tilePath[(int)ObjectType::MetalRightPlatform] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
+				tilePath[(int)ObjectType::MetalLeftPlatform] = { "../../../res/Tiles/TILES_METAL/Plat2.png", true };//
+				tilePath[(int)ObjectType::MetalMiddlePlatform1] = { "../../../res/Tiles/TILES_METAL/Plat4.png", true };//
+				tilePath[(int)ObjectType::MetalMiddlePlatform2] = { "../../../res/Tiles/TILES_METAL/Plat1.png", true };//
+				tilePath[(int)ObjectType::MetalRightPlatform] = { "../../../res/Tiles/TILES_METAL/Plat3.png", true };//
 				// TODO CHANGE PATH
-				tilePath[(int)ObjectType::MetalDestructibleUP] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
-				tilePath[(int)ObjectType::MetalDestructibleMid] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
-				tilePath[(int)ObjectType::MetalDestructibleDown] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
+				tilePath[(int)ObjectType::MetalDestructibleUP] = { "../../../res/Tiles/TILES_METAL/Destructible1.png", true };//
+				tilePath[(int)ObjectType::MetalDestructibleMid] = { "../../../res/Tiles/TILES_METAL/Destructible2.png", true };//
+				tilePath[(int)ObjectType::MetalDestructibleDown] = { "../../../res/Tiles/TILES_METAL/Destructible3.png", true };//
 			}
 
 			{
 				// TODO CHANGE PATH
-				tilePath[(int)ObjectType::PlateformPurple] = { "../../../res/Tiles/Metal_Left_Platform.png", true };
-				tilePath[(int)ObjectType::PlateformBlueMid] = { "../../../res/Tiles/Metal_Middle_Platform1.png", true };
-				tilePath[(int)ObjectType::PlateformBlueSide] = { "../../../res/Tiles/Metal_Middle_Platform2.png", true };
-				tilePath[(int)ObjectType::PlateformOrangeLeft] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
-				tilePath[(int)ObjectType::PlateformOrangeRight] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
+				tilePath[(int)ObjectType::PlateformPurple] = { "../../../res/Tiles/TILES_JAZZ/Plat7.png", true };//
+				tilePath[(int)ObjectType::PlateformBlueMid] = { "../../../res/Tiles/TILES_JAZZ/Plat4.png", true };//
+				tilePath[(int)ObjectType::PlateformBlueSide] = { "../../../res/Tiles/TILES_JAZZ/Plat3.png", true };//
+				tilePath[(int)ObjectType::PlateformOrangeLeft] = { "../../../res/Tiles/TILES_JAZZ/Plat5.png", true };//
+				tilePath[(int)ObjectType::PlateformOrangeRight] = { "../../../res/Tiles/TILES_JAZZ/Plat6.png", true };//
 			}
 		}
 	}
 
-	m_Level = new Level("../../../res/Levels/levelFull.txt", this);
+	m_Level = new Level("../../../res/Levels/Niveau.txt", this);
 }
 
 void MainScene::OnEvent(const sf::Event& event)
