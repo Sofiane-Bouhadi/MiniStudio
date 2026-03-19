@@ -103,6 +103,14 @@ private :
 
 	Level* m_Level;
 
+	struct SpawnDesc
+	{
+		const char* path;
+		bool isStatic;
+	};
+
+	SpawnDesc tilePath[(int)ObjectType::Count];
+
 	enemies* enemy1;
 	enemies* enemy2;
 	enemies* enemy3;
