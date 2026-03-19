@@ -43,6 +43,8 @@ void Player::BaseAttack()
 
 	IsAttack = true;
 	Attack_Cooldown = 2;
+
+	mAttackSound->Play();
 	
 }
 
@@ -53,6 +55,7 @@ void Player::PlayerShoot()
 
 	IsShooting = true;
 	Shooting_Cooldown = 0.6f;
+
 	mProjectileSound->Play();
 
 	if (IsRight)
@@ -120,6 +123,7 @@ void Player::OnInitialize()
 
 	Scene* scene = GetScene();
 
+	mAttackSound = new Sound("../../../Attack.wav");
 	mProjectileSound = new Sound("../../../res/Sounds/Projectile.wav");
 
 	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Red, new AABBCollider(85, 30)); 

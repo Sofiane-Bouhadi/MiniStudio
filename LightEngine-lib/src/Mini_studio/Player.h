@@ -17,7 +17,8 @@ private :
 	float m_MaxSpeed = 1500.f;
 	float m_MinSpeed = 1000.f;
 	
-	Entity* attack = nullptr; 
+	Entity* attack = nullptr;
+	Sound* mAttackSound = nullptr;
 	bool IsAttack = false;
 	float Attack_Cooldown = 2;
 
