@@ -1,0 +1,46 @@
+"image_source": "C:\sprites-sheet_animation_ennemis.png",
+
+"frame_size": {
+	"width": 128,
+	"height": 128
+	},
+
+"structure": "single",
+
+"animations": {
+	"gargouille_idle": {
+		"frames": [
+			{"index":0, "duration": 250},
+			{"index":1, "duration": 250}
+		],
+		"loop": true,
+		"speed_multiplier": 1.0
+	},
+
+	"gargouille_attaque": {
+		"frames": [
+			{"index":0, "duration": 250},
+			{"index":1, "duration": 1250}
+		],
+		"loop": false,
+		"speed_multiplier": 1.0
+	},
+
+	"mouche_idle": {
+		"frames": [
+			{"index":0, "duration": 250},
+			{"index":1, "duration": 250}
+		],
+		"loop": true,
+		"speed_multiplier": 1.0
+	},
+
+	"mouche_attaque": {
+		"frames": [
+			{"index":0, "duration": 250},
+			{"index":1, "duration": 250}
+		],
+		"loop": false,
+		"speed_multiplier": 1.0
+	}
+}

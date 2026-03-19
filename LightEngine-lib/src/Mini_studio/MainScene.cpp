@@ -23,25 +23,25 @@ void MainScene::OnInitialize()
 	m_Player->SetGravityStrength(300.f);
 	m_Player->SetJumpStrength(300);
 
-	enemy1= CreateSprite<enemies>(128, 128,R"(..\..\..\asset_by_tech\sniper.png)", new AABBCollider(128, 128));
+	enemy1= CreateSprite<enemies>(128, 128,R"(..\..\..\asset\ennemi smart\idle_1.png)", new AABBCollider(128, 128));
 	enemy1->SetRigidBody(true);
 	enemy1->SetPosition(100, 100);
 	enemy1->init(enemy1, m_Player);
 	enemy1->SetGravityStrength(0);
 
-	enemy2 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\stamp.png)", new AABBCollider(128, 128));
+	enemy2 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset\ennemi stamp\idle_1.png)", new AABBCollider(128, 128));
 	enemy2->SetRigidBody(true);
 	enemy2->SetPosition(200, 300);
 	enemy2->init(enemy2, m_Player);
 	enemy2->SetGravityStrength(0);
 
-	enemy3 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\stamp.png)", new AABBCollider(128, 128));
+	enemy3 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset\ennemi stamp\idle_1.png)", new AABBCollider(128, 128));
 	enemy3->SetRigidBody(true);
 	enemy3->SetPosition(350, 300);
 	enemy3->init(enemy3, m_Player);
 	enemy3->SetGravityStrength(0);
 
-	enemy4 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\sniper.png)", new AABBCollider(128, 128));
+	enemy4 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset\ennemi smart\idle_1.png)", new AABBCollider(128, 128));
 	enemy4->SetRigidBody(true);
 	enemy4->SetPosition(400, 100);
 	enemy4->init(enemy4, m_Player);
