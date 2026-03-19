@@ -53,11 +53,21 @@ void MainScene::OnInitialize()
 			{
 				tilePath[(int)ObjectType::JazzWallBLY] = { "../../../res/Tiles/Jazz_Wall1.png", true };
 				tilePath[(int)ObjectType::JazzWallBRY] = { "../../../res/Tiles/Jazz_Wall2.png", true };
+
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::JazzWallBBicolore] = { "../../../res/Tiles/Jazz_Wall2.png", true };
+				tilePath[(int)ObjectType::JazzWallBBlueOut] = { "../../../res/Tiles/Jazz_Wall2.png", true };
+				tilePath[(int)ObjectType::JazzWallBLP] = { "../../../res/Tiles/Jazz_Wall2.png", true };
+				tilePath[(int)ObjectType::JazzWallBRP] = { "../../../res/Tiles/Jazz_Wall2.png", true };
+				tilePath[(int)ObjectType::JazzWallFill] = { "../../../res/Tiles/Jazz_Wall2.png", true };
 			}
 			//Hub
 			{
 				tilePath[(int)ObjectType::HubWall1] = { "../../../res/Tiles/Hub_Wall1.png", true };
 				tilePath[(int)ObjectType::HubWall2] = { "../../../res/Tiles/Hub_Wall2.png", true };
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::HubCornerDL] = { "../../../res/Tiles/Hub_Wall2.png", true };
+				tilePath[(int)ObjectType::HubCornerDR] = { "../../../res/Tiles/Hub_Wall2.png", true };
 			}
 			//Metal
 			{
@@ -70,6 +80,7 @@ void MainScene::OnInitialize()
 		{
 			//Jazz
 			{
+				// TODO CHANGE PATH
 				tilePath[(int)ObjectType::JazzGroundY] = { "../../../res/Tiles/Jazz_Ground1.png", true };
 				tilePath[(int)ObjectType::JazzGroundP] = { "../../../res/Tiles/Jazz_Ground2.png", true };
 				tilePath[(int)ObjectType::JazzGroundCorner] = { "../../../res/Tiles/Jazz_Ground2.png", true };
@@ -82,6 +93,7 @@ void MainScene::OnInitialize()
 			}
 			//Metal
 			{
+				// TODO CHANGE PATH
 				tilePath[(int)ObjectType::MetalWallBL] = { "../../../res/Tiles/Metal_Ground1.png", true };
 				tilePath[(int)ObjectType::MetalWallBR] = { "../../../res/Tiles/Metal_Ground2.png", true };
 				tilePath[(int)ObjectType::MetalWall3] = { "../../../res/Tiles/Metal_Ground2.png", true };
@@ -94,12 +106,16 @@ void MainScene::OnInitialize()
 		{
 			//Jazz
 			{
+				// TODO CHANGE PATH
 				tilePath[(int)ObjectType::JazzPlatform] = { "../../../res/Tiles/Jazz_Upper_Left_Platform.png", true };
 				tilePath[(int)ObjectType::PlateformSide] = { "../../../res/Tiles/Jazz_Upper_Middle_Platform.png", true };
 				tilePath[(int)ObjectType::PlateformIn] = { "../../../res/Tiles/Jazz_Upper_Right_Platform.png", true };
 				tilePath[(int)ObjectType::BedPlaLeft] = { "../../../res/Tiles/Jazz_Bottom_Left_Platform.png", true };
 				tilePath[(int)ObjectType::BedPlaMid] = { "../../../res/Tiles/Jazz_Bottom_Middle_Platform.png", true };
 				tilePath[(int)ObjectType::BedPlaRight] = { "../../../res/Tiles/Jazz_Bottom_Right_Platform.png", true };
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::JazzDestructiblePlateformBase] = { "../../../res/Tiles/Jazz_Bottom_Right_Platform.png", true };
+				tilePath[(int)ObjectType::DestructibleVent] = { "../../../res/Tiles/Jazz_Bottom_Right_Platform.png", true };
 			}
 
 			//Metal
@@ -108,6 +124,19 @@ void MainScene::OnInitialize()
 				tilePath[(int)ObjectType::MetalMiddlePlatform1] = { "../../../res/Tiles/Metal_Middle_Platform1.png", true };
 				tilePath[(int)ObjectType::MetalMiddlePlatform2] = { "../../../res/Tiles/Metal_Middle_Platform2.png", true };
 				tilePath[(int)ObjectType::MetalRightPlatform] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::MetalDestructibleUP] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
+				tilePath[(int)ObjectType::MetalDestructibleMid] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
+				tilePath[(int)ObjectType::MetalDestructibleDown] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
+			}
+
+			{
+				// TODO CHANGE PATH
+				tilePath[(int)ObjectType::PlateformPurple] = { "../../../res/Tiles/Metal_Left_Platform.png", true };
+				tilePath[(int)ObjectType::PlateformBlueMid] = { "../../../res/Tiles/Metal_Middle_Platform1.png", true };
+				tilePath[(int)ObjectType::PlateformBlueSide] = { "../../../res/Tiles/Metal_Middle_Platform2.png", true };
+				tilePath[(int)ObjectType::PlateformOrangeLeft] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
+				tilePath[(int)ObjectType::PlateformOrangeRight] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
 			}
 		}
 	}
