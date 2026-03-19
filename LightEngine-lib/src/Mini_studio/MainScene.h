@@ -46,6 +46,8 @@ private :
 	bool fall_attack = false;
 	bool smart_attack = false;
 
+	const char* player_sprite = "../../../res/Sprites/idle_1.png";
+
 public :
 	Player* GetPlayer() { return m_Player; }
 
