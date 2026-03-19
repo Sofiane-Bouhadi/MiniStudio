@@ -6,17 +6,14 @@ using namespace std;
 AssetManager* AssetManager::Instance = nullptr;
 
 AssetManager::AssetManager() {
-    Instance = nullptr;
 }
 
 AssetManager::~AssetManager() {
-    for (int i = 0; i < mTexturePaths.size(); ++i) {
-        delete mTexturePaths.begin()->second;
+    for (auto& pair : mTexturePaths) {
+        delete pair.second;
     }
 
     mTexturePaths.clear();
-
-    delete Instance;
 }
 
 sf::Texture* AssetManager::LoadTexture(const char* path, float width, float height)
@@ -31,6 +28,8 @@ sf::Texture* AssetManager::LoadTexture(const char* path, float width, float heig
     }
 
     std::cout << "Couldn't load texture." << std::endl;
+    delete pTexture;
+    return nullptr;
 }
 
 sf::Texture* AssetManager::GetTexture(const char* path, float width, float height)

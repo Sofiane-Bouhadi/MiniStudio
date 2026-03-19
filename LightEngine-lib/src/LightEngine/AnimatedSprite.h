@@ -10,7 +10,7 @@ class AnimatedSprite
 		vector<SpriteAnimation> Animations;
 		vector<const char*> sources;
 
-		int m_currentIndex;
+		int m_currentIndex = -1;
 
 		sf::Sprite* animSprite;
 
