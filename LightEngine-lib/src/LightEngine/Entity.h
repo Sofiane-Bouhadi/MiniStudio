@@ -95,7 +95,10 @@ public:
 
 protected:
     Entity() = default;
-    ~Entity() = default;
+	~Entity() {
+		delete mCollider;
+		delete mDrawable;
+	}
 
 	virtual void Update();
 
