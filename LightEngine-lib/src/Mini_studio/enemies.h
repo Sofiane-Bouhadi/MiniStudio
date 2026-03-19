@@ -10,7 +10,7 @@
 #include "StateMachine.h"
 
 #pragma once
-class enemies : public Entity
+class enemies : public GravityEntity
 {
 private:
 
@@ -53,13 +53,16 @@ public:
 	/*attaque de l'enemies*/
 	void AttackFall();
 
-	void AttackBull();
+	//void AttackBull();
 
-	void AttackPunch();
+	//void AttackPunch();
 
 	void AttackSmart();
 
 	float telemetrie();
 
 	sf::Transformable* GetTransformable() { return mTransformable ; }
+
+	bool IsShooting = false;
+	float Shooting_Cooldown = 0.0f;
 };

@@ -1,6 +1,7 @@
 #include "enemies.h"
 #include <cmath>
-
+#include "AABBCollider.h"
+#include "Projectile.h"
 
 /*facilite l'utilisation de la state machine*/
 void enemies::choix(int nbr) {
@@ -88,41 +89,73 @@ sf::Vector2f enemies::direction() {
 void enemies::AttackFall() {
 	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
-	if (positiontarget.y >= positionEnemy.y + enemy_size / 2 && positiontarget.y <= positionEnemy.y - enemy_size / 2) {
-		std::cout << "falling" << std::endl;
-		GoToPosition(positionEnemy.x, positiontarget.y, 1.0f);
+	float halfSize = enemy_size / 2.0f;
+
+	if (positiontarget.x >= positionEnemy.x - halfSize &&
+		positiontarget.x <= positionEnemy.x + halfSize)
+	{
+		//std::cout << "falling" << std::endl;
+		GoToPosition(positionEnemy.x, positiontarget.y, 100.0f);
+
 	}
 }
 
 /*attack bulldozer*/
-void enemies::AttackBull() {
-	sf::Vector2f positiontarget = pPlayer->GetPosition();
-	positionEnemy = pEnemy->GetPosition();
-	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
-		if (telemetrie()==(float)500)
-		GoToPosition(positiontarget.x, positionEnemy.y, 1.0f);
-	}
-}
+//void enemies::AttackBull() {
+//	sf::Vector2f positiontarget = pPlayer->GetPosition();
+//	positionEnemy = pEnemy->GetPosition();
+//	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
+//		if (telemetrie()==(float)500)
+//		GoToPosition(positiontarget.x, positionEnemy.y, 1.0f);
+//	}
+//}
 
 /*attack punch*/
-void enemies::AttackPunch() {
+//void enemies::AttackPunch() {
+//	sf::Vector2f positiontarget = pPlayer->GetPosition();
+//	positionEnemy = pEnemy->GetPosition();
+//	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
+//		if (telemetrie() == (float)50) {
+//			/*attack close fight*/
+//		}
+//	}
+//}
+
+/*attack smart*/
+void enemies::AttackSmart() {
+	StateMachine state;
 	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
-	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
-		if (telemetrie() == (float)50) {
-			/*attack close fight*/
+	if (telemetrie() == (float)500) {
+
+		IsShooting = true;
+		Shooting_Cooldown = 0.6f;
+
+		Projectile* proj = nullptr;
+
+		if (positionEnemy.x > positiontarget.x)
+		{
+			std::cout << "pew" << std::endl;
+			proj = CreateSprite<Projectile>(136.f, 53.f, "../../../res/Sprites/projectile_right.png", new AABBCollider(136, 53));
+			sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
+			proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
+			proj->SetOwnerTag(2);
+			proj->SetProjectileSpeed(1000.f);
+			proj->SetDirection(1, 0, proj->GetProjectileSpeed());
+
+		}
+		if (positionEnemy.x < positiontarget.x)
+		{
+			proj = CreateSprite<Projectile>(136.f, 53.f, "../../../res/Sprites/projectile_left.png", new AABBCollider(136, 53));
+			sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
+			proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
+			proj->SetOwnerTag(2);
+			proj->SetProjectileSpeed(1000.f);
+			proj->SetDirection(-1, 0, proj->GetProjectileSpeed());
 		}
 	}
 }
 
-/*attack smart*/
-void enemies::AttackSmart() {
-	sf::Vector2f positiontarget = pPlayer->GetPosition();
-	positionEnemy = pEnemy->GetPosition();
-	if (telemetrie() == (float)500){
-		/*attack smart*/
-	}
-}
 
 float enemies::telemetrie() {
 	if (!pEnemy) return 0.0f;
