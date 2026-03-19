@@ -87,6 +87,8 @@ void Player::PlayerShockwave()
 	IsShockwave = true;
 	Shockwave_cooldown = 1;
 
+	mShockwaveSound->Play();
+
 	shockwave = CreateRectangle<Skill>(600, 600, sf::Color::Transparent, new AABBCollider(600, 600));
 	shockwave->SetTag(1);
 }
@@ -125,6 +127,7 @@ void Player::OnInitialize()
 
 	mAttackSound = new Sound("../../../Attack.wav");
 	mProjectileSound = new Sound("../../../res/Sounds/Projectile.wav");
+	mShockwaveSound = new Sound("../../../res/Sounds/Shockwave.wav");
 
 	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Red, new AABBCollider(85, 30)); 
 	attack->SetPosition(GetPosition().x, GetPosition().y);

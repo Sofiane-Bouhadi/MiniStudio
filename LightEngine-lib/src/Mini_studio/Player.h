@@ -28,6 +28,7 @@ private :
 	float Shooting_Cooldown = 0.6f;
 
 	Skill* shockwave = nullptr;
+	Sound* mShockwaveSound = nullptr;
 	bool IsShockwave = false;
 	float Shockwave_cooldown = 1;
 
