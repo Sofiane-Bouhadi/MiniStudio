@@ -84,7 +84,7 @@ void Player::PlayerShockwave()
 	IsShockwave = true;
 	Shockwave_cooldown = 1;
 
-	shockwave = CreateRectangle<Skill>(180, 180, sf::Color::Transparent, new AABBCollider(180, 180));
+	shockwave = CreateRectangle<Skill>(600, 600, sf::Color::Transparent, new AABBCollider(600, 600));
 	shockwave->SetTag(1);
 }
 
@@ -177,8 +177,15 @@ void Player::OnUpdate()
 	if (Shockwave_cooldown <= 0)
 	{
 		IsShockwave = false;
+		if (shockwave != nullptr) 
+		{
+			shockwave->Destroy();
+			shockwave = nullptr;
+		}
+			
+			
 	}
-	if (Shockwave_cooldown > 0 && IsShockwave)
+	if (Shockwave_cooldown > 0 && IsShockwave && shockwave != nullptr)
 	{
 		shockwave->SetPosition(GetPosition().x, GetPosition().y);
 	}

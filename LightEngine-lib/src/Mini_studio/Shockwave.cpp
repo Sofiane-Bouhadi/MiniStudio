@@ -12,7 +12,7 @@ void Shockwave::OnInitialize()
     SetStatic(true);
 
     ApplyEffects();
-    Destroy();
+
 }
 
 void Shockwave::ApplyEffects()

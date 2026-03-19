@@ -25,7 +25,7 @@ private :
 	bool IsShooting = false;
 	float Shooting_Cooldown = 0.6f;
 
-	Skill* skill;
+	Skill* shockwave;
 	bool IsShockwave;
 	float Shockwave_cooldown = 1;
 

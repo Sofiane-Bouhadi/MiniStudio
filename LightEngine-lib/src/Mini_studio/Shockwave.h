@@ -12,6 +12,8 @@ private:
 
 public:
 
+
+
     void ApplyEffects();
 
     void OnInitialize()override;
