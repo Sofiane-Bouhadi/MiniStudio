@@ -8,22 +8,19 @@ class Parallaxe : public Entity
 {
 private:
 
-    sf::Vector2f mPreviousPlayerPos;
-
-    float mOffsetX = 0.f;
-    float mGap = 3.0f;
-
-    Player* mPlayer = nullptr;
-    MainScene* mActualScene = nullptr;
-
-    bool mInitialized = false;
+	sf::Vector2f PLayerPos;
+	Player* player;
+	Scene* ActualScene;
 
 public:
 
-    void Init(MainScene* scene, float gap = 3.0f);
+	void SetPlayerPos(Player* player);
+	sf::Vector2f GetPlayerPos();
 
-    void OnUpdate() override;
+	void GetPlayer(MainScene* AScene);
 
-    void OnDestroy() override;
+	void OnUpdate()override;
+
+	void OnDestroy()override;
 
 };

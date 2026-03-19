@@ -10,7 +10,6 @@ protected:
 
 
 public:
-
 	void OnInitialize();
 	void OnEvent(const sf::Event& event);
 	void OnUpdate();

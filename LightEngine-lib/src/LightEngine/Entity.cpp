@@ -6,7 +6,6 @@
 #include "Debug.h"
 #include "AABBCollider.h"
 #include "CircleCollider.h"
-#include <iostream>
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/CircleShape.hpp>

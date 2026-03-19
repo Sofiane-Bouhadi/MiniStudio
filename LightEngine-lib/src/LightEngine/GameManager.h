@@ -67,11 +67,7 @@ public:
 
 	float GetDeltaTime() const { return mDeltaTime; }
 	Scene* GetScene() const { return mpScene; }
-	Camera* GetCamera() const 
-	{ 
-		int a = 1; 
-		return mCamera; 
-	}
+	Camera* GetCamera() const { return mCamera; }
 	sf::Font& GetFont() { return mFont; };
 	void NewText(sf::Font* font);
 

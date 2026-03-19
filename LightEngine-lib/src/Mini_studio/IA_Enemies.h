@@ -10,13 +10,7 @@ protected:
 
 public:
 
-	//void liveBull(enemies* pEnemy);
-
-	void liveFall(enemies* pEnemy);
-
-	//void livePunch(enemies* pEnemy);
-
-	void liveShot(enemies* pEnemy);
+	void live(Entity* pTarget);
 
 };
 
