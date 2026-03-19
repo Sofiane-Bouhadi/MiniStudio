@@ -26,6 +26,7 @@ public:
 	enemies* pEnemy;
 	Player* pPlayer;
 	float size_enemy = 0;
+	StateMachine* state;
 	sf::Vector2f positionEnemy;
 
 	void choix(int nbr);
@@ -53,13 +54,18 @@ public:
 	/*attaque de l'enemies*/
 	void AttackFall();
 
-	void AttackBull();
+	//void AttackBull();
 
-	void AttackPunch();
+	//void AttackPunch();
 
 	void AttackSmart();
+
+	void setStun();
 
 	float telemetrie();
 
 	sf::Transformable* GetTransformable() { return mTransformable ; }
+
+	bool IsShooting = false;
+	float Shooting_Cooldown = 0.0f;
 };

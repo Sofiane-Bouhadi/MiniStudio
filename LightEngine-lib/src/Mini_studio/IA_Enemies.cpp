@@ -18,7 +18,7 @@
 void IA::liveFall(enemies* pEnemy) {
 
 	pEnemy->AttackFall();
-	std::cout << "fall attaque" << std::endl;
+	//std::cout << "fall attaque" << std::endl;
 }
 
 //void IA::livePunch(enemies* pEnemy) {
