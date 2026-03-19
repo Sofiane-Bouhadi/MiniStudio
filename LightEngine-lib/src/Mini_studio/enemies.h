@@ -62,6 +62,8 @@ public:
 
 	void setStun();
 
+	void isHit();
+
 	float telemetrie();
 
 	sf::Transformable* GetTransformable() { return mTransformable ; }

@@ -162,6 +162,10 @@ void enemies::setStun() {
     }
 }
 
+void enemies::isHit(){
+	pEnemy->Destroy();
+}
+
 float enemies::telemetrie() {
 	if (!pEnemy) return 0.0f;
 
