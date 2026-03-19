@@ -10,6 +10,7 @@
 #include <iostream>
 #include <SFML/Graphics/RectangleShape.hpp>
 
+
 void MainScene::OnInitialize() 
 {
 	const char* pathFar = "../../../res/Layer_4.png";
@@ -58,6 +59,8 @@ void MainScene::OnEvent(const sf::Event& event)
 	bool base_attack = false;
 	bool shoot = false;
 	
+	fall_attack = false;
+	smart_attack = false;
 
 	if (event.type == sf::Event::KeyPressed )
 	{
@@ -177,13 +180,11 @@ void MainScene::OnEvent(const sf::Event& event)
 
 		}
 	}
-
-	if (jump) 
-	{
+	if (jump) {
 		m_Player->Jump();
 	}
-	if (base_attack) 
-	{
+
+	if (base_attack){
 		m_Player->BaseAttack();
 	}
 	if (shoot) 
@@ -194,6 +195,24 @@ void MainScene::OnEvent(const sf::Event& event)
 
 void MainScene::OnUpdate()
 {
+	if (enemy1->telemetrie() <= 500 && enemy1 != nullptr) {
+		std::cout << "detected" << std::endl;
+		fall_attack = true;
+		smart_attack = true;
+	}
+	else {
+		std::cout << "lost" << std::endl;
+	}
+	//std::cout << enemy1->telemetrie() << std::endl;
+	if (fall_attack) {
+		ia->liveFall(enemy1);
+	}
+	if (smart_attack) {
+		ia->liveShot(enemy1);
+	}
+
+	
+	//enemy1->moveingInLigne(100,500);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
@@ -227,7 +246,7 @@ void MainScene::OnUpdate()
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
 	{
-		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+		//std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
 
 

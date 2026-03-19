@@ -4,6 +4,8 @@
 #include "Parallaxe.h"
 
 class Level;
+#include "enemies.h"
+#include "IA_Enemies.h"
 
 class MainScene : public Scene
 {
@@ -37,8 +39,12 @@ private :
 
 	Level* m_Level;
 
+	enemies* enemy1;
 	bool MoveRight = false;
-
+	StateMachine* state;
+	IA* ia;
+	bool fall_attack = false;
+	bool smart_attack = false;
 
 public :
 	Player* GetPlayer() { return m_Player; }
