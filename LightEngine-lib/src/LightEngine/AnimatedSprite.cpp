@@ -4,7 +4,14 @@
 #include "json.hpp"
 #include "AnimatedSprite.h"
 
+class GameManager;
+
 using json = nlohmann::json;
+
+vector<const char*>& AnimatedSprite::GetSources()
+{
+	return sources;
+}
 
 void AnimatedSprite::DecodeJson()
 {
@@ -47,7 +54,27 @@ void AnimatedSprite::DecodeJson()
 
 			s.isLoop = (bool)data["animations"][i]["loop"];
 
+			s.sprite = animSprite;
+
 			Animations.push_back(s);
 		}
 	}
+}
+
+
+void AnimatedSprite::PlayAnimation(int newIndex)
+{
+	Animations[newIndex].Start();
+
+	m_currentIndex = newIndex;
+}
+
+void AnimatedSprite::Update()
+{
+	Animations[m_currentIndex].Update();
+}
+
+void AnimatedSprite::SetSprite(sf::Sprite* s)
+{
+	animSprite = s;
 }

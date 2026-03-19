@@ -19,6 +19,11 @@ void MainScene::OnInitialize()
 	m_Player->SetRigidBody(true);
 	m_Player->SetGravityStrength(1200.f);
 	m_Player->SetJumpStrength(750);
+	m_Player->SetSprite(m_Player->GetSprite());
+	m_Player->GetSources().push_back("../../../res/Json/PlayerAnimations.json");
+	m_Player->DecodeJson();
+	
+
 
 	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
 	GameManager::Get()->GetCamera()->Zoom(2.f);

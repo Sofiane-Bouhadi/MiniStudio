@@ -1,7 +1,8 @@
 #pragma once
+#include "AnimatedSprite.h"
 #include "GravityEntity.h"
 
-class Player : public GravityEntity 
+class Player : public GravityEntity, public AnimatedSprite
 {
 private :
 
