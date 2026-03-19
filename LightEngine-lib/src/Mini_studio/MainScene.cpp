@@ -12,6 +12,12 @@
 
 void MainScene::OnInitialize() 
 {
+	//Platform
+	Entity* entity = CreateRectangle<Entity>(3000, 100, sf::Color::White, new AABBCollider(3000, 100));
+	entity->SetStatic(true);
+	entity->SetRigidBody(true);
+	entity->SetPosition(0, 720);
+
 	{
 		///ENEMIES
 		{
@@ -129,11 +135,12 @@ void MainScene::OnInitialize()
 		}
 	}
 
-	//m_Level = new Level("../../../res/Levels/Niveau.txt", this);
+	m_Level = new Level("../../../res/Levels/Niveau.txt", this);
 
 	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
 	m_Player->SetPosition(6272, 4864);
+	//m_Player->SetPosition(0, 0);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
 	m_Player->SetGravityStrength(1200.f);
