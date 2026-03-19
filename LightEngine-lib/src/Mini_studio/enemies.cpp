@@ -127,7 +127,7 @@ void enemies::AttackSmart() {
 	StateMachine state;
 	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
-	if (telemetrie() <= (float)500) {
+	if (telemetrie() <= (float)800) {
 
 		IsShooting = true;
 
@@ -142,7 +142,8 @@ void enemies::AttackSmart() {
 		{
 			pEnemy->SetTag(2);
 			std::cout << "pew-------------------------------------------------------------" << std::endl;
-			proj = GetScene()->CreateRectangle<Projectile>(136, 53, sf::Color::Blue, new AABBCollider(136, 53));
+			//enemy2 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\stamp.png)", new AABBCollider(128, 128));
+			proj = GetScene()->CreateSprite<Projectile>(53, 53,R"(..\..\..\asset_by_tech\bullet.png)", new AABBCollider(53, 53));
 			sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
 			proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
 			proj->SetOwnerTag(2);

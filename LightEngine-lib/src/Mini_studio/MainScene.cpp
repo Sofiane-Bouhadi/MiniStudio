@@ -23,13 +23,13 @@ void MainScene::OnInitialize()
 	m_Player->SetGravityStrength(300.f);
 	m_Player->SetJumpStrength(300);
 
-	enemy1=CreateRectangle<enemies>(128, 128, sf::Color::Red, new AABBCollider(128, 128));
+	enemy1= CreateSprite<enemies>(128, 128,R"(..\..\..\asset_by_tech\sniper.png)", new AABBCollider(128, 128));
 	enemy1->SetRigidBody(true);
 	enemy1->SetPosition(100, 100);
 	enemy1->init(enemy1, m_Player);
 	enemy1->SetGravityStrength(0);
 
-	enemy2 = CreateRectangle<enemies>(128, 128, sf::Color::Red, new AABBCollider(128, 128));
+	enemy2 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\stamp.png)", new AABBCollider(128, 128));
 	enemy2->SetRigidBody(true);
 	enemy2->SetPosition(200, 400);
 	enemy2->init(enemy2, m_Player);
@@ -161,13 +161,15 @@ void MainScene::OnUpdate()
 {
 	enemy1->OnCollision(m_Player, Entity::CollidingSide::Other);
 
-	if (enemy1->telemetrie() <= 500 && enemy1 != nullptr) {
+	if (enemy1->telemetrie() <= 800 && enemy1 != nullptr) {
 		//std::cout << "detected" << std::endl;
 		fall_attack = true;
 		smart_attack = true;
 	}
 	else {
 		//std::cout << "lost" << std::endl;
+		fall_attack = false;
+		smart_attack = false;
 	}
 	//std::cout << enemy1->telemetrie() << std::endl;
 	if (fall_attack) {
@@ -176,7 +178,6 @@ void MainScene::OnUpdate()
 	if (smart_attack) {
 		ia->liveShot(enemy1);
 	}
-
 	
 	//enemy1->moveingInLigne(100,500);
 

@@ -42,6 +42,10 @@ private :
 	enemies* enemy1;
 	enemies* enemy2;
 	bool MoveRight = false;
+
+	/*true = position 1; false = position 2*/
+	bool Enemove = true; 
+
 	StateMachine* state;
 	IA* ia;
 	bool fall_attack = false;

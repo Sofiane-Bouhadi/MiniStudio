@@ -97,9 +97,9 @@ void Projectile::OnUpdate()
     //std::cout << "cam center = " << cameraCenter.x << ", " << cameraCenter.y << std::endl;
     //std::cout << "cam size = " << cameraSize.x << ", " << cameraSize.y << std::endl;
 
-    std::cout << "pos: " << pos.x << ", " << pos.y << std::endl;
-    std::cout << "camX: " << negative_camX << " -> " << positive_camX << std::endl;
-    std::cout << "camY: " << negative_camY << " -> " << positive_camY << std::endl;
+    //std::cout << "pos: " << pos.x << ", " << pos.y << std::endl;
+    //std::cout << "camX: " << negative_camX << " -> " << positive_camX << std::endl;
+    //std::cout << "camY: " << negative_camY << " -> " << positive_camY << std::endl;
 
     //std::cout << "speed = " << m_speed << std::endl;
 
