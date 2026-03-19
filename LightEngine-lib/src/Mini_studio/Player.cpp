@@ -42,7 +42,7 @@ void Player::BaseAttack()
 		return;
 
 	IsAttack = true;
-	Attack_Cooldown = 2;
+	Attack_Cooldown = 1;
 	
 }
 
@@ -98,11 +98,20 @@ void Player::UsePotion()
 
 void Player::OnCollision(Entity* pOther, CollidingSide collidingSide)
 {
+
+	Projectile* ennemy_proj = dynamic_cast<Projectile*>(pOther);
+	
 	if (collidingSide == Bottom) 
 	{
 		mYVelocity = 0.f;
 		nb_Jump = 2;
-	}	
+	}
+	if (ennemy_proj != nullptr)
+	{
+		TakeDmg();
+		pOther->Destroy();
+	}
+
 }
 
 
@@ -253,55 +262,55 @@ void Player::OnUpdate()
 	}
 
 
-	if (mana_stack = 0 && ManaBar != nullptr)
+	if (mana_stack == 0 && ManaBar != nullptr)
 	{
 		ManaBar->Destroy();
 		ManaBar = scene->CreateSprite<Entity>(286, 40, "../../../res/hud/MANA_0.png", new AABBCollider(0, 0));
 		ManaBar->SetPosition(Disc->GetPosition().x + 85, Disc->GetPosition().y - 5, 0, 0);
 	}
-	if (mana_stack = 1 && ManaBar != nullptr)
+	if (mana_stack == 1 && ManaBar != nullptr)
 	{
 		ManaBar->Destroy();
 		ManaBar = scene->CreateSprite<Entity>(286, 40, "../../../res/hud/MANA_1.png", new AABBCollider(0, 0));
 		ManaBar->SetPosition(Disc->GetPosition().x + 85, Disc->GetPosition().y - 5, 0, 0);
 	}
-	if (mana_stack = 2 && ManaBar != nullptr)
+	if (mana_stack == 2 && ManaBar != nullptr)
 	{
 		ManaBar->Destroy();
 		ManaBar = scene->CreateSprite<Entity>(286, 40, "../../../res/hud/MANA_2.png", new AABBCollider(0, 0));
 		ManaBar->SetPosition(Disc->GetPosition().x + 85, Disc->GetPosition().y - 5, 0, 0);
 	}
-	if (mana_stack = 3 && ManaBar != nullptr)
+	if (mana_stack == 3 && ManaBar != nullptr)
 	{
 		ManaBar->Destroy();
 		ManaBar = scene->CreateSprite<Entity>(286, 40, "../../../res/hud/MANA_3.png", new AABBCollider(0, 0));
 		ManaBar->SetPosition(Disc->GetPosition().x + 85, Disc->GetPosition().y - 5, 0, 0);
 	}
-	if (mana_stack = 4 && ManaBar != nullptr)
+	if (mana_stack == 4 && ManaBar != nullptr)
 	{
 		ManaBar->Destroy();
 		ManaBar = scene->CreateSprite<Entity>(286, 40, "../../../res/hud/MANA_4.png", new AABBCollider(0, 0));
 		ManaBar->SetPosition(Disc->GetPosition().x + 85, Disc->GetPosition().y - 5, 0, 0);
 	}
-	if (mana_stack = 5 && ManaBar != nullptr)
+	if (mana_stack == 5 && ManaBar != nullptr)
 	{
 		ManaBar->Destroy();
 		ManaBar = scene->CreateSprite<Entity>(286, 40, "../../../res/hud/MANA_5.png", new AABBCollider(0, 0));
 		ManaBar->SetPosition(Disc->GetPosition().x + 85, Disc->GetPosition().y - 5, 0, 0);
 	}
-	if (mana_stack = 6 && ManaBar != nullptr)
+	if (mana_stack == 6 && ManaBar != nullptr)
 	{
 		ManaBar->Destroy();
 		ManaBar = scene->CreateSprite<Entity>(286, 40, "../../../res/hud/MANA_6.png", new AABBCollider(0, 0));
 		ManaBar->SetPosition(Disc->GetPosition().x + 85, Disc->GetPosition().y - 5, 0, 0);
 	}
-	if (mana_stack = 7 && ManaBar != nullptr)
+	if (mana_stack == 7 && ManaBar != nullptr)
 	{
 		ManaBar->Destroy();
 		ManaBar = scene->CreateSprite<Entity>(286, 40, "../../../res/hud/MANA_7.png", new AABBCollider(0, 0));
 		ManaBar->SetPosition(Disc->GetPosition().x + 85, Disc->GetPosition().y - 5, 0, 0);
 	}
-	if (mana_stack = 8 && ManaBar != nullptr)
+	if (mana_stack == 8 && ManaBar != nullptr)
 	{
 		ManaBar->Destroy();
 		ManaBar = scene->CreateSprite<Entity>(286, 40, "../../../res/hud/MANA_FULL.png", new AABBCollider(0, 0));
