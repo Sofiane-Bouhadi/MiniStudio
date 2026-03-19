@@ -193,7 +193,8 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 	mTransformable->setPosition(sf::Vector2f(x, y));
 
 	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
-	mCollider->SetPosition(currentPosition.x, currentPosition.y);
+	if (mCollider != nullptr)
+		mCollider->SetPosition(currentPosition.x, currentPosition.y);
 
 	//#TODO Optimise
 	if (mTarget.isSet) 
@@ -282,8 +283,12 @@ void Entity::FixedUpdate(float fixedDt)
 	sf::Vector2f translation = distance * mDirection;
 	mTransformable->move(translation);
 
-	sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
-	mCollider->SetPosition(currentPosition.x, currentPosition.y);
+	
+	if (mCollider != nullptr)
+	{
+		sf::Vector2f currentPosition = GetPosition(0.5f, 0.5f);
+		mCollider->SetPosition(currentPosition.x, currentPosition.y);
+	}
 
 	if (AABBCollider* rectCollider = dynamic_cast<AABBCollider*> (mCollider))
 		Debug::DrawRectangle(rectCollider->mXMin, rectCollider->mYMin, rectCollider->mWidth, rectCollider->mHeight, sf::Color::Green);
