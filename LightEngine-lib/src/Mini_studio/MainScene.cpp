@@ -19,9 +19,34 @@ void MainScene::OnInitialize()
 {
 	srand(time(NULL));
 
+	const char* pathFar = "../../../res/Layer_4.png";
+	const char* pathMid = "../../../res/Layer_3.png";
+	const char* pathNear = "../../../res/Layer_2.png";
+	const char* pathClose = "../../../res/Layer_1.png";
+
+	float winW = 5800;
+	float winH = 4200;
+
+	mParallaxFar = CreateSprite<Parallaxe>(winW, winH, pathFar, new AABBCollider(0, 0));
+	mParallaxFar->SetPosition(0.f, 0.f, 0.f, 0.f);
+	mParallaxFar->Init(this, 6.0f);
+
+	mParallaxMid = CreateSprite<Parallaxe>(winW, winH, pathMid, new AABBCollider(0, 0));
+	mParallaxMid->SetPosition(0.f, 0.f, 0.f, 0.f);
+	mParallaxMid->Init(this, 4.0f);
+
+	mParallaxNear = CreateSprite<Parallaxe>(winW, winH, pathNear, new AABBCollider(0, 0));
+	mParallaxNear->SetPosition(0.f, 0.f, 0.f, 0.f);
+	mParallaxNear->Init(this, 2.5f);
+
+	mParallaxClose = CreateSprite<Parallaxe>(winW, winH, pathClose, new AABBCollider(0, 0));
+	mParallaxClose->SetPosition(0.f, 0.f, 0.f, 0.f);
+	mParallaxClose->Init(this, 1.5f);
+
 	//Player
 	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
 	m_Player->SetPosition(0, 0);
+
 
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
@@ -184,6 +209,13 @@ void MainScene::OnEvent(const sf::Event& event)
 			m_Player->DecreaseJump();
 			
 		}
+		if (event.key.code == sf::Keyboard::E )
+		{
+			std::cout << "e est press�" << std::endl;
+			shockwave = true;
+			
+
+		}
 	}
 
 	if (event.type == sf::Event::MouseButtonPressed) 
@@ -248,6 +280,13 @@ void MainScene::OnEvent(const sf::Event& event)
 			//std::cout << "espace est relach�" << std::endl;
 			m_Player->SetSpeed(0);
 			jump = false;
+		}
+
+		if (event.key.code == sf::Keyboard::E)
+		{
+			std::cout << "e est relach�" << std::endl;
+			m_Player->SetSpeed(0);
+			shockwave = false;
 		}
 	}
 	
@@ -346,6 +385,7 @@ void MainScene::OnUpdate()
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
 	{
+		const char* player_sprite = "../../../res/Sprites/course_1.png";
 		//std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
 
