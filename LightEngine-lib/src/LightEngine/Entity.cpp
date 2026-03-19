@@ -303,8 +303,8 @@ void Entity::FixedUpdate(float fixedDt)
 		mCollider->SetPosition(currentPosition.x, currentPosition.y);
 	}
 
-	if (AABBCollider* rectCollider = dynamic_cast<AABBCollider*> (mCollider))
-		Debug::DrawRectangle(rectCollider->mXMin, rectCollider->mYMin, rectCollider->mWidth, rectCollider->mHeight, sf::Color::Green);
+	/*if (AABBCollider* rectCollider = dynamic_cast<AABBCollider*> (mCollider))
+		Debug::DrawRectangle(rectCollider->mXMin, rectCollider->mYMin, rectCollider->mWidth, rectCollider->mHeight, sf::Color::Green);*/
 
 	if (mTarget.isSet)
 	{

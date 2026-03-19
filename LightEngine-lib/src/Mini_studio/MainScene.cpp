@@ -34,6 +34,13 @@ void MainScene::OnInitialize()
 {
 	srand(time(NULL));
 
+	//Backgrounds
+	Entity* jazzBackground = CreateSprite<Entity>(6000, 4300, "../../../res/Backgrounds/Jazz_Background.png", nullptr);
+	jazzBackground->SetPosition(1200, 1400, 0.f, 0.f);
+
+	Entity* metalBackground = CreateSprite<Entity>(6000, 4300, "../../../res/Background/Metal_Background.png", nullptr);
+	metalBackground->SetPosition(5000, 2500, 0.f, 0.f);
+
 	//Player
 	m_Player = CreateSprite<Player>(155, 225, "../../../res/Sprites/idle_1.png", new AABBCollider(155, 225));
 	m_Player->SetPosition(6272, 4864);
@@ -173,7 +180,7 @@ void MainScene::OnInitialize()
 	m_Level = new Level("../../../res/Levels/Niveau.txt", this);
 
 	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
-	GameManager::Get()->GetCamera()->Zoom(2.f);
+	GameManager::Get()->GetCamera()->Zoom(1.5f);
 }
 
 void MainScene::OnEvent(const sf::Event& event)
