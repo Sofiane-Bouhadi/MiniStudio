@@ -2,17 +2,20 @@
 #include "Parallaxe.h"
 #include "Player.h"
 #include "MainScene.h"
+#include "GameManager.h"
 
-void Parallaxe::SetPlayerPos(Player* player)
+void Parallaxe::Init(MainScene* scene, float gap)
 {
-	PLayerPos = player->GetPosition();
-}
-
-sf::Vector2f Parallaxe::GetPlayerPos()
-{
-	return PLayerPos;
-}
-
+    mPlayer = scene->GetPlayer();
+    mActualScene = scene;
+    mGap = gap;
+   
+    if (mPlayer != nullptr) 
+    {
+        mPreviousPlayerPos = mPlayer->GetPosition();
+        mInitialized = true;
+    }
+ 
 void Parallaxe::GetPlayer(MainScene* AScene)
 {
 	player = AScene->GetPlayer();
@@ -22,19 +25,29 @@ void Parallaxe::OnUpdate()
 {
 	sf::Vector2f pos = GetPlayerPos();
 
-	GoToDirection((int)pos.x, (int)pos.y, player->GetSpeed() - 20.0f);
+    if (!mActualScene) return;
 
-	//pos.x += (int)movement.y / gap; // TODO Remplacer par les bons noms de variable
+    if (!mPlayer)
+    {
+        mPlayer = mActualScene->GetPlayer();
+        mPreviousPlayerPos = mPlayer->GetPosition();
+        return;
+    }
+    if (!mInitialized || !mPlayer) return;
 
-	if (pos.x >= ActualScene->GetWindowWidth())
-	{
-		pos.x -= ActualScene->GetWindowWidth();
-	}
+    sf::Vector2f currentPos = mPlayer->GetPosition();
 
-	if (pos.x < 0)
-	{
-		pos.x += ActualScene->GetWindowWidth();
-	}
+    float deltaX = currentPos.x - mPreviousPlayerPos.x;
+
+    mOffsetX -= deltaX / mGap;
+
+    float width = (float)mActualScene->GetWindowWidth();
+    while (mOffsetX >= width)  mOffsetX -= width;
+    while (mOffsetX < 0.f)    mOffsetX += width;
+
+    mTransformable->setPosition(mOffsetX, mTransformable->getPosition().y);
+
+    mPreviousPlayerPos = currentPos;
 }
 
 void Parallaxe::OnDestroy()

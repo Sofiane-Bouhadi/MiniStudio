@@ -29,6 +29,8 @@ public:
     void SetOwnerTag(int tag) { m_ownerTag = tag; };
     int GetOwnerTag() { return m_ownerTag; };
 
+    void OnCollision(Entity* pOther, CollidingSide collidingSide) override;
+
     void OnInitialize()override;
     void OnUpdate()override;
     void OnDestroy()override;
