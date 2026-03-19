@@ -68,6 +68,9 @@ Player* GameManager::GetPlayer()
 	return player;
 }
 
+float timer = 0.0f;
+int FPS = 0;
+
 void GameManager::Run()
 {
 	if (mpWindow == nullptr) 
@@ -86,6 +89,15 @@ void GameManager::Run()
 	while (mpWindow->isOpen())
 	{
 		SetDeltaTime(clock.restart().asSeconds());
+
+		timer += mDeltaTime;
+		if (timer > 1.f)
+		{
+			FPS = (int)(1.f / mDeltaTime);
+			timer = 0.f;
+		}
+			
+		Debug::DrawText(10.f, 10.f, "FPS: " + std::to_string(FPS), sf::Color::White);
 
 		HandleInput();
 
@@ -113,10 +125,19 @@ void GameManager::Update()
 {
 	mpScene->OnUpdate();
 
+	sf::Vector2f cameraPos = mCamera->GetView()->getCenter();
+	sf::Vector2f cameraSize = mCamera->GetView()->getSize();
+
+	StartTimer();
     //Update
     for (auto it = mEntities.begin(); it != mEntities.end(); )
     {
 		Entity* entity = *it;
+
+		/*if (entity->GetPosition(1, 0.5).x < cameraPos.x - cameraSize.x / 2 || entity->GetPosition(0, 0.5).x > cameraPos.x + cameraSize.x / 2)
+			entity->SetActive(false);
+		else if (entity->GetPosition(0.5, 1).y < cameraPos.y - cameraSize.y / 2 || entity->GetPosition(0.5, 0).y > cameraPos.y + cameraSize.y / 2)
+			entity->SetActive(false);*/
 
         entity->Update();
 
@@ -129,7 +150,9 @@ void GameManager::Update()
         mEntitiesToDestroy.push_back(entity);
         it = mEntities.erase(it);
     }
+	std::cout << "Update duration : " << StopTimer() << std::endl;
 
+	StartTimer();
 	//Fixed Update
 	mAccumulatedDt += mDeltaTime;
 	while (mAccumulatedDt >= FIXED_DT)
@@ -137,6 +160,7 @@ void GameManager::Update()
 		FixedUpdate();
 		mAccumulatedDt -= FIXED_DT;
 	}
+	std::cout << "FixedUpdate duration : " << StopTimer() << std::endl;
 
 	//Camera
 	if (mCamera != nullptr)
@@ -164,12 +188,17 @@ void GameManager::Update()
 
 void GameManager::FixedUpdate()
 {
+	int colliderCount = 0;
 	// Physic update
 	for (Entity* entity : mEntities)
 	{
 		entity->FixedUpdate(FIXED_DT);
+
+		if (entity->mCollider != nullptr)
+			colliderCount += 1;
 	}
 
+	std::cout << colliderCount << std::endl;
 	// Collision detection
 
 	for (auto it1 = mEntities.begin(); it1 != mEntities.end(); ++it1)
@@ -177,10 +206,18 @@ void GameManager::FixedUpdate()
 		auto it2 = it1;
 		it2++;
 
+		Entity* entity = *it1;
+
+		if (entity->IsActive() == false || entity->GetCollider() == nullptr)
+			continue;
+
 		for (it2; it2 != mEntities.end(); ++it2)
 		{
-			Entity* entity = *it1;
+			
 			Entity* otherEntity = *it2;
+
+			if (entity->IsActive() == false || otherEntity->IsActive() == false)
+				continue;
 
 			Entity::CollidingSide collidingSide = entity->IsColliding(otherEntity);
 
@@ -218,6 +255,9 @@ void GameManager::Draw()
 	
 	for (Entity* entity : mEntities)
 	{
+		if (entity->IsActive() == false)
+			continue;
+
 		if (sf::Shape* entityShape = entity->GetShape())
 		{
 			mpWindow->draw(*entityShape);

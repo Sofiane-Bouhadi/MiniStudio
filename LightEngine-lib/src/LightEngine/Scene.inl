@@ -43,7 +43,7 @@ T* Scene::CreateSprite(float width, float height, const char* texturePath, Colli
 {
 	static_assert(std::is_base_of<Entity, T>::value, "T must be derived from Entity");
 
-	T* newEntity = new T();
+	T* newEntity = new T;
 
 	Entity* entity = newEntity;
 	entity->Initialize(width, height, texturePath, collider);

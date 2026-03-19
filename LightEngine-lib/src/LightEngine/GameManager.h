@@ -1,9 +1,15 @@
 #pragma once
 
 #include <list>
+#include <cassert>
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/System/Clock.hpp>
+
+#ifndef _ASSERT
+#define _ASSERT(expr) assert(expr)
+#endif
 
 #define FIXED_DT 0.016667f
 
@@ -22,6 +28,8 @@ namespace sf
 
 class GameManager
 {
+private:
+	sf::Clock m_clock;
 public :
 	std::list<Entity*> mEntities;
 	std::list<Entity*> mEntitiesToDestroy;
@@ -34,6 +42,9 @@ public :
 
 	Scene* mpScene;
 	Camera* mCamera;
+
+	float mStartTimer = 0.f;
+	float mProfilingTimer = 0.f;
 
 	float mDeltaTime;
 	float mAccumulatedDt = 0.f;
@@ -69,9 +80,25 @@ public:
 
 	void SetPlayer(Player* p);
 	Player* GetPlayer();
+
+	void StartTimer()
+	{
+		m_clock.restart();
+	}
+
+	float StopTimer()
+	{
+		return m_clock.getElapsedTime().asMilliseconds();
+	}
+
+
 	float GetDeltaTime() const { return mDeltaTime; }
 	Scene* GetScene() const { return mpScene; }
-	Camera* GetCamera() const { return mCamera; }
+	Camera* GetCamera() const 
+	{ 
+		int a = 1; 
+		return mCamera; 
+	}
 	sf::Font& GetFont() { return mFont; };
 	void NewText(sf::Font* font);
 

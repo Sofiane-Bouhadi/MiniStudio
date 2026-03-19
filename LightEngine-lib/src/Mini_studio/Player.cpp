@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "AABBCollider.h"
-#include "Shoot.h"
+
 
 void Player::MoveRight(float deltatime) 
 {
@@ -11,6 +11,8 @@ void Player::MoveRight(float deltatime)
 	}
 
 	SetDirection(1, 0, mSpeed);
+
+	//AnimatedSprite::PlayAnimation(1);
 }
 
 void Player::MoveLeft(float deltatime)
@@ -38,18 +40,59 @@ void Player::SetLeft()
 
 void Player::BaseAttack() 
 {
+	if (IsShooting || IsShockwave)
+		return;
+
 	IsAttack = true;
 	Attack_Cooldown = 2;
+
+	mAttackSound->Play();
 	
 }
 
 void Player::PlayerShoot() 
 {
-	if (shoot != nullptr) 
+	if (IsAttack || IsShockwave)
+		return;
+
+	IsShooting = true;
+	Shooting_Cooldown = 0.6f;
+
+	mProjectileSound->Play();
+
+	if (IsRight)
 	{
-		shoot->Fire(PlayerTag, GetPosition());
-	}
+		proj = CreateSprite<Projectile>(136.f, 53.f, "../../../res/Sprites/projectile_right.png", new AABBCollider(136, 53));
+		sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
+		proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
+		proj->SetOwnerTag(mTag);
+		proj->SetProjectileSpeed(1000.f);
+		proj->SetDirection(1, 0, proj->GetProjectileSpeed());
 	
+	}
+	if (IsLeft)
+	{
+		proj = CreateSprite<Projectile>(136.f, 53.f, "../../../res/Sprites/projectile_left.png", new AABBCollider(136, 53));
+		sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
+		proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
+		proj->SetOwnerTag(mTag);
+		proj->SetProjectileSpeed(1000.f);
+		proj->SetDirection(-1, 0, proj->GetProjectileSpeed());
+	}
+}
+
+void Player::PlayerShockwave() 
+{
+	if (IsAttack || IsShooting)
+		return;
+
+	IsShockwave = true;
+	Shockwave_cooldown = 1;
+
+	mShockwaveSound->Play();
+
+	shockwave = CreateRectangle<Skill>(600, 600, sf::Color::Transparent, new AABBCollider(600, 600));
+	shockwave->SetTag(1);
 }
 
 void Player::OnCollision(Entity* pOther, CollidingSide collidingSide)
@@ -81,16 +124,23 @@ bool Player::GetAttack()
 
 void Player::OnInitialize() 
 {
+	SetTag(1);
+
 	Scene* scene = GetScene();
+
+	mAttackSound = new Sound("../../../Attack.wav");
+	mProjectileSound = new Sound("../../../res/Sounds/Projectile.wav");
+	mShockwaveSound = new Sound("../../../res/Sounds/Shockwave.wav");
 
 	attack = scene->CreateRectangle<Entity>(85, 30, sf::Color::Red, new AABBCollider(85, 30)); 
 	attack->SetPosition(GetPosition().x, GetPosition().y);
+	attack->SetTag(1);
 }
 
 
 void Player::OnUpdate() 
 {
-	
+	AnimatedSprite::Update();
 
 	if (m_life == 0)
 	{
@@ -102,6 +152,7 @@ void Player::OnUpdate()
 
 	if (attack != nullptr && Attack_Cooldown < 0) 
 	{
+		IsAttack = false;
 		attack->SetPosition(GetPosition().x, GetPosition().y);
 
 	}
@@ -120,5 +171,29 @@ void Player::OnUpdate()
 			attack->SetPosition(GetPosition().x - 115, GetPosition().y);
 			
 		}
+	}
+
+	Shooting_Cooldown -= GetDeltaTime();
+
+	if (Shooting_Cooldown < 0.f)
+	{
+		IsShooting = false;
+		Shooting_Cooldown = 0.f;
+	}
+
+	Shockwave_cooldown -= GetDeltaTime();
+
+	if (Shockwave_cooldown <= 0)
+	{
+		IsShockwave = false;
+		if (shockwave != nullptr) 
+		{
+			shockwave->Destroy();
+			shockwave = nullptr;
+		}
+	}
+	if (Shockwave_cooldown > 0 && IsShockwave && shockwave != nullptr)
+	{
+		shockwave->SetPosition(GetPosition().x, GetPosition().y);
 	}
 }

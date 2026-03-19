@@ -1,5 +1,5 @@
 #pragma once
-#include "Skill.h"
+#include "skill.h"
 
 class Projectile;
 

@@ -1,0 +1,93 @@
+"image_source": "C:\sprite-sheet_animation_MC_gauche.png",
+
+"frame_size": {
+	"width": 412,
+	"height": 294
+	},
+
+"structure": "single",
+
+"animations": {
+	"attaque_1_gauche": {
+		"frames": [
+			{"index":0, "duration": 190},
+			{"index":1, "duration": 95},
+			{"index":2, "duration": 143}
+		],
+		"loop": false,
+		"speed_multiplier": 1.0
+	},
+
+	"attaque_2_gauche": {
+		"frames": [
+			{"index":0, "duration": 190},
+			{"index":1, "duration": 95},
+			{"index":2, "duration": 143}
+		],
+		"loop": false,
+		"speed_multiplier": 1.0
+	},
+
+	"course_gauche": {
+		"frames": [
+			{"index":0, "duration": 100},
+			{"index":1, "duration": 100},
+			{"index":2, "duration": 100},
+			{"index":3, "duration": 100},
+			{"index":4, "duration": 100},
+			{"index":5, "duration": 100},
+			{"index":6, "duration": 100},
+			{"index":7, "duration": 100}
+		],
+		"loop": true,
+		"speed_multiplier": 1.0
+	},
+
+	"idle_gauche": {
+		"frames": [
+			{"index":0, "duration": 250},
+			{"index":1, "duration": 250},
+			{"index":2, "duration": 250},
+			{"index":3, "duration": 250}
+		],
+		"loop": true,
+		"speed_multiplier": 1.0
+	},
+
+	"saut_gauche": {
+		"frames": [
+			{"index":0, "duration": 143},
+			{"index":1, "duration": 143},
+			{"index":2, "duration": 95},
+			{"index":3, "duration": 190}
+		],
+		"loop": false,
+		"speed_multiplier": 1.0
+	},
+
+	"dash_gauche": {
+		"frames": [
+			{"index":0, "duration": 95},
+			{"index":1, "duration": 310},
+			{"index":2, "duration": 95}
+		],
+		"loop": false,
+		"speed_multiplier": 1.0
+	},
+
+	"cri_gauche": {
+		"frames": [
+			{"index":0, "duration": 500}
+		],
+		"loop": false,
+		"speed_multiplier": 1.0
+	},
+
+	"projectile_gauche": {
+		"frames": [
+			{"index":0, "duration": 500}
+		],
+		"loop": false,
+		"speed_multiplier": 1.0
+	}
+}
