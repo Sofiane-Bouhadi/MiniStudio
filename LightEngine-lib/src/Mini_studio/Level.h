@@ -16,7 +16,7 @@ class Level
 	};
 
 private:
-	const char* mPlatformSymbols = "WGP";
+	const char* mPlatformSymbols = "ABEFGHIJMNOPQTUVWXYZ&+@?!§°)]}=/*€(£$¤µa~#{[|%b";
 
 	bool IsPlatformSymbol(char symbol) const;
 
