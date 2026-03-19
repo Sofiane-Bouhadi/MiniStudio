@@ -10,6 +10,7 @@ private:
 	int mAtkStep = -1;
 
 	int mHp = 33;
+	int mHpMax = 33;
 
 	// Ces variables sont à changer selon la scène une fois qu'elle sera faite.
 	float mUpperY = -720;
