@@ -3,6 +3,8 @@
 
 void SpriteAnimation::Start()
 {
+	if (Delays.empty()) return;
+
 	frame = 0;
 	timeRemaining = Delays[0];
 
@@ -20,20 +22,23 @@ void SpriteAnimation::Start()
 
 void SpriteAnimation::Update()
 {
+	if (Delays.empty()) return;
+
 	timeRemaining -= GameManager::Get()->GetDeltaTime();
 
 	if (timeRemaining < 0)
 	{
-		if (frame < Delays.size())
+		int lastFrame = (int)Delays.size() - 1;
+
+		if (frame < lastFrame)
 		{
 			frame++;
 		}
-		else if (frame == Delays.size() and isLoop == true)
+		else if (isLoop == true)
 		{
 			frame = 0;
 		}
-
-		else if (frame == Delays.size() and isLoop == false)
+		else
 		{
 			return;
 		}

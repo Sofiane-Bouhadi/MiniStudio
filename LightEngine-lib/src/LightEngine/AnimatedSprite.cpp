@@ -64,6 +64,8 @@ void AnimatedSprite::DecodeJson()
 
 void AnimatedSprite::PlayAnimation(int newIndex)
 {
+	if (newIndex < 0 || newIndex >= (int)Animations.size()) return;
+
 	Animations[newIndex].Start();
 
 	m_currentIndex = newIndex;
@@ -71,6 +73,8 @@ void AnimatedSprite::PlayAnimation(int newIndex)
 
 void AnimatedSprite::Update()
 {
+	if (m_currentIndex < 0 || m_currentIndex >= (int)Animations.size()) return;
+
 	Animations[m_currentIndex].Update();
 }
 
