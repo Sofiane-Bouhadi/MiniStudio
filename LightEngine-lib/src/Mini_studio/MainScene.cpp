@@ -24,7 +24,7 @@ void MainScene::OnInitialize()
 	m_Player->SetGravityStrength(5000.f);
 	m_Player->SetJumpStrength(1800);
 
-	//Platform
+	/*//Platform
 	Entity* entity = CreateRectangle<Entity>(3000, 100, sf::Color::White, new AABBCollider(3000, 100));
 	entity->SetStatic(true);
 	entity->SetRigidBody(true);
@@ -34,7 +34,7 @@ void MainScene::OnInitialize()
 	Entity* boss = CreateSprite<Boss>(600, 600, "../../../res/Sprites/Boss/Boss_Idle.png", new AABBCollider(600, 600));
 	boss->SetPosition(0, 0);
 	boss->SetStatic(true);
-	boss->SetRigidBody(false);
+	boss->SetRigidBody(false);*/
 
 	{
 		///ENEMIES
@@ -152,7 +152,7 @@ void MainScene::OnInitialize()
 		}
 	}
 
-	//m_Level = new Level("../../../res/Levels/Niveau.txt", this);
+	m_Level = new Level("../../../res/Levels/Niveau.txt", this);
 
 	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
 	GameManager::Get()->GetCamera()->Zoom(2.f);
