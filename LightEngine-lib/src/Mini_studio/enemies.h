@@ -19,9 +19,10 @@ private:
 protected:
 	int m_PV{ 5 };
 
-	int enemy_size{ 0 };
+	
 
 public:
+	int enemy_size{ 100 };
 	enemies* pEnemy;
 	Player* pPlayer;
 	float size_enemy = 0;

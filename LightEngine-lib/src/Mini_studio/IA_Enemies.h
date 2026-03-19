@@ -9,18 +9,12 @@ private:
 protected:
 
 public:
-	enum typesEn {
-		Fall,
-		smart,
 
-		count
-	};
-
-	void liveBull(enemies* pEnemy);
+	//void liveBull(enemies* pEnemy);
 
 	void liveFall(enemies* pEnemy);
 
-	void livePunch(enemies* pEnemy);
+	//void livePunch(enemies* pEnemy);
 
 	void liveShot(enemies* pEnemy);
 

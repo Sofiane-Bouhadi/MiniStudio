@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Player.h"
 #include "enemies.h"
+#include "IA_Enemies.h"
 
 class MainScene : public Scene
 {
@@ -12,6 +13,9 @@ private :
 	enemies* enemy1;
 	bool MoveRight = false;
 	StateMachine* state;
+	IA* ia;
+	bool fall_attack = false;
+	bool smart_attack = false;
 
 public :
 	void OnInitialize() override;

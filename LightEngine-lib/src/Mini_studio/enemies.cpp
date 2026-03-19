@@ -88,7 +88,8 @@ sf::Vector2f enemies::direction() {
 void enemies::AttackFall() {
 	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
-	if (positiontarget.y == positionEnemy.y + enemy_size / 2 || positiontarget.y == positionEnemy.y - enemy_size / 2) {
+	if (positiontarget.y >= positionEnemy.y + enemy_size / 2 && positiontarget.y <= positionEnemy.y - enemy_size / 2) {
+		std::cout << "falling" << std::endl;
 		GoToPosition(positionEnemy.x, positiontarget.y, 1.0f);
 	}
 }
