@@ -143,8 +143,8 @@ void MainScene::OnInitialize()
 	//m_Player->SetPosition(0, 0);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
-	m_Player->SetGravityStrength(1200.f);
-	m_Player->SetJumpStrength(750);
+	m_Player->SetGravityStrength(2500.f);
+	m_Player->SetJumpStrength(1500.f);
 
 	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
 	GameManager::Get()->GetCamera()->Zoom(2.f);

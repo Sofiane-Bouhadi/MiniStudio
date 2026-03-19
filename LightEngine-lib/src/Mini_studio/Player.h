@@ -11,8 +11,8 @@ private :
 	bool IsAlive = true;
 
 	float m_acceleration = 3000.f;
-	float m_MaxSpeed = 300.f;
-	float m_MinSpeed = 150.f;
+	float m_MaxSpeed = 1500.f;
+	float m_MinSpeed = 1000.f;
 	
 	Entity* attack = nullptr; //créer a l'initialisation et déplacment au bon endroit lors de l'appel de l'attaque 
 	bool IsAttack = false;
