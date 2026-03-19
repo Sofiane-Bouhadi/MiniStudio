@@ -49,10 +49,12 @@ protected:
     float mSpeed = 0.f;
     bool mToDestroy = false;
     int mTag = -1;
+	//int mTagEnemy = 2;
 	bool mRigidBody = false;
 	bool mStatic = false;
 
 public:
+	sf::Vector2f GetEnemyList();//a retirer
 	bool GoToDirection(int x, int y, float speed = -1.f);
     bool GoToPosition(int x, int y, float speed = -1.f);
     void SetPosition(float x, float y, float ratioX = 0.5f, float ratioY = 0.5f);

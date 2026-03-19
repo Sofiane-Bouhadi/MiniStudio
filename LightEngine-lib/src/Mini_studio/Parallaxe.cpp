@@ -1,4 +1,3 @@
-#pragma once
 #include "Parallaxe.h"
 #include "Player.h"
 #include "MainScene.h"
@@ -15,11 +14,12 @@ void Parallaxe::Init(MainScene* scene, float gap)
         mPreviousPlayerPos = mPlayer->GetPosition();
         mInitialized = true;
     }
-
+ 
 }
 
 void Parallaxe::OnUpdate()
 {
+
     if (!mActualScene) return;
 
     if (!mPlayer)
@@ -48,4 +48,3 @@ void Parallaxe::OnUpdate()
 void Parallaxe::OnDestroy()
 {
 }
-

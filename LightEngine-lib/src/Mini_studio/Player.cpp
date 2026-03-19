@@ -38,7 +38,7 @@ void Player::SetLeft()
 
 void Player::BaseAttack() 
 {
-	if (IsShooting)
+	if (IsShooting || IsShockwave)
 		return;
 
 	IsAttack = true;
@@ -48,7 +48,7 @@ void Player::BaseAttack()
 
 void Player::PlayerShoot() 
 {
-	if (IsAttack)
+	if (IsAttack || IsShockwave)
 		return;
 
 	IsShooting = true;
@@ -74,6 +74,18 @@ void Player::PlayerShoot()
 		proj->SetProjectileSpeed(1000.f);
 		proj->SetDirection(-1, 0, proj->GetProjectileSpeed());
 	}
+}
+
+void Player::PlayerShockwave() 
+{
+	if (IsAttack || IsShooting)
+		return;
+
+	IsShockwave = true;
+	Shockwave_cooldown = 1;
+
+	shockwave = CreateRectangle<Skill>(600, 600, sf::Color::Transparent, new AABBCollider(600, 600));
+	shockwave->SetTag(1);
 }
 
 void Player::OnCollision(Entity* pOther, CollidingSide collidingSide)
@@ -160,4 +172,21 @@ void Player::OnUpdate()
 
 	}
 
+	Shockwave_cooldown -= GetDeltaTime();
+
+	if (Shockwave_cooldown <= 0)
+	{
+		IsShockwave = false;
+		if (shockwave != nullptr) 
+		{
+			shockwave->Destroy();
+			shockwave = nullptr;
+		}
+			
+			
+	}
+	if (Shockwave_cooldown > 0 && IsShockwave && shockwave != nullptr)
+	{
+		shockwave->SetPosition(GetPosition().x, GetPosition().y);
+	}
 }
