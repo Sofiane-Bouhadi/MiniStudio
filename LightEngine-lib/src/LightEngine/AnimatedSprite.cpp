@@ -64,14 +64,14 @@ void AnimatedSprite::DecodeJson()
 
 void AnimatedSprite::PlayAnimation(int newIndex)
 {
-	Animations[newIndex].Start();
+	//Animations[newIndex].Start();
 
-	m_currentIndex = newIndex;
+	//m_currentIndex = newIndex;
 }
 
 void AnimatedSprite::Update()
 {
-	Animations[m_currentIndex].Update();
+	//Animations[m_currentIndex].Update();
 }
 
 void AnimatedSprite::SetSprite(sf::Sprite* s)
