@@ -26,6 +26,13 @@ void MainScene::OnInitialize()
 	enemy1->SetRigidBody(true);
 	enemy1->SetPosition(400, 400);
 	enemy1->init(enemy1, m_Player);
+	enemy1->SetGravityStrength(0);
+
+	enemy2 = CreateRectangle<enemies>(100, 100, sf::Color::Red, new AABBCollider(100, 100));
+	enemy2->SetRigidBody(true);
+	enemy2->SetPosition(400, 400);
+	enemy2->init(enemy1, m_Player);
+	enemy2->SetGravityStrength(0);
 }
 
 void MainScene::OnEvent(const sf::Event& event)

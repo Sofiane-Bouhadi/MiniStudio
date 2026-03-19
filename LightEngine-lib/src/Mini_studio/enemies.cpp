@@ -156,10 +156,16 @@ void enemies::AttackSmart() {
 	}
 }
 
-void enemies::setStun() {
-    if (state) {
-        state->change(3);
-    }
+void enemies::setStun(float time) {
+	time -= GetDeltaTime();
+	bool stun = true;
+	if (stun) {
+		state->change(3);
+		if (time <= 0) {
+			stun = false;
+		}
+	}
+	state->change(0);
 }
 
 void enemies::isHit(){

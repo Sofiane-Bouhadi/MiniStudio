@@ -11,6 +11,7 @@ private :
 	Player* m_Player;
 	Entity* pEntity4;
 	enemies* enemy1;
+	enemies* enemy2;
 	bool MoveRight = false;
 	StateMachine* state;
 	IA* ia;

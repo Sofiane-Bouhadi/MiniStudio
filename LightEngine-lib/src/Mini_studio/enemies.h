@@ -10,7 +10,7 @@
 #include "StateMachine.h"
 
 #pragma once
-class enemies : public Entity
+class enemies : public GravityEntity
 {
 private:
 
@@ -60,7 +60,7 @@ public:
 
 	void AttackSmart();
 
-	void setStun();
+	void setStun(float time);
 
 	void isHit();
 
