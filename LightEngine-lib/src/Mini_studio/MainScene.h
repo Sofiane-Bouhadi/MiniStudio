@@ -42,6 +42,7 @@ private :
 	enemies* enemy1;
 	enemies* enemy2;
 	enemies* enemy3;
+	enemies* enemy4;
 	bool MoveRight = false;
 
 	/*true = position 1; false = position 2*/

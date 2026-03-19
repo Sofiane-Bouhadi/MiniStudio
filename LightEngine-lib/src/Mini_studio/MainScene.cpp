@@ -31,15 +31,21 @@ void MainScene::OnInitialize()
 
 	enemy2 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\stamp.png)", new AABBCollider(128, 128));
 	enemy2->SetRigidBody(true);
-	enemy2->SetPosition(200, 400);
+	enemy2->SetPosition(200, 300);
 	enemy2->init(enemy2, m_Player);
 	enemy2->SetGravityStrength(0);
 
 	enemy3 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\stamp.png)", new AABBCollider(128, 128));
 	enemy3->SetRigidBody(true);
-	enemy3->SetPosition(370, 400);
+	enemy3->SetPosition(350, 300);
 	enemy3->init(enemy3, m_Player);
 	enemy3->SetGravityStrength(0);
+
+	enemy4 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\sniper.png)", new AABBCollider(128, 128));
+	enemy4->SetRigidBody(true);
+	enemy4->SetPosition(400, 100);
+	enemy4->init(enemy4, m_Player);
+	enemy4->SetGravityStrength(0);
 }
 
 void MainScene::OnEvent(const sf::Event& event)
@@ -168,6 +174,7 @@ void MainScene::OnUpdate()
 	enemy1->OnCollision(m_Player, Entity::CollidingSide::Other);
 	enemy2->OnCollision(m_Player, Entity::CollidingSide::Other);
 	enemy3->OnCollision(m_Player, Entity::CollidingSide::Other);
+	enemy4->OnCollision(m_Player, Entity::CollidingSide::Other);
 
 	if (enemy1->telemetrie() <= 800 && enemy1 != nullptr) {
 		//std::cout << "detected" << std::endl;
@@ -186,6 +193,7 @@ void MainScene::OnUpdate()
 	}
 	if (smart_attack) {
 		ia->liveShot(enemy1);
+		ia->liveShot(enemy4);
 	}
 	
 	//enemy1->moveingInLigne(100,500);
