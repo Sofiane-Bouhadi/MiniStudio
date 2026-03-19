@@ -34,6 +34,12 @@ void MainScene::OnInitialize()
 	enemy2->SetPosition(200, 400);
 	enemy2->init(enemy2, m_Player);
 	enemy2->SetGravityStrength(0);
+
+	enemy3 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\stamp.png)", new AABBCollider(128, 128));
+	enemy3->SetRigidBody(true);
+	enemy3->SetPosition(370, 400);
+	enemy3->init(enemy3, m_Player);
+	enemy3->SetGravityStrength(0);
 }
 
 void MainScene::OnEvent(const sf::Event& event)
@@ -160,6 +166,8 @@ void MainScene::OnEvent(const sf::Event& event)
 void MainScene::OnUpdate() 
 {
 	enemy1->OnCollision(m_Player, Entity::CollidingSide::Other);
+	enemy2->OnCollision(m_Player, Entity::CollidingSide::Other);
+	enemy3->OnCollision(m_Player, Entity::CollidingSide::Other);
 
 	if (enemy1->telemetrie() <= 800 && enemy1 != nullptr) {
 		//std::cout << "detected" << std::endl;
@@ -174,6 +182,7 @@ void MainScene::OnUpdate()
 	//std::cout << enemy1->telemetrie() << std::endl;
 	if (fall_attack) {
 		ia->liveFall(enemy2);
+		ia->liveFall(enemy3);
 	}
 	if (smart_attack) {
 		ia->liveShot(enemy1);

@@ -147,7 +147,7 @@ void enemies::AttackSmart() {
 			sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
 			proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
 			proj->SetOwnerTag(2);
-			proj->SetProjectileSpeed(10.f);
+			proj->SetProjectileSpeed(1.f);
 			proj->SetDirection(-trgt.x, -trgt.y, proj->GetProjectileSpeed());
 			Shooting_Cooldown = 0.6f;
 		}
