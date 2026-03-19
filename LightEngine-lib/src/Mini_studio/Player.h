@@ -23,7 +23,7 @@ private :
 	
 	Entity* attack = nullptr; 
 	bool IsAttack = false;
-	float Attack_Cooldown = 2;
+	float Attack_Cooldown = 1;
 
 	Projectile* proj;
 	bool IsShooting = false;
