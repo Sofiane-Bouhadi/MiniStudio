@@ -1,8 +1,11 @@
 #pragma once
 #include "Scene.h"
 #include "Player.h"
+#include "Parallaxe.h"
 
 class Level;
+#include "enemies.h"
+#include "IA_Enemies.h"
 
 class MainScene : public Scene
 {
@@ -92,11 +95,21 @@ private :
 	Player* m_Player;
 	Entity* pEntity4;
 
-	std::vector<Entity*> mEnemies;
+	Parallaxe* mParallaxFar = nullptr;
+	Parallaxe* mParallaxMid = nullptr;
+	Parallaxe* mParallaxNear = nullptr;
+	Parallaxe* mParallaxClose = nullptr;
+
+	std::vector<enemies*> mEnemies;
 
 	Level* m_Level;
 
+	enemies* enemy1;
 	bool MoveRight = false;
+	StateMachine* state;
+	IA* ia;
+	bool fall_attack = false;
+	bool smart_attack = false;
 
 	struct SpawnDesc 
 	{

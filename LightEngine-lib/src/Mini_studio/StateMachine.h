@@ -27,10 +27,7 @@ protected:
 		count
 	};
 
-	bool canIdle;
-	bool canAttack;
-	bool canReload;
-	bool canMove;
+
 
 	
 	
@@ -41,6 +38,8 @@ public:
 
 	bool verifingState(int nbr);
 
-	void effect(int nbr);
-
+	bool canIdle;
+	bool canAttack;
+	bool canReload;
+	bool canMove;
 };

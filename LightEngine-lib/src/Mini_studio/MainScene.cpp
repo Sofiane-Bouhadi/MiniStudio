@@ -10,6 +10,7 @@
 #include <iostream>
 #include <SFML/Graphics/RectangleShape.hpp>
 
+
 void MainScene::OnInitialize() 
 {
 	//Platform
@@ -156,25 +157,48 @@ void MainScene::OnEvent(const sf::Event& event)
 	bool MoveLeft = false;
 	bool jump = false;
 	bool base_attack = false;
+	bool shoot = false;
+	bool shockwave = false;
+	bool potion = false;
+	
+	fall_attack = false;
+	smart_attack = false;
 
 	if (event.type == sf::Event::KeyPressed )
 	{
 
 		if (event.key.code == sf::Keyboard::Space && m_Player->GetNbJump() > 0)
 		{
-			//std::cout << "espace est pressé" << std::endl;
+			//std::cout << "espace est pressï¿½" << std::endl;
 			jump = true;
 			m_Player->DecreaseJump();
 			
+		}
+		if (event.key.code == sf::Keyboard::E )
+		{
+			std::cout << "e est pressï¿½" << std::endl;
+			shockwave = true;
+
+		}
+		if (event.key.code == sf::Keyboard::A)
+		{
+			std::cout << "a est pressï¿½" << std::endl;
+			potion = true;
+
 		}
 	}
 
 	if (event.type == sf::Event::MouseButtonPressed) 
 	{
-		if (event.mouseButton.button == sf::Mouse::Button::Right)
+		if (event.mouseButton.button == sf::Mouse::Button::Left)
 		{
-			//std::cout << "clic droit est appuyé" << std::endl;
+			//std::cout << "clic droit est appuyï¿½" << std::endl;
 			base_attack = true;
+		}
+		if (event.mouseButton.button == sf::Mouse::Button::Right && m_Player->GetShootCD() <= 0.f)
+		{
+			std::cout << "clic droit est appuyï¿½" << std::endl;
+			shoot = true;
 		}
 	}
 
@@ -194,14 +218,32 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		if (sf::Joystick::isButtonPressed(0, 0) && m_Player->GetNbJump() > 0)
 		{
-			//std::cout << "A est appuyé" << std::endl;
+			//std::cout << "A est appuyï¿½" << std::endl;
 			jump = true;
 			m_Player->DecreaseJump();
 		}
 
+		if (sf::Joystick::isButtonPressed(0, 5))
+		{
+			std::cout << "RB est appuyï¿½" << std::endl;
+			base_attack = true;
+		}
+		
+		if (sf::Joystick::isButtonPressed(0, 3) && m_Player->GetShootCD() <= 0.f)
+		{
+			std::cout << "Y est appuyï¿½" << std::endl;
+			 shoot = true;
+		}
+
+		if (sf::Joystick::isButtonPressed(0, 1) && m_Player->GetShootCD() <= 0.f)
+		{
+			std::cout << "Y est appuyï¿½" << std::endl;
+			shockwave = true;
+		}
+
 		if (sf::Joystick::isButtonPressed(0, 2))
 		{
-			//std::cout << "X est appuyé" << std::endl;
+			//std::cout << "X est appuyï¿½" << std::endl;
 			base_attack = true;
 		}
 	}
@@ -210,33 +252,49 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		if (event.key.code == sf::Keyboard::D)
 		{
-			//std::cout << "d est relaché" << std::endl;
+			//std::cout << "d est relachï¿½" << std::endl;
 			MoveRight = false;
 			m_Player->SetSpeed(0);
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
 		}
 		
-		if (event.mouseButton.button == sf::Keyboard::Q)
+		if (event.key.code == sf::Keyboard::Q)
 		{
-			//std::cout << "q est relaché" << std::endl;
+			//std::cout << "q est relachï¿½" << std::endl;
 			MoveLeft = false;
 			m_Player->SetSpeed(0);
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
 		}
 
-		if (event.mouseButton.button == sf::Keyboard::Space )
+		if (event.key.code == sf::Keyboard::Space )
 		{
-			//std::cout << "espace est relaché" << std::endl;
+			//std::cout << "espace est relachï¿½" << std::endl;
 			m_Player->SetSpeed(0);
-			jump == false;
+			jump = false;
+		}
+
+		if (event.key.code == sf::Keyboard::E)
+		{
+			std::cout << "e est relachï¿½" << std::endl;
+			shockwave = false;
+		}
+
+		if (event.key.code == sf::Keyboard::A)
+		{
+			std::cout << "a est relachï¿½" << std::endl;
+			potion = false;
 		}
 	}
 	
 	if (event.type == sf::Event::MouseButtonReleased) 
 	{
-		if (event.mouseButton.button == sf::Mouse::Button::Right )
+		if (event.mouseButton.button == sf::Mouse::Button::Left )
 		{
 			base_attack = false;
+		}
+		if (event.mouseButton.button == sf::Mouse::Button::Right)
+		{
+			shoot = false;
 		}
 	}
 
@@ -245,68 +303,112 @@ void MainScene::OnEvent(const sf::Event& event)
 
 		if (sf::Event::JoystickButtonReleased == 2)
 		{
-			base_attack = false;
+			potion = false;
 		}
 
 		if (sf::Event::JoystickButtonReleased == 0) 
 		{
 			m_Player->SetSpeed(0);
-			jump == false;
+			jump = false;
 		}
-	}
 
-	if (jump) 
-	{
+		if (sf::Event::JoystickButtonReleased == 3)
+		{
+			shoot = false;
+
+		}
+		if (sf::Event::JoystickButtonReleased == 1)
+		{
+			shockwave = false;
+
+		}
+		if (sf::Event::JoystickButtonReleased == 5)
+		{
+			base_attack = false;
+
+		}
+
+	}
+	if (jump) {
 		m_Player->Jump();
 	}
-	if (base_attack) 
-	{
+
+	if (base_attack){
 		m_Player->BaseAttack();
+	}
+	if (shoot) 
+	{
+		m_Player->PlayerShoot();
+	}
+	if (shockwave)
+	{
+		m_Player->PlayerShockwave();
+	}
+	if (potion) 
+	{
+		m_Player->UsePotion();
 	}
 }
 
-void MainScene::OnUpdate() 
+void MainScene::OnUpdate()
 {
-	float AttackCD = m_Player->GetAttackCD();
-	AttackCD -= GetDeltaTime();
+	//if (enemy1->telemetrie() <= 500 && enemy1 != nullptr) {
+	//	std::cout << "detected" << std::endl;
+	//	fall_attack = true;
+	//	smart_attack = true;
+	//}
+	//else {
+	//	std::cout << "lost" << std::endl;
+	//}
+	////std::cout << enemy1->telemetrie() << std::endl;
+	//if (fall_attack) {
+	//	ia->liveFall(enemy1);
+	//}
+	//if (smart_attack) {
+	//	ia->liveShot(enemy1);
+	//}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
+	
+	//enemy1->moveingInLigne(100,500);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		//std::cout << "d est pressé" << std::endl;
+		//std::cout << "d est pressï¿½" << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
-		m_Player->SetRight();
+		
+			m_Player->SetRight();
+			m_Player->UnsetLeft();
+		
+
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
-		//std::cout << "q est pressé" << std::endl;
+		//std::cout << "q est pressï¿½" << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		m_Player->SetLeft();
+		
+			m_Player->SetLeft();
+			m_Player->UnsetRight();
+		
+
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10)
 	{
 		//std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
-		if (m_Player->GetAttack() == false)
-		{
-			m_Player->SetRight();
-		}
-		if (m_Player->GetAttack() == true && AttackCD < 0)
-		{
-			m_Player->UnsetRight();
-		}
+
+
+		m_Player->SetRight();
+		m_Player->UnsetLeft();
+
 	}
 	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
 	{
 		//std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		if (m_Player->GetAttack() == false)
-		{
-			m_Player->SetLeft();
-		}
-		if (m_Player->GetAttack() == true && AttackCD < 0)
-		{
-			m_Player->UnsetLeft();
-		}
+
+
+		m_Player->SetLeft();
+		m_Player->UnsetRight();
 	}
 }
 

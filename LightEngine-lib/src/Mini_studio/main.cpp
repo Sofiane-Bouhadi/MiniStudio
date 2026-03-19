@@ -6,6 +6,7 @@
 
 #include "GameManager.h"
 #include "MainScene.h"
+#include "sceneTemporaire.h"
 
 #include <cstdlib>
 #include <crtdbg.h>
@@ -22,6 +23,10 @@ int main()
 	pInstance->CreateWindow(1280, 720, "MainScene", 60, sf::Color::Black);
 
 	pInstance->LaunchScene<MainScene>();
+
+
+
+
 
 	return 0;
 }
