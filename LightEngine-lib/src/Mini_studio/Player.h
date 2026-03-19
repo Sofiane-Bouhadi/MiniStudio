@@ -1,10 +1,11 @@
 #pragma once
+#include "AnimatedSprite.h"
 #include "GravityEntity.h"
 #include "projectile.h"
 #include "skill.h"
 #include "Sound.h"
 
-class Player : public GravityEntity 
+class Player : public GravityEntity, public AnimatedSprite
 {
 private :
 

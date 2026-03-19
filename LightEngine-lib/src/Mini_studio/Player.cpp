@@ -11,6 +11,8 @@ void Player::MoveRight(float deltatime)
 	}
 
 	SetDirection(1, 0, mSpeed);
+
+	//AnimatedSprite::PlayAnimation(1);
 }
 
 void Player::MoveLeft(float deltatime)
@@ -138,7 +140,7 @@ void Player::OnInitialize()
 
 void Player::OnUpdate() 
 {
-	
+	AnimatedSprite::Update();
 
 	if (m_life == 0)
 	{
