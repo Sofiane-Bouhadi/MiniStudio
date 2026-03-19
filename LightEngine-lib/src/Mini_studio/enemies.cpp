@@ -1,37 +1,35 @@
 #include "enemies.h"
+#include <cmath>
+#include "AABBCollider.h"
 
 /*facilite l'utilisation de la state machine*/
-void choix(int nbr) {
+void enemies::choix(int nbr) {
 	StateMachine state;
 	state.change(nbr);
 }
 
+void enemies::init(enemies* enemy, Player* player) {
+	pPlayer = player;
+	pEnemy = enemy;
+	Shooting_Cooldown = 0.6f;
+	enemy->SetTag(2);
+}
+
 /*cree l'enemie*/
 void enemies::createEnemy(float x, float y, int size){
+
 	enemy_size = size;
-	pEnemy = CreateRectangle<enemies>(enemy_size, enemy_size, sf::Color::Red, nullptr); // TODO Remplacer le collider
-	pEnemy->SetPosition(x, y);
-	pEnemy->SetRigidBody(true);
-	
+
 }
 
 /*evenement OnPlayerDetected*/
-bool enemies::OnPlayerDetected() {
-	if (telemetrie() <= 500) {
-		return true;
-	}else {
-		return false;
-	}
+void enemies::OnPlayerDetected() {
+
 }
 
 /*evenement OnPlayerLost*/
-bool enemies::OnPlayerLost() {
-	if (telemetrie() >= 500) {
-		return true;
-	}
-	else {
-		return false;
-	}
+void enemies::OnPlayerLost() {
+
 }
 
 /*evenement OnDeath*/
@@ -43,7 +41,7 @@ bool enemies::OnDeath(){
 	}
 }
 
-/*evenement OnHit*/ //need to be corrctly build
+/*evenement OnHit*/ //need to be corrctly recode
 bool enemies::OnHit() {
 	if (true) {
 		return true;
@@ -52,7 +50,7 @@ bool enemies::OnHit() {
 	}
 }
 
-/*evenement  OnStateChanged*/
+/*evenement OnStateChanged*/
 bool enemies::OnStateChanged() {
 	StateMachine stateMch;
 	if (stateMch.haveChange) {
@@ -63,22 +61,23 @@ bool enemies::OnStateChanged() {
 }
 
 /*bouge en ligne*/
-void enemies::moveingInLigne(float x,float y, float toX, float toY) {
+void enemies::moveingInLigne(float x, float toX) {
 	bool ismoving = false;
 	positionEnemy = pEnemy->GetPosition();
-	if (positionEnemy.x != toX && positionEnemy.y != toY){ 
-		GoToPosition(toX, toY,1.0f);
+	if (positionEnemy.x != toX ){ 
+		GoToPosition(toX, positionEnemy.y);
 	}
-	if (positionEnemy.x != x && positionEnemy.y != y){
-		GoToPosition(x, y, 1.0f);
+	if (positionEnemy.x != x){
+		GoToPosition(x, positionEnemy.y);
 	}
 }
 
 /*renvois un vecteur de l'entite cible*/
-sf::Vector2f enemies::detection() {
+sf::Vector2f enemies::direction() {
 	sf::Vector2f vectarget;
+
 	positionEnemy = pEnemy->GetPosition();
-	sf::Vector2f positiontarget = pTarget->GetPosition();
+	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	vectarget.x = positionEnemy.x - positiontarget.x;
 	vectarget.y = positionEnemy.y - positiontarget.y;
 	vectarget.x = vectarget.x;
@@ -89,89 +88,101 @@ sf::Vector2f enemies::detection() {
 
 /*attack fall*/
 void enemies::AttackFall() {
-	sf::Vector2f positiontarget = pTarget->GetPosition();
+	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
-	if (positiontarget.y == positionEnemy.y + enemy_size / 2 || positiontarget.y == positionEnemy.y - enemy_size / 2) {
-		GoToPosition(positionEnemy.x, positiontarget.y, 1.0f);
+	float halfSize = enemy_size / 2.0f;
+
+	if (positiontarget.x >= positionEnemy.x - halfSize &&
+		positiontarget.x <= positionEnemy.x + halfSize)
+	{
+		//std::cout << "falling" << std::endl;
+		//GoToPosition(positionEnemy.x, positiontarget.y, 100.0f);
+		pEnemy->SetGravityStrength(1000);
 	}
 }
 
 /*attack bulldozer*/
-void enemies::AttackBull() {
-	sf::Vector2f positiontarget = pTarget->GetPosition();
+//void enemies::AttackBull() {
+//	sf::Vector2f positiontarget = pPlayer->GetPosition();
+//	positionEnemy = pEnemy->GetPosition();
+//	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
+//		if (telemetrie()==(float)500)
+//		GoToPosition(positiontarget.x, positionEnemy.y, 1.0f);
+//	}
+//}
+
+/*attack punch*/
+//void enemies::AttackPunch() {
+//	sf::Vector2f positiontarget = pPlayer->GetPosition();
+//	positionEnemy = pEnemy->GetPosition();
+//	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
+//		if (telemetrie() == (float)50) {
+//			/*attack close fight*/
+//		}
+//	}
+//}
+
+/*attack smart*/
+void enemies::AttackSmart() {
+	StateMachine state;
+	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
-	if (positiontarget.x == positionEnemy.x + enemy_size / 2 || positiontarget.x == positionEnemy.x - enemy_size / 2) {
-		if (telemetrie()==(float)500)
-		GoToPosition(positiontarget.x, positionEnemy.y, 1.0f);
+	if (telemetrie() <= (float)800) {
+
+		IsShooting = true;
+
+
+		Projectile* proj = nullptr;
+
+		Shooting_Cooldown -= GetDeltaTime();
+
+		sf::Vector2f trgt = direction();
+		//std::cout << Shooting_Cooldown << std::endl;
+		if (Shooting_Cooldown < 0)
+		{
+			pEnemy->SetTag(2);
+			std::cout << "pew-------------------------------------------------------------" << std::endl;
+			//enemy2 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\stamp.png)", new AABBCollider(128, 128));
+			proj = GetScene()->CreateSprite<Projectile>(53, 53,R"(..\..\..\asset_by_tech\bullet.png)", new AABBCollider(53, 53));
+			sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
+			proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
+			proj->SetOwnerTag(2);
+			proj->SetProjectileSpeed(1.5f);
+			proj->SetDirection(-trgt.x, -trgt.y, proj->GetProjectileSpeed());
+			Shooting_Cooldown = 0.6f;
+		}
+
 	}
 }
-
-
-/*char, a 11 heures, distance: a 400m .(War thunder reference)*/
-float enemies::telemetrie() {
-	sf::Vector2f positiontarget = pTarget->GetPosition();
-	positionEnemy = pEnemy->GetPosition();
-	float AC = positionEnemy.x - positiontarget.x;
-	float BC = positionEnemy.y - positiontarget.y;
-	float AB = sqrt(AC*AC + BC*BC);
-	return AB;
-}
-
-
-
-
-
-
-/*... serieux, tu ne sais pas ce que "OnCollision" fait... :/ */
-void enemies::OnCollision(Entity* other, CollidingSide collidingSide)
+void enemies::OnCollision(Entity* pOther, CollidingSide collidingSide)
 {
-	//std::cout << "Collision" << std::endl;
+    if (collidingSide == Bottom)
+    {
+        mYVelocity = 0.f;
+    }
 }
 
+void enemies::setStun() {
+	stun_time -= GetDeltaTime();
+	bool stun = true;
+	if (stun && stun_time > 0) {
+		state->change(3);
+		stun_time = 1;
 
-
-//--------------------------------------------------------------peut-etre-utile------------------------------------------------------------------------------------------------------
-
-
-/*attaque de manier intelligente grace a detection ou a un paterne base sur la rose des vents*/
-void enemies::attackDirection(bool smart, bool vert_N, bool vert_S, bool hori_E, bool hori_W, bool diag_NE, bool diag_NW, bool diag_SE, bool diag_SW) {
-	
-	float dist = telemetrie();
-	if (dist == (float)400) {
-		positionEnemy = pEnemy->GetPosition();
-		/* x et y sont les coordonee de l'enemi */
 	}
-	if (smart) {
-		/*visé precise*/
-		sf::Vector2f vectarget = detection();
-
-		//launchAttack(vectarget.x, vectarget.y);
+	else if (stun_time <= 0) {
+		stun = false;
 	}
-	else {
-		if (vert_N) {/* attaque verticale vers le haut(N) */
-			//launchAttack(-1, 0);
-		}
-		if (vert_S) {/* attaque verticale vers le bas(S) */
-			//launchAttack(1, 0);
-		}
-		if (hori_E) {/* attaque horisontal vers la droite(E) */
-			//launchAttack(0, 1);
-		}
-		if (hori_W) {/* attaque horisontale vers la gauche(W) */
-			//launchAttack(0, -1);
-		}
+	state->change(0);
+}
 
-		if (diag_NE) {/* attaque en diagonale vers le haut(N) a droite(E) */
-			//launchAttack(-1, 1);
-		}
-		if (diag_NW) {/* attaque en diagonale vers le haut(N) a gauche(W) */
-			//launchAttack(-1, -1);
-		}
-		if (diag_SW) {/* attaque en diagonale vers le bas(S) a gauche(W) */
-			//launchAttack(1, -1);
-		}
-		if (diag_SE) {/* attaque en diagonale vers le bas(S) a droite(E) */
-			//launchAttack(1, 1);
-		}
-	}
+void enemies::isHit(){
+	pEnemy->Destroy();
+}
+
+float enemies::telemetrie() {
+	if (!pEnemy) return 0.0f;
+
+	sf::Vector2f delta = pEnemy->GetPosition() - pPlayer->GetPosition();
+	return std::hypot(delta.x, delta.y);
 }

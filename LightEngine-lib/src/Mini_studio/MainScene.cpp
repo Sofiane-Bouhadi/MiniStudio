@@ -1,135 +1,70 @@
 #include "MainScene.h"
 #include "Player.h"
-#include "Level.h"
-
-#include "AABBCollider.h"
-
 #include "Utils.h"
 #include "Debug.h"
-
 #include <iostream>
+#include "AABBCollider.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 
+void MainScene::Spawn(ObjectType objectType, float levelX, float levelY){}
+void MainScene::SpawnCollider(float x, float y, float width, float height){}
 void MainScene::OnInitialize() 
 {
-	//Player
-	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
-	m_Player->SetPosition(1000, 300);
+	//Rectangle
+	pEntity4 = CreateRectangle<Entity>(1280, 50, sf::Color::White, new AABBCollider(1280, 50));
+	pEntity4->SetPosition(1280 / 2, 720);
+	pEntity4->SetRigidBody(true);
+	pEntity4->SetStatic(true);
+
+	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green,new AABBCollider(155,225) );
+	m_Player->SetPosition(100, 500);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
-	m_Player->SetGravityStrength(1200.f);
-	m_Player->SetJumpStrength(750);
-	m_Player->SetSprite(m_Player->GetSprite());
-	m_Player->GetSources().push_back("../../../res/Json/PlayerAnimations.json");
-	m_Player->DecodeJson();
-	
+	m_Player->SetGravityStrength(300.f);
+	m_Player->SetJumpStrength(300);
 
+	enemy1= CreateSprite<enemies>(128, 128,R"(..\..\..\asset_by_tech\sniper.png)", new AABBCollider(128, 128));
+	enemy1->SetRigidBody(true);
+	enemy1->SetPosition(100, 100);
+	enemy1->init(enemy1, m_Player);
+	enemy1->SetGravityStrength(0);
 
-	GameManager::Get()->GetCamera()->SetFollowingEntity(m_Player);
-	GameManager::Get()->GetCamera()->Zoom(2.f);
+	enemy2 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\stamp.png)", new AABBCollider(128, 128));
+	enemy2->SetRigidBody(true);
+	enemy2->SetPosition(200, 300);
+	enemy2->init(enemy2, m_Player);
+	enemy2->SetGravityStrength(0);
 
-	{
-		///ENEMIES
-		{
-			tilePath[(int)ObjectType::Enemy1] = { "../../../res/Sprites/Enemies/Enemy1.png", false };
-			tilePath[(int)ObjectType::Enemy2] = { "../../../res/Sprites/Enemies/Enemy2.png", false };
-			tilePath[(int)ObjectType::Enemy3] = { "../../../res/Sprites/Enemies/Enemy2.png", true };
-			tilePath[(int)ObjectType::Enemy4] = { "../../../res/Sprites/Enemies/Enemy2.png", true };
-			tilePath[(int)ObjectType::Boss] = { "../../../res/Sprites/Enemies/Boss.png", true };
-		}
+	enemy3 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\stamp.png)", new AABBCollider(128, 128));
+	enemy3->SetRigidBody(true);
+	enemy3->SetPosition(350, 300);
+	enemy3->init(enemy3, m_Player);
+	enemy3->SetGravityStrength(0);
 
-		///CEILINGS
-		{
-			//Jazz
-			{
-				tilePath[(int)ObjectType::JazzCeiling1] = { "../../../res/Tiles/Jazz_Ceiling1.png", true };
-				tilePath[(int)ObjectType::JazzCeiling2] = { "../../../res/Tiles/Jazz_Ceiling2.png", true };
-			}
-			//Metal
-			{
-				tilePath[(int)ObjectType::MetalCeiling1] = { "../../../res/Tiles/Metal_Ceiling1.png", true };
-				tilePath[(int)ObjectType::MetalCeiling2] = { "../../../res/Tiles/Metal_Ceiling2.png", true };
-			}
-		}
-
-		///WALLS
-		{
-			//Jazz
-			{
-				tilePath[(int)ObjectType::JazzWall1] = { "../../../res/Tiles/Jazz_Wall1.png", true };
-				tilePath[(int)ObjectType::JazzWall2] = { "../../../res/Tiles/Jazz_Wall2.png", true };
-			}
-			//Hub
-			{
-				tilePath[(int)ObjectType::HubWall1] = { "../../../res/Tiles/Hub_Wall1.png", true };
-				tilePath[(int)ObjectType::HubWall2] = { "../../../res/Tiles/Hub_Wall2.png", true };
-			}
-			//Metal
-			{
-				tilePath[(int)ObjectType::MetalWall1] = { "../../../res/Tiles/Metal_Wall1.png", true };
-				tilePath[(int)ObjectType::MetalWall2] = { "../../../res/Tiles/Metal_Wall2.png", true };
-			}
-		}
-
-		///GROUNDS
-		{
-			//Jazz
-			{
-				tilePath[(int)ObjectType::JazzGround1] = { "../../../res/Tiles/Jazz_Ground1.png", true };
-				tilePath[(int)ObjectType::JazzGround2] = { "../../../res/Tiles/Jazz_Ground2.png", true };
-				tilePath[(int)ObjectType::JazzGroundCorner] = { "../../../res/Tiles/Jazz_Ground2.png", true };
-				tilePath[(int)ObjectType::JazzToHubGround1] = { "../../../res/Tiles/Jazz_Ground2.png", true };
-				tilePath[(int)ObjectType::JazzToHubGround2] = { "../../../res/Tiles/Jazz_Ground2.png", true };
-			}
-			//Hub
-			{
-				tilePath[(int)ObjectType::HubGround] = { "../../../res/Tiles/Hub_Ground.png", true };
-			}
-			//Metal
-			{
-				tilePath[(int)ObjectType::MetalWall1] = { "../../../res/Tiles/Metal_Ground1.png", true };
-				tilePath[(int)ObjectType::MetalWall2] = { "../../../res/Tiles/Metal_Ground2.png", true };
-			}
-		}
-
-		///PLATFORMS
-		{
-			//Jazz
-			{
-				tilePath[(int)ObjectType::JazzUpperLeftPlatform] = { "../../../res/Tiles/Jazz_Upper_Left_Platform.png", true };
-				tilePath[(int)ObjectType::JazzUpperMiddlePlatform] = { "../../../res/Tiles/Jazz_Upper_Middle_Platform.png", true };
-				tilePath[(int)ObjectType::JazzUpperRightPlatform] = { "../../../res/Tiles/Jazz_Upper_Right_Platform.png", true };
-				tilePath[(int)ObjectType::JazzBottomLeftPlatform] = { "../../../res/Tiles/Jazz_Bottom_Left_Platform.png", true };
-				tilePath[(int)ObjectType::JazzBottomMiddlePlatform] = { "../../../res/Tiles/Jazz_Bottom_Middle_Platform.png", true };
-				tilePath[(int)ObjectType::JazzBottomRightPlatform] = { "../../../res/Tiles/Jazz_Bottom_Right_Platform.png", true };
-			}
-
-			//Metal
-			{
-				tilePath[(int)ObjectType::MetalLeftPlatform] = { "../../../res/Tiles/Metal_Left_Platform.png", true };
-				tilePath[(int)ObjectType::MetalMiddlePlatform1] = { "../../../res/Tiles/Metal_Middle_Platform1.png", true };
-				tilePath[(int)ObjectType::MetalMiddlePlatform2] = { "../../../res/Tiles/Metal_Middle_Platform2.png", true };
-				tilePath[(int)ObjectType::MetalRightPlatform] = { "../../../res/Tiles/Metal_Right_Platform.png", true };
-			}
-		}
-	}
-
-	m_Level = new Level("../../../res/Levels/levelFull.txt", this);
+	enemy4 = CreateSprite<enemies>(128, 128, R"(..\..\..\asset_by_tech\sniper.png)", new AABBCollider(128, 128));
+	enemy4->SetRigidBody(true);
+	enemy4->SetPosition(400, 100);
+	enemy4->init(enemy4, m_Player);
+	enemy4->SetGravityStrength(0);
 }
 
 void MainScene::OnEvent(const sf::Event& event)
 {
+	
+
 	bool MoveRight = false;
 	bool MoveLeft = false;
 	bool jump = false;
 	bool base_attack = false;
+	fall_attack = false;
+	smart_attack = false;
 
 	if (event.type == sf::Event::KeyPressed )
 	{
 
 		if (event.key.code == sf::Keyboard::Space && m_Player->GetNbJump() > 0)
 		{
-			std::cout << "espace est pressé" << std::endl;
+			//std::cout << "espace est pressé" << std::endl;
 			jump = true;
 			m_Player->DecreaseJump();
 			
@@ -140,7 +75,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		if (event.mouseButton.button == sf::Mouse::Button::Right)
 		{
-			std::cout << "clic droit est appuyé" << std::endl;
+			//std::cout << "clic droit est appuyé" << std::endl;
 			base_attack = true;
 		}
 	}
@@ -155,20 +90,22 @@ void MainScene::OnEvent(const sf::Event& event)
 			MoveLeft = false;
 			m_Player->SetSpeed(0);
 		}
+		
+
 	}
 
 	if (event.type == sf::Event::JoystickButtonPressed)
 	{
 		if (sf::Joystick::isButtonPressed(0, 0) && m_Player->GetNbJump() > 0)
 		{
-			std::cout << "A est appuyé" << std::endl;
+			//std::cout << "A est appuyé" << std::endl;
 			jump = true;
 			m_Player->DecreaseJump();
 		}
 
 		if (sf::Joystick::isButtonPressed(0, 2))
 		{
-			std::cout << "X est appuyé" << std::endl;
+			//std::cout << "X est appuyé" << std::endl;
 			base_attack = true;
 		}
 	}
@@ -177,26 +114,28 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		if (event.key.code == sf::Keyboard::D)
 		{
-			std::cout << "d est relaché" << std::endl;
+			//std::cout << "d est relaché" << std::endl;
 			MoveRight = false;
 			m_Player->SetSpeed(0);
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
 		}
 		
-		if (event.mouseButton.button == sf::Keyboard::Q)
+		if (event.key.code == sf::Keyboard::Q)
 		{
-			std::cout << "q est relaché" << std::endl;
+			//std::cout << "q est relaché" << std::endl;
 			MoveLeft = false;
 			m_Player->SetSpeed(0);
 			m_Player->SetDirection(0, m_Player->GetPosition().y, 0);
 		}
 
-		if (event.mouseButton.button == sf::Keyboard::Space )
+		if (event.key.code == sf::Keyboard::Space )
 		{
-			std::cout << "espace est relaché" << std::endl;
+			//std::cout << "espace est relaché" << std::endl;
 			m_Player->SetSpeed(0);
-			jump == false;
+			jump = false;
 		}
+
+		
 	}
 	
 	if (event.type == sf::Event::MouseButtonReleased) 
@@ -213,86 +152,99 @@ void MainScene::OnEvent(const sf::Event& event)
 		if (sf::Event::JoystickButtonReleased == 2)
 		{
 			base_attack = false;
+
 		}
 
 		if (sf::Event::JoystickButtonReleased == 0) 
 		{
 			m_Player->SetSpeed(0);
-			jump == false;
-		}
+			jump = false;}
 	}
-
-	if (jump) 
-	{
+	if (jump) {
 		m_Player->Jump();
 	}
-	if (base_attack) 
-	{
+
+	if (base_attack){
 		m_Player->BaseAttack();
 	}
 }
 
 void MainScene::OnUpdate() 
 {
-	float AttackCD = m_Player->GetAttackCD();
-	AttackCD -= GetDeltaTime();
+	enemy1->OnCollision(m_Player, Entity::CollidingSide::Other);
+	enemy2->OnCollision(m_Player, Entity::CollidingSide::Other);
+	enemy3->OnCollision(m_Player, Entity::CollidingSide::Other);
+	enemy4->OnCollision(m_Player, Entity::CollidingSide::Other);
+
+	if (enemy1->telemetrie() <= 800 && enemy1 != nullptr) {
+		//std::cout << "detected" << std::endl;
+		fall_attack = true;
+		smart_attack = true;
+	}
+	else {
+		//std::cout << "lost" << std::endl;
+		fall_attack = false;
+		smart_attack = false;
+	}
+	//std::cout << enemy1->telemetrie() << std::endl;
+	if (fall_attack) {
+		ia->liveFall(enemy2);
+		ia->liveFall(enemy3);
+	}
+	if (smart_attack) {
+		ia->liveShot(enemy1);
+		ia->liveShot(enemy4);
+	}
+	
+	//enemy1->moveingInLigne(100,500);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
 	{
-		std::cout << "d est pressé" << std::endl;
+		//std::cout << "d est pressé" << std::endl;
 		m_Player->MoveRight(GetDeltaTime());
-		m_Player->SetRight();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-	{
-		std::cout << "q est pressé" << std::endl;
-		m_Player->MoveLeft(GetDeltaTime());
-		m_Player->SetLeft();
-	}
-	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10)
-	{
-		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
-		m_Player->MoveRight(GetDeltaTime());
-		if (m_Player->GetAttack() == false)
+		if (m_Player->GetAttack() == false) 
 		{
 			m_Player->SetRight();
 		}
-		if (m_Player->GetAttack() == true && AttackCD < 0)
-		{
-			m_Player->UnsetRight();
-		}
+		
 	}
-	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
-		std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+		//std::cout << "q est pressé" << std::endl;
 		m_Player->MoveLeft(GetDeltaTime());
-		if (m_Player->GetAttack() == false)
+		if (m_Player->GetAttack() == false) 
 		{
 			m_Player->SetLeft();
 		}
-		if (m_Player->GetAttack() == true && AttackCD < 0)
-		{
-			m_Player->UnsetLeft();
-		}
+		
 	}
-}
 
-void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
-{
-	Entity* pEntity = CreateSprite<Entity>(128.f, 128.f, tilePath[(int)objectType].path, nullptr);
-	pEntity->SetStatic(tilePath[(int)objectType].isStatic);
+	
 
-	if (pEntity != nullptr)
+	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10) 
 	{
-		pEntity->SetRigidBody(true);
-		pEntity->SetPosition(levelX, levelY, 0.f, 0.f);
-	}
-}
+		//std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+		m_Player->MoveRight(GetDeltaTime());
 
-void MainScene::SpawnCollider(float x, float y, float width, float height)
-{
-	Entity* pEntity = CreateRectangle<Entity>(width, height, sf::Color::Transparent, new AABBCollider(width, height));
-	pEntity->SetPosition(x, y, 0.f, 0.f);
-	pEntity->SetRigidBody(true);
-	pEntity->SetStatic(true);
+		/*if (m_Player->GetAttack() == true)*/
+		
+			m_Player->SetRight();
+			m_Player->UnsetLeft();
+		
+	}
+	if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10)
+	{
+		//std::cout << sf::Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+		m_Player->MoveLeft(GetDeltaTime());
+		
+		/*if (m_Player->GetAttack() == true)*/
+		
+			m_Player->SetLeft();
+			m_Player->UnsetRight();
+
+	}
+
+
+	/*std::cout << "x:" << m_Player->GetPosition().x << " y: " << m_Player->GetPosition().y << " speed : " << m_Player->GetSpeed() <<  std::endl;*/
+	
 }
