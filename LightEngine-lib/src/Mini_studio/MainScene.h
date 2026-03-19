@@ -16,7 +16,6 @@ public:
 		Enemy2,
 		Enemy3,
 		Enemy4,
-		Boss,
 
 		//////CEILINGS//////
 		JazzCeillingP,

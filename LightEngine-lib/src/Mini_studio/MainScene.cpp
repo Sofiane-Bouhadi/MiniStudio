@@ -8,7 +8,6 @@
 #include "Utils.h"
 #include "Debug.h"
 #include <iostream>
-#include "AABBCollider.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 
 void MainScene::Spawn(ObjectType objectType, float levelX, float levelY){}
@@ -18,7 +17,7 @@ void MainScene::OnInitialize()
 	srand(time(NULL));
 
 	//Player
-	m_Player = CreateRectangle<Player>(155, 225, sf::Color::Green, new AABBCollider(155, 225));
+	m_Player = CreateSprite<Player>(155, 225, "../../../res/Sprites/idle_1.png", new AABBCollider(155, 225));
 	m_Player->SetPosition(0, 0);
 	m_Player->SetSpeed(m_Player->GetMinSpeed());
 	m_Player->SetRigidBody(true);
@@ -31,6 +30,12 @@ void MainScene::OnInitialize()
 	entity->SetRigidBody(true);
 	entity->SetPosition(0, 720);
 
+	//Boss
+	Entity* boss = CreateSprite<Boss>(600, 600, "../../../res/Sprites/Boss/Boss_Idle.png", new AABBCollider(600, 600));
+	boss->SetPosition(0, 0);
+	boss->SetStatic(true);
+	boss->SetRigidBody(false);
+
 	{
 		///ENEMIES
 		{
@@ -38,7 +43,6 @@ void MainScene::OnInitialize()
 			tilePath[(int)ObjectType::Enemy2] = { "../../../res/Sprites/Enemies/Enemy2.png", false };
 			tilePath[(int)ObjectType::Enemy3] = { "../../../res/Sprites/Enemies/Enemy2.png", true };
 			tilePath[(int)ObjectType::Enemy4] = { "../../../res/Sprites/Enemies/Enemy2.png", true };
-			tilePath[(int)ObjectType::Boss] = { "../../../res/Sprites/Enemies/Boss.png", true };
 		}
 
 		///CEILINGS
@@ -228,7 +232,6 @@ void MainScene::OnEvent(const sf::Event& event)
 			std::cout << "RB est appuy?" << std::endl;
 			base_attack = true;
 		}
-	}
 
 		if (sf::Joystick::isButtonPressed(0, 1) && m_Player->GetShootCD() <= 0.f)
 		{
