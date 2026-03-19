@@ -40,12 +40,7 @@ void Boss::OnUpdate()
 
 void Boss::LaunchAtk()
 {
-	pProjectile = CreateSprite<Projectile>(128, 250, "../../../res/Sprites/Boss/Boss_Projectile.png", new AABBCollider(128, 200));
-	pProjectile->SetPosition(GetScene()->GetWindowWidth() / 2, GetScene()->GetWindowHeight() / 2);
-
-	return;
-
-	int randomAtk = 1;
+	int randomAtk = rand() % 4;
 
 	switch (randomAtk)
 	{

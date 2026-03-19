@@ -12,8 +12,8 @@ class Boss :
 private:
 	int mAtkStep = -1;
 
-	int mHp = 20;
-	int mHpMax = 20;
+	int mHp = 10;
+	int mHpMax = 10;
 
 	Music* mMusic = nullptr;
 	Sound* mHealSound = nullptr;
@@ -30,8 +30,8 @@ private:
 	float mRightSideX = 2100;
 	float mRightSideY = 520;
 
-	float mBaseSpeed = 600.f;
-	float mAccelerationSpeed = 1400.f;
+	float mBaseSpeed = 1200.f;
+	float mAccelerationSpeed = 1500.f;
 
 	float mWaitTimer = 0.f;
 	float mInvulnerabilityTime = 0.f;
