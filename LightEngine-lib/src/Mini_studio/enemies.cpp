@@ -156,6 +156,11 @@ void enemies::AttackSmart() {
 	}
 }
 
+void enemies::setStun() {
+    if (state) {
+        state->change(3);
+    }
+}
 
 float enemies::telemetrie() {
 	if (!pEnemy) return 0.0f;

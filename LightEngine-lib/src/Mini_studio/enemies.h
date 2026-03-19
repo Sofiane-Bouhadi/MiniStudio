@@ -10,7 +10,7 @@
 #include "StateMachine.h"
 
 #pragma once
-class enemies : public GravityEntity
+class enemies : public Entity
 {
 private:
 
@@ -26,6 +26,7 @@ public:
 	enemies* pEnemy;
 	Player* pPlayer;
 	float size_enemy = 0;
+	StateMachine* state;
 	sf::Vector2f positionEnemy;
 
 	void choix(int nbr);
@@ -58,6 +59,8 @@ public:
 	//void AttackPunch();
 
 	void AttackSmart();
+
+	void setStun();
 
 	float telemetrie();
 
