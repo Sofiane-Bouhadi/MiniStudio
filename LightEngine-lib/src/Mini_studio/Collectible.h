@@ -1,14 +1,18 @@
 #pragma once
 #include "Entity.h"
-#include "AABBCollider.h"
-#
+
+class Player;
+
 class Collectible : public Entity
 {
-	bool IsEquipped = false;
-	bool CanBeEquipped = false;
+private:
+    bool mIsCollected = false;
 
-	void OnCollision(Entity* other, CollidingSide collidingSide) override;
-	void Update();
-	void GetNotify();
+public:
+    Collectible() = default;
+
+    void OnCollision(Entity* pOther, CollidingSide side) override;
+
+    void Collect(Player* player);
+	void OnDestroy() override;
 };
-
