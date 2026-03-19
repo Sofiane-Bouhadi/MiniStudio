@@ -205,10 +205,10 @@ void Level::ReadLevel(MainScene* scene)
 			case '!':
 				scene->Spawn(MainScene::ObjectType::MetalRightPlatform, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case '�':
+			case 'e':
 				scene->Spawn(MainScene::ObjectType::PlateformPurple, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case '�':
+			case 'f':
 				scene->Spawn(MainScene::ObjectType::PlateformBlueMid, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case ')':
@@ -236,16 +236,16 @@ void Level::ReadLevel(MainScene* scene)
 			case '(':
 				scene->Spawn(MainScene::ObjectType::JazzWallFill, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case '�':
+			case 'g':
 				scene->Spawn(MainScene::ObjectType::JazzDestructiblePlateformBase, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case '$':
 				scene->Spawn(MainScene::ObjectType::DestructibleVent, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case '�':
+			case 'h':
 				scene->Spawn(MainScene::ObjectType::HubCornerDL, j * mPixelPerChar, i * mPixelPerChar);
 				break;
-			case '�':
+			case 'i':
 				scene->Spawn(MainScene::ObjectType::HubCornerDR, j * mPixelPerChar, i * mPixelPerChar);
 				break;
 			case 'a':

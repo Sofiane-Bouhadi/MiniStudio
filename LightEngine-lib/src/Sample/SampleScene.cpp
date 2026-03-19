@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Sound.h"
 #include "Music.h"
+#include "Camera.h"
 
 #include "Debug.h"
 

@@ -7,6 +7,7 @@
 #include "AABBCollider.h"
 #include "CircleCollider.h"
 #include <iostream>
+#include <cmath>
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/CircleShape.hpp>

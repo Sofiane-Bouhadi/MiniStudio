@@ -198,6 +198,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	bool MoveLeft = false;
 	bool jump = false;
 	bool base_attack = false;
+	bool shockwave = false;
 	fall_attack = false;
 	smart_attack = false;
 
@@ -320,6 +321,10 @@ void MainScene::OnEvent(const sf::Event& event)
 
 	if (base_attack){
 		m_Player->BaseAttack();
+	}
+
+	if (shockwave){
+		m_Player->PlayerShockwave();
 	}
 }
 

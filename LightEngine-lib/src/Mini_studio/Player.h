@@ -1,7 +1,7 @@
 #pragma once
 #include "AnimatedSprite.h"
 #include "GravityEntity.h"
-#include "projectile.h"
+#include "Projectile.h"
 #include "skill.h"
 #include "Sound.h"
 
@@ -52,6 +52,7 @@ public:
 	void PlayerShockwave();
 	
 	void TakeDmg(int DamageTaken);
+	void RestoreHealth(int amount) { m_life += amount; if (m_life > 100) m_life = 100; }
 
 	float GetSpeed() { return mSpeed; }
 	int GetNbJump() { return nb_Jump; }

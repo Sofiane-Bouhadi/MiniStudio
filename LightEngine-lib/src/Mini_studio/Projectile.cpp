@@ -1,4 +1,6 @@
 #include "Projectile.h"
+#include "Camera.h"
+#include "GameManager.h"
 #include <cmath>
 #include <iostream>
 
