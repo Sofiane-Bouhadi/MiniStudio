@@ -126,44 +126,42 @@ void enemies::AttackSmart() {
 	StateMachine state;
 	sf::Vector2f positiontarget = pPlayer->GetPosition();
 	positionEnemy = pEnemy->GetPosition();
-	if (telemetrie() == (float)500) {
+	if (telemetrie() <= (float)500) {
 
 		IsShooting = true;
 		Shooting_Cooldown = 0.6f;
 
 		Projectile* proj = nullptr;
 
-		if (positionEnemy.x > positiontarget.x)
+		Shooting_Cooldown -= GetDeltaTime();
+
+		sf::Vector2f trgt = direction();
+
+		if (Shooting_Cooldown < 0)
 		{
 			std::cout << "pew" << std::endl;
-			proj = CreateSprite<Projectile>(136.f, 53.f, "../../../res/Sprites/projectile_right.png", new AABBCollider(136, 53));
+			proj = CreateRectangle<Projectile>(136, 53, sf::Color::Blue, new AABBCollider(136, 53));
 			sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
 			proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
 			proj->SetOwnerTag(2);
 			proj->SetProjectileSpeed(1000.f);
-			proj->SetDirection(1, 0, proj->GetProjectileSpeed());
+			proj->SetDirection(trgt.x, trgt.y, proj->GetProjectileSpeed());
+			Shooting_Cooldown = 0.6f;
+		}
 
-		}
-		if (positionEnemy.x < positiontarget.x)
-		{
-			proj = CreateSprite<Projectile>(136.f, 53.f, "../../../res/Sprites/projectile_left.png", new AABBCollider(136, 53));
-			sf::Vector2f spawnPos = GetPosition(0.5f, 0.5f);
-			proj->SetPosition(spawnPos.x, spawnPos.y, 0.5f, 0.5f);
-			proj->SetOwnerTag(2);
-			proj->SetProjectileSpeed(1000.f);
-			proj->SetDirection(-1, 0, proj->GetProjectileSpeed());
-		}
 	}
 }
 
-void enemies::setStun(float time) {
-	time -= GetDeltaTime();
+void enemies::setStun() {
+	stun_time -= GetDeltaTime();
 	bool stun = true;
-	if (stun) {
+	if (stun && stun_time > 0) {
 		state->change(3);
-		if (time <= 0) {
-			stun = false;
-		}
+		stun_time = 1;
+
+	}
+	else if (stun_time <= 0) {
+		stun = false;
 	}
 	state->change(0);
 }

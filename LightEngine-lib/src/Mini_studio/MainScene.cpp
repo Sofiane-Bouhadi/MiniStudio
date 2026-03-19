@@ -22,16 +22,16 @@ void MainScene::OnInitialize()
 	m_Player->SetGravityStrength(300.f);
 	m_Player->SetJumpStrength(300);
 
-	enemy1=CreateRectangle<enemies>(100, 100, sf::Color::Red, new AABBCollider(100, 100));
+	enemy1=CreateRectangle<enemies>(128, 128, sf::Color::Red, new AABBCollider(128, 128));
 	enemy1->SetRigidBody(true);
 	enemy1->SetPosition(400, 400);
 	enemy1->init(enemy1, m_Player);
 	enemy1->SetGravityStrength(0);
 
-	enemy2 = CreateRectangle<enemies>(100, 100, sf::Color::Red, new AABBCollider(100, 100));
+	enemy2 = CreateRectangle<enemies>(128, 128, sf::Color::Red, new AABBCollider(128, 128));
 	enemy2->SetRigidBody(true);
-	enemy2->SetPosition(400, 400);
-	enemy2->init(enemy1, m_Player);
+	enemy2->SetPosition(200, 400);
+	enemy2->init(enemy2, m_Player);
 	enemy2->SetGravityStrength(0);
 }
 
@@ -168,7 +168,7 @@ void MainScene::OnUpdate()
 	}
 	//std::cout << enemy1->telemetrie() << std::endl;
 	if (fall_attack) {
-		ia->liveFall(enemy1);
+		ia->liveFall(enemy2);
 	}
 	if (smart_attack) {
 		ia->liveShot(enemy1);

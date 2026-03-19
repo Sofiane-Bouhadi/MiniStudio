@@ -15,9 +15,10 @@ class enemies : public GravityEntity
 private:
 
 	
-
+	float stun_time = 1.f;
 protected:
 	int m_PV{ 5 };
+
 
 	
 
@@ -60,7 +61,7 @@ public:
 
 	void AttackSmart();
 
-	void setStun(float time);
+	void setStun();
 
 	void isHit();
 
