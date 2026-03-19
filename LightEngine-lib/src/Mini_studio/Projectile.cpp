@@ -58,7 +58,7 @@ void Projectile::OnUpdate()
     const float LIMIT = 2000.f;
     if (pos.x < -LIMIT || pos.x > LIMIT || pos.y < -LIMIT || pos.y > LIMIT) // à changer si besoin
     {
-        //Destroy();
+        Destroy();
     }
 }
 
