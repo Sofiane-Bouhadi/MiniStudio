@@ -12,10 +12,10 @@
 
 void MainScene::OnInitialize() 
 {
-	const char* pathFar = "C:\\Users\mahea\Downloads\Layer 4.png";
-	const char* pathMid = "C:\\Users\mahea\Downloads\Layer 3.png";
-	const char* pathNear = "C:\\Users\mahea\Downloads\Layer 2.png";
-	const char* pathClose = "C:\\Users\mahea\Downloads\Layer 1.png";
+	const char* pathFar = "../../../res/Layer_4.png";
+	const char* pathMid = "../../../res/Layer_3.png";
+	const char* pathNear = "../../../res/Layer_2.png";
+	const char* pathClose = "../../../res/Layer_1.png";
 
 	float winW = (float)GetWindowWidth();
 	float winH = (float)GetWindowHeight();
