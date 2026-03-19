@@ -10,8 +10,26 @@
 #include <iostream>
 #include <SFML/Graphics/RectangleShape.hpp>
 
-void MainScene::Spawn(ObjectType objectType, float levelX, float levelY){}
-void MainScene::SpawnCollider(float x, float y, float width, float height){}
+void MainScene::Spawn(ObjectType objectType, float levelX, float levelY)
+{
+	Entity* pEntity = CreateSprite<Entity>(128.f, 128.f, tilePath[(int)objectType].path, nullptr);
+	pEntity->SetStatic(tilePath[(int)objectType].isStatic);
+
+	if (pEntity != nullptr)
+	{
+		pEntity->SetRigidBody(true);
+		pEntity->SetPosition(levelX, levelY, 0.f, 0.f);
+	}
+}
+
+void MainScene::SpawnCollider(float x, float y, float width, float height)
+{
+	Entity* pEntity = CreateRectangle<Entity>(width, height, sf::Color::Transparent, new AABBCollider(width, height));
+	pEntity->SetPosition(x, y, 0.f, 0.f);
+	pEntity->SetRigidBody(true);
+	pEntity->SetStatic(true);
+}
+
 void MainScene::OnInitialize() 
 {
 	srand(time(NULL));
