@@ -35,7 +35,7 @@ private :
 	Parallaxe* mParallaxNear = nullptr;
 	Parallaxe* mParallaxClose = nullptr;
 
-	std::vector<Entity*> mEnemies;
+	std::vector<enemies*> mEnemies;
 
 	Level* m_Level;
 
@@ -49,7 +49,7 @@ private :
 public :
 	Player* GetPlayer() { return m_Player; }
 
-	std::vector<Entity*> GetEnnemyList() { return mEnemies; }
+	std::vector<enemies*> GetEnnemyList() { return mEnemies; }
 
 	void OnInitialize() override;
 	void OnEvent(const sf::Event& event) override;

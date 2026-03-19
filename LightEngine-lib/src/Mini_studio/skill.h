@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "AABBCollider.h"
 
 class Player;
 
@@ -10,8 +11,16 @@ private:
 	int mana_cost = 3;
 	bool unlocked = false;
 
+	Entity shockwave;
+
 public:
+
+	void shockwave_attack();
+
 
 	void Unlocking() { unlocked = true; };
 
+	void OnInitialize()override;
+	void OnUpdate()override;
+	void OnDestroy()override;
 };

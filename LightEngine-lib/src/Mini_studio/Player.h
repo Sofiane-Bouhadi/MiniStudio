@@ -1,6 +1,7 @@
 #pragma once
 #include "GravityEntity.h"
 #include "projectile.h"
+#include "skill.h"
 
 class Player : public GravityEntity 
 {
@@ -24,6 +25,10 @@ private :
 	bool IsShooting = false;
 	float Shooting_Cooldown = 0.6f;
 
+	Skill* skill;
+	bool IsShockwave;
+	float Shockwave_cooldown = 1;
+
 	bool IsRight = false;
 	bool IsLeft = false;
 	
@@ -40,6 +45,7 @@ public:
 
 	void BaseAttack();
 	void PlayerShoot();
+	void PlayerShockwave();
 	
 	void TakeDmg(int DamageTaken);
 

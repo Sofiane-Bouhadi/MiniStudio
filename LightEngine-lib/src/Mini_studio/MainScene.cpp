@@ -58,6 +58,7 @@ void MainScene::OnEvent(const sf::Event& event)
 	bool jump = false;
 	bool base_attack = false;
 	bool shoot = false;
+	bool shockwave = false;
 	
 	fall_attack = false;
 	smart_attack = false;
@@ -120,6 +121,12 @@ void MainScene::OnEvent(const sf::Event& event)
 			std::cout << "Y est appuy�" << std::endl;
 			 shoot = true;
 		}
+
+		if (sf::Joystick::isButtonPressed(0, 1) && m_Player->GetShootCD() <= 0.f)
+		{
+			std::cout << "Y est appuy�" << std::endl;
+			shockwave = true;
+		}
 	}
 
 	else if (event.type == sf::Event::KeyReleased)
@@ -179,6 +186,12 @@ void MainScene::OnEvent(const sf::Event& event)
 			shoot = false;
 
 		}
+		if (sf::Event::JoystickButtonReleased == 1)
+		{
+			shockwave = false;
+
+		}
+
 	}
 	if (jump) {
 		m_Player->Jump();
@@ -191,25 +204,29 @@ void MainScene::OnEvent(const sf::Event& event)
 	{
 		m_Player->PlayerShoot();
 	}
+	if (shockwave) 
+	{
+		m_Player->PlayerShockwave();
+	}
 }
 
 void MainScene::OnUpdate()
 {
-	if (enemy1->telemetrie() <= 500 && enemy1 != nullptr) {
-		std::cout << "detected" << std::endl;
-		fall_attack = true;
-		smart_attack = true;
-	}
-	else {
-		std::cout << "lost" << std::endl;
-	}
-	//std::cout << enemy1->telemetrie() << std::endl;
-	if (fall_attack) {
-		ia->liveFall(enemy1);
-	}
-	if (smart_attack) {
-		ia->liveShot(enemy1);
-	}
+	//if (enemy1->telemetrie() <= 500 && enemy1 != nullptr) {
+	//	std::cout << "detected" << std::endl;
+	//	fall_attack = true;
+	//	smart_attack = true;
+	//}
+	//else {
+	//	std::cout << "lost" << std::endl;
+	//}
+	////std::cout << enemy1->telemetrie() << std::endl;
+	//if (fall_attack) {
+	//	ia->liveFall(enemy1);
+	//}
+	//if (smart_attack) {
+	//	ia->liveShot(enemy1);
+	//}
 
 	
 	//enemy1->moveingInLigne(100,500);
