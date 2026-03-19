@@ -53,7 +53,6 @@ protected:
 	bool mStatic = false;
 
 public:
-	sf::Vector2f GetEnemyList();//a retirer
 	bool GoToDirection(int x, int y, float speed = -1.f);
     bool GoToPosition(int x, int y, float speed = -1.f);
     void SetPosition(float x, float y, float ratioX = 0.5f, float ratioY = 0.5f);
